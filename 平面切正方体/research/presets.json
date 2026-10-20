@@ -1,0 +1,4351 @@
+{
+  "meta": {
+    "title": "单位立方体 C=[-1,1]^3 截面代表性预设（机器可读）",
+    "cube": "[-1,1]^3",
+    "plane": "n·x = d, |n|=1",
+    "generatedBy": "research/verify_presets.py",
+    "verification": "research/verification.txt",
+    "notes": [
+      "normal 为数值单位法向量；d 为数值；exact 中给出精确构造：rawNormal·x = k。",
+      "vertices 为按多边形顺序排列的截面顶点（在截面平面内逆/顺时针一致）。",
+      "所有预设均通过：坐标∈[-1,1]、二维凸多边形、边数正确、无重合退化点、平面不经过立方体顶点或棱。",
+      "d 的有效范围为 |d| < sum|normal_i|。"
+    ],
+    "samplingSummary": {
+      "N": 120000,
+      "side_counts": {
+        "3": 31925,
+        "4": 61494,
+        "5": 21536,
+        "6": 5045
+      },
+      "quad_parallel_counts": {
+        "1": 40392,
+        "2": 21102
+      },
+      "quad_geom_parallel_counts": {
+        "1": 40392,
+        "2": 21102
+      },
+      "quad_types": {
+        "trapezoid": 40392,
+        "parallelogram-general": 21102
+      },
+      "triangle_types": {
+        "scalene": 31925
+      },
+      "pentagon_parallel_counts": {
+        "2": 21536
+      },
+      "hexagon_parallel_counts": {
+        "3": 5045
+      }
+    }
+  },
+  "presets": [
+    {
+      "id": "tri-equilateral",
+      "name": "等边三角形",
+      "sides": 3,
+      "normal": [
+        0.577350269189626,
+        0.577350269189626,
+        0.577350269189626
+      ],
+      "d": 1.154700538379252,
+      "normalExpr": "(1,1,1)/√3",
+      "dExpr": "2/√3",
+      "exact": {
+        "rawNormal": [
+          1,
+          1,
+          1
+        ],
+        "k": "2",
+        "formula": "n = rawNormal/||rawNormal||, d = k/||rawNormal||, plane: rawNormal·x = k",
+        "verticesExact": [
+          [
+            "0",
+            "1",
+            "1"
+          ],
+          [
+            "1",
+            "0",
+            "1"
+          ],
+          [
+            "1",
+            "1",
+            "0"
+          ]
+        ]
+      },
+      "expectedProperties": [
+        "三角形",
+        "三边相等 √2",
+        "三个内角 60°",
+        "锐角"
+      ],
+      "teachingNote": "平面 x+y+z=2 截去角 (1,1,1) 处三条棱的中点，三边长 √2。立方体截面中的正三角形必是这种“截角”型，且唯一（不计对称）。",
+      "vertices": [
+        [
+          1.0,
+          0.0,
+          1.0
+        ],
+        [
+          1.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          1.0
+        ]
+      ],
+      "sideLengths": [
+        1.414213562373,
+        1.414213562373,
+        1.414213562373
+      ],
+      "interiorAnglesDeg": [
+        60.0,
+        60.0,
+        60.0
+      ],
+      "facesPerSide": [
+        "+x",
+        "+y",
+        "+z"
+      ],
+      "properties": {
+        "sides": 3,
+        "parallelPairs": [],
+        "parallelPairCount": 0,
+        "oppositeFacePairCount": 0,
+        "faces": [
+          "+x",
+          "+y",
+          "+z"
+        ],
+        "rightAngles": [],
+        "rightAngleDetected": false,
+        "triangle": "equilateral",
+        "acute": true,
+        "maxAngle": 60.00000000000001,
+        "right": false,
+        "obtuse": false
+      },
+      "checks": {
+        "unitNormal": true,
+        "dInSupport": true,
+        "coordsInCube": true,
+        "nondegenerate2D": true,
+        "convex": true,
+        "noCoincidentVertices": true,
+        "noZeroLengthEdges": true,
+        "atLeastTwoNondegenerateEdges": true,
+        "allVerticesOnEdgeInterior": true,
+        "sidesEqFaces": true,
+        "planeAvoidsVertices": true,
+        "planeAvoidsEdges": true,
+        "crossingsAwayFromVertices": true,
+        "declaredExpectationSatisfied": true,
+        "PASS": true
+      },
+      "margins": {
+        "area": 0.8660254037844388,
+        "minVertexDistance": 1.4142135623730951,
+        "minEdgeLength": 1.4142135623730951,
+        "maxEdgeLength": 1.4142135623730951,
+        "minCrossingT": 0.5,
+        "minVertexPlaneDistance": 0.5773502691896258,
+        "dMargin": 0.577350269189626,
+        "dSupport": 1.7320508075688776
+      }
+    },
+    {
+      "id": "tri-isosceles",
+      "name": "等腰三角形（非等边）",
+      "sides": 3,
+      "normal": [
+        0.301511344577764,
+        0.301511344577764,
+        0.904534033733291
+      ],
+      "d": 1.055289706022173,
+      "normalExpr": "(1,1,3)/√11",
+      "dExpr": "7/(2√11)",
+      "exact": {
+        "rawNormal": [
+          1,
+          1,
+          3
+        ],
+        "k": "7/2",
+        "formula": "n = rawNormal/||rawNormal||, d = k/||rawNormal||, plane: rawNormal·x = k",
+        "verticesExact": [
+          [
+            "-1/2",
+            "1",
+            "1"
+          ],
+          [
+            "1",
+            "-1/2",
+            "1"
+          ],
+          [
+            "1",
+            "1",
+            "1/2"
+          ]
+        ]
+      },
+      "expectedProperties": [
+        "三角形",
+        "两边相等 √(5/2)",
+        "底边 3√2/2",
+        "锐角"
+      ],
+      "teachingNote": "从顶点 (1,1,1) 出发截三条棱，截长 3/2、3/2、1/2：两腰 √(5/2)，底边 3√2/2。",
+      "vertices": [
+        [
+          1.0,
+          -0.5,
+          1.0
+        ],
+        [
+          1.0,
+          1.0,
+          0.5
+        ],
+        [
+          -0.5,
+          1.0,
+          1.0
+        ]
+      ],
+      "sideLengths": [
+        1.581138830084,
+        1.581138830084,
+        2.12132034356
+      ],
+      "interiorAnglesDeg": [
+        47.869585239,
+        84.260829523,
+        47.869585239
+      ],
+      "facesPerSide": [
+        "+x",
+        "+y",
+        "+z"
+      ],
+      "properties": {
+        "sides": 3,
+        "parallelPairs": [],
+        "parallelPairCount": 0,
+        "oppositeFacePairCount": 0,
+        "faces": [
+          "+x",
+          "+y",
+          "+z"
+        ],
+        "rightAngles": [],
+        "rightAngleDetected": false,
+        "triangle": "isosceles",
+        "acute": true,
+        "maxAngle": 84.26082952273322,
+        "right": false,
+        "obtuse": false
+      },
+      "checks": {
+        "unitNormal": true,
+        "dInSupport": true,
+        "coordsInCube": true,
+        "nondegenerate2D": true,
+        "convex": true,
+        "noCoincidentVertices": true,
+        "noZeroLengthEdges": true,
+        "atLeastTwoNondegenerateEdges": true,
+        "allVerticesOnEdgeInterior": true,
+        "sidesEqFaces": true,
+        "planeAvoidsVertices": true,
+        "planeAvoidsEdges": true,
+        "crossingsAwayFromVertices": true,
+        "declaredExpectationSatisfied": true,
+        "PASS": true
+      },
+      "margins": {
+        "area": 1.243734296383275,
+        "minVertexDistance": 1.5811388300841898,
+        "minEdgeLength": 1.5811388300841898,
+        "maxEdgeLength": 2.1213203435596424,
+        "minCrossingT": 0.25,
+        "minVertexPlaneDistance": 0.15075567228888181,
+        "dMargin": 0.4522670168666456,
+        "dSupport": 1.5075567228888183
+      }
+    },
+    {
+      "id": "tri-scalene",
+      "name": "不等边三角形（锐角）",
+      "sides": 3,
+      "normal": [
+        0.285714285714286,
+        0.428571428571429,
+        0.857142857142857
+      ],
+      "d": 1.057142857142857,
+      "normalExpr": "(2,3,6)/7",
+      "dExpr": "37/35",
+      "exact": {
+        "rawNormal": [
+          2,
+          3,
+          6
+        ],
+        "k": "37/5",
+        "formula": "n = rawNormal/||rawNormal||, d = k/||rawNormal||, plane: rawNormal·x = k",
+        "verticesExact": [
+          [
+            "-4/5",
+            "1",
+            "1"
+          ],
+          [
+            "1",
+            "-1/5",
+            "1"
+          ],
+          [
+            "1",
+            "1",
+            "2/5"
+          ]
+        ]
+      },
+      "expectedProperties": [
+        "三角形",
+        "三边 3√13/5, √10·3/5? ",
+        "不等边",
+        "锐角"
+      ],
+      "teachingNote": "截长 9/5、6/5、3/5，三边 √13·3/5? 见验证输出；三边互不相等。",
+      "vertices": [
+        [
+          1.0,
+          -0.2,
+          1.0
+        ],
+        [
+          1.0,
+          1.0,
+          0.4
+        ],
+        [
+          -0.8,
+          1.0,
+          1.0
+        ]
+      ],
+      "sideLengths": [
+        1.3416407865,
+        1.897366596101,
+        2.163330765278
+      ],
+      "interiorAnglesDeg": [
+        60.255118703,
+        81.869897646,
+        37.874983651
+      ],
+      "facesPerSide": [
+        "+x",
+        "+y",
+        "+z"
+      ],
+      "properties": {
+        "sides": 3,
+        "parallelPairs": [],
+        "parallelPairCount": 0,
+        "oppositeFacePairCount": 0,
+        "faces": [
+          "+x",
+          "+y",
+          "+z"
+        ],
+        "rightAngles": [],
+        "rightAngleDetected": false,
+        "triangle": "scalene",
+        "acute": true,
+        "maxAngle": 81.86989764584403,
+        "right": false,
+        "obtuse": false
+      },
+      "checks": {
+        "unitNormal": true,
+        "dInSupport": true,
+        "coordsInCube": true,
+        "nondegenerate2D": true,
+        "convex": true,
+        "noCoincidentVertices": true,
+        "noZeroLengthEdges": true,
+        "atLeastTwoNondegenerateEdges": true,
+        "allVerticesOnEdgeInterior": true,
+        "sidesEqFaces": true,
+        "planeAvoidsVertices": true,
+        "planeAvoidsEdges": true,
+        "crossingsAwayFromVertices": true,
+        "declaredExpectationSatisfied": true,
+        "PASS": true
+      },
+      "margins": {
+        "area": 1.2599999999999998,
+        "minVertexDistance": 1.3416407864998738,
+        "minEdgeLength": 1.3416407864998738,
+        "maxEdgeLength": 2.1633307652783933,
+        "minCrossingT": 0.1,
+        "minVertexPlaneDistance": 0.0571428571428572,
+        "dMargin": 0.514285714285714,
+        "dSupport": 1.5714285714285712
+      }
+    },
+    {
+      "id": "quad-square",
+      "name": "正方形",
+      "sides": 4,
+      "normal": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "d": 0.0,
+      "normalExpr": "(0,0,1)",
+      "dExpr": "0",
+      "exact": {
+        "rawNormal": [
+          0,
+          0,
+          1
+        ],
+        "k": "0",
+        "formula": "n = rawNormal/||rawNormal||, d = k/||rawNormal||, plane: rawNormal·x = k",
+        "verticesExact": [
+          [
+            "-1",
+            "-1",
+            "0"
+          ],
+          [
+            "-1",
+            "1",
+            "0"
+          ],
+          [
+            "1",
+            "-1",
+            "0"
+          ],
+          [
+            "1",
+            "1",
+            "0"
+          ]
+        ]
+      },
+      "expectedProperties": [
+        "四边形",
+        "正方形",
+        "边长 2",
+        "四个直角"
+      ],
+      "teachingNote": "平面 z=0 平行于上下底面，截面是 2×2 正方形。正方形截面还可以斜着截（见文档“斜截正方形”），但所有正方形截面都是沿某条棱方向“拉伸”出来的。",
+      "vertices": [
+        [
+          1.0,
+          -1.0,
+          0.0
+        ],
+        [
+          1.0,
+          1.0,
+          0.0
+        ],
+        [
+          -1.0,
+          1.0,
+          0.0
+        ],
+        [
+          -1.0,
+          -1.0,
+          0.0
+        ]
+      ],
+      "sideLengths": [
+        2.0,
+        2.0,
+        2.0,
+        2.0
+      ],
+      "interiorAnglesDeg": [
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "facesPerSide": [
+        "+x",
+        "+y",
+        "-x",
+        "-y"
+      ],
+      "properties": {
+        "sides": 4,
+        "parallelPairs": [
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "parallelPairCount": 2,
+        "oppositeFacePairCount": 2,
+        "faces": [
+          "+x",
+          "+y",
+          "-x",
+          "-y"
+        ],
+        "rightAngles": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "rightAngleDetected": true,
+        "quad": "square",
+        "parallelogram": true
+      },
+      "checks": {
+        "unitNormal": true,
+        "dInSupport": true,
+        "coordsInCube": true,
+        "nondegenerate2D": true,
+        "convex": true,
+        "noCoincidentVertices": true,
+        "noZeroLengthEdges": true,
+        "atLeastTwoNondegenerateEdges": true,
+        "allVerticesOnEdgeInterior": true,
+        "sidesEqFaces": true,
+        "planeAvoidsVertices": true,
+        "planeAvoidsEdges": true,
+        "crossingsAwayFromVertices": true,
+        "declaredExpectationSatisfied": true,
+        "PASS": true
+      },
+      "margins": {
+        "area": 4.0,
+        "minVertexDistance": 2.0,
+        "minEdgeLength": 2.0,
+        "maxEdgeLength": 2.0,
+        "minCrossingT": 0.5,
+        "minVertexPlaneDistance": 1.0,
+        "dMargin": 1.0,
+        "dSupport": 1.0
+      }
+    },
+    {
+      "id": "quad-rectangle",
+      "name": "非正方形矩形",
+      "sides": 4,
+      "normal": [
+        0.707106781186547,
+        0.707106781186547,
+        0.0
+      ],
+      "d": 0.636396103067893,
+      "normalExpr": "(1,1,0)/√2",
+      "dExpr": "9/(10√2)",
+      "exact": {
+        "rawNormal": [
+          1,
+          1,
+          0
+        ],
+        "k": "9/10",
+        "formula": "n = rawNormal/||rawNormal||, d = k/||rawNormal||, plane: rawNormal·x = k",
+        "verticesExact": [
+          [
+            "-1/10",
+            "1",
+            "-1"
+          ],
+          [
+            "-1/10",
+            "1",
+            "1"
+          ],
+          [
+            "1",
+            "-1/10",
+            "-1"
+          ],
+          [
+            "1",
+            "-1/10",
+            "1"
+          ]
+        ]
+      },
+      "expectedProperties": [
+        "四边形",
+        "矩形",
+        "边长 2 与 11√2/10",
+        "四个直角",
+        "平面平行于 z 棱"
+      ],
+      "teachingNote": "平面 x+y=0.9 平行于 z 轴：截面是 2 × 11√2/10 的矩形。注意它截到 z=±1（一对面）与 x=1、y=1（两个相邻面）——按“面配对”会被误判成梯形，实际因平面平行于棱而是矩形（本文件重点反例）。",
+      "vertices": [
+        [
+          -0.1,
+          1.0,
+          1.0
+        ],
+        [
+          1.0,
+          -0.1,
+          1.0
+        ],
+        [
+          1.0,
+          -0.1,
+          -1.0
+        ],
+        [
+          -0.1,
+          1.0,
+          -1.0
+        ]
+      ],
+      "sideLengths": [
+        1.55563491861,
+        2.0,
+        1.55563491861,
+        2.0
+      ],
+      "interiorAnglesDeg": [
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "facesPerSide": [
+        "+z",
+        "+x",
+        "-z",
+        "+y"
+      ],
+      "properties": {
+        "sides": 4,
+        "parallelPairs": [
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "parallelPairCount": 2,
+        "oppositeFacePairCount": 1,
+        "faces": [
+          "+z",
+          "+x",
+          "-z",
+          "+y"
+        ],
+        "rightAngles": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "rightAngleDetected": true,
+        "quad": "rectangle",
+        "parallelogram": true
+      },
+      "checks": {
+        "unitNormal": true,
+        "dInSupport": true,
+        "coordsInCube": true,
+        "nondegenerate2D": true,
+        "convex": true,
+        "noCoincidentVertices": true,
+        "noZeroLengthEdges": true,
+        "atLeastTwoNondegenerateEdges": true,
+        "allVerticesOnEdgeInterior": true,
+        "sidesEqFaces": true,
+        "planeAvoidsVertices": true,
+        "planeAvoidsEdges": true,
+        "crossingsAwayFromVertices": true,
+        "declaredExpectationSatisfied": true,
+        "PASS": true
+      },
+      "margins": {
+        "area": 3.111269837220809,
+        "minVertexDistance": 1.5556349186104046,
+        "minEdgeLength": 1.5556349186104046,
+        "maxEdgeLength": 2.0,
+        "minCrossingT": 0.45,
+        "minVertexPlaneDistance": 0.6363961030678927,
+        "dMargin": 0.7778174593052022,
+        "dSupport": 1.414213562373095
+      }
+    },
+    {
+      "id": "quad-rhombus",
+      "name": "菱形（非正方形）",
+      "sides": 4,
+      "normal": [
+        0.301511344577764,
+        0.301511344577764,
+        0.904534033733291
+      ],
+      "d": 0.0,
+      "normalExpr": "(1,1,3)/√11",
+      "dExpr": "0",
+      "exact": {
+        "rawNormal": [
+          1,
+          1,
+          3
+        ],
+        "k": "0",
+        "formula": "n = rawNormal/||rawNormal||, d = k/||rawNormal||, plane: rawNormal·x = k",
+        "verticesExact": [
+          [
+            "-1",
+            "-1",
+            "2/3"
+          ],
+          [
+            "-1",
+            "1",
+            "0"
+          ],
+          [
+            "1",
+            "-1",
+            "0"
+          ],
+          [
+            "1",
+            "1",
+            "-2/3"
+          ]
+        ]
+      },
+      "expectedProperties": [
+        "四边形",
+        "菱形",
+        "边长 2√10/3",
+        "内角 84.26°/95.74°",
+        "两组对边平行"
+      ],
+      "teachingNote": "平面 x+y+3z=0 过中心，截四条平行 z 轴的棱：四边等长 2√10/3，非直角。菱形截面存在。",
+      "vertices": [
+        [
+          1.0,
+          -1.0,
+          0.0
+        ],
+        [
+          1.0,
+          1.0,
+          -0.666666666667
+        ],
+        [
+          -1.0,
+          1.0,
+          0.0
+        ],
+        [
+          -1.0,
+          -1.0,
+          0.666666666667
+        ]
+      ],
+      "sideLengths": [
+        2.108185106779,
+        2.108185106779,
+        2.108185106779,
+        2.108185106779
+      ],
+      "interiorAnglesDeg": [
+        95.739170477,
+        84.260829523,
+        95.739170477,
+        84.260829523
+      ],
+      "facesPerSide": [
+        "+x",
+        "+y",
+        "-x",
+        "-y"
+      ],
+      "properties": {
+        "sides": 4,
+        "parallelPairs": [
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "parallelPairCount": 2,
+        "oppositeFacePairCount": 2,
+        "faces": [
+          "+x",
+          "+y",
+          "-x",
+          "-y"
+        ],
+        "rightAngles": [],
+        "rightAngleDetected": false,
+        "quad": "rhombus",
+        "parallelogram": true
+      },
+      "checks": {
+        "unitNormal": true,
+        "dInSupport": true,
+        "coordsInCube": true,
+        "nondegenerate2D": true,
+        "convex": true,
+        "noCoincidentVertices": true,
+        "noZeroLengthEdges": true,
+        "atLeastTwoNondegenerateEdges": true,
+        "allVerticesOnEdgeInterior": true,
+        "sidesEqFaces": true,
+        "planeAvoidsVertices": true,
+        "planeAvoidsEdges": true,
+        "crossingsAwayFromVertices": true,
+        "declaredExpectationSatisfied": true,
+        "PASS": true
+      },
+      "margins": {
+        "area": 4.422166387140533,
+        "minVertexDistance": 2.1081851067789197,
+        "minEdgeLength": 2.1081851067789197,
+        "maxEdgeLength": 2.1081851067789197,
+        "minCrossingT": 0.16666666666666666,
+        "minVertexPlaneDistance": 0.30151134457776363,
+        "dMargin": 1.5075567228888183,
+        "dSupport": 1.5075567228888183
+      }
+    },
+    {
+      "id": "quad-parallelogram",
+      "name": "一般平行四边形（非菱形非矩形）",
+      "sides": 4,
+      "normal": [
+        0.218217890235992,
+        0.436435780471985,
+        0.87287156094397
+      ],
+      "d": 0.0,
+      "normalExpr": "(1,2,4)/√21",
+      "dExpr": "0",
+      "exact": {
+        "rawNormal": [
+          1,
+          2,
+          4
+        ],
+        "k": "0",
+        "formula": "n = rawNormal/||rawNormal||, d = k/||rawNormal||, plane: rawNormal·x = k",
+        "verticesExact": [
+          [
+            "-1",
+            "-1",
+            "3/4"
+          ],
+          [
+            "-1",
+            "1",
+            "-1/4"
+          ],
+          [
+            "1",
+            "-1",
+            "1/4"
+          ],
+          [
+            "1",
+            "1",
+            "-3/4"
+          ]
+        ]
+      },
+      "expectedProperties": [
+        "四边形",
+        "平行四边形",
+        "边长 √5 与 √17/2",
+        "非菱形非矩形"
+      ],
+      "teachingNote": "平面 x+2y+4z=0 截四条平行 z 轴的棱，得到一般平行四边形（内角约 83.8°/96.2°，邻边不等）。",
+      "vertices": [
+        [
+          1.0,
+          -1.0,
+          0.25
+        ],
+        [
+          1.0,
+          1.0,
+          -0.75
+        ],
+        [
+          -1.0,
+          1.0,
+          -0.25
+        ],
+        [
+          -1.0,
+          -1.0,
+          0.75
+        ]
+      ],
+      "sideLengths": [
+        2.2360679775,
+        2.061552812809,
+        2.2360679775,
+        2.061552812809
+      ],
+      "interiorAnglesDeg": [
+        96.226850297,
+        83.773149703,
+        96.226850297,
+        83.773149703
+      ],
+      "facesPerSide": [
+        "+x",
+        "+y",
+        "-x",
+        "-y"
+      ],
+      "properties": {
+        "sides": 4,
+        "parallelPairs": [
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "parallelPairCount": 2,
+        "oppositeFacePairCount": 2,
+        "faces": [
+          "+x",
+          "+y",
+          "-x",
+          "-y"
+        ],
+        "rightAngles": [],
+        "rightAngleDetected": false,
+        "quad": "parallelogram-general",
+        "parallelogram": true
+      },
+      "checks": {
+        "unitNormal": true,
+        "dInSupport": true,
+        "coordsInCube": true,
+        "nondegenerate2D": true,
+        "convex": true,
+        "noCoincidentVertices": true,
+        "noZeroLengthEdges": true,
+        "atLeastTwoNondegenerateEdges": true,
+        "allVerticesOnEdgeInterior": true,
+        "sidesEqFaces": true,
+        "planeAvoidsVertices": true,
+        "planeAvoidsEdges": true,
+        "crossingsAwayFromVertices": true,
+        "declaredExpectationSatisfied": true,
+        "PASS": true
+      },
+      "margins": {
+        "area": 4.582575694955839,
+        "minVertexDistance": 2.0615528128088303,
+        "minEdgeLength": 2.0615528128088303,
+        "maxEdgeLength": 2.23606797749979,
+        "minCrossingT": 0.125,
+        "minVertexPlaneDistance": 0.2182178902359924,
+        "dMargin": 1.5275252316519468,
+        "dSupport": 1.5275252316519468
+      }
+    },
+    {
+      "id": "quad-trapezoid",
+      "name": "梯形（非平行四边形，等腰）",
+      "sides": 4,
+      "normal": [
+        0.229415733870562,
+        0.688247201611685,
+        0.688247201611685
+      ],
+      "d": 0.458831467741123,
+      "normalExpr": "(1,3,3)/√19",
+      "dExpr": "2/√19",
+      "exact": {
+        "rawNormal": [
+          1,
+          3,
+          3
+        ],
+        "k": "2",
+        "formula": "n = rawNormal/||rawNormal||, d = k/||rawNormal||, plane: rawNormal·x = k",
+        "verticesExact": [
+          [
+            "-1",
+            "0",
+            "1"
+          ],
+          [
+            "1",
+            "-2/3",
+            "1"
+          ],
+          [
+            "-1",
+            "1",
+            "0"
+          ],
+          [
+            "1",
+            "1",
+            "-2/3"
+          ]
+        ]
+      },
+      "expectedProperties": [
+        "四边形",
+        "梯形",
+        "仅一组对边平行",
+        "等腰梯形",
+        "无直角"
+      ],
+      "teachingNote": "平面 x+3y+3z=2 截 x=±1、y=1、z=1 四个面：两条底边平行（长 5√2/3 与 √2），两腰相等（2√10/3），是无直角的等腰梯形。",
+      "vertices": [
+        [
+          1.0,
+          -0.666666666667,
+          1.0
+        ],
+        [
+          1.0,
+          1.0,
+          -0.666666666667
+        ],
+        [
+          -1.0,
+          1.0,
+          0.0
+        ],
+        [
+          -1.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "sideLengths": [
+        2.357022603955,
+        2.108185106779,
+        1.414213562373,
+        2.108185106779
+      ],
+      "interiorAnglesDeg": [
+        77.079033618,
+        77.079033618,
+        102.920966382,
+        102.920966382
+      ],
+      "facesPerSide": [
+        "+x",
+        "+y",
+        "-x",
+        "+z"
+      ],
+      "properties": {
+        "sides": 4,
+        "parallelPairs": [
+          [
+            0,
+            2
+          ]
+        ],
+        "parallelPairCount": 1,
+        "oppositeFacePairCount": 1,
+        "faces": [
+          "+x",
+          "+y",
+          "-x",
+          "+z"
+        ],
+        "rightAngles": [],
+        "rightAngleDetected": false,
+        "quad": "trapezoid",
+        "parallelogram": false,
+        "isoscelesTrapezoid": true,
+        "rightTrapezoid": false,
+        "legs": [
+          2.1081851067789197,
+          2.1081851067789197
+        ]
+      },
+      "checks": {
+        "unitNormal": true,
+        "dInSupport": true,
+        "coordsInCube": true,
+        "nondegenerate2D": true,
+        "convex": true,
+        "noCoincidentVertices": true,
+        "noZeroLengthEdges": true,
+        "atLeastTwoNondegenerateEdges": true,
+        "allVerticesOnEdgeInterior": true,
+        "sidesEqFaces": true,
+        "planeAvoidsVertices": true,
+        "planeAvoidsEdges": true,
+        "crossingsAwayFromVertices": true,
+        "declaredExpectationSatisfied": true,
+        "PASS": true
+      },
+      "margins": {
+        "area": 3.8745768387028208,
+        "minVertexDistance": 1.4142135623730951,
+        "minEdgeLength": 1.4142135623730951,
+        "maxEdgeLength": 2.357022603955158,
+        "minCrossingT": 0.16666666666666666,
+        "minVertexPlaneDistance": 0.22941573387056174,
+        "dMargin": 1.1470786693528088,
+        "dSupport": 1.6059101370939322
+      }
+    },
+    {
+      "id": "pentagon",
+      "name": "五边形",
+      "sides": 5,
+      "normal": [
+        0.408248290463863,
+        0.408248290463863,
+        0.816496580927726
+      ],
+      "d": 0.612372435695795,
+      "normalExpr": "(1,1,2)/√6",
+      "dExpr": "√6/4",
+      "exact": {
+        "rawNormal": [
+          1,
+          1,
+          2
+        ],
+        "k": "3/2",
+        "formula": "n = rawNormal/||rawNormal||, d = k/||rawNormal||, plane: rawNormal·x = k",
+        "verticesExact": [
+          [
+            "1/2",
+            "-1",
+            "1"
+          ],
+          [
+            "-1",
+            "1/2",
+            "1"
+          ],
+          [
+            "-1",
+            "1",
+            "3/4"
+          ],
+          [
+            "1",
+            "-1",
+            "3/4"
+          ],
+          [
+            "1",
+            "1",
+            "-1/4"
+          ]
+        ]
+      },
+      "expectedProperties": [
+        "五边形",
+        "恰有两组平行边",
+        "非正五边形",
+        "无直角"
+      ],
+      "teachingNote": "平面 x+y+2z=3/2 截 x=±1、y=±1、z=1 五个面。五边形必截两组对面 + 一个面，因此恰有两组平行边，正五边形不可能。",
+      "vertices": [
+        [
+          0.5,
+          -1.0,
+          1.0
+        ],
+        [
+          1.0,
+          -1.0,
+          0.75
+        ],
+        [
+          1.0,
+          1.0,
+          -0.25
+        ],
+        [
+          -1.0,
+          1.0,
+          0.75
+        ],
+        [
+          -1.0,
+          0.5,
+          1.0
+        ]
+      ],
+      "sideLengths": [
+        0.559016994375,
+        2.2360679775,
+        2.2360679775,
+        0.559016994375,
+        2.12132034356
+      ],
+      "interiorAnglesDeg": [
+        129.231520484,
+        101.536959033,
+        78.463040967,
+        101.536959033,
+        129.231520484
+      ],
+      "facesPerSide": [
+        "-y",
+        "+x",
+        "+y",
+        "-x",
+        "+z"
+      ],
+      "properties": {
+        "sides": 5,
+        "parallelPairs": [
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            3
+          ]
+        ],
+        "parallelPairCount": 2,
+        "oppositeFacePairCount": 2,
+        "faces": [
+          "-y",
+          "+x",
+          "+y",
+          "-x",
+          "+z"
+        ],
+        "rightAngles": [],
+        "rightAngleDetected": false,
+        "allAnglesEqual": false,
+        "allSidesEqual": false,
+        "regular": false
+      },
+      "checks": {
+        "unitNormal": true,
+        "dInSupport": true,
+        "coordsInCube": true,
+        "nondegenerate2D": true,
+        "convex": true,
+        "noCoincidentVertices": true,
+        "noZeroLengthEdges": true,
+        "atLeastTwoNondegenerateEdges": true,
+        "allVerticesOnEdgeInterior": true,
+        "sidesEqFaces": true,
+        "planeAvoidsVertices": true,
+        "planeAvoidsEdges": true,
+        "crossingsAwayFromVertices": true,
+        "declaredExpectationSatisfied": true,
+        "PASS": true
+      },
+      "margins": {
+        "area": 3.521141505250819,
+        "minVertexDistance": 0.5590169943749475,
+        "minEdgeLength": 0.5590169943749475,
+        "maxEdgeLength": 2.23606797749979,
+        "minCrossingT": 0.125,
+        "minVertexPlaneDistance": 0.20412414523193154,
+        "dMargin": 1.0206207261596578,
+        "dSupport": 1.6329931618554523
+      }
+    },
+    {
+      "id": "hexagon-regular",
+      "name": "正六边形",
+      "sides": 6,
+      "normal": [
+        0.577350269189626,
+        0.577350269189626,
+        0.577350269189626
+      ],
+      "d": 0.0,
+      "normalExpr": "(1,1,1)/√3",
+      "dExpr": "0",
+      "exact": {
+        "rawNormal": [
+          1,
+          1,
+          1
+        ],
+        "k": "0",
+        "formula": "n = rawNormal/||rawNormal||, d = k/||rawNormal||, plane: rawNormal·x = k",
+        "verticesExact": [
+          [
+            "0",
+            "-1",
+            "1"
+          ],
+          [
+            "0",
+            "1",
+            "-1"
+          ],
+          [
+            "-1",
+            "0",
+            "1"
+          ],
+          [
+            "1",
+            "0",
+            "-1"
+          ],
+          [
+            "-1",
+            "1",
+            "0"
+          ],
+          [
+            "1",
+            "-1",
+            "0"
+          ]
+        ]
+      },
+      "expectedProperties": [
+        "六边形",
+        "正六边形",
+        "边长 √2",
+        "内角 120°",
+        "三组平行边"
+      ],
+      "teachingNote": "平面 x+y+z=0 过中心且垂直体对角线，截面是边长 √2 的正六边形。正六边形截面只有这一族（4 个法向量 ±(1,1,1)/√3，d=0）。",
+      "vertices": [
+        [
+          1.0,
+          -1.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          -1.0
+        ],
+        [
+          0.0,
+          1.0,
+          -1.0
+        ],
+        [
+          -1.0,
+          1.0,
+          0.0
+        ],
+        [
+          -1.0,
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          -1.0,
+          1.0
+        ]
+      ],
+      "sideLengths": [
+        1.414213562373,
+        1.414213562373,
+        1.414213562373,
+        1.414213562373,
+        1.414213562373,
+        1.414213562373
+      ],
+      "interiorAnglesDeg": [
+        120.0,
+        120.0,
+        120.0,
+        120.0,
+        120.0,
+        120.0
+      ],
+      "facesPerSide": [
+        "+x",
+        "-z",
+        "+y",
+        "-x",
+        "+z",
+        "-y"
+      ],
+      "properties": {
+        "sides": 6,
+        "parallelPairs": [
+          [
+            0,
+            3
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            2,
+            5
+          ]
+        ],
+        "parallelPairCount": 3,
+        "oppositeFacePairCount": 3,
+        "faces": [
+          "+x",
+          "-z",
+          "+y",
+          "-x",
+          "+z",
+          "-y"
+        ],
+        "rightAngles": [],
+        "rightAngleDetected": false,
+        "oppositePairsParallel": true,
+        "allSidesEqual": true,
+        "allAnglesEqual": true,
+        "regular": true
+      },
+      "checks": {
+        "unitNormal": true,
+        "dInSupport": true,
+        "coordsInCube": true,
+        "nondegenerate2D": true,
+        "convex": true,
+        "noCoincidentVertices": true,
+        "noZeroLengthEdges": true,
+        "atLeastTwoNondegenerateEdges": true,
+        "allVerticesOnEdgeInterior": true,
+        "sidesEqFaces": true,
+        "planeAvoidsVertices": true,
+        "planeAvoidsEdges": true,
+        "crossingsAwayFromVertices": true,
+        "declaredExpectationSatisfied": true,
+        "PASS": true
+      },
+      "margins": {
+        "area": 5.196152422706634,
+        "minVertexDistance": 1.4142135623730951,
+        "minEdgeLength": 1.4142135623730951,
+        "maxEdgeLength": 1.4142135623730951,
+        "minCrossingT": 0.5,
+        "minVertexPlaneDistance": 0.5773502691896258,
+        "dMargin": 1.7320508075688776,
+        "dSupport": 1.7320508075688776
+      }
+    }
+  ],
+  "leadCandidates": [
+    {
+      "raw": [
+        1,
+        1,
+        1
+      ],
+      "k": "11/5",
+      "normal": [
+        0.577350269,
+        0.577350269,
+        0.577350269
+      ],
+      "d": 1.270170592,
+      "support": 1.732050808,
+      "distinctPoints": 3,
+      "vertexHits": [],
+      "containedEdges": 0,
+      "sides": 3,
+      "shape": "等边三角形（锐角）",
+      "status": "PASS",
+      "lens": [
+        1.131371,
+        1.131371,
+        1.131371
+      ],
+      "angles": [
+        60.0,
+        60.0,
+        60.0
+      ],
+      "parallelPairCount": 0,
+      "oppositeFacePairCount": 0,
+      "rightAngleDetected": false,
+      "minCrossingT": 0.4,
+      "minVertexPlaneDistance": 0.46188,
+      "dMargin": 0.46188,
+      "note": "",
+      "id": "lead-tri-equilateral",
+      "label": "等边三角形",
+      "given": "(1,1,1), d_raw=2.2",
+      "comment": "截长均为 0.8，三边相等。成立。"
+    },
+    {
+      "raw": [
+        8,
+        8,
+        3
+      ],
+      "k": "78/5",
+      "normal": [
+        0.683486126,
+        0.683486126,
+        0.256307297
+      ],
+      "d": 1.332797946,
+      "support": 1.62327955,
+      "distinctPoints": 3,
+      "vertexHits": [],
+      "containedEdges": 0,
+      "sides": 3,
+      "shape": "等腰三角形（锐角）",
+      "status": "PASS",
+      "lens": [
+        0.601041,
+        1.210401,
+        1.210401
+      ],
+      "angles": [
+        75.6241,
+        75.6241,
+        28.7517
+      ],
+      "parallelPairCount": 0,
+      "oppositeFacePairCount": 0,
+      "rightAngleDetected": false,
+      "minCrossingT": 0.2125,
+      "minVertexPlaneDistance": 0.222133,
+      "dMargin": 0.290482,
+      "note": "",
+      "id": "lead-tri-isosceles-given",
+      "label": "等腰三角形（Lead 参数 d=15.6）",
+      "given": "(8,8,3), d_raw=15.6",
+      "comment": "独立重算：d_raw=15.6 仍是等腰三角形（截长 17/15, 17/40, 17/40；边长 1.2104, 1.2104, 0.6010），但顶点是 (-2/15,1,1),(1,23/40,1),(1,1,23/40)，与 Lead 列出的 (0.7,1,1)/(1,0.7,1)/(1,1,0.2) 不一致——后者对应 d_raw=16.6。两个参数都成立，请确认前端用哪一个。"
+    },
+    {
+      "raw": [
+        8,
+        8,
+        3
+      ],
+      "k": "83/5",
+      "normal": [
+        0.683486126,
+        0.683486126,
+        0.256307297
+      ],
+      "d": 1.418233712,
+      "support": 1.62327955,
+      "distinctPoints": 3,
+      "vertexHits": [],
+      "containedEdges": 0,
+      "sides": 3,
+      "shape": "等腰三角形（锐角）",
+      "status": "PASS",
+      "lens": [
+        0.424264,
+        0.8544,
+        0.8544
+      ],
+      "angles": [
+        75.6241,
+        75.6241,
+        28.7517
+      ],
+      "parallelPairCount": 0,
+      "oppositeFacePairCount": 0,
+      "rightAngleDetected": false,
+      "minCrossingT": 0.15,
+      "minVertexPlaneDistance": 0.205046,
+      "dMargin": 0.205046,
+      "note": "",
+      "id": "lead-tri-isosceles-fixed",
+      "label": "等腰三角形（与 Lead 顶点一致：d=16.6）",
+      "given": "(8,8,3), d_raw=16.6（与 Lead 所列顶点一致）",
+      "comment": "截长 0.3,0.3,0.8；两腰 √0.73≈0.8544，底 3√2/10≈0.4243，顶点 (0.7,1,1),(1,0.7,1),(1,1,0.2)，与 Lead 描述一致。"
+    },
+    {
+      "raw": [
+        45,
+        18,
+        10
+      ],
+      "k": "64",
+      "normal": [
+        0.909322885,
+        0.363729154,
+        0.202071752
+      ],
+      "d": 1.293259214,
+      "support": 1.475123791,
+      "distinctPoints": 3,
+      "vertexHits": [],
+      "containedEdges": 0,
+      "sides": 3,
+      "shape": "不等边三角形（锐角）",
+      "status": "PASS",
+      "lens": [
+        0.538516,
+        1.029563,
+        0.921954
+      ],
+      "angles": [
+        85.3789,
+        63.198,
+        31.4231
+      ],
+      "parallelPairCount": 0,
+      "oppositeFacePairCount": 0,
+      "rightAngleDetected": false,
+      "minCrossingT": 0.1,
+      "minVertexPlaneDistance": 0.181865,
+      "dMargin": 0.181865,
+      "note": "",
+      "id": "lead-tri-scalene",
+      "label": "不等边三角形",
+      "given": "n≈(0.90932,0.36373,0.20207), d≈1.29326 / 精确 raw=(45,18,10), k=64",
+      "comment": "精确有理化：raw=(45,18,10), k=64 即 n=(45,18,10)/√2449, d=64/√2449。截长 0.2,0.5,0.9。"
+    },
+    {
+      "raw": [
+        0,
+        0,
+        1
+      ],
+      "k": "1/5",
+      "normal": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "d": 0.2,
+      "support": 1.0,
+      "distinctPoints": 4,
+      "vertexHits": [],
+      "containedEdges": 0,
+      "sides": 4,
+      "shape": "正方形",
+      "status": "PASS",
+      "lens": [
+        2.0,
+        2.0,
+        2.0,
+        2.0
+      ],
+      "angles": [
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "parallelPairCount": 2,
+      "oppositeFacePairCount": 2,
+      "rightAngleDetected": true,
+      "minCrossingT": 0.4,
+      "minVertexPlaneDistance": 0.8,
+      "dMargin": 0.8,
+      "note": "",
+      "id": "lead-quad-square",
+      "label": "正方形",
+      "given": "(0,0,1), d_raw=0.2",
+      "comment": "平面 z=0.2，2×2 正方形。成立。"
+    },
+    {
+      "raw": [
+        1,
+        1,
+        0
+      ],
+      "k": "3/10",
+      "normal": [
+        0.707106781,
+        0.707106781,
+        0.0
+      ],
+      "d": 0.212132034,
+      "support": 1.414213562,
+      "distinctPoints": 4,
+      "vertexHits": [],
+      "containedEdges": 0,
+      "sides": 4,
+      "shape": "矩形（非正方形）",
+      "status": "PASS",
+      "lens": [
+        2.404163,
+        2.0,
+        2.404163,
+        2.0
+      ],
+      "angles": [
+        90.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "parallelPairCount": 2,
+      "oppositeFacePairCount": 1,
+      "rightAngleDetected": true,
+      "minCrossingT": 0.15,
+      "minVertexPlaneDistance": 0.212132,
+      "dMargin": 1.202082,
+      "note": "",
+      "id": "lead-quad-rectangle",
+      "label": "非正方形矩形",
+      "given": "(1,1,0), d_raw=0.3",
+      "comment": "平面平行 z 棱；截面 2 × 1.7√2 ≈ 2×2.404 矩形（非正方形）。成立。"
+    },
+    {
+      "raw": [
+        1,
+        1,
+        3
+      ],
+      "k": "0",
+      "normal": [
+        0.301511345,
+        0.301511345,
+        0.904534034
+      ],
+      "d": 0.0,
+      "support": 1.507556723,
+      "distinctPoints": 4,
+      "vertexHits": [],
+      "containedEdges": 0,
+      "sides": 4,
+      "shape": "菱形（非正方形）",
+      "status": "PASS",
+      "lens": [
+        2.108185,
+        2.108185,
+        2.108185,
+        2.108185
+      ],
+      "angles": [
+        95.7392,
+        84.2608,
+        95.7392,
+        84.2608
+      ],
+      "parallelPairCount": 2,
+      "oppositeFacePairCount": 2,
+      "rightAngleDetected": false,
+      "minCrossingT": 0.166667,
+      "minVertexPlaneDistance": 0.301511,
+      "dMargin": 1.507557,
+      "note": "",
+      "id": "lead-quad-rhombus",
+      "label": "菱形（非正方形）",
+      "given": "(1,1,3), d_raw=0",
+      "comment": "与核验文档预设一致：四边 2√10/3≈2.108，内角 84.26°/95.74°。成立；条件 |n_z|>|d|+|n_x|+|n_y| 经核验为 0.9045 > 0.6030。"
+    },
+    {
+      "raw": [
+        5,
+        6,
+        15
+      ],
+      "k": "0",
+      "normal": [
+        0.295656198,
+        0.354787438,
+        0.886968594
+      ],
+      "d": 0.0,
+      "support": 1.53741223,
+      "distinctPoints": 4,
+      "vertexHits": [],
+      "containedEdges": 0,
+      "sides": 4,
+      "shape": "一般平行四边形",
+      "status": "PASS",
+      "lens": [
+        2.154066,
+        2.108185,
+        2.154066,
+        2.108185
+      ],
+      "angles": [
+        96.7446,
+        83.2554,
+        96.7446,
+        83.2554
+      ],
+      "parallelPairCount": 2,
+      "oppositeFacePairCount": 2,
+      "rightAngleDetected": false,
+      "minCrossingT": 0.133333,
+      "minVertexPlaneDistance": 0.236525,
+      "dMargin": 1.537412,
+      "note": "",
+      "id": "lead-quad-parallelogram",
+      "label": "非菱形平行四边形",
+      "given": "(5,6,15), d_raw=0",
+      "comment": "截 4 条平行 z 棱；边长 2√29/5≈2.154 与 2√10/3≈2.108，非菱形非矩形。成立。"
+    },
+    {
+      "raw": [
+        1,
+        2,
+        3
+      ],
+      "k": "5/2",
+      "normal": [
+        0.267261242,
+        0.534522484,
+        0.801783726
+      ],
+      "d": 0.668153105,
+      "support": 1.603567451,
+      "distinctPoints": 4,
+      "vertexHits": [],
+      "containedEdges": 0,
+      "sides": 4,
+      "shape": "梯形",
+      "status": "PASS",
+      "lens": [
+        2.103238,
+        2.108185,
+        0.901388,
+        2.236068
+      ],
+      "angles": [
+        68.1546,
+        79.8974,
+        100.1026,
+        111.8454
+      ],
+      "parallelPairCount": 1,
+      "oppositeFacePairCount": 1,
+      "rightAngleDetected": false,
+      "minCrossingT": 0.125,
+      "minVertexPlaneDistance": 0.133631,
+      "dMargin": 0.935414,
+      "note": "",
+      "id": "lead-quad-trapezoid",
+      "label": "梯形（非平行四边形）",
+      "given": "(1,2,3), d_raw=2.5",
+      "comment": "截 x±、y=1、z=1；两腰 2.236 与 2.108 不等 => 非等腰梯形，无直角。成立。"
+    },
+    {
+      "raw": [
+        1,
+        2,
+        3
+      ],
+      "k": "9/5",
+      "normal": [
+        0.267261242,
+        0.534522484,
+        0.801783726
+      ],
+      "d": 0.481070235,
+      "support": 1.603567451,
+      "distinctPoints": 5,
+      "vertexHits": [],
+      "containedEdges": 0,
+      "sides": 5,
+      "shape": "五边形（平行边组数=2）",
+      "status": "PASS",
+      "lens": [
+        0.210819,
+        2.403701,
+        2.108185,
+        1.322035,
+        2.012461
+      ],
+      "angles": [
+        148.0519,
+        100.1026,
+        79.8974,
+        100.1026,
+        111.8454
+      ],
+      "parallelPairCount": 2,
+      "oppositeFacePairCount": 2,
+      "rightAngleDetected": false,
+      "minCrossingT": 0.033333,
+      "minVertexPlaneDistance": 0.053452,
+      "dMargin": 1.122497,
+      "note": "",
+      "id": "lead-pentagon",
+      "label": "五边形",
+      "given": "(1,2,3), d_raw=1.8",
+      "comment": "成立但一个截面顶点离立方体顶点很近（t 余量约 0.033），动画上略敏感；建议改用更稳的 (1,1,2), d_raw=1.5（本文件 pentagon 预设）。"
+    },
+    {
+      "raw": [
+        1,
+        1,
+        1
+      ],
+      "k": "0",
+      "normal": [
+        0.577350269,
+        0.577350269,
+        0.577350269
+      ],
+      "d": 0.0,
+      "support": 1.732050808,
+      "distinctPoints": 6,
+      "vertexHits": [],
+      "containedEdges": 0,
+      "sides": 6,
+      "shape": "六边形（正六边形）",
+      "status": "PASS",
+      "lens": [
+        1.414214,
+        1.414214,
+        1.414214,
+        1.414214,
+        1.414214,
+        1.414214
+      ],
+      "angles": [
+        120.0,
+        120.0,
+        120.0,
+        120.0,
+        120.0,
+        120.0
+      ],
+      "parallelPairCount": 3,
+      "oppositeFacePairCount": 3,
+      "rightAngleDetected": false,
+      "minCrossingT": 0.5,
+      "minVertexPlaneDistance": 0.57735,
+      "dMargin": 1.732051,
+      "note": "",
+      "id": "lead-hexagon-regular",
+      "label": "正六边形",
+      "given": "(1,1,1), d_raw=0",
+      "comment": "成立：边长 √2，内角 120°。"
+    },
+    {
+      "raw": [
+        2,
+        2,
+        3
+      ],
+      "k": "2/5",
+      "normal": [
+        0.48507125,
+        0.48507125,
+        0.727606875
+      ],
+      "d": 0.09701425,
+      "support": 1.697749375,
+      "distinctPoints": 6,
+      "vertexHits": [],
+      "containedEdges": 0,
+      "sides": 6,
+      "shape": "六边形（一般六边形）",
+      "status": "PASS",
+      "lens": [
+        2.043146,
+        0.424264,
+        2.043146,
+        1.562406,
+        0.989949,
+        1.562406
+      ],
+      "angles": [
+        107.9202,
+        126.0399,
+        126.0399,
+        107.9202,
+        126.0399,
+        126.0399
+      ],
+      "parallelPairCount": 3,
+      "oppositeFacePairCount": 3,
+      "rightAngleDetected": false,
+      "minCrossingT": 0.15,
+      "minVertexPlaneDistance": 0.145521,
+      "dMargin": 1.600735,
+      "note": "",
+      "id": "lead-hexagon-general",
+      "label": "一般六边形",
+      "given": "(2,2,3), d_raw=0.4",
+      "comment": "成立：6 个面全截到；|n| 分量不全相等 => 非等角，故非正六边形。"
+    }
+  ],
+  "degenerateExamples": [
+    {
+      "id": "tangent-vertex",
+      "plane": "rawNormal=(1,1,1), k=3",
+      "normalExpr": "(1,1,1)/√3",
+      "d": 1.732050807569,
+      "note": "平面位于支撑位置 x+y+z=3：只与顶点 (1,1,1) 相切，截面是一个点",
+      "distinctPoints": 1,
+      "containedEdges": 0,
+      "vertexHits": [
+        [
+          1,
+          1,
+          1
+        ]
+      ],
+      "sides": 1,
+      "area": 0.0,
+      "dim": "0D(point)",
+      "degenerate": true
+    },
+    {
+      "id": "through-three-vertices",
+      "plane": "rawNormal=(1,1,1), k=1",
+      "normalExpr": "(1,1,1)/√3",
+      "d": 0.57735026919,
+      "note": "平面 x+y+z=1 同时经过 3 个立方体顶点，截面是等边三角形（顶点即立方体顶点）",
+      "distinctPoints": 3,
+      "containedEdges": 0,
+      "vertexHits": [
+        [
+          -1,
+          1,
+          1
+        ],
+        [
+          1,
+          -1,
+          1
+        ],
+        [
+          1,
+          1,
+          -1
+        ]
+      ],
+      "sides": 3,
+      "area": 3.464101615138,
+      "dim": "2D",
+      "sidesFaceCount": 3,
+      "minEdgeLength": 2.828427124746,
+      "degenerate": true
+    },
+    {
+      "id": "contains-two-edges",
+      "plane": "rawNormal=(1,-1,0), k=0",
+      "normalExpr": "(1,-1,0)/√2",
+      "d": 0.0,
+      "note": "平面 x=y 包含两条相对的棱，截面是正方形，其中两条边就是立方体的整条棱",
+      "distinctPoints": 4,
+      "containedEdges": 2,
+      "vertexHits": [
+        [
+          -1,
+          -1,
+          -1
+        ],
+        [
+          -1,
+          -1,
+          1
+        ],
+        [
+          1,
+          1,
+          -1
+        ],
+        [
+          1,
+          1,
+          1
+        ]
+      ],
+      "sides": 4,
+      "area": 5.656854249492,
+      "dim": "2D",
+      "sidesFaceCount": 3,
+      "minEdgeLength": 2.0,
+      "degenerate": true
+    },
+    {
+      "id": "touch-one-edge",
+      "plane": "rawNormal=(1,1,0), k=2",
+      "normalExpr": "(1,1,0)/√2",
+      "d": 1.414213562373,
+      "note": "平面 x+y=2 只包含一条棱 (1,1,z)，截面退化为线段",
+      "distinctPoints": 2,
+      "containedEdges": 1,
+      "vertexHits": [
+        [
+          1,
+          1,
+          -1
+        ],
+        [
+          1,
+          1,
+          1
+        ]
+      ],
+      "sides": 2,
+      "area": 0.0,
+      "dim": "1D(segment)",
+      "degenerate": true
+    },
+    {
+      "id": "face-plane",
+      "plane": "rawNormal=(0,0,1), k=1",
+      "normalExpr": "(0,0,1)/√1",
+      "d": 1.0,
+      "note": "平面 z=1 与顶面重合，截面就是这个正方形面，四条边都是立方体的棱",
+      "distinctPoints": 4,
+      "containedEdges": 4,
+      "vertexHits": [
+        [
+          -1,
+          -1,
+          1
+        ],
+        [
+          -1,
+          1,
+          1
+        ],
+        [
+          1,
+          -1,
+          1
+        ],
+        [
+          1,
+          1,
+          1
+        ]
+      ],
+      "sides": 4,
+      "area": 4.0,
+      "dim": "2D",
+      "sidesFaceCount": 1,
+      "minEdgeLength": 2.0,
+      "degenerate": true
+    },
+    {
+      "id": "through-one-vertex",
+      "plane": "rawNormal=(1,2,3), k=2",
+      "normalExpr": "(1,2,3)/√14",
+      "d": 0.534522483825,
+      "note": "平面 x+2y+3z=2 只经过一个顶点 (1,-1,1)，截面仍是四边形，但一个顶点落在立方体顶点上",
+      "distinctPoints": 4,
+      "containedEdges": 0,
+      "vertexHits": [
+        [
+          1,
+          -1,
+          1
+        ]
+      ],
+      "sides": 4,
+      "area": 3.741657386774,
+      "dim": "2D",
+      "sidesFaceCount": 4,
+      "minEdgeLength": 1.201850425155,
+      "degenerate": true
+    },
+    {
+      "id": "outside",
+      "plane": "rawNormal=(1,1,1), k=4",
+      "normalExpr": "(1,1,1)/√3",
+      "d": 2.309401076759,
+      "note": "平面 x+y+z=4 在立方体外部，截面为空",
+      "distinctPoints": 0,
+      "containedEdges": 0,
+      "vertexHits": [],
+      "sides": 0,
+      "area": 0.0,
+      "dim": "empty",
+      "degenerate": true
+    }
+  ],
+  "specialFamilies": {
+    "rhombusFamily": [
+      {
+        "c": 1.0,
+        "sides": 6,
+        "kind": "hexagon",
+        "quad": null,
+        "tri": null,
+        "area": 5.196152422706634,
+        "lens": [
+          1.414214,
+          1.414214,
+          1.414214,
+          1.414214,
+          1.414214,
+          1.414214
+        ],
+        "angles": [
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0
+        ],
+        "contained": 0,
+        "cubeVertexCount": 0
+      },
+      {
+        "c": 1.5,
+        "sides": 6,
+        "kind": "hexagon",
+        "quad": null,
+        "tri": null,
+        "area": 5.153882032022076,
+        "lens": [
+          1.802776,
+          0.707107,
+          1.802776,
+          1.802776,
+          0.707107,
+          1.802776
+        ],
+        "angles": [
+          107.9202,
+          126.0399,
+          126.0399,
+          107.9202,
+          126.0399,
+          126.0399
+        ],
+        "contained": 0,
+        "cubeVertexCount": 0
+      },
+      {
+        "c": 1.8,
+        "sides": 6,
+        "kind": "hexagon",
+        "quad": null,
+        "tri": null,
+        "area": 5.036030182594223,
+        "lens": [
+          2.059126,
+          0.282843,
+          2.059126,
+          2.059126,
+          0.282843,
+          2.059126
+        ],
+        "angles": [
+          103.6417,
+          128.1792,
+          128.1792,
+          103.6417,
+          128.1792,
+          128.1792
+        ],
+        "contained": 0,
+        "cubeVertexCount": 0
+      },
+      {
+        "c": 1.99,
+        "sides": 6,
+        "kind": "hexagon",
+        "quad": null,
+        "tri": null,
+        "area": 4.9070765237562775,
+        "lens": [
+          2.227128,
+          0.014142,
+          2.227128,
+          2.227128,
+          0.014142,
+          2.227128
+        ],
+        "angles": [
+          101.6311,
+          129.1845,
+          129.1845,
+          101.6311,
+          129.1845,
+          129.1845
+        ],
+        "contained": 0,
+        "cubeVertexCount": 0
+      },
+      {
+        "c": 2.0,
+        "sides": 4,
+        "kind": "rhombus",
+        "quad": "rhombus",
+        "tri": null,
+        "area": 4.898979485566357,
+        "lens": [
+          2.236068,
+          2.236068,
+          2.236068,
+          2.236068
+        ],
+        "angles": [
+          101.537,
+          78.463,
+          101.537,
+          78.463
+        ],
+        "contained": 0,
+        "cubeVertexCount": 2
+      },
+      {
+        "c": 2.01,
+        "sides": 4,
+        "kind": "rhombus",
+        "quad": "rhombus",
+        "tri": null,
+        "area": 4.89086863704709,
+        "lens": [
+          2.233847,
+          2.233847,
+          2.233847,
+          2.233847
+        ],
+        "angles": [
+          101.4439,
+          78.5561,
+          101.4439,
+          78.5561
+        ],
+        "contained": 0,
+        "cubeVertexCount": 0
+      },
+      {
+        "c": 2.2,
+        "sides": 4,
+        "kind": "rhombus",
+        "quad": "rhombus",
+        "tri": null,
+        "area": 4.755162483862552,
+        "lens": [
+          2.196917,
+          2.196917,
+          2.196917,
+          2.196917
+        ],
+        "angles": [
+          99.8595,
+          80.1405,
+          99.8595,
+          80.1405
+        ],
+        "contained": 0,
+        "cubeVertexCount": 0
+      },
+      {
+        "c": 2.5,
+        "sides": 4,
+        "kind": "rhombus",
+        "quad": "rhombus",
+        "tri": null,
+        "area": 4.5956501172304245,
+        "lens": [
+          2.154066,
+          2.154066,
+          2.154066,
+          2.154066
+        ],
+        "angles": [
+          97.9281,
+          82.0719,
+          97.9281,
+          82.0719
+        ],
+        "contained": 0,
+        "cubeVertexCount": 0
+      },
+      {
+        "c": 3.0,
+        "sides": 4,
+        "kind": "rhombus",
+        "quad": "rhombus",
+        "tri": null,
+        "area": 4.422166387140533,
+        "lens": [
+          2.108185,
+          2.108185,
+          2.108185,
+          2.108185
+        ],
+        "angles": [
+          95.7392,
+          84.2608,
+          95.7392,
+          84.2608
+        ],
+        "contained": 0,
+        "cubeVertexCount": 0
+      },
+      {
+        "c": 5.0,
+        "sides": 4,
+        "kind": "rhombus",
+        "quad": "rhombus",
+        "tri": null,
+        "area": 4.156921938165304,
+        "lens": [
+          2.039608,
+          2.039608,
+          2.039608,
+          2.039608
+        ],
+        "angles": [
+          92.2042,
+          87.7958,
+          92.2042,
+          87.7958
+        ],
+        "contained": 0,
+        "cubeVertexCount": 0
+      },
+      {
+        "c": 10.0,
+        "sides": 4,
+        "kind": "rhombus",
+        "quad": "rhombus",
+        "tri": null,
+        "area": 4.039801975344831,
+        "lens": [
+          2.009975,
+          2.009975,
+          2.009975,
+          2.009975
+        ],
+        "angles": [
+          90.5673,
+          89.4327,
+          90.5673,
+          89.4327
+        ],
+        "contained": 0,
+        "cubeVertexCount": 0
+      }
+    ],
+    "squareFamily": [
+      {
+        "kind": "face-parallel",
+        "d": -0.9,
+        "sides": 4,
+        "quad": "square",
+        "lens": [
+          2.0,
+          2.0,
+          2.0,
+          2.0
+        ],
+        "right": true
+      },
+      {
+        "kind": "face-parallel",
+        "d": -0.5,
+        "sides": 4,
+        "quad": "square",
+        "lens": [
+          2.0,
+          2.0,
+          2.0,
+          2.0
+        ],
+        "right": true
+      },
+      {
+        "kind": "face-parallel",
+        "d": 0.0,
+        "sides": 4,
+        "quad": "square",
+        "lens": [
+          2.0,
+          2.0,
+          2.0,
+          2.0
+        ],
+        "right": true
+      },
+      {
+        "kind": "face-parallel",
+        "d": 0.5,
+        "sides": 4,
+        "quad": "square",
+        "lens": [
+          2.0,
+          2.0,
+          2.0,
+          2.0
+        ],
+        "right": true
+      },
+      {
+        "kind": "face-parallel",
+        "d": 0.9,
+        "sides": 4,
+        "quad": "square",
+        "lens": [
+          2.0,
+          2.0,
+          2.0,
+          2.0
+        ],
+        "right": true
+      },
+      {
+        "kind": "oblique(extrusion)",
+        "D": 1.211145618000168,
+        "d": 0.5416407864998737,
+        "n": [
+          0.447213595,
+          0.894427191,
+          0.0
+        ],
+        "sides": 4,
+        "quad": "square",
+        "chord": 2.0,
+        "lens": [
+          2.0,
+          2.0,
+          2.0,
+          2.0
+        ],
+        "right": true,
+        "note": "弦长 = 2，拉伸方向长度 2 ⇒ 正方形"
+      }
+    ],
+    "trapezoidFamily": [
+      {
+        "raw": [
+          1.0,
+          1.2,
+          1.2
+        ],
+        "D": 1.04,
+        "sides": 4,
+        "quad": "trapezoid",
+        "isosceles": true,
+        "right": false,
+        "min_angle_dev": 26.91567882621063,
+        "angles": [
+          63.0843,
+          63.0843,
+          116.9157,
+          116.9157
+        ],
+        "lens": [
+          2.781287,
+          2.603417,
+          0.424264,
+          2.603417
+        ]
+      },
+      {
+        "raw": [
+          1.0,
+          1.2,
+          1.2
+        ],
+        "D": 1.1199999999999999,
+        "sides": 4,
+        "quad": "trapezoid",
+        "isosceles": true,
+        "right": false,
+        "min_angle_dev": 26.915678826210623,
+        "angles": [
+          63.0843,
+          63.0843,
+          116.9157,
+          116.9157
+        ],
+        "lens": [
+          2.687006,
+          2.603417,
+          0.329983,
+          2.603417
+        ]
+      },
+      {
+        "raw": [
+          1.0,
+          1.2,
+          1.2
+        ],
+        "D": 1.2,
+        "sides": 4,
+        "quad": "trapezoid",
+        "isosceles": true,
+        "right": false,
+        "min_angle_dev": 26.91567882621063,
+        "angles": [
+          63.0843,
+          63.0843,
+          116.9157,
+          116.9157
+        ],
+        "lens": [
+          2.592725,
+          2.603417,
+          0.235702,
+          2.603417
+        ]
+      },
+      {
+        "raw": [
+          1.0,
+          1.2,
+          1.2
+        ],
+        "D": 1.2799999999999998,
+        "sides": 4,
+        "quad": "trapezoid",
+        "isosceles": true,
+        "right": false,
+        "min_angle_dev": 26.915678826210566,
+        "angles": [
+          63.0843,
+          63.0843,
+          116.9157,
+          116.9157
+        ],
+        "lens": [
+          2.498444,
+          2.603417,
+          0.141421,
+          2.603417
+        ]
+      },
+      {
+        "raw": [
+          1.0,
+          1.2,
+          1.2
+        ],
+        "D": 1.3599999999999999,
+        "sides": 4,
+        "quad": "trapezoid",
+        "isosceles": true,
+        "right": false,
+        "min_angle_dev": 26.915678826210616,
+        "angles": [
+          63.0843,
+          63.0843,
+          116.9157,
+          116.9157
+        ],
+        "lens": [
+          2.404163,
+          2.603417,
+          0.04714,
+          2.603417
+        ]
+      },
+      {
+        "raw": [
+          1.0,
+          1.5,
+          1.5
+        ],
+        "D": 1.1,
+        "sides": 4,
+        "quad": "trapezoid",
+        "isosceles": true,
+        "right": false,
+        "min_angle_dev": 23.093469269798433,
+        "angles": [
+          66.9065,
+          66.9065,
+          113.0935,
+          113.0935
+        ],
+        "lens": [
+          2.734146,
+          2.403701,
+          0.848528,
+          2.403701
+        ]
+      },
+      {
+        "raw": [
+          1.0,
+          1.5,
+          1.5
+        ],
+        "D": 1.3,
+        "sides": 4,
+        "quad": "trapezoid",
+        "isosceles": true,
+        "right": false,
+        "min_angle_dev": 23.09346926979842,
+        "angles": [
+          66.9065,
+          66.9065,
+          113.0935,
+          113.0935
+        ],
+        "lens": [
+          2.545584,
+          2.403701,
+          0.659966,
+          2.403701
+        ]
+      },
+      {
+        "raw": [
+          1.0,
+          1.5,
+          1.5
+        ],
+        "D": 1.5,
+        "sides": 4,
+        "quad": "trapezoid",
+        "isosceles": true,
+        "right": false,
+        "min_angle_dev": 23.09346926979842,
+        "angles": [
+          66.9065,
+          66.9065,
+          113.0935,
+          113.0935
+        ],
+        "lens": [
+          2.357023,
+          2.403701,
+          0.471405,
+          2.403701
+        ]
+      },
+      {
+        "raw": [
+          1.0,
+          1.5,
+          1.5
+        ],
+        "D": 1.7,
+        "sides": 4,
+        "quad": "trapezoid",
+        "isosceles": true,
+        "right": false,
+        "min_angle_dev": 23.093469269798405,
+        "angles": [
+          66.9065,
+          66.9065,
+          113.0935,
+          113.0935
+        ],
+        "lens": [
+          2.168461,
+          2.403701,
+          0.282843,
+          2.403701
+        ]
+      },
+      {
+        "raw": [
+          1.0,
+          1.5,
+          1.5
+        ],
+        "D": 1.9,
+        "sides": 4,
+        "quad": "trapezoid",
+        "isosceles": true,
+        "right": false,
+        "min_angle_dev": 23.093469269798348,
+        "angles": [
+          66.9065,
+          66.9065,
+          113.0935,
+          113.0935
+        ],
+        "lens": [
+          1.979899,
+          2.403701,
+          0.094281,
+          2.403701
+        ]
+      },
+      {
+        "raw": [
+          1.0,
+          2.0,
+          2.0
+        ],
+        "D": 1.2,
+        "sides": 4,
+        "quad": "trapezoid",
+        "isosceles": true,
+        "right": false,
+        "min_angle_dev": 18.43494882292201,
+        "angles": [
+          71.5651,
+          71.5651,
+          108.4349,
+          108.4349
+        ],
+        "lens": [
+          2.687006,
+          2.236068,
+          1.272792,
+          2.236068
+        ]
+      },
+      {
+        "raw": [
+          1.0,
+          2.0,
+          2.0
+        ],
+        "D": 1.6,
+        "sides": 4,
+        "quad": "trapezoid",
+        "isosceles": true,
+        "right": false,
+        "min_angle_dev": 18.43494882292201,
+        "angles": [
+          71.5651,
+          71.5651,
+          108.4349,
+          108.4349
+        ],
+        "lens": [
+          2.404163,
+          2.236068,
+          0.989949,
+          2.236068
+        ]
+      },
+      {
+        "raw": [
+          1.0,
+          2.0,
+          2.0
+        ],
+        "D": 2.0,
+        "sides": 4,
+        "quad": "trapezoid",
+        "isosceles": true,
+        "right": false,
+        "min_angle_dev": 18.43494882292201,
+        "angles": [
+          71.5651,
+          71.5651,
+          108.4349,
+          108.4349
+        ],
+        "lens": [
+          2.12132,
+          2.236068,
+          0.707107,
+          2.236068
+        ]
+      },
+      {
+        "raw": [
+          1.0,
+          2.0,
+          2.0
+        ],
+        "D": 2.4,
+        "sides": 4,
+        "quad": "trapezoid",
+        "isosceles": true,
+        "right": false,
+        "min_angle_dev": 18.43494882292201,
+        "angles": [
+          71.5651,
+          71.5651,
+          108.4349,
+          108.4349
+        ],
+        "lens": [
+          1.838478,
+          2.236068,
+          0.424264,
+          2.236068
+        ]
+      },
+      {
+        "raw": [
+          1.0,
+          2.0,
+          2.0
+        ],
+        "D": 2.8,
+        "sides": 4,
+        "quad": "trapezoid",
+        "isosceles": true,
+        "right": false,
+        "min_angle_dev": 18.434948822921996,
+        "angles": [
+          71.5651,
+          71.5651,
+          108.4349,
+          108.4349
+        ],
+        "lens": [
+          1.555635,
+          2.236068,
+          0.141421,
+          2.236068
+        ]
+      },
+      {
+        "raw": [
+          1.0,
+          3.0,
+          3.0
+        ],
+        "D": 1.4,
+        "sides": 4,
+        "quad": "trapezoid",
+        "isosceles": true,
+        "right": false,
+        "min_angle_dev": 12.920966381583568,
+        "angles": [
+          77.079,
+          77.079,
+          102.921,
+          102.921
+        ],
+        "lens": [
+          2.639865,
+          2.108185,
+          1.697056,
+          2.108185
+        ]
+      },
+      {
+        "raw": [
+          1.0,
+          3.0,
+          3.0
+        ],
+        "D": 2.2,
+        "sides": 4,
+        "quad": "trapezoid",
+        "isosceles": true,
+        "right": false,
+        "min_angle_dev": 12.920966381583568,
+        "angles": [
+          77.079,
+          77.079,
+          102.921,
+          102.921
+        ],
+        "lens": [
+          2.262742,
+          2.108185,
+          1.319933,
+          2.108185
+        ]
+      },
+      {
+        "raw": [
+          1.0,
+          3.0,
+          3.0
+        ],
+        "D": 3.0,
+        "sides": 4,
+        "quad": "trapezoid",
+        "isosceles": true,
+        "right": false,
+        "min_angle_dev": 12.920966381583568,
+        "angles": [
+          77.079,
+          77.079,
+          102.921,
+          102.921
+        ],
+        "lens": [
+          1.885618,
+          2.108185,
+          0.942809,
+          2.108185
+        ]
+      },
+      {
+        "raw": [
+          1.0,
+          3.0,
+          3.0
+        ],
+        "D": 3.8,
+        "sides": 4,
+        "quad": "trapezoid",
+        "isosceles": true,
+        "right": false,
+        "min_angle_dev": 12.920966381583568,
+        "angles": [
+          77.079,
+          77.079,
+          102.921,
+          102.921
+        ],
+        "lens": [
+          1.508494,
+          2.108185,
+          0.565685,
+          2.108185
+        ]
+      },
+      {
+        "raw": [
+          1.0,
+          3.0,
+          3.0
+        ],
+        "D": 4.6,
+        "sides": 4,
+        "quad": "trapezoid",
+        "isosceles": true,
+        "right": false,
+        "min_angle_dev": 12.920966381583568,
+        "angles": [
+          77.079,
+          77.079,
+          102.921,
+          102.921
+        ],
+        "lens": [
+          1.131371,
+          2.108185,
+          0.188562,
+          2.108185
+        ]
+      },
+      {
+        "raw": [
+          1.0,
+          5.0,
+          5.0
+        ],
+        "D": 1.8,
+        "sides": 4,
+        "quad": "trapezoid",
+        "isosceles": true,
+        "right": false,
+        "min_angle_dev": 7.971184302814308,
+        "angles": [
+          82.0288,
+          82.0288,
+          97.9712,
+          97.9712
+        ],
+        "lens": [
+          2.602153,
+          2.039608,
+          2.036468,
+          2.039608
+        ]
+      },
+      {
+        "raw": [
+          1.0,
+          5.0,
+          5.0
+        ],
+        "D": 3.4,
+        "sides": 4,
+        "quad": "trapezoid",
+        "isosceles": true,
+        "right": false,
+        "min_angle_dev": 7.971184302814308,
+        "angles": [
+          82.0288,
+          82.0288,
+          97.9712,
+          97.9712
+        ],
+        "lens": [
+          2.149605,
+          2.039608,
+          1.583919,
+          2.039608
+        ]
+      },
+      {
+        "raw": [
+          1.0,
+          5.0,
+          5.0
+        ],
+        "D": 5.0,
+        "sides": 4,
+        "quad": "trapezoid",
+        "isosceles": true,
+        "right": false,
+        "min_angle_dev": 7.971184302814308,
+        "angles": [
+          82.0288,
+          82.0288,
+          97.9712,
+          97.9712
+        ],
+        "lens": [
+          1.697056,
+          2.039608,
+          1.131371,
+          2.039608
+        ]
+      },
+      {
+        "raw": [
+          1.0,
+          5.0,
+          5.0
+        ],
+        "D": 6.6,
+        "sides": 4,
+        "quad": "trapezoid",
+        "isosceles": true,
+        "right": false,
+        "min_angle_dev": 7.971184302814308,
+        "angles": [
+          82.0288,
+          82.0288,
+          97.9712,
+          97.9712
+        ],
+        "lens": [
+          1.244508,
+          2.039608,
+          0.678823,
+          2.039608
+        ]
+      },
+      {
+        "raw": [
+          1.0,
+          5.0,
+          5.0
+        ],
+        "D": 8.2,
+        "sides": 4,
+        "quad": "trapezoid",
+        "isosceles": true,
+        "right": false,
+        "min_angle_dev": 7.971184302814308,
+        "angles": [
+          82.0288,
+          82.0288,
+          97.9712,
+          97.9712
+        ],
+        "lens": [
+          0.79196,
+          2.039608,
+          0.226274,
+          2.039608
+        ]
+      },
+      {
+        "raw": [
+          1.0,
+          2.0,
+          2.5
+        ],
+        "D": 3.0,
+        "sides": 4,
+        "quad": "trapezoid",
+        "isosceles": false,
+        "right": false,
+        "min_angle_dev": 13.415197239362257,
+        "angles": [
+          69.5607,
+          76.5848,
+          103.4152,
+          110.4393
+        ],
+        "lens": [
+          1.600781,
+          2.154066,
+          0.320156,
+          2.236068
+        ]
+      },
+      {
+        "raw": [
+          1.0,
+          2.0,
+          3.0
+        ],
+        "D": 3.0,
+        "sides": 4,
+        "quad": "trapezoid",
+        "isosceles": false,
+        "right": false,
+        "min_angle_dev": 10.102611791687565,
+        "angles": [
+          68.1546,
+          79.8974,
+          100.1026,
+          111.8454
+        ],
+        "lens": [
+          1.802776,
+          2.108185,
+          0.600925,
+          2.236068
+        ]
+      },
+      {
+        "raw": [
+          1.0,
+          2.0,
+          3.0
+        ],
+        "D": 3.5,
+        "sides": 4,
+        "quad": "trapezoid",
+        "isosceles": false,
+        "right": false,
+        "min_angle_dev": 10.102611791687579,
+        "angles": [
+          68.1546,
+          79.8974,
+          100.1026,
+          111.8454
+        ],
+        "lens": [
+          1.502313,
+          2.108185,
+          0.300463,
+          2.236068
+        ]
+      },
+      {
+        "raw": [
+          1.0,
+          2.0,
+          4.0
+        ],
+        "D": 3.0,
+        "sides": 4,
+        "quad": "trapezoid",
+        "isosceles": false,
+        "right": false,
+        "min_angle_dev": 6.226850297134362,
+        "angles": [
+          66.4218,
+          83.7731,
+          96.2269,
+          113.5782
+        ],
+        "lens": [
+          2.236068,
+          2.061553,
+          1.118034,
+          2.236068
+        ]
+      },
+      {
+        "raw": [
+          1.0,
+          2.0,
+          4.0
+        ],
+        "D": 3.5,
+        "sides": 4,
+        "quad": "trapezoid",
+        "isosceles": false,
+        "right": false,
+        "min_angle_dev": 6.226850297134362,
+        "angles": [
+          66.4218,
+          83.7731,
+          96.2269,
+          113.5782
+        ],
+        "lens": [
+          1.956559,
+          2.061553,
+          0.838525,
+          2.236068
+        ]
+      },
+      {
+        "raw": [
+          0.1,
+          3,
+          3
+        ],
+        "D": 2.0,
+        "sides": 4,
+        "quad": "trapezoid",
+        "isosceles": true,
+        "right": false,
+        "min_angle_dev": 1.3498497022801246,
+        "angles": [
+          88.65015,
+          88.65015,
+          91.34985,
+          91.34985
+        ],
+        "lens": [
+          1.932759,
+          2.001111,
+          1.838478,
+          2.001111
+        ]
+      },
+      {
+        "raw": [
+          0.01,
+          3,
+          3
+        ],
+        "D": 2.0,
+        "sides": 4,
+        "quad": "trapezoid",
+        "isosceles": true,
+        "right": false,
+        "min_angle_dev": 0.1350468222083805,
+        "angles": [
+          89.864953,
+          89.864953,
+          90.135047,
+          90.135047
+        ],
+        "lens": [
+          1.890332,
+          2.000011,
+          1.880904,
+          2.000011
+        ]
+      },
+      {
+        "raw": [
+          0.001,
+          3,
+          3
+        ],
+        "D": 2.0,
+        "sides": 4,
+        "quad": "trapezoid",
+        "isosceles": true,
+        "right": false,
+        "min_angle_dev": 0.013504744117142309,
+        "angles": [
+          89.986495,
+          89.986495,
+          90.013505,
+          90.013505
+        ],
+        "lens": [
+          1.886089,
+          2.0,
+          1.885147,
+          2.0
+        ]
+      }
+    ],
+    "pentagonFamily": [
+      {
+        "raw": [
+          1.0,
+          1.0,
+          2.0
+        ],
+        "k": 1.5,
+        "sides": 5,
+        "parallelPairCount": 2,
+        "regular": false,
+        "angles": [
+          129.2315,
+          101.537,
+          78.463,
+          101.537,
+          129.2315
+        ],
+        "lens": [
+          0.559017,
+          2.236068,
+          2.236068,
+          0.559017,
+          2.12132
+        ]
+      },
+      {
+        "raw": [
+          1.0,
+          2.0,
+          3.0
+        ],
+        "k": 1.8,
+        "sides": 5,
+        "parallelPairCount": 2,
+        "regular": false,
+        "angles": [
+          148.0519,
+          100.1026,
+          79.8974,
+          100.1026,
+          111.8454
+        ],
+        "lens": [
+          0.210819,
+          2.403701,
+          2.108185,
+          1.322035,
+          2.012461
+        ]
+      },
+      {
+        "raw": [
+          2.0,
+          3.0,
+          4.0
+        ],
+        "k": 1.6,
+        "sides": 5,
+        "parallelPairCount": 2,
+        "regular": false,
+        "angles": [
+          138.0912,
+          105.5648,
+          74.4352,
+          105.5648,
+          116.344
+        ],
+        "lens": [
+          0.782624,
+          2.5,
+          2.236068,
+          1.416667,
+          1.562406
+        ]
+      },
+      {
+        "raw": [
+          1.0,
+          1.0,
+          3.0
+        ],
+        "k": 2.0,
+        "sides": 5,
+        "parallelPairCount": 2,
+        "regular": false,
+        "angles": [
+          132.1304,
+          95.7392,
+          84.2608,
+          95.7392,
+          132.1304
+        ],
+        "lens": [
+          1.054093,
+          2.108185,
+          2.108185,
+          1.054093,
+          1.414214
+        ]
+      }
+    ],
+    "hexagonBodyDiagonalScan": [
+      {
+        "d": 0.0,
+        "sides": 6,
+        "lens": [
+          1.414213562,
+          1.414213562,
+          1.414213562,
+          1.414213562,
+          1.414213562,
+          1.414213562
+        ],
+        "angles": [
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0
+        ],
+        "allSidesEqual": true,
+        "allAnglesEqual": true,
+        "regular": true
+      },
+      {
+        "d": 0.05,
+        "sides": 6,
+        "lens": [
+          1.291739075,
+          1.53668805,
+          1.291739075,
+          1.53668805,
+          1.291739075,
+          1.53668805
+        ],
+        "angles": [
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0
+        ],
+        "allSidesEqual": false,
+        "allAnglesEqual": true,
+        "regular": false
+      },
+      {
+        "d": 0.1,
+        "sides": 6,
+        "lens": [
+          1.169264588,
+          1.659162537,
+          1.169264588,
+          1.659162537,
+          1.169264588,
+          1.659162537
+        ],
+        "angles": [
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0
+        ],
+        "allSidesEqual": false,
+        "allAnglesEqual": true,
+        "regular": false
+      },
+      {
+        "d": 0.2,
+        "sides": 6,
+        "lens": [
+          0.924315614,
+          1.904111511,
+          0.924315614,
+          1.904111511,
+          0.924315614,
+          1.904111511
+        ],
+        "angles": [
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0
+        ],
+        "allSidesEqual": false,
+        "allAnglesEqual": true,
+        "regular": false
+      },
+      {
+        "d": 0.3,
+        "sides": 6,
+        "lens": [
+          0.67936664,
+          2.149060485,
+          0.67936664,
+          2.149060485,
+          0.67936664,
+          2.149060485
+        ],
+        "angles": [
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0
+        ],
+        "allSidesEqual": false,
+        "allAnglesEqual": true,
+        "regular": false
+      },
+      {
+        "d": 0.4,
+        "sides": 6,
+        "lens": [
+          0.434417665,
+          2.394009459,
+          0.434417665,
+          2.394009459,
+          0.434417665,
+          2.394009459
+        ],
+        "angles": [
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0
+        ],
+        "allSidesEqual": false,
+        "allAnglesEqual": true,
+        "regular": false
+      },
+      {
+        "d": 0.5,
+        "sides": 6,
+        "lens": [
+          0.189468691,
+          2.638958434,
+          0.189468691,
+          2.638958434,
+          0.189468691,
+          2.638958434
+        ],
+        "angles": [
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0
+        ],
+        "allSidesEqual": false,
+        "allAnglesEqual": true,
+        "regular": false
+      },
+      {
+        "d": 0.55,
+        "sides": 6,
+        "lens": [
+          0.066994204,
+          2.761432921,
+          0.066994204,
+          2.761432921,
+          0.066994204,
+          2.761432921
+        ],
+        "angles": [
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0
+        ],
+        "allSidesEqual": false,
+        "allAnglesEqual": true,
+        "regular": false
+      },
+      {
+        "d": 0.5763502691896258,
+        "sides": 6,
+        "lens": [
+          0.00244949,
+          2.825977635,
+          0.00244949,
+          2.825977635,
+          0.00244949,
+          2.825977635
+        ],
+        "angles": [
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0
+        ],
+        "allSidesEqual": false,
+        "allAnglesEqual": true,
+        "regular": false
+      }
+    ],
+    "hexagonBodyDiagonalDirections": [
+      {
+        "n": [
+          1,
+          1,
+          1
+        ],
+        "d": -0.5,
+        "sides": 6,
+        "allAnglesEqual": true,
+        "allSidesEqual": false,
+        "regular": false,
+        "angles": [
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0
+        ],
+        "lens": [
+          0.189469,
+          2.638958,
+          0.189469,
+          2.638958,
+          0.189469,
+          2.638958
+        ]
+      },
+      {
+        "n": [
+          1,
+          1,
+          1
+        ],
+        "d": -0.2,
+        "sides": 6,
+        "allAnglesEqual": true,
+        "allSidesEqual": false,
+        "regular": false,
+        "angles": [
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0
+        ],
+        "lens": [
+          0.924316,
+          1.904112,
+          0.924316,
+          1.904112,
+          0.924316,
+          1.904112
+        ]
+      },
+      {
+        "n": [
+          1,
+          1,
+          1
+        ],
+        "d": 0.0,
+        "sides": 6,
+        "allAnglesEqual": true,
+        "allSidesEqual": true,
+        "regular": true,
+        "angles": [
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0
+        ],
+        "lens": [
+          1.414214,
+          1.414214,
+          1.414214,
+          1.414214,
+          1.414214,
+          1.414214
+        ]
+      },
+      {
+        "n": [
+          1,
+          1,
+          1
+        ],
+        "d": 0.2,
+        "sides": 6,
+        "allAnglesEqual": true,
+        "allSidesEqual": false,
+        "regular": false,
+        "angles": [
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0
+        ],
+        "lens": [
+          0.924316,
+          1.904112,
+          0.924316,
+          1.904112,
+          0.924316,
+          1.904112
+        ]
+      },
+      {
+        "n": [
+          1,
+          1,
+          1
+        ],
+        "d": 0.5,
+        "sides": 6,
+        "allAnglesEqual": true,
+        "allSidesEqual": false,
+        "regular": false,
+        "angles": [
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0
+        ],
+        "lens": [
+          0.189469,
+          2.638958,
+          0.189469,
+          2.638958,
+          0.189469,
+          2.638958
+        ]
+      },
+      {
+        "n": [
+          1,
+          1,
+          -1
+        ],
+        "d": -0.5,
+        "sides": 6,
+        "allAnglesEqual": true,
+        "allSidesEqual": false,
+        "regular": false,
+        "angles": [
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0
+        ],
+        "lens": [
+          0.189469,
+          2.638958,
+          0.189469,
+          2.638958,
+          0.189469,
+          2.638958
+        ]
+      },
+      {
+        "n": [
+          1,
+          1,
+          -1
+        ],
+        "d": -0.2,
+        "sides": 6,
+        "allAnglesEqual": true,
+        "allSidesEqual": false,
+        "regular": false,
+        "angles": [
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0
+        ],
+        "lens": [
+          0.924316,
+          1.904112,
+          0.924316,
+          1.904112,
+          0.924316,
+          1.904112
+        ]
+      },
+      {
+        "n": [
+          1,
+          1,
+          -1
+        ],
+        "d": 0.0,
+        "sides": 6,
+        "allAnglesEqual": true,
+        "allSidesEqual": true,
+        "regular": true,
+        "angles": [
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0
+        ],
+        "lens": [
+          1.414214,
+          1.414214,
+          1.414214,
+          1.414214,
+          1.414214,
+          1.414214
+        ]
+      },
+      {
+        "n": [
+          1,
+          1,
+          -1
+        ],
+        "d": 0.2,
+        "sides": 6,
+        "allAnglesEqual": true,
+        "allSidesEqual": false,
+        "regular": false,
+        "angles": [
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0
+        ],
+        "lens": [
+          0.924316,
+          1.904112,
+          0.924316,
+          1.904112,
+          0.924316,
+          1.904112
+        ]
+      },
+      {
+        "n": [
+          1,
+          1,
+          -1
+        ],
+        "d": 0.5,
+        "sides": 6,
+        "allAnglesEqual": true,
+        "allSidesEqual": false,
+        "regular": false,
+        "angles": [
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0
+        ],
+        "lens": [
+          0.189469,
+          2.638958,
+          0.189469,
+          2.638958,
+          0.189469,
+          2.638958
+        ]
+      },
+      {
+        "n": [
+          1,
+          -1,
+          1
+        ],
+        "d": -0.5,
+        "sides": 6,
+        "allAnglesEqual": true,
+        "allSidesEqual": false,
+        "regular": false,
+        "angles": [
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0
+        ],
+        "lens": [
+          0.189469,
+          2.638958,
+          0.189469,
+          2.638958,
+          0.189469,
+          2.638958
+        ]
+      },
+      {
+        "n": [
+          1,
+          -1,
+          1
+        ],
+        "d": -0.2,
+        "sides": 6,
+        "allAnglesEqual": true,
+        "allSidesEqual": false,
+        "regular": false,
+        "angles": [
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0
+        ],
+        "lens": [
+          0.924316,
+          1.904112,
+          0.924316,
+          1.904112,
+          0.924316,
+          1.904112
+        ]
+      },
+      {
+        "n": [
+          1,
+          -1,
+          1
+        ],
+        "d": 0.0,
+        "sides": 6,
+        "allAnglesEqual": true,
+        "allSidesEqual": true,
+        "regular": true,
+        "angles": [
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0
+        ],
+        "lens": [
+          1.414214,
+          1.414214,
+          1.414214,
+          1.414214,
+          1.414214,
+          1.414214
+        ]
+      },
+      {
+        "n": [
+          1,
+          -1,
+          1
+        ],
+        "d": 0.2,
+        "sides": 6,
+        "allAnglesEqual": true,
+        "allSidesEqual": false,
+        "regular": false,
+        "angles": [
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0
+        ],
+        "lens": [
+          0.924316,
+          1.904112,
+          0.924316,
+          1.904112,
+          0.924316,
+          1.904112
+        ]
+      },
+      {
+        "n": [
+          1,
+          -1,
+          1
+        ],
+        "d": 0.5,
+        "sides": 6,
+        "allAnglesEqual": true,
+        "allSidesEqual": false,
+        "regular": false,
+        "angles": [
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0
+        ],
+        "lens": [
+          0.189469,
+          2.638958,
+          0.189469,
+          2.638958,
+          0.189469,
+          2.638958
+        ]
+      },
+      {
+        "n": [
+          -1,
+          1,
+          1
+        ],
+        "d": -0.5,
+        "sides": 6,
+        "allAnglesEqual": true,
+        "allSidesEqual": false,
+        "regular": false,
+        "angles": [
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0
+        ],
+        "lens": [
+          0.189469,
+          2.638958,
+          0.189469,
+          2.638958,
+          0.189469,
+          2.638958
+        ]
+      },
+      {
+        "n": [
+          -1,
+          1,
+          1
+        ],
+        "d": -0.2,
+        "sides": 6,
+        "allAnglesEqual": true,
+        "allSidesEqual": false,
+        "regular": false,
+        "angles": [
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0
+        ],
+        "lens": [
+          0.924316,
+          1.904112,
+          0.924316,
+          1.904112,
+          0.924316,
+          1.904112
+        ]
+      },
+      {
+        "n": [
+          -1,
+          1,
+          1
+        ],
+        "d": 0.0,
+        "sides": 6,
+        "allAnglesEqual": true,
+        "allSidesEqual": true,
+        "regular": true,
+        "angles": [
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0
+        ],
+        "lens": [
+          1.414214,
+          1.414214,
+          1.414214,
+          1.414214,
+          1.414214,
+          1.414214
+        ]
+      },
+      {
+        "n": [
+          -1,
+          1,
+          1
+        ],
+        "d": 0.2,
+        "sides": 6,
+        "allAnglesEqual": true,
+        "allSidesEqual": false,
+        "regular": false,
+        "angles": [
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0
+        ],
+        "lens": [
+          0.924316,
+          1.904112,
+          0.924316,
+          1.904112,
+          0.924316,
+          1.904112
+        ]
+      },
+      {
+        "n": [
+          -1,
+          1,
+          1
+        ],
+        "d": 0.5,
+        "sides": 6,
+        "allAnglesEqual": true,
+        "allSidesEqual": false,
+        "regular": false,
+        "angles": [
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0,
+          120.0
+        ],
+        "lens": [
+          0.189469,
+          2.638958,
+          0.189469,
+          2.638958,
+          0.189469,
+          2.638958
+        ]
+      }
+    ],
+    "hexagonCentralSymmetry": [
+      {
+        "n": [
+          1,
+          2,
+          2
+        ],
+        "d": 0.0,
+        "sides": 6,
+        "symmetryDefect": 0.0,
+        "symmetric": true
+      },
+      {
+        "n": [
+          1,
+          2,
+          2
+        ],
+        "d": 0.1,
+        "sides": 6,
+        "symmetryDefect": 0.424264068712,
+        "symmetric": false
+      },
+      {
+        "n": [
+          1,
+          2,
+          2
+        ],
+        "d": 0.3,
+        "sides": 6,
+        "symmetryDefect": 1.272792206136,
+        "symmetric": false
+      },
+      {
+        "n": [
+          2,
+          3,
+          4
+        ],
+        "d": 0.0,
+        "sides": 6,
+        "symmetryDefect": 0.0,
+        "symmetric": true
+      },
+      {
+        "n": [
+          2,
+          3,
+          4
+        ],
+        "d": 0.1,
+        "sides": 6,
+        "symmetryDefect": 0.388928569404,
+        "symmetric": false
+      },
+      {
+        "n": [
+          1,
+          1,
+          1
+        ],
+        "d": 0.0,
+        "sides": 6,
+        "symmetryDefect": 0.0,
+        "symmetric": true
+      },
+      {
+        "n": [
+          1,
+          1,
+          1
+        ],
+        "d": 0.1,
+        "sides": 6,
+        "symmetryDefect": 0.282842712475,
+        "symmetric": false
+      },
+      {
+        "n": [
+          1,
+          1,
+          1
+        ],
+        "d": 0.3,
+        "sides": 6,
+        "symmetryDefect": 0.848528137424,
+        "symmetric": false
+      }
+    ],
+    "hexagonEquiangularCheck": {
+      "eq_ok": 0,
+      "eq_viol": 0,
+      "non_eq_ok": 7140,
+      "non_eq_viol": 0,
+      "min_angle_spread_when_not_equal": 0.9959516995960911
+    }
+  },
+  "problems": []
+}

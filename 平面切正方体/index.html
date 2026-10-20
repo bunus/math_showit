@@ -1,0 +1,3371 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#071013">
+<meta name="description" content="正方体截面实验室：用可旋转、可平移的平面切割正方体，动态展示三角形、四边形、五边形、六边形等全部非退化截面类型。">
+<title>正方体截面实验室 · 一张平面，切出全部可能</title>
+<style>
+/* ============================================================
+   正方体截面实验室 · self-contained teaching visualisation
+   ============================================================ */
+:root{
+  --bg:#060c0f;
+  --bg-soft:#0a1417;
+  --panel: rgba(14,26,30,.82);
+  --panel-strong: rgba(16,30,34,.94);
+  --line: rgba(220,240,234,.09);
+  --line-strong: rgba(220,240,234,.16);
+  --text:#edf7f2;
+  --text-soft:#c4d6d1;
+  --muted:#8ba29d;
+  --muted-2:#78918a;
+  --mint:#67e3cf;
+  --mint-rgb:103,227,207;
+  --amber:#ffc267;
+  --amber-rgb:255,194,103;
+  --pink:#ff91b0;
+  --pink-rgb:255,145,176;
+  --violet:#ada0ff;
+  --violet-rgb:173,160,255;
+  --section:#ada0ff;
+  --section-rgb:173,160,255;
+  --blue:#7cc0ff;
+  --font:"PingFang SC","Microsoft YaHei","Noto Sans SC","Source Han Sans SC",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"Cascadia Code","SFMono-Regular","JetBrains Mono","Roboto Mono",Consolas,monospace;
+  --radius:18px;
+  --shadow:0 22px 70px rgba(0,0,0,.38);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--font);
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow:hidden;
+}
+body.modal-open{overflow:hidden}
+button,input{font:inherit}
+button{color:inherit}
+button:focus-visible,input:focus-visible,[tabindex]:focus-visible{
+  outline:2px solid rgba(103,227,207,.85);
+  outline-offset:3px;
+}
+::selection{background:rgba(103,227,207,.28);color:#fff}
+
+/* ---------- atmosphere ---------- */
+.ambient{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;background:
+  radial-gradient(ellipse 90% 65% at 50% -10%,rgba(44,104,96,.20),transparent 62%),
+  radial-gradient(ellipse 60% 55% at 96% 100%,rgba(72,48,96,.16),transparent 67%),
+  linear-gradient(180deg,#071013 0%,#050b0d 100%);}
+.ambient::before{
+  content:"";position:absolute;inset:-2px;
+  background-image:
+    linear-gradient(rgba(210,240,232,.027) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(210,240,232,.027) 1px,transparent 1px);
+  background-size:72px 72px;
+  -webkit-mask-image:radial-gradient(ellipse 76% 70% at 50% 36%,#000 10%,transparent 78%);
+  mask-image:radial-gradient(ellipse 76% 70% at 50% 36%,#000 10%,transparent 78%);
+}
+.ambient::after{
+  content:"";position:absolute;width:48vw;height:48vw;left:50%;top:5%;transform:translateX(-50%);
+  border-radius:50%;border:1px solid rgba(150,225,210,.045);
+  box-shadow:0 0 0 10vw rgba(150,225,210,.012),0 0 0 20vw rgba(150,225,210,.008);
+}
+.glow{position:absolute;border-radius:50%;filter:blur(90px);opacity:.55}
+.glow-a{width:360px;height:360px;left:0;top:20%;background:rgba(30,123,112,.18)}
+.glow-b{width:340px;height:340px;right:0;bottom:8%;background:rgba(123,66,130,.14)}
+
+/* ---------- shell ---------- */
+.app{position:relative;z-index:1;height:100vh;height:100dvh;display:flex;flex-direction:column;min-height:660px;}
+.topbar{
+  flex:0 0 74px;display:flex;align-items:center;justify-content:space-between;
+  gap:20px;padding:0 22px;
+}
+.brand{display:flex;align-items:center;gap:13px;min-width:0}
+.brand-mark{
+  width:45px;height:45px;flex:0 0 auto;border-radius:13px;display:grid;place-items:center;
+  background:linear-gradient(145deg,rgba(103,227,207,.16),rgba(255,194,103,.06));
+  border:1px solid rgba(140,235,217,.24);
+  box-shadow:0 0 28px rgba(103,227,207,.10),inset 0 1px 0 rgba(255,255,255,.1);
+}
+.brand-mark svg{width:27px;height:27px;overflow:visible}
+.brand-copy{min-width:0}
+.eyebrow{
+  display:flex;align-items:center;gap:8px;color:var(--muted);
+  font-family:var(--mono);font-size:9px;letter-spacing:.17em;text-transform:uppercase;white-space:nowrap;
+}
+.eyebrow i{width:3px;height:3px;border-radius:50%;background:var(--mint);opacity:.7}
+h1{
+  margin:2px 0 0;font-size:22px;font-weight:650;letter-spacing:.025em;line-height:1.2;
+  white-space:nowrap;
+}
+h1 .title-en{color:var(--muted-2);font-family:var(--mono);font-size:10px;font-weight:400;letter-spacing:.1em;vertical-align:2px;margin-left:5px}
+.top-actions{display:flex;align-items:center;gap:9px;flex:0 0 auto}
+.unit-chip{
+  display:flex;align-items:center;gap:7px;white-space:nowrap;
+  font-size:11px;color:var(--text-soft);padding:8px 12px;border-radius:999px;
+  border:1px solid var(--line);background:rgba(255,255,255,.025);
+}
+.unit-chip .chip-dot{width:6px;height:6px;border-radius:50%;background:var(--amber);box-shadow:0 0 12px rgba(255,194,103,.55)}
+.ghost-btn,.icon-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  border:1px solid var(--line);background:rgba(255,255,255,.025);color:var(--text-soft);
+  border-radius:11px;padding:9px 13px;font-size:12px;cursor:pointer;
+  transition:background .18s,border-color .18s,color .18s,transform .18s;
+}
+.ghost-btn:hover,.icon-btn:hover{background:rgba(255,255,255,.06);border-color:var(--line-strong);color:#fff}
+.ghost-btn:active,.icon-btn:active{transform:translateY(1px)}
+.icon-btn{width:38px;height:38px;padding:0}
+.icon-btn svg,.ghost-btn svg{width:15px;height:15px;flex:0 0 auto}
+.icon-btn.small{width:34px;height:34px;border-radius:10px}
+
+/* ---------- workspace grid ---------- */
+.workspace{
+  flex:1;min-height:0;display:grid;gap:13px;
+  grid-template-columns:minmax(272px,300px) minmax(0,1fr) minmax(310px,342px);
+  grid-template-rows:minmax(0,1fr) 172px;
+  grid-template-areas:
+    "controls stage detail"
+    "catalog catalog catalog";
+  padding:0 18px 17px;
+}
+.panel,.catalog,.stage-card{
+  border:1px solid var(--line);
+  background:linear-gradient(180deg,rgba(18,33,37,.88),rgba(9,19,22,.88));
+  box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.035);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+}
+.panel{grid-area:controls;border-radius:var(--radius);overflow:auto;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.12) transparent;}
+.panel::-webkit-scrollbar{width:5px}
+.panel::-webkit-scrollbar-track{background:transparent}
+.panel::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px}
+.panel-controls{grid-area:controls;padding:16px 15px 14px;display:flex;flex-direction:column;gap:14px}
+.panel-detail{grid-area:detail;padding:16px 15px 14px;display:flex;flex-direction:column;gap:12px}
+.panel-controls>*,.panel-detail>*{flex:0 0 auto}
+
+/* ---------- panel headings ---------- */
+.panel-head{display:flex;align-items:flex-start;gap:10px;min-width:0}
+.section-num{
+  font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--mint);
+  border:1px solid rgba(103,227,207,.25);background:rgba(103,227,207,.07);
+  border-radius:7px;padding:4px 6px;line-height:1;margin-top:2px;flex:0 0 auto;
+}
+.panel-head h2,.catalog-head h2{margin:0;font-size:14px;font-weight:600;letter-spacing:.04em;line-height:1.35;color:var(--text)}
+.panel-head p,.catalog-head p{margin:2px 0 0;font-size:10px;color:var(--muted);letter-spacing:.03em}
+.family-chip{
+  margin-left:auto;flex:0 0 auto;font-size:10px;padding:5px 8px;border-radius:999px;
+  color:var(--section);background:rgba(var(--section-rgb),.10);border:1px solid rgba(var(--section-rgb),.20);
+  transition:color .3s,background .3s,border-color .3s;
+}
+
+/* ---------- equation ---------- */
+.equation-box{
+  border:1px solid var(--line);border-radius:14px;padding:12px 12px 10px;
+  background:
+    radial-gradient(ellipse 120% 130% at 0% 0%,rgba(103,227,207,.075),transparent 55%),
+    rgba(0,0,0,.17);
+}
+.eq-head{display:flex;justify-content:space-between;align-items:center;gap:8px;
+  font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-2)}
+.eq-head span:first-child{color:var(--text-soft);letter-spacing:.06em;font-family:var(--font);font-size:10px}
+.eq-line{
+  font-family:var(--mono);font-size:13px;line-height:1.5;letter-spacing:-.01em;
+  margin:7px 0 7px;color:#f0fbf6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.eq-line .coef{color:var(--mint)}
+.eq-line .axis{color:var(--amber);font-style:italic;padding:0 1px}
+.eq-line .equals{color:var(--muted);padding:0 2px}
+.eq-line .rhs{color:#fff}
+.eq-foot{display:flex;justify-content:space-between;gap:10px;align-items:center;border-top:1px solid rgba(255,255,255,.05);padding-top:8px;font-size:9px;color:var(--muted-2)}
+.eq-foot code{font-family:var(--mono);font-size:9.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ---------- sliders ---------- */
+.sliders{display:flex;flex-direction:column;gap:12px}
+.slider-row{--track-accent:var(--mint);min-width:0}
+.slider-row[data-kind="theta"]{--track-accent:var(--amber)}
+.slider-row[data-kind="phi"]{--track-accent:var(--mint)}
+.slider-row[data-kind="d"]{--track-accent:var(--pink)}
+.slider-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px}
+.slider-top label{font-size:11px;color:var(--text-soft);letter-spacing:.02em;display:flex;align-items:baseline;gap:5px}
+.slider-top label em{font-family:var(--mono);font-size:10px;color:var(--muted);font-style:normal}
+.slider-top output{font-family:var(--mono);font-size:10.5px;color:var(--track-accent);background:rgba(255,255,255,.025);border:1px solid var(--line);border-radius:6px;padding:2px 6px;line-height:1.1;min-width:48px;text-align:right}
+input[type="range"]{
+  -webkit-appearance:none;appearance:none;display:block;width:100%;height:16px;margin:0;
+  background:transparent;cursor:pointer;--fill:50%;
+}
+input[type="range"]::-webkit-slider-runnable-track{
+  height:3px;border-radius:99px;
+  background:linear-gradient(to right,var(--track-accent) 0,var(--track-accent) var(--fill),rgba(255,255,255,.10) var(--fill),rgba(255,255,255,.10) 100%);
+}
+input[type="range"]::-moz-range-track{height:3px;border-radius:99px;background:rgba(255,255,255,.10)}
+input[type="range"]::-moz-range-progress{height:3px;border-radius:99px;background:var(--track-accent)}
+input[type="range"]::-webkit-slider-thumb{
+  -webkit-appearance:none;appearance:none;width:13px;height:13px;border-radius:50%;margin-top:-5px;
+  background:#0b1a1b;border:2px solid var(--track-accent);
+  box-shadow:0 0 0 3px rgba(9,19,21,.7),0 0 14px rgba(103,227,207,.18);
+  transition:transform .15s;
+}
+input[type="range"]:hover::-webkit-slider-thumb{transform:scale(1.15)}
+input[type="range"]::-moz-range-thumb{width:11px;height:11px;border-radius:50%;background:#0b1a1b;border:2px solid var(--track-accent)}
+.slider-ticks{display:flex;justify-content:space-between;margin-top:2px;font-family:var(--mono);font-size:8px;color:var(--muted-2);letter-spacing:.02em}
+.d-support-note{font-size:8.5px;color:var(--muted-2);margin-top:3px;display:flex;gap:4px;align-items:center}
+.d-support-note b{font-family:var(--mono);font-weight:500;color:var(--muted)}
+
+/* ---------- switches / actions ---------- */
+.switch-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.switch{
+  display:flex;align-items:center;gap:7px;min-width:0;text-align:left;
+  border:1px solid var(--line);background:rgba(255,255,255,.02);color:var(--muted);
+  border-radius:9px;padding:7px 8px;font-size:10px;cursor:pointer;
+  transition:all .18s;
+}
+.switch:nth-child(3){grid-column:span 2}
+.switch .switch-led{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.22);flex:0 0 auto;transition:all .18s}
+.switch:hover{background:rgba(255,255,255,.045);color:var(--text-soft)}
+.switch[aria-pressed="true"]{color:var(--text);border-color:rgba(var(--mint-rgb),.20);background:rgba(var(--mint-rgb),.055)}
+.switch[aria-pressed="true"] .switch-led{background:var(--mint);box-shadow:0 0 9px rgba(var(--mint-rgb),.65)}
+.face-block{
+  border:1px solid var(--line);border-radius:11px;padding:9px 10px;
+  display:flex;flex-direction:column;gap:7px;background:rgba(0,0,0,.12);
+}
+.face-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}
+.face-axis{
+  display:flex;align-items:center;justify-content:center;gap:2px;
+  border:1px solid rgba(220,240,234,.07);border-radius:6px;padding:3px 2px;
+  background:rgba(255,255,255,.016);
+}
+.face-axis-name{font-family:var(--mono);font-size:8px;color:var(--muted-2);font-style:italic;margin-right:1px}
+.face-chip{
+  font-family:var(--mono);font-size:8.5px;line-height:1.4;color:var(--muted-2);
+  border:1px solid rgba(255,255,255,.055);border-radius:3px;min-width:15px;text-align:center;
+  padding:0 2px;transition:color .25s,border-color .25s,background .25s,box-shadow .25s;
+}
+.face-chip.on{
+  color:var(--section);border-color:rgba(var(--section-rgb),.33);
+  background:rgba(var(--section-rgb),.12);box-shadow:0 0 8px rgba(var(--section-rgb),.14);
+}
+.face-hint{font-size:8.5px;line-height:1.5;color:var(--muted-2);margin:0}
+.face-hint b{color:var(--muted);font-weight:500}
+.control-buttons{display:flex;gap:7px}
+.action{
+  border:0;border-radius:10px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  padding:10px 12px;font-size:11.5px;font-weight:550;transition:all .18s;white-space:nowrap;
+}
+.action svg{width:14px;height:14px;flex:0 0 auto}
+.action.main{
+  flex:1;background:linear-gradient(135deg,#9af4e2,#55cdb9);color:#05221c;
+  box-shadow:0 8px 22px rgba(75,208,187,.15),inset 0 1px 0 rgba(255,255,255,.4);
+}
+.action.main:hover{filter:brightness(1.06);transform:translateY(-1px)}
+.action.main:active{transform:translateY(0)}
+.action.ghost{background:rgba(255,255,255,.035);border:1px solid var(--line);color:var(--text-soft);width:78px}
+.action.ghost:hover{background:rgba(255,255,255,.07);color:#fff;border-color:var(--line-strong)}
+.action.is-playing{background:linear-gradient(135deg,#ffd28a,#f1a84f);color:#2a1600;box-shadow:0 8px 22px rgba(255,194,103,.16),inset 0 1px 0 rgba(255,255,255,.4)}
+.instruction{
+  display:flex;align-items:flex-start;gap:7px;color:var(--muted-2);font-size:9px;line-height:1.55;
+  border-top:1px solid rgba(255,255,255,.05);padding-top:10px;margin-top:auto;
+}
+.instruction svg{width:12px;height:12px;flex:0 0 auto;margin-top:1px;opacity:.8}
+
+/* ---------- stage ---------- */
+.stage-card{
+  grid-area:stage;position:relative;border-radius:var(--radius);overflow:hidden;min-height:0;
+  background:
+    radial-gradient(ellipse 72% 68% at 50% 42%,rgba(35,91,84,.20),transparent 68%),
+    radial-gradient(ellipse 60% 60% at 60% 105%,rgba(82,57,100,.10),transparent 70%),
+    linear-gradient(180deg,#0b181b 0%,#071113 100%);
+  isolation:isolate;
+}
+.stage-card::before{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:1;
+  background-image:radial-gradient(rgba(190,235,225,.10) .7px,transparent .8px);
+  background-size:26px 26px;
+  -webkit-mask-image:radial-gradient(ellipse 70% 70% at 50% 45%,#000,transparent 75%);
+  mask-image:radial-gradient(ellipse 70% 70% at 50% 45%,#000,transparent 75%);
+  opacity:.28;
+}
+.stage-card::after{
+  content:"";position:absolute;inset:0;z-index:5;pointer-events:none;border-radius:inherit;
+  box-shadow:inset 0 0 90px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.045);
+}
+#scene{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:2;cursor:grab;touch-action:none}
+#scene.dragging{cursor:grabbing}
+.stage-top{
+  position:absolute;z-index:10;top:15px;left:16px;right:16px;
+  display:flex;justify-content:space-between;align-items:flex-start;gap:10px;pointer-events:none;
+}
+.live-shape{
+  display:flex;align-items:center;gap:9px;min-width:0;
+  background:rgba(8,18,20,.68);border:1px solid rgba(201,236,228,.10);
+  border-radius:12px;padding:8px 11px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  box-shadow:0 10px 30px rgba(0,0,0,.18);
+}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--section);box-shadow:0 0 13px rgba(var(--section-rgb),.85);flex:0 0 auto;transition:background .3s}
+.live-copy{display:flex;flex-direction:column;gap:1px;min-width:0}
+.live-copy span{font-size:8px;color:var(--muted);letter-spacing:.1em}
+.live-copy strong{font-size:13px;font-weight:600;letter-spacing:.04em;white-space:nowrap;color:var(--text)}
+.live-sides{font-family:var(--mono);font-size:9px;color:var(--section);background:rgba(var(--section-rgb),.10);border:1px solid rgba(var(--section-rgb),.17);border-radius:999px;padding:3px 7px;white-space:nowrap;transition:all .3s}
+.stage-tools{display:flex;align-items:center;gap:7px;pointer-events:auto}
+.mini-toggle{
+  display:inline-flex;align-items:center;gap:6px;font-size:10px;color:var(--muted);
+  border:1px solid rgba(201,236,228,.10);background:rgba(8,18,20,.58);border-radius:9px;
+  padding:8px 10px;cursor:pointer;backdrop-filter:blur(12px);transition:all .18s;
+}
+.mini-toggle:hover{color:var(--text);background:rgba(15,31,34,.8)}
+.mini-toggle[aria-pressed="true"]{color:var(--mint);border-color:rgba(var(--mint-rgb),.25);background:rgba(var(--mint-rgb),.065)}
+.mini-toggle svg{width:13px;height:13px}
+.stage-tools .icon-btn{background:rgba(8,18,20,.58);border-color:rgba(201,236,228,.10);backdrop-filter:blur(12px)}
+.drag-hint{
+  position:absolute;z-index:8;right:18px;bottom:82px;color:rgba(190,215,208,.46);
+  font-size:9px;letter-spacing:.05em;display:flex;align-items:center;gap:6px;pointer-events:none;
+}
+.drag-hint svg{width:12px;height:12px}
+.playbar{
+  position:absolute;z-index:10;left:16px;right:16px;bottom:14px;
+  display:flex;align-items:center;gap:11px;min-height:52px;padding:7px 12px 7px 8px;
+  border:1px solid rgba(201,236,228,.11);border-radius:13px;
+  background:rgba(7,17,19,.76);box-shadow:0 16px 40px rgba(0,0,0,.22);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+}
+.play-btn{
+  width:38px;height:38px;flex:0 0 auto;border-radius:10px;border:0;cursor:pointer;
+  background:linear-gradient(135deg,#96f1df,#52c9b5);color:#05211c;display:grid;place-items:center;
+  box-shadow:0 6px 18px rgba(73,207,185,.16);transition:all .18s;
+}
+.play-btn:hover{filter:brightness(1.06);transform:scale(1.03)}
+.play-btn.is-playing{background:linear-gradient(135deg,#ffd38d,#eaa748);color:#2a1700}
+.play-btn svg{width:15px;height:15px;margin-left:1px}
+.play-copy{flex:1;min-width:0;display:flex;flex-direction:column;gap:5px}
+.play-label-row{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.play-label{font-size:9px;letter-spacing:.08em;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.play-label b{color:var(--text-soft);font-weight:500}
+.sweep-value{font-family:var(--mono);font-size:9px;color:var(--muted);white-space:nowrap}
+.sweep-track{height:3px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden;position:relative}
+.sweep-fill{height:100%;width:0%;border-radius:99px;background:linear-gradient(90deg,var(--amber),var(--mint));transition:width .05s linear;box-shadow:0 0 12px rgba(var(--mint-rgb),.4)}
+.sweep-notches{position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 calc(10% - 1px),rgba(7,17,19,.85) calc(10% - 1px) 10%);pointer-events:none}
+.stage-empty{
+  position:absolute;z-index:9;left:50%;top:46%;transform:translate(-50%,-50%);
+  text-align:center;pointer-events:none;opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s;
+  padding:16px 22px;border-radius:14px;background:rgba(7,17,19,.62);border:1px solid var(--line);
+  backdrop-filter:blur(10px);
+}
+.stage-empty.show{opacity:1;visibility:visible}
+.stage-empty strong{display:block;font-size:13px;font-weight:550;color:var(--text-soft)}
+.stage-empty span{display:block;font-size:10px;color:var(--muted);margin-top:4px}
+.stage-corner-label{
+  position:absolute;z-index:8;left:18px;bottom:83px;display:flex;align-items:center;gap:6px;
+  font-family:var(--mono);font-size:8px;letter-spacing:.06em;color:rgba(188,216,208,.42);pointer-events:none;
+}
+.stage-corner-label i{width:12px;height:1px;background:rgba(188,216,208,.25);display:block}
+
+/* ---------- detail / shape card ---------- */
+.shape-card{
+  border:1px solid var(--line);border-radius:16px;overflow:hidden;position:relative;
+  background:
+    radial-gradient(ellipse 70% 80% at 50% 30%,rgba(var(--section-rgb),.09),transparent 65%),
+    linear-gradient(180deg,rgba(0,0,0,.10),rgba(0,0,0,.24));
+  transition:background .3s;
+}
+.shape-card-head{display:flex;justify-content:space-between;align-items:center;gap:8px;
+  padding:10px 11px 0;font-family:var(--mono);font-size:8px;letter-spacing:.09em;color:var(--muted-2);
+  position:relative;z-index:2;pointer-events:none}
+#shapeCanvas{width:100%;height:202px;display:block}
+.shape-card-foot{
+  display:flex;justify-content:space-between;gap:8px;padding:0 11px 9px;
+  font-size:8.5px;color:var(--muted-2);font-family:var(--mono);letter-spacing:.03em;
+}
+.shape-card-foot span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.shape-title-row{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;padding:0 2px}
+.shape-title-row h3{margin:0;font-size:22px;font-weight:600;letter-spacing:.035em;line-height:1.15;color:var(--text)}
+.shape-title-row p{margin:3px 0 0;font-family:var(--mono);font-size:8px;letter-spacing:.13em;color:var(--muted-2);text-transform:uppercase}
+.side-pill{
+  flex:0 0 auto;font-family:var(--mono);font-size:9px;color:var(--section);
+  border:1px solid rgba(var(--section-rgb),.25);background:rgba(var(--section-rgb),.09);
+  border-radius:999px;padding:5px 8px;margin-top:2px;transition:all .3s;
+}
+.metric-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.metric{border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.018);padding:7px 8px;min-width:0}
+.metric span{display:block;font-size:8px;color:var(--muted-2);letter-spacing:.05em;margin-bottom:3px;white-space:nowrap}
+.metric strong{font-family:var(--mono);font-size:11px;font-weight:500;color:var(--text-soft);white-space:nowrap;display:block;overflow:hidden;text-overflow:ellipsis}
+.property-block{display:flex;flex-direction:column;gap:7px}
+.block-label{display:flex;justify-content:space-between;align-items:center;font-size:9px;color:var(--muted);letter-spacing:.08em}
+.block-label span{font-family:var(--mono);font-size:7.5px;color:var(--muted-2);border:1px solid var(--line);padding:2px 5px;border-radius:4px;letter-spacing:.06em}
+.property-chips{display:flex;flex-wrap:wrap;gap:5px}
+.prop-chip{
+  display:inline-flex;align-items:center;gap:5px;font-size:9px;line-height:1.2;color:var(--text-soft);
+  border:1px solid var(--line);background:rgba(255,255,255,.025);border-radius:6px;padding:5px 7px;
+}
+.prop-chip::before{content:"";width:3px;height:3px;border-radius:50%;background:var(--section);opacity:.8}
+.note-card{
+  border:1px solid rgba(var(--section-rgb),.15);border-radius:12px;padding:10px 11px 10px;
+  background:linear-gradient(135deg,rgba(var(--section-rgb),.075),rgba(var(--section-rgb),.018));
+  transition:border-color .3s,background .3s;
+}
+.note-head{display:flex;align-items:center;gap:6px;font-size:9px;color:var(--section);letter-spacing:.06em;margin-bottom:5px;transition:color .3s}
+.note-icon{width:13px;height:13px;border-radius:50%;border:1px solid rgba(var(--section-rgb),.4);display:grid;place-items:center;font-family:var(--mono);font-size:8px;line-height:1}
+.note-card p{margin:0;font-size:10px;line-height:1.7;color:var(--muted);letter-spacing:.015em}
+.mini-conclusion{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  border-top:1px solid rgba(255,255,255,.05);padding:9px 1px 0;font-size:9px;color:var(--muted-2);
+}
+.mini-conclusion strong{font-weight:500;color:var(--muted);letter-spacing:.04em}
+.link-btn{border:0;background:transparent;color:var(--mint);font-size:9px;cursor:pointer;padding:0;letter-spacing:.03em}
+.link-btn:hover{text-decoration:underline;text-underline-offset:3px}
+
+/* ---------- catalog ---------- */
+.catalog{
+  grid-area:catalog;border-radius:var(--radius);padding:10px 12px 9px;display:flex;flex-direction:column;gap:7px;min-height:0;overflow:hidden;
+  background:linear-gradient(180deg,rgba(16,30,34,.84),rgba(8,18,21,.88));
+}
+.catalog-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;min-height:31px}
+.catalog-head .catalog-title{display:flex;align-items:flex-start;gap:9px;min-width:0}
+.catalog-head .section-num{align-self:center}
+.catalog-head h2{font-size:13px}
+.catalog-head p{font-size:9px}
+.catalog-tally{display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:8px;color:var(--muted-2);white-space:nowrap;padding-bottom:3px;letter-spacing:.03em}
+.catalog-tally i{width:1px;height:10px;background:var(--line)}
+.catalog-tally b{font-weight:500;color:var(--text-soft)}
+.catalog-track{
+  display:flex;gap:7px;overflow-x:auto;overflow-y:hidden;min-height:0;flex:1;
+  padding:1px 1px 3px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.12) transparent;
+}
+.catalog-track::-webkit-scrollbar{height:4px}
+.catalog-track::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px}
+.shape-tile{
+  --tile-rgb:173,160,255;
+  position:relative;flex:1 1 0;min-width:104px;border:1px solid rgba(220,240,234,.075);
+  background:linear-gradient(180deg,rgba(255,255,255,.028),rgba(255,255,255,.008));
+  border-radius:11px;padding:6px 8px 7px;display:flex;flex-direction:column;gap:1px;
+  cursor:pointer;text-align:left;transition:transform .18s,border-color .18s,background .18s,box-shadow .18s;
+  overflow:hidden;
+}
+.shape-tile::before{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:.55;
+  background:radial-gradient(ellipse 120% 100% at 50% 0%,rgba(var(--tile-rgb),.09),transparent 62%);
+}
+.shape-tile:hover{transform:translateY(-2px);border-color:rgba(var(--tile-rgb),.28);background:rgba(var(--tile-rgb),.055)}
+.shape-tile.active{border-color:rgba(var(--tile-rgb),.50);background:rgba(var(--tile-rgb),.065);box-shadow:inset 0 0 0 1px rgba(var(--tile-rgb),.10),0 8px 24px rgba(0,0,0,.15)}
+.shape-tile.active::after{
+  content:"";position:absolute;left:9px;right:9px;bottom:0;height:1.5px;border-radius:2px 2px 0 0;
+  background:rgb(var(--tile-rgb));box-shadow:0 0 10px rgba(var(--tile-rgb),.6);
+}
+.tile-top{display:flex;justify-content:space-between;align-items:center;min-width:0;position:relative;z-index:1}
+.tile-index{font-family:var(--mono);font-size:7px;color:var(--muted-2);letter-spacing:.06em}
+.tile-sides{font-size:7.5px;color:rgba(var(--tile-rgb),.9);background:rgba(var(--tile-rgb),.10);border:1px solid rgba(var(--tile-rgb),.14);border-radius:99px;padding:1px 5px;line-height:1.4;white-space:nowrap}
+.tile-art{flex:1;min-height:32px;display:flex;align-items:center;justify-content:center;position:relative;z-index:1;overflow:hidden}
+.tile-art svg{width:100%;height:42px;overflow:visible;display:block}
+.tile-name{position:relative;z-index:1;font-size:10.5px;font-weight:500;color:var(--text-soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:.02em;line-height:1.35}
+.tile-en{position:relative;z-index:1;font-family:var(--mono);font-size:6.5px;color:var(--muted-2);letter-spacing:.07em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-transform:uppercase}
+.tile-active-flag{position:absolute;right:6px;top:6px;width:5px;height:5px;border-radius:50%;background:rgb(var(--tile-rgb));box-shadow:0 0 8px rgba(var(--tile-rgb),.8);display:none}
+.shape-tile.active .tile-active-flag{display:block}
+.shape-tile.active .tile-index{opacity:0}
+
+/* ---------- toast ---------- */
+.toast{
+  position:fixed;z-index:80;left:50%;bottom:26px;transform:translate(-50%,14px);
+  background:rgba(8,19,21,.92);border:1px solid var(--line-strong);color:var(--text-soft);
+  border-radius:10px;padding:8px 14px;font-size:11px;opacity:0;visibility:hidden;
+  transition:opacity .2s,transform .2s,visibility .2s;backdrop-filter:blur(14px);pointer-events:none;
+  box-shadow:0 10px 30px rgba(0,0,0,.35);max-width:80vw;
+}
+.toast.show{opacity:1;visibility:visible;transform:translate(-50%,0)}
+
+/* ---------- modal ---------- */
+.modal{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:22px;visibility:hidden;opacity:0;transition:opacity .22s,visibility 0s .22s}
+.modal.open{visibility:visible;opacity:1;transition:opacity .22s,visibility 0s 0s}
+.modal-backdrop{position:absolute;inset:0;background:rgba(2,7,9,.76);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.modal-panel{
+  position:relative;z-index:1;width:min(920px,96vw);max-height:88vh;overflow:auto;
+  border:1px solid rgba(210,240,232,.14);border-radius:22px;padding:26px 28px 24px;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 0%,rgba(57,144,130,.15),transparent 65%),
+    radial-gradient(ellipse 70% 50% at 100% 30%,rgba(81,62,120,.13),transparent 70%),
+    linear-gradient(160deg,#0e1d21 0%,#091317 100%);
+  box-shadow:0 34px 110px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.07);
+  transform:translateY(12px) scale(.985);transition:transform .24s;
+  scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.15) transparent;
+}
+.modal.open .modal-panel{transform:none}
+.modal-panel::-webkit-scrollbar{width:6px}
+.modal-panel::-webkit-scrollbar-thumb{background:rgba(255,255,255,.14);border-radius:99px}
+.modal-close{
+  position:sticky;top:0;float:right;margin:-10px -12px 0 12px;z-index:2;
+  width:32px;height:32px;border-radius:9px;border:1px solid var(--line);background:rgba(8,18,21,.8);
+  color:var(--muted);font-size:20px;line-height:1;cursor:pointer;display:grid;place-items:center;transition:all .18s;
+}
+.modal-close:hover{color:#fff;background:rgba(255,255,255,.08)}
+.modal-head{padding-right:26px;border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:18px}
+.modal-head .eyebrow{color:var(--mint);margin-bottom:8px}
+.modal-head h2{margin:0;font-size:28px;letter-spacing:.03em;font-weight:620;line-height:1.3}
+.modal-head p{margin:8px 0 0;max-width:700px;color:var(--muted);font-size:12px;line-height:1.8}
+.guide-lead{
+  display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;
+  border:1px solid rgba(var(--mint-rgb),.15);border-radius:14px;padding:15px 17px;
+  background:linear-gradient(135deg,rgba(var(--mint-rgb),.07),rgba(var(--mint-rgb),.015));
+  margin-bottom:16px;
+}
+.guide-lead p{margin:0;font-size:12px;line-height:1.8;color:var(--text-soft)}
+.guide-lead p strong{color:var(--mint);font-weight:600}
+.guide-equation{font-family:var(--mono);font-size:16px;color:var(--mint);white-space:nowrap;border-left:1px solid rgba(var(--mint-rgb),.25);padding-left:16px;letter-spacing:.02em}
+.guide-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}
+.guide-card{
+  border:1px solid var(--line);border-radius:13px;padding:13px 14px;background:rgba(255,255,255,.018);
+  position:relative;overflow:hidden;
+}
+.guide-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--card-color,var(--mint));opacity:.7}
+.guide-card.c3{--card-color:var(--amber)}
+.guide-card.c4{--card-color:var(--mint)}
+.guide-card.c5{--card-color:var(--pink)}
+.guide-card.c6{--card-color:var(--violet)}
+.guide-card-head{display:flex;align-items:baseline;gap:8px;margin-bottom:7px}
+.guide-card-head span{font-family:var(--mono);font-size:8px;color:var(--card-color);border:1px solid rgba(var(--card-rgb,255,255,255),.2);padding:2px 5px;border-radius:4px;letter-spacing:.05em}
+.guide-card-head h3{margin:0;font-size:14px;font-weight:600;color:var(--text)}
+.guide-card p{margin:0;font-size:10.5px;line-height:1.75;color:var(--muted)}
+.guide-card p + p{margin-top:5px}
+.guide-card .formula{display:inline-block;font-family:var(--mono);font-size:10px;color:var(--text-soft);background:rgba(0,0,0,.22);border:1px solid var(--line);border-radius:5px;padding:2px 5px;margin:2px 3px 0 0}
+.guide-columns{display:grid;grid-template-columns:1fr 1fr;gap:16px 24px;margin-top:18px;border-top:1px solid var(--line);padding-top:17px}
+.guide-section h3{margin:0 0 6px;font-size:12px;color:var(--text-soft);font-weight:600;letter-spacing:.03em;display:flex;gap:7px;align-items:center}
+.guide-section h3::before{content:"";display:block;width:4px;height:4px;border-radius:50%;background:var(--mint);opacity:.9}
+.guide-section p{margin:0;font-size:10.5px;line-height:1.8;color:var(--muted)}
+.guide-section p + p{margin-top:5px}
+.guide-jumps{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.guide-jump{border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--text-soft);border-radius:7px;padding:5px 8px;font-size:9.5px;cursor:pointer;transition:all .18s}
+.guide-jump:hover{border-color:rgba(var(--mint-rgb),.35);color:var(--mint);background:rgba(var(--mint-rgb),.06)}
+.guide-foot{margin-top:18px;padding-top:12px;border-top:1px solid var(--line);font-family:var(--mono);font-size:8.5px;color:var(--muted-2);display:flex;gap:14px;flex-wrap:wrap;letter-spacing:.03em}
+
+/* ---------- readability pass ---------- */
+h1{font-size:24px}
+.eyebrow{font-size:9.5px}
+.panel-head h2,.catalog-head h2{font-size:15px}
+.panel-head p,.catalog-head p{font-size:10.5px}
+.eq-head{font-size:9.5px}
+.eq-line{font-size:14px}
+.eq-foot{font-size:9.5px}
+.slider-top label{font-size:12px}
+.slider-top output{font-size:11.5px}
+.slider-ticks{font-size:8.5px}
+.d-support-note{font-size:9px}
+.switch{font-size:10.5px;padding:8px}
+.face-hint{font-size:9px}
+.face-chip{font-size:9px;min-width:16px}
+.action{font-size:12.5px}
+.instruction{font-size:9.5px}
+.live-copy strong{font-size:15px}
+.live-copy span{font-size:8.5px}
+.live-sides{font-size:9.5px}
+.family-chip{font-size:10.5px}
+.mini-toggle{font-size:10.5px}
+.play-label{font-size:9.5px}
+.sweep-value{font-size:9.5px}
+.shape-card-head{font-size:8.5px}
+.shape-card-foot{font-size:9px}
+.shape-title-row h3{font-size:24px}
+.shape-title-row p{font-size:8.5px}
+.side-pill{font-size:9.5px}
+.metric span{font-size:8.5px}
+.metric strong{font-size:12px}
+.block-label{font-size:9.5px}
+.prop-chip{font-size:9.5px;padding:5px 8px}
+.note-head{font-size:9.5px}
+.note-card p{font-size:11px;line-height:1.75}
+.mini-conclusion{font-size:9.5px}
+.link-btn{font-size:9.5px}
+.shape-tile .tile-name{font-size:11.5px}
+.tile-en{font-size:7px}
+.tile-sides{font-size:8px}
+.tile-index{font-size:7.5px}
+.catalog-tally{font-size:8.5px}
+.catalog-head p{font-size:9.5px}
+.guide-card p{font-size:11px}
+.guide-card-head h3{font-size:15px}
+.guide-section p{font-size:11px}
+.modal-head p{font-size:12.5px}
+.guide-lead p{font-size:12.5px}
+
+/* ---------- responsive ---------- */
+@media (max-width:1220px){
+  .workspace{grid-template-columns:minmax(252px,276px) minmax(0,1fr) minmax(288px,314px);gap:11px;padding:0 14px 14px}
+  .panel-controls{padding:13px 12px}
+  .panel-detail{padding:13px 12px}
+  .panel-controls,.panel-detail{gap:11px}
+  h1{font-size:20px}
+  .brand-mark{width:40px;height:40px}
+  .stage-card{min-height:0}
+  .catalog{padding:8px 10px 7px}
+  .shape-tile{min-width:98px;padding:5px 6px}
+  .tile-name{font-size:9.5px}
+  .live-sides{display:none}
+}
+@media (max-width:1080px){
+  body{overflow:auto}
+  .app{height:auto;min-height:100vh;min-height:100dvh}
+  .topbar{flex:0 0 auto;flex-wrap:wrap;padding:10px 16px 8px;gap:10px;min-height:0}
+  .workspace{display:flex;flex-direction:column;gap:12px;padding:0 12px 20px;flex:none}
+  .stage-card{order:1;height:min(62vh,560px);min-height:390px;flex:0 0 auto}
+  .panel-detail{order:2;flex:0 0 auto;overflow:visible}
+  .panel-controls{order:3;flex:0 0 auto;overflow:visible}
+  .catalog{order:4;flex:0 0 auto;height:198px}
+  .catalog-track{flex-wrap:nowrap;overflow-x:auto}
+  .shape-tile{flex:0 0 118px}
+  .panel-detail .shape-card{max-width:520px;align-self:center;width:100%}
+  .guide-grid,.guide-columns{grid-template-columns:1fr}
+  .modal-panel{padding:20px}
+  .modal-head h2{font-size:23px}
+  .guide-lead{grid-template-columns:1fr}
+  .guide-equation{border-left:0;border-top:1px solid rgba(var(--mint-rgb),.25);padding:9px 0 0}
+  .playbar{left:10px;right:10px;bottom:10px}
+  .stage-top{top:10px;left:10px;right:10px}
+  .drag-hint,.stage-corner-label{display:none}
+}
+@media (max-width:600px){
+  .top-actions{width:100%;justify-content:flex-end}
+  .top-actions .unit-chip{display:none}
+  h1{font-size:18px}
+  h1 .title-en{display:none}
+  .brand-mark{width:36px;height:36px;border-radius:11px}
+  .brand-mark svg{width:23px;height:23px}
+  .ghost-btn{padding:8px 10px}
+  .stage-card{height:500px;min-height:440px}
+  .live-copy strong{font-size:11px}
+  .stage-tools .mini-toggle span{display:none}
+  .stage-tools .mini-toggle{padding:8px}
+  .drag-hint{display:none}
+  .catalog-tally{display:none}
+  .catalog{height:206px}
+  .catalog-head p{display:none}
+  .drop-hint{display:none}
+  .shape-title-row h3{font-size:20px}
+  #shapeCanvas{height:170px}
+  .modal{padding:8px}
+  .modal-panel{max-height:94vh;border-radius:16px;padding:18px 15px}
+  .modal-head h2{font-size:21px}
+  .guide-card{padding:11px}
+}
+@media (min-width:1081px) and (max-height:920px){
+  .topbar{flex-basis:64px}
+  .workspace{grid-template-rows:minmax(0,1fr) 158px;gap:10px;padding:0 14px 12px}
+  .panel-controls,.panel-detail{padding:12px 12px 11px;gap:9px}
+  .panel-head p{display:none}
+  .equation-box{padding:9px 10px 8px}
+  .eq-line{margin:4px 0;font-size:13px}
+  .eq-foot{padding-top:5px}
+  .sliders{gap:8px}
+  .slider-top{margin-bottom:2px}
+  .slider-ticks{display:none}
+  .d-support-note{display:none}
+  .switch{padding:6px 7px;font-size:10px}
+  .face-block{padding:6px 8px;gap:4px}
+  .face-grid{display:none}
+  .face-hint{font-size:8.5px}
+  .action{padding:9px 10px}
+  .instruction{display:none}
+  .shape-card-head{padding-top:7px}
+  #shapeCanvas{height:164px}
+  .shape-card-foot{display:none}
+  .shape-title-row h3{font-size:21px}
+  .metric strong{font-size:11px}
+  .property-block{gap:5px}
+  .note-card p{font-size:10px;line-height:1.65}
+  .mini-conclusion{display:none}
+  .catalog{padding:7px 10px 6px;gap:5px}
+  .catalog-head{min-height:24px}
+  .catalog-head p{display:none}
+  .catalog-track{padding-bottom:1px}
+  .shape-tile{padding:4px 6px}
+  .tile-art svg{height:34px}
+  .tile-name{font-size:10.5px}
+  .tile-en{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+<div class="ambient" aria-hidden="true">
+  <div class="glow glow-a"></div>
+  <div class="glow glow-b"></div>
+</div>
+
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" fill="none">
+          <path d="M16 3.2 27.1 9.5v13L16 28.8 4.9 22.5v-13L16 3.2Z" stroke="#8ff2df" stroke-width="1.25" stroke-linejoin="round"/>
+          <path d="M4.9 9.5 16 15.9l11.1-6.4M16 15.9v12.9" stroke="#8ff2df" stroke-width="1.1" stroke-linejoin="round" opacity=".72"/>
+          <path d="M9.3 20.5c2.1-6.2 6.2-8.1 13.4-6.5" stroke="#ffc267" stroke-width="1.3" stroke-linecap="round"/>
+          <circle cx="22.7" cy="14" r="1.6" fill="#ffc267"/>
+        </svg>
+      </div>
+      <div class="brand-copy">
+        <div class="eyebrow"><span>Solid Geometry Lab</span><i></i><span>立体几何</span></div>
+        <h1>正方体截面实验室 <span class="title-en">/ CUBE SLICER</span></h1>
+      </div>
+    </div>
+    <div class="top-actions">
+      <div class="unit-chip"><span class="chip-dot"></span>棱长 = 1</div>
+      <button class="ghost-btn" id="guideBtn" type="button" aria-haspopup="dialog">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4.5 5.5c2.7-1.2 5.1-1.1 7.5.4v13c-2.4-1.5-4.8-1.6-7.5-.4v-13Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M19.5 5.5c-2.7-1.2-5.1-1.1-7.5.4v13c2.4-1.5 4.8-1.6 7.5-.4v-13Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        教学指南
+      </button>
+      <button class="icon-btn" id="fullBtn" type="button" aria-label="全屏显示" title="全屏显示">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8.5 4H4v4.5M15.5 4H20v4.5M8.5 20H4v-4.5M15.5 20H20v-4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <aside class="panel panel-controls" aria-label="切割平面控制">
+      <div class="panel-head">
+        <span class="section-num">01</span>
+        <div><h2>切割平面</h2><p>旋转方向 · 平移位置</p></div>
+      </div>
+
+      <div class="equation-box">
+        <div class="eq-head"><span>平面 α</span><span>n · x = d</span></div>
+        <div class="eq-line" id="equationText">0.58x + 0.58y + 0.58z = 0.00</div>
+        <div class="eq-foot"><span>单位法向量 n</span><code id="normalText">(0.58, 0.58, 0.58)</code></div>
+      </div>
+
+      <div class="sliders">
+        <div class="slider-row" data-kind="theta">
+          <div class="slider-top"><label for="thetaRange">方位角 <em>θ</em></label><output id="thetaVal" for="thetaRange">45°</output></div>
+          <input id="thetaRange" type="range" min="0" max="360" step="0.5" value="45" aria-label="平面法向量的方位角">
+          <div class="slider-ticks"><span>0°</span><span>180°</span><span>360°</span></div>
+        </div>
+        <div class="slider-row" data-kind="phi">
+          <div class="slider-top"><label for="phiRange">仰角 <em>φ</em></label><output id="phiVal" for="phiRange">35°</output></div>
+          <input id="phiRange" type="range" min="-90" max="90" step="0.5" value="35" aria-label="平面法向量的仰角">
+          <div class="slider-ticks"><span>−90°</span><span>0°</span><span>90°</span></div>
+        </div>
+        <div class="slider-row" data-kind="d">
+          <div class="slider-top"><label for="dRange">截面位置 <em>d</em></label><output id="dVal" for="dRange">0.00</output></div>
+          <input id="dRange" type="range" min="-1.95" max="1.95" step="0.005" value="0" aria-label="平面沿法向量平移的位置">
+          <div class="slider-ticks"><span>−1.95</span><span>中心 0</span><span>1.95</span></div>
+          <div class="d-support-note">当前方向有效范围：<b id="supportVal">−1.73 … 1.73</b></div>
+        </div>
+      </div>
+
+      <div class="control-buttons">
+        <button class="action main" id="playBtn" type="button">
+          <svg class="icon-play" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 5.5v13l10-6.5-10-6.5Z" fill="currentColor"/></svg>
+          <span id="playBtnText">播放切割</span>
+        </button>
+        <button class="action ghost" id="resetBtn" type="button">重置</button>
+      </div>
+
+      <div class="switch-grid" aria-label="显示选项">
+        <button class="switch" type="button" data-toggle="plane" aria-pressed="true"><span class="switch-led"></span>显示平面</button>
+        <button class="switch" type="button" data-toggle="faces" aria-pressed="true"><span class="switch-led"></span>高亮切面</button>
+        <button class="switch" type="button" data-toggle="labels" aria-pressed="true"><span class="switch-led"></span>显示截面顶点标号</button>
+      </div>
+
+      <div class="face-block">
+        <div class="block-label">被切到的面 <span id="faceCount">6 / 6</span></div>
+        <div class="face-grid" id="faceChips" aria-label="被切割平面截到的正方体面">
+          <div class="face-axis"><span class="face-axis-name">x</span><span class="face-chip" data-face="0:-1">−</span><span class="face-chip" data-face="0:1">+</span></div>
+          <div class="face-axis"><span class="face-axis-name">y</span><span class="face-chip" data-face="1:-1">−</span><span class="face-chip" data-face="1:1">+</span></div>
+          <div class="face-axis"><span class="face-axis-name">z</span><span class="face-chip" data-face="2:-1">−</span><span class="face-chip" data-face="2:1">+</span></div>
+        </div>
+        <p class="face-hint" id="faceHint">六个面全被截到 → 六边形</p>
+      </div>
+
+      <div class="instruction">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 3h6M12 3v7.2l4.7 8.1A2.2 2.2 0 0 1 14.8 22H9.2a2.2 2.2 0 0 1-1.9-3.7L12 10.2V3Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+        <span>拖动三维画面旋转视角 · 滚轮缩放 · 双击复位 · 空格键播放</span>
+      </div>
+    </aside>
+
+    <section class="stage-card" id="stage" aria-label="正方体截面三维视图">
+      <canvas id="scene">你的浏览器需要支持 Canvas 才能查看三维演示。</canvas>
+
+      <div class="stage-top">
+        <div class="live-shape">
+          <span class="live-dot" id="liveDot"></span>
+          <div class="live-copy"><span>当前截面 / LIVE SECTION</span><strong id="liveName" aria-live="polite">正六边形</strong></div>
+          <span class="live-sides" id="liveSides">6 条边</span>
+        </div>
+        <div class="stage-tools">
+          <button class="mini-toggle" id="autoRotateBtn" type="button" aria-pressed="false" title="让视角缓慢自动旋转">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7v5h-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M19.2 12a7.3 7.3 0 1 1-1.9-6.3L20 8.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>自动旋转</span>
+          </button>
+          <button class="icon-btn small" id="resetViewBtn" type="button" aria-label="复位视角" title="复位视角">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.3-5.6M4 4v4.5h4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="stage-empty" id="stageEmpty"><strong>平面已移出正方体</strong><span>拖动下方位置滑块，让平面穿过正方体</span></div>
+      <div class="stage-corner-label"><i></i><span>X / Y / Z VIEW</span></div>
+      <div class="drag-hint">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 11V6.5a1.5 1.5 0 0 1 3 0V11m0-2.5a1.5 1.5 0 0 1 3 0V11m0-1a1.5 1.5 0 0 1 3 0v4.5c0 3.3-2.7 6-6 6h-.7a6 6 0 0 1-4.7-2.3L3.6 15a1.6 1.6 0 0 1 2.5-2L8 15" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        拖动旋转
+      </div>
+
+      <div class="playbar">
+        <button class="play-btn" id="stagePlay" type="button" aria-label="播放或暂停切割动画">
+          <svg class="icon-play" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 5.5v13l10-6.5-10-6.5Z" fill="currentColor"/></svg>
+        </button>
+        <div class="play-copy">
+          <div class="play-label-row">
+            <span class="play-label" id="playState"><b>扫描切割</b> · 平面沿法向量平移</span>
+            <span class="sweep-value" id="sweepValue">d = 0.00</span>
+          </div>
+          <div class="sweep-track"><div class="sweep-fill" id="sweepFill"></div><div class="sweep-notches"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="panel panel-detail" aria-label="截面档案与几何判读">
+      <div class="panel-head">
+        <span class="section-num">02</span>
+        <div><h2>截面档案</h2><p>真实形状 · 几何判读</p></div>
+        <span class="family-chip" id="familyChip">六边形</span>
+      </div>
+
+      <div class="shape-card">
+        <div class="shape-card-head"><span>正交投影 / TRUE SHAPE</span><span>棱长 1</span></div>
+        <canvas id="shapeCanvas" aria-label="截面的真实二维形状">你的浏览器需要支持 Canvas。</canvas>
+        <div class="shape-card-foot"><span>边长标注以棱长 1 计</span><span id="shapeFootNote">平行边用同数量短斜线标记</span></div>
+      </div>
+
+      <div class="shape-title-row">
+        <div><h3 id="shapeNameZh">正六边形</h3><p id="shapeNameEn">REGULAR HEXAGON</p></div>
+        <span class="side-pill" id="sidePill">6 边</span>
+      </div>
+
+      <div class="metric-grid">
+        <div class="metric"><span>周长</span><strong id="perimeterVal">—</strong></div>
+        <div class="metric"><span>面积</span><strong id="areaVal">—</strong></div>
+        <div class="metric"><span>内角</span><strong id="angleVal">—</strong></div>
+      </div>
+
+      <div class="property-block">
+        <div class="block-label">几何判读 <span>实时计算</span></div>
+        <div class="property-chips" id="propertyChips"></div>
+      </div>
+
+      <div class="note-card">
+        <div class="note-head"><span class="note-icon">i</span>教学提示</div>
+        <p id="noteText">平面垂直于正方体的体对角线且经过中心时，截面是正六边形。</p>
+      </div>
+
+      <div class="mini-conclusion">
+        <strong>为什么截面最多只有 6 条边？</strong>
+        <button class="link-btn" id="whyBtn" type="button">看解释 →</button>
+      </div>
+    </aside>
+
+    <section class="catalog" aria-label="全截面图鉴">
+      <div class="catalog-head">
+        <div class="catalog-title">
+          <span class="section-num">03</span>
+          <div><h2>全截面图鉴</h2><p>所有非退化截面按边数归类 · 点击卡片让平面飞入</p></div>
+        </div>
+        <div class="catalog-tally"><span><b>3–6</b> 条边</span><i></i><span><b>12</b> 个代表形态</span></div>
+      </div>
+      <div class="catalog-track" id="catalogTrack" role="list"></div>
+    </section>
+  </main>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<div class="modal" id="guideModal" aria-hidden="true">
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="guideTitle">
+    <button class="modal-close" type="button" aria-label="关闭教学指南" data-close>×</button>
+    <div class="modal-head">
+      <div class="eyebrow">Teaching Notes · 教学指南</div>
+      <h2 id="guideTitle">一张平面，切出全部可能</h2>
+      <p>严格地说，截面的位置连续变化，会得到无穷多种大小和比例。但对“形状类型”而言，正方体的非退化截面只会是 3、4、5、6 边形。下面把每一类的形成条件和特殊形态一次讲清。</p>
+    </div>
+
+    <div class="guide-lead">
+      <p>截面每一条边都落在正方体的某一个面上，而正方体只有 <strong>6 个面</strong>；同时平面截凸多面体得到凸多边形，至少 3 条边。因此：<strong>截面边数只能是 3、4、5、6</strong>，绝不可能出现 7 边形或更多。</p>
+      <div class="guide-equation">3 ≤ 边数 ≤ 6</div>
+    </div>
+
+    <div class="guide-grid">
+      <article class="guide-card c3">
+        <div class="guide-card-head"><span>3 SIDES</span><h3>三角形：等边 / 等腰 / 不等边</h3></div>
+        <p>平面在某个顶点附近切下一个小角，只与经过该顶点的三个面相交。若三条截棱长为 <span class="formula">x, y, z</span>，则三角形三边为 <span class="formula">√(x²+y²)</span>、<span class="formula">√(y²+z²)</span>、<span class="formula">√(z²+x²)</span>。</p>
+        <p>所以三角形截面一定都是<strong>锐角三角形</strong>，不会出现直角或钝角。x=y=z 时是等边三角形；两个相等时是等腰三角形。</p>
+      </article>
+      <article class="guide-card c4">
+        <div class="guide-card-head"><span>4 SIDES</span><h3>四边形：至少有一组对边平行</h3></div>
+        <p>若平面截到 4 个面，根据抽屉原理，必有一组对面同时被截到；平面与两个平行面的交线互相平行。所以四边形截面<strong>至少有一组对边平行</strong>，不可能是任意四边形。</p>
+        <p>两组对边都平行时，可以是正方形、矩形、菱形或一般平行四边形；只有一组对边平行时，是梯形。等腰梯形也会出现；而严格非平行四边形的“直角梯形”不会出现。</p>
+      </article>
+      <article class="guide-card c5">
+        <div class="guide-card-head"><span>5 SIDES</span><h3>五边形：不可能为正五边形</h3></div>
+        <p>截到 5 个面，意味着只漏掉一个面，而它的对面仍被截到，另外两组对面也都同时被截到。因此五边形截面至少有<strong>两组平行边</strong>。</p>
+        <p>正五边形没有任何平行边，所以<strong>不可能出现正五边形截面</strong>。五边形截面的两组平行边正是快速判断它的特征。</p>
+      </article>
+      <article class="guide-card c6">
+        <div class="guide-card-head"><span>6 SIDES</span><h3>六边形：三组对边分别平行</h3></div>
+        <p>平面截到全部 6 个面时得到六边形。此时每一组对面都贡献一对平行边，所以六边形截面有<strong>三组对边平行</strong>。</p>
+        <p>当平面垂直于体对角线且过正方体中心时，三组对边长度和夹角同时相等，得到唯一的<strong>正六边形</strong>；其余情况下边长和角度一般不相等。</p>
+      </article>
+    </div>
+
+    <div class="guide-columns">
+      <section class="guide-section">
+        <h3>为什么不可能出现七边形？</h3>
+        <p>平面的每条截面边都必须贴在正方体的一个面上。正方体一共只有 6 个面，所以最多只能有 6 条边，不可能出现 7 条边。</p>
+      </section>
+      <section class="guide-section">
+        <h3>退化的三种情形</h3>
+        <p>平面与正方体相切于一个顶点时，截面退化为一个<strong>点</strong>；沿一条棱相切时，退化为一条<strong>线段</strong>；与某个面完全重合时，截面就是那个<strong>正方形面</strong>。这些情形通常不计入常规截面。</p>
+      </section>
+      <section class="guide-section">
+        <h3>课堂演示路线</h3>
+        <p>先从“正方形”建立直觉，再把平面斜过来得到“正六边形”，最后靠近顶点切出“等边三角形”。也可以使用“播放切割”，观察平面扫过正方体时截面边数的变化。</p>
+        <div class="guide-jumps">
+          <button class="guide-jump" type="button" data-jump="square" aria-label="课堂演示：正方形截面">① 正方形</button>
+          <button class="guide-jump" type="button" data-jump="regular-hexagon" aria-label="课堂演示：正六边形截面">② 正六边形</button>
+          <button class="guide-jump" type="button" data-jump="equilateral-triangle" aria-label="课堂演示：等边三角形截面">③ 等边三角形</button>
+        </div>
+      </section>
+      <section class="guide-section">
+        <h3>操作方式</h3>
+        <p>拖动三维画面旋转视角，滚轮缩放；拖动三个滑块旋转/平移平面；点击下方图鉴让平面自动飞入；空格播放或暂停扫描切割；双击画面复位视角。</p>
+      </section>
+    </div>
+    <div class="guide-foot">
+      <span>所有预设均为非退化截面，且经过数值验证</span>
+      <span>比例：正方体棱长 = 1</span>
+      <span>二维视图保留真实形状比例</span>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   Cube Cross-Section Lab — application logic
+   Self-contained: no external libraries, works from file://
+   ============================================================ */
+(function () {
+  'use strict';
+
+  var TAU = Math.PI * 2;
+  var EPS = 1e-7;
+  var FOV = 36 * Math.PI / 180;
+  var PREFERS_REDUCED = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+  /* ---------- tiny 3D / 2D vector helpers ---------- */
+  function add(a, b) { return [a[0] + b[0], a[1] + b[1], a[2] + b[2]]; }
+  function sub(a, b) { return [a[0] - b[0], a[1] - b[1], a[2] - b[2]]; }
+  function mul(a, s) { return [a[0] * s, a[1] * s, a[2] * s]; }
+  function dot(a, b) { return a[0] * b[0] + a[1] * b[1] + a[2] * b[2]; }
+  function cross(a, b) {
+    return [
+      a[1] * b[2] - a[2] * b[1],
+      a[2] * b[0] - a[0] * b[2],
+      a[0] * b[1] - a[1] * b[0]
+    ];
+  }
+  function length(a) { return Math.sqrt(dot(a, a)); }
+  function normalize(a) {
+    var l = length(a);
+    return l < EPS ? [0, 0, 0] : [a[0] / l, a[1] / l, a[2] / l];
+  }
+  function dist(a, b) { return length(sub(a, b)); }
+  function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+  function lerp(a, b, t) { return a + (b - a) * t; }
+  function degToRad(d) { return d * Math.PI / 180; }
+  function radToDeg(r) { return r * 180 / Math.PI; }
+  function easeInOutCubic(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+  function smoothstep(t) { t = clamp(t, 0, 1); return t * t * (3 - 2 * t); }
+  function round(v, digits) { var f = Math.pow(10, digits || 0); return Math.round(v * f) / f; }
+  function fmt(v, digits) {
+    if (!isFinite(v)) return '—';
+    var s = Math.abs(v).toFixed(digits == null ? 2 : digits);
+    return s;
+  }
+  function fmtSigned(v, digits) {
+    var s = fmt(v, digits);
+    return (v < 0 ? '−' : '') + s;
+  }
+  function nearly(a, b, tol) { return Math.abs(a - b) <= tol; }
+  function relClose(a, b, relTol) {
+    var t = relTol == null ? 0.004 : relTol;
+    return Math.abs(a - b) <= t * Math.max(1, Math.abs(a), Math.abs(b));
+  }
+
+  /* ---------- section families ---------- */
+  var FAMILY = {
+    3: { label: '三角形', en: 'TRIANGLE', rgb: [255, 194, 103], css: '#ffc267' },
+    4: { label: '四边形', en: 'QUADRILATERAL', rgb: [103, 227, 207], css: '#67e3cf' },
+    5: { label: '五边形', en: 'PENTAGON', rgb: [255, 145, 176], css: '#ff91b0' },
+    6: { label: '六边形', en: 'HEXAGON', rgb: [173, 160, 255], css: '#ada0ff' }
+  };
+  var MUTED_RGB = [139, 162, 157];
+
+  /* ---------- teaching presets ---------- */
+  var PRESET_DEFS = [
+    {
+      id: 'equilateral-triangle',
+      name: '等边三角形',
+      en: 'EQUILATERAL TRIANGLE',
+      raw: [1, 1, 1],
+      rawD: 2.0,
+      note: '平面在顶点附近斜切，三条截棱长度相等，因此截面的三条边等长，三个内角都是 60°。'
+    },
+    {
+      id: 'isosceles-triangle',
+      name: '等腰三角形',
+      en: 'ISOSCELES TRIANGLE',
+      raw: [1, 1, 3],
+      rawD: 3.5,
+      note: '三条截棱中有两条相等、第三条不同，于是得到等腰但非等边的三角形。它的两个底角相等。'
+    },
+    {
+      id: 'scalene-triangle',
+      name: '不等边三角形',
+      en: 'SCALENE TRIANGLE',
+      raw: [2, 3, 6],
+      rawD: 7.4,
+      note: '三条截棱长度互不相同，三边也都不相等。注意：正方体的三角形截面一定都是锐角三角形。'
+    },
+    {
+      id: 'square',
+      name: '正方形',
+      en: 'SQUARE',
+      raw: [0, 0, 1],
+      rawD: 0.2,
+      note: '平面平行于一组对面时，截面与正方体的面全等，是边长等于棱长的正方形。'
+    },
+    {
+      id: 'rectangle',
+      name: '矩形',
+      en: 'RECTANGLE',
+      raw: [1, 1, 0],
+      rawD: 0.9,
+      note: '当平面平行于正方体的一条棱时，截面可以拉长成长方形。这里的平面斜着穿过四个面，得到长宽不等的矩形。'
+    },
+    {
+      id: 'rhombus',
+      name: '菱形',
+      en: 'RHOMBUS',
+      raw: [1, 1, 3],
+      rawD: 0,
+      note: '四边形截面至少有一组对边平行。当两组对边都平行、四条边又相等时，就得到菱形。这里的内角不是 90°，所以它不是正方形。'
+    },
+    {
+      id: 'parallelogram',
+      name: '平行四边形',
+      en: 'PARALLELOGRAM',
+      raw: [1, 2, 4],
+      rawD: 0,
+      note: '两组对边分别平行，但邻边长度不同、内角不是直角，因此是一般的平行四边形。'
+    },
+    {
+      id: 'trapezoid',
+      name: '梯形',
+      en: 'TRAPEZOID',
+      raw: [1, 2, 3],
+      rawD: 2.7,
+      note: '平面只截到 4 个面，且只有一组对边平行，因此得到梯形。注意这里不是平行四边形。'
+    },
+    {
+      id: 'isosceles-trapezoid',
+      name: '等腰梯形',
+      en: 'ISOSCELES TRAPEZOID',
+      raw: [1, 3, 3],
+      rawD: 2.0,
+      note: '只截到 4 个面、仅有一组对边平行，同时两条腰相等，因此得到等腰梯形。它是梯形的一个特殊形态。'
+    },
+    {
+      id: 'pentagon',
+      name: '五边形',
+      en: 'PENTAGON',
+      raw: [1, 1, 2],
+      rawD: 1.5,
+      note: '平面截到 5 个面。必有一组对面没有被同时截到，所以五边形截面至少含两组平行边，不可能是正五边形。'
+    },
+    {
+      id: 'regular-hexagon',
+      name: '正六边形',
+      en: 'REGULAR HEXAGON',
+      raw: [1, 1, 1],
+      rawD: 0,
+      note: '平面垂直于正方体的体对角线并经过中心，截到全部 6 个面，得到正六边形：六边等长，每个内角都是 120°。'
+    },
+    {
+      id: 'hexagon',
+      name: '一般六边形',
+      en: 'HEXAGON',
+      raw: [2, 2, 3],
+      rawD: 0.4,
+      note: '平面截到全部 6 个面时得到六边形，三组对边分别平行；但不一定像正六边形那样六边等长、每个角都是 120°。'
+    }
+  ];
+
+  var PRESETS = PRESET_DEFS.map(function (def, index) {
+    var len = length(def.raw);
+    var n = normalize(def.raw);
+    var d = def.rawD / len;
+    var sides = (function () { /* filled after sectionPolygon is defined */ return null; })();
+    return {
+      id: def.id,
+      index: index + 1,
+      name: def.name,
+      en: def.en,
+      raw: def.raw,
+      rawD: def.rawD,
+      n: n,
+      d: d,
+      sides: sides,
+      note: def.note
+    };
+  });
+  var PRESET_BY_ID = {};
+  PRESETS.forEach(function (p) { PRESET_BY_ID[p.id] = p; });
+
+  function normalAngles(n) {
+    var theta = radToDeg(Math.atan2(n[2], n[0]));
+    if (theta < 0) theta += 360;
+    var phi = radToDeg(Math.asin(clamp(n[1], -1, 1)));
+    return { theta: theta, phi: phi };
+  }
+  function normalFromAngles(thetaDeg, phiDeg) {
+    var t = degToRad(thetaDeg);
+    var p = degToRad(phiDeg);
+    var cp = Math.cos(p);
+    return normalize([cp * Math.cos(t), Math.sin(p), cp * Math.sin(t)]);
+  }
+  function supportRadius(n) {
+    return Math.abs(n[0]) + Math.abs(n[1]) + Math.abs(n[2]);
+  }
+
+  var DEFAULT_PRESET_ID = 'regular-hexagon';
+  var ICON_PLAY = '<path d="M8 5.5v13l10-6.5-10-6.5Z" fill="currentColor"/>';
+  var ICON_PAUSE = '<path d="M7 5h3.4v14H7zM13.6 5H17v14h-3.4z" fill="currentColor"/>';
+
+  /* ---------- app state ---------- */
+  var state = {
+    n: PRESET_BY_ID[DEFAULT_PRESET_ID].n.slice(),
+    d: PRESET_BY_ID[DEFAULT_PRESET_ID].d,
+    playing: false,
+    tween: null,
+    activePresetId: DEFAULT_PRESET_ID,
+    autoRotate: false,
+    showPlane: true,
+    showFaces: true,
+    showLabels: true,
+    camera: { yaw: 0.68, pitch: 0.31, dist: 7.25 },
+    cameraTween: null,
+    sweep: { u: 0.5, dir: 1, hold: 0, min: -1.9, max: 1.9 },
+    section: null,
+    analysis: null,
+    dragging: false,
+    dragPointerId: null,
+    lastPointerX: 0,
+    lastPointerY: 0,
+    dirty: true,
+    errors: [],
+    lastShapeSignature: '',
+    lastControlSignature: '',
+    lastDetailSignature: '',
+    lastDiagnosticTime: 0
+  };
+
+  var cameraHome = { yaw: 0.68, pitch: 0.31, dist: 7.25 };
+
+/* ============================================================
+   Geometry: cube, plane slicing, polygon analysis
+   ============================================================ */
+  var CUBE_VERTS = [
+    [-1, -1, -1], [1, -1, -1], [1, 1, -1], [-1, 1, -1],
+    [-1, -1, 1], [1, -1, 1], [1, 1, 1], [-1, 1, 1]
+  ];
+  var CUBE_EDGES = [
+    [0, 1], [1, 2], [2, 3], [3, 0],
+    [4, 5], [5, 6], [6, 7], [7, 4],
+    [0, 4], [1, 5], [2, 6], [3, 7]
+  ];
+  var CUBE_FACES = [
+    { axis: 2, sign: -1, verts: [0, 1, 2, 3], normal: [0, 0, -1], name: 'z−' },
+    { axis: 2, sign: 1, verts: [4, 5, 6, 7], normal: [0, 0, 1], name: 'z+' },
+    { axis: 0, sign: -1, verts: [0, 3, 7, 4], normal: [-1, 0, 0], name: 'x−' },
+    { axis: 0, sign: 1, verts: [1, 2, 6, 5], normal: [1, 0, 0], name: 'x+' },
+    { axis: 1, sign: -1, verts: [0, 1, 5, 4], normal: [0, -1, 0], name: 'y−' },
+    { axis: 1, sign: 1, verts: [3, 2, 6, 7], normal: [0, 1, 0], name: 'y+' }
+  ];
+  var EDGE_FACES = {};
+  (function buildEdgeFaces() {
+    CUBE_EDGES.forEach(function (edge, ei) {
+      EDGE_FACES[edge[0] + '-' + edge[1]] = [];
+    });
+    CUBE_FACES.forEach(function (face, fi) {
+      for (var i = 0; i < face.verts.length; i++) {
+        var a = face.verts[i];
+        var b = face.verts[(i + 1) % face.verts.length];
+        var key = Math.min(a, b) + '-' + Math.max(a, b);
+        if (!EDGE_FACES[key]) EDGE_FACES[key] = [];
+        EDGE_FACES[key].push(fi);
+      }
+    });
+  })();
+
+  function pushUniquePoint(points, p) {
+    for (var i = 0; i < points.length; i++) {
+      if (dist(points[i], p) < 1e-6) return;
+    }
+    points.push([p[0], p[1], p[2]]);
+  }
+
+  function removeCollinear(points) {
+    var arr = points.slice();
+    var changed = true;
+    var guard = 0;
+    while (changed && arr.length > 3 && guard < 24) {
+      changed = false;
+      guard++;
+      for (var i = 0; i < arr.length; i++) {
+        var n = arr.length;
+        var prev = arr[(i - 1 + n) % n];
+        var cur = arr[i];
+        var next = arr[(i + 1) % n];
+        var v1 = sub(cur, prev);
+        var v2 = sub(next, cur);
+        var cr = length(cross(v1, v2));
+        var scale = Math.max(1e-9, (length(v1) + length(v2)));
+        if (cr < 1.1e-6 * scale && dot(v1, v2) > 0) {
+          arr.splice(i, 1);
+          changed = true;
+          break;
+        }
+      }
+    }
+    return arr;
+  }
+
+  /**
+   * Intersect cube [-1,1]^3 with plane n·x = d.
+   * Returns { points, center, normal, d, planeCenter } or null.
+   */
+  function sectionPolygon(nRaw, dRaw) {
+    var n = normalize(nRaw);
+    var d = dRaw;
+    if (!isFinite(d) || length(n) < 0.5) return null;
+    var pts = [];
+    for (var ei = 0; ei < CUBE_EDGES.length; ei++) {
+      var e = CUBE_EDGES[ei];
+      var a = CUBE_VERTS[e[0]];
+      var b = CUBE_VERTS[e[1]];
+      var va = dot(n, a) - d;
+      var vb = dot(n, b) - d;
+      if (Math.abs(va) < 1e-9) pushUniquePoint(pts, a);
+      if (Math.abs(vb) < 1e-9) pushUniquePoint(pts, b);
+      if (va * vb < 0) {
+        var t = va / (va - vb);
+        pushUniquePoint(pts, [
+          a[0] + (b[0] - a[0]) * t,
+          a[1] + (b[1] - a[1]) * t,
+          a[2] + (b[2] - a[2]) * t
+        ]);
+      }
+    }
+    if (pts.length < 3) return null;
+    pts = removeCollinear(pts);
+    if (pts.length < 3) return null;
+
+    var center = [0, 0, 0];
+    for (var i = 0; i < pts.length; i++) center = add(center, pts[i]);
+    center = mul(center, 1 / pts.length);
+
+    var helper = Math.abs(n[0]) < 0.82 ? [1, 0, 0] : [0, 1, 0];
+    var e1 = normalize(cross(n, helper));
+    if (length(e1) < 0.5) e1 = normalize(cross(n, [0, 0, 1]));
+    var e2 = normalize(cross(n, e1));
+    pts.sort(function (p, q) {
+      var a = Math.atan2(dot(sub(p, center), e2), dot(sub(p, center), e1));
+      var b = Math.atan2(dot(sub(q, center), e2), dot(sub(q, center), e1));
+      return a - b;
+    });
+
+    return {
+      points: pts,
+      center: center,
+      normal: n,
+      d: d,
+      planeCenter: mul(n, d),
+      basis: [e1, e2]
+    };
+  }
+
+  function polygonArea(points, normal) {
+    var acc = [0, 0, 0];
+    for (var i = 0; i < points.length; i++) {
+      acc = add(acc, cross(points[i], points[(i + 1) % points.length]));
+    }
+    return Math.abs(dot(acc, normal)) * 0.5;
+  }
+
+  function polygonArea2D(coords) {
+    var sum = 0;
+    for (var i = 0; i < coords.length; i++) {
+      var a = coords[i];
+      var b = coords[(i + 1) % coords.length];
+      sum += a[0] * b[1] - b[0] * a[1];
+    }
+    return sum * 0.5;
+  }
+
+  function interiorAngles(points) {
+    var out = [];
+    var m = points.length;
+    for (var i = 0; i < m; i++) {
+      var prev = points[(i - 1 + m) % m];
+      var cur = points[i];
+      var next = points[(i + 1) % m];
+      var a = normalize(sub(prev, cur));
+      var b = normalize(sub(next, cur));
+      var c = clamp(dot(a, b), -1, 1);
+      out.push(radToDeg(Math.acos(c)));
+    }
+    return out;
+  }
+
+  function edgeVector(points, i) {
+    return sub(points[(i + 1) % points.length], points[i]);
+  }
+
+  function vectorsParallel(a, b) {
+    var la = length(a);
+    var lb = length(b);
+    if (la < EPS || lb < EPS) return false;
+    return length(cross(a, b)) <= 0.011 * la * lb;
+  }
+
+  function findParallelPairs(points) {
+    var m = points.length;
+    var pairs = [];
+    for (var i = 0; i < m; i++) {
+      for (var j = i + 2; j < m; j++) {
+        if (i === 0 && j === m - 1) continue;
+        if (vectorsParallel(edgeVector(points, i), edgeVector(points, j))) {
+          pairs.push([i, j]);
+        }
+      }
+    }
+    return pairs;
+  }
+
+  function allValuesClose(values, tol) {
+    if (!values.length) return false;
+    var first = values[0];
+    for (var i = 1; i < values.length; i++) {
+      if (!relClose(first, values[i], tol)) return false;
+    }
+    return true;
+  }
+
+  function anglesAllEqual(angles) {
+    if (!angles.length) return false;
+    var min = Math.min.apply(null, angles);
+    var max = Math.max.apply(null, angles);
+    return max - min <= 0.7;
+  }
+
+  function isRightAngle(a) { return Math.abs(a - 90) <= 0.7; }
+
+  function countsByValue(values, relTol) {
+    var groups = [];
+    for (var i = 0; i < values.length; i++) {
+      var found = false;
+      for (var j = 0; j < groups.length; j++) {
+        if (relClose(groups[j][0], values[i], relTol == null ? 0.004 : relTol)) {
+          groups[j].push(values[i]);
+          found = true;
+          break;
+        }
+      }
+      if (!found) groups.push([values[i]]);
+    }
+    return groups;
+  }
+
+  var EN_BY_NAME = {
+    '等边三角形': 'EQUILATERAL TRIANGLE',
+    '等腰三角形': 'ISOSCELES TRIANGLE',
+    '不等边三角形': 'SCALENE TRIANGLE',
+    '正方形': 'SQUARE',
+    '矩形': 'RECTANGLE',
+    '菱形': 'RHOMBUS',
+    '平行四边形': 'PARALLELOGRAM',
+    '梯形': 'TRAPEZOID',
+    '等腰梯形': 'ISOSCELES TRAPEZOID',
+    '四边形': 'QUADRILATERAL',
+    '五边形': 'PENTAGON',
+    '正六边形': 'REGULAR HEXAGON',
+    '等边六边形': 'EQUILATERAL HEXAGON',
+    '等角六边形': 'EQUIANGULAR HEXAGON',
+    '一般六边形': 'GENERAL HEXAGON',
+    '六边形': 'HEXAGON'
+  };
+
+  function classifyPolygon(points, sideLengths, angles, pairs) {
+    var m = points.length;
+    var equalGroups = countsByValue(sideLengths, 0.004);
+    var allSidesEqual = allValuesClose(sideLengths, 0.004);
+    var allAnglesEqual = anglesAllEqual(angles);
+    var rightCount = angles.filter(isRightAngle).length;
+    var name = '';
+    var type = '';
+    var props = [];
+
+    if (m === 3) {
+      var e01 = relClose(sideLengths[0], sideLengths[1], 0.004);
+      var e12 = relClose(sideLengths[1], sideLengths[2], 0.004);
+      var e02 = relClose(sideLengths[0], sideLengths[2], 0.004);
+      if (e01 && e12) {
+        name = '等边三角形';
+        type = 'equilateral';
+        props.push('三边相等', '三个内角都是 60°');
+      } else if (e01 || e12 || e02) {
+        name = '等腰三角形';
+        type = 'isosceles';
+        props.push('有两条边相等', '两个底角相等', '三个内角都是锐角');
+      } else {
+        name = '不等边三角形';
+        type = 'scalene';
+        props.push('三边互不相等', '三个内角都是锐角');
+      }
+      props.unshift('平面截去一个角');
+    } else if (m === 4) {
+      var p02 = vectorsParallel(edgeVector(points, 0), edgeVector(points, 2));
+      var p13 = vectorsParallel(edgeVector(points, 1), edgeVector(points, 3));
+      var parallelCount = (p02 ? 1 : 0) + (p13 ? 1 : 0);
+      var allRight = rightCount === 4;
+      if (p02 && p13) {
+        if (allRight && allSidesEqual) {
+          name = '正方形'; type = 'square';
+        } else if (allRight) {
+          name = '矩形'; type = 'rectangle';
+        } else if (allSidesEqual) {
+          name = '菱形'; type = 'rhombus';
+        } else {
+          name = '平行四边形'; type = 'parallelogram';
+        }
+        props.push('对边相等');
+        if (allRight) props.push('四个角都是直角');
+        if (allSidesEqual) props.push('四条边相等');
+        else props.push('邻边长度不等');
+      } else if (p02 || p13) {
+        var legA = p02 ? sideLengths[1] : sideLengths[0];
+        var legB = p02 ? sideLengths[3] : sideLengths[2];
+        var isoLegs = relClose(legA, legB, 0.004);
+        name = isoLegs ? '等腰梯形' : '梯形';
+        type = isoLegs ? 'isosceles-trapezoid' : 'trapezoid';
+        props.push(isoLegs ? '两腰相等' : '两腰不等');
+      } else {
+        name = '四边形'; type = 'quadrilateral';
+        props.push('四边形截面');
+      }
+      props.unshift(parallelCount > 0 ? parallelCount + ' 组对边平行' : '对边均不平行');
+    } else if (m === 5) {
+      name = '五边形';
+      type = 'pentagon';
+      props.push(pairs.length + ' 组平行边', '不可能是正五边形');
+    } else if (m === 6) {
+      var regular = allSidesEqual && allAnglesEqual;
+      if (regular) {
+        name = '正六边形'; type = 'regular-hexagon';
+        props.push('六条边相等', '六个内角都是 120°', '三组对边平行');
+      } else if (allSidesEqual) {
+        name = '等边六边形'; type = 'equilateral-hexagon';
+        props.push('六条边相等', '内角不全相等', '三组对边平行');
+      } else if (allAnglesEqual) {
+        name = '等角六边形'; type = 'equiangular-hexagon';
+        props.push('六个内角相等', '边长不全相等', '三组对边平行');
+      } else {
+        name = '一般六边形'; type = 'hexagon';
+        props.push('三组对边分别平行', '边长与内角一般不相等');
+      }
+
+    } else {
+      name = m + ' 边形'; type = 'polygon';
+    }
+
+    if (m >= 4 && m !== 4 && pairs.length) {
+      // For pentagons, the parallel-pair count is already in props.
+    }
+    if (m === 4 && pairs.length > 2) {
+      // Defensive: findParallelPairs can include extra coincident directions near degeneracy.
+    }
+
+    var family = FAMILY[m] || FAMILY[3];
+    return {
+      name: name,
+      en: EN_BY_NAME[name] || family.en,
+      type: type,
+      family: family,
+      props: props,
+      rightCount: rightCount,
+      allSidesEqual: allSidesEqual,
+      allAnglesEqual: allAnglesEqual,
+      equalGroups: equalGroups,
+      pairs: pairs
+    };
+  }
+
+  function genericNote(analysis) {
+    if (!analysis) return '平面在正方体外部，暂时没有截面。拖动位置滑块让平面穿过正方体。';
+    var name = analysis.name;
+    if (analysis.sides === 3) {
+      return '正方体的三角形截面一定都是锐角三角形。改变三条截棱的长度关系，可以得到等边、等腰或不等边三角形。';
+    }
+    if (name === '正方形') {
+      return '平面平行于一组对面时，截面与那个面全等，所以边长恒等于正方体棱长。';
+    }
+    if (name === '矩形') {
+      return '平面平行于正方体的一条棱时，截面可能被拉长，得到长宽不等的矩形。';
+    }
+    if (name === '菱形') {
+      return '两组对边分别平行，四条边又相等，因此是菱形。这里内角不是 90°，所以不是正方形。';
+    }
+    if (name === '平行四边形') {
+      return '两组对边分别平行，但邻边不等、内角不是直角，因此是一般的平行四边形。';
+    }
+    if (name === '等腰梯形') {
+      return '只有一组对边平行，并且两条腰相等，所以是等腰梯形。它是梯形的特殊情形。';
+    }
+    if (name === '梯形') {
+      return '四边形截面必有一组对边平行。这里只有一组对边平行，所以是梯形。';
+    }
+    if (analysis.sides === 5) {
+      return '截到 5 个面时必然出现两组平行边，因此五边形截面不可能是正五边形。';
+    }
+    if (name === '正六边形') {
+      return '平面垂直于体对角线并经过中心时，三组对边同时等长、夹角相等，得到正六边形。';
+    }
+    if (name === '等边六边形') {
+      return '六条边长度相等，但内角并不全相等，所以它是等边六边形而不是正六边形。';
+    }
+    if (name === '等角六边形') {
+      return '六个内角都相等（每个 120°），但边长不完全相等，所以它不是正六边形。';
+    }
+    if (analysis.sides === 6) {
+      return '截到全部 6 个面时得到六边形，三组对边分别平行，但边长和角度一般不会全部相等。';
+    }
+    return '拖动三个滑块改变平面的方向与位置，观察截面边数怎样从 3 变到 6。';
+  }
+
+  function sidesDescription(sideLengths, allEqual) {
+    if (allEqual) return '全部相等';
+    var groups = countsByValue(sideLengths, 0.004);
+    return groups.length + ' 种长度';
+  }
+
+  function analyzeSection(poly) {
+    if (!poly || poly.points.length < 3) return null;
+    var points = poly.points;
+    var m = points.length;
+    var sideLengths = [];
+    for (var i = 0; i < m; i++) sideLengths.push(dist(points[i], points[(i + 1) % m]));
+    var angles = interiorAngles(points);
+    var pairs = findParallelPairs(points);
+    var cls = classifyPolygon(points, sideLengths, angles, pairs);
+    var area3 = polygonArea(points, poly.normal);
+    var perimeter3 = sideLengths.reduce(function (a, b) { return a + b; }, 0);
+    var unitSideLengths = sideLengths.map(function (s) { return s * 0.5; });
+    var minAngle = Math.min.apply(null, angles);
+    var maxAngle = Math.max.apply(null, angles);
+    var angleLabel = (maxAngle - minAngle < 0.7)
+      ? Math.round((minAngle + maxAngle) / 2) + '°'
+      : Math.round(minAngle) + '°–' + Math.round(maxAngle) + '°';
+    var shape2D = canonical2D(points);
+    var cutFaceKeys = {};
+    for (var ci = 0; ci < m; ci++) {
+      var mid = mul(add(points[ci], points[(ci + 1) % m]), 0.5);
+      for (var caxis = 0; caxis < 3; caxis++) {
+        if (Math.abs(Math.abs(mid[caxis]) - 1) < 3e-4) {
+          cutFaceKeys[caxis + ':' + (mid[caxis] > 0 ? 1 : -1)] = true;
+        }
+      }
+    }
+    var cutFaces = Object.keys(cutFaceKeys);
+    var props = cls.props.slice();
+    if (m !== 3 && m !== 4 && m !== 5 && m !== 6) props.push('凸多边形');
+    if (m === 4 && cls.allSidesEqual && cls.rightCount !== 4) {
+      // already covered by 菱形
+    }
+    if (props.indexOf('与 ' + m + ' 个面相交') === -1) props.push('与 ' + m + ' 个面相交');
+
+    var section = {
+      sides: m,
+      points: points,
+      center: poly.center,
+      normal: poly.normal,
+      planeCenter: poly.planeCenter,
+      sideLengths: sideLengths,
+      unitSideLengths: unitSideLengths,
+      angles: angles,
+      pairs: pairs,
+      classification: cls,
+      name: cls.name,
+      en: cls.en,
+      family: cls.family,
+      props: props,
+      area: area3 * 0.25,
+      perimeter: perimeter3 * 0.5,
+      angleLabel: angleLabel,
+      shape2D: shape2D,
+      cutFaceKeys: cutFaceKeys,
+      cutFaces: cutFaces,
+      minAngle: minAngle,
+      maxAngle: maxAngle,
+      degenerate: false
+    };
+    section.note = genericNote(section);
+    return section;
+  }
+
+  /* ---------- true-shape 2D projection ---------- */
+  function polygonNormal(points) {
+    var acc = [0, 0, 0];
+    for (var i = 0; i < points.length; i++) {
+      acc = add(acc, cross(points[i], points[(i + 1) % points.length]));
+    }
+    return normalize(acc);
+  }
+
+  function canonical2D(points) {
+    var normal = polygonNormal(points);
+    if (length(normal) < 0.5) normal = [0, 0, 1];
+    var center = [0, 0, 0];
+    for (var i = 0; i < points.length; i++) center = add(center, points[i]);
+    center = mul(center, 1 / points.length);
+    var e1 = normalize(sub(points[1], points[0]));
+    if (length(e1) < 0.5) e1 = normalize(cross(normal, [0, 1, 0]));
+    var e2 = normalize(cross(normal, e1));
+    var coords = points.map(function (p) {
+      var v = sub(p, center);
+      return [dot(v, e1), dot(v, e2)];
+    });
+    if (polygonArea2D(coords) < 0) {
+      coords = coords.map(function (c) { return [c[0], -c[1]]; });
+    }
+
+    // Rotate one edge to horizontal. For a non-equilateral isosceles triangle
+    // pick the unique base (the side not equal to the other two) so the shape
+    // sits symmetrically. Otherwise use the shortest edge for triangles and
+    // the longest edge for other polygons.
+    var edgeLens = [];
+    for (var j0 = 0; j0 < coords.length; j0++) {
+      var p0 = coords[j0];
+      var p1 = coords[(j0 + 1) % coords.length];
+      edgeLens.push(Math.hypot(p1[0] - p0[0], p1[1] - p0[1]));
+    }
+    var longest = 0;
+    var longestLen = coords.length === 3 ? Infinity : -1;
+    if (coords.length === 3) {
+      var eq01 = relClose(edgeLens[0], edgeLens[1], 0.004);
+      var eq12 = relClose(edgeLens[1], edgeLens[2], 0.004);
+      var eq02 = relClose(edgeLens[0], edgeLens[2], 0.004);
+      if (eq01 && !eq12) longest = 2;
+      else if (eq12 && !eq01) longest = 0;
+      else if (eq02 && !eq01) longest = 1;
+      else {
+        for (var j1 = 0; j1 < edgeLens.length; j1++) {
+          if (edgeLens[j1] < longestLen) { longestLen = edgeLens[j1]; longest = j1; }
+        }
+      }
+    } else {
+      for (var j2 = 0; j2 < edgeLens.length; j2++) {
+        if (edgeLens[j2] > longestLen) { longestLen = edgeLens[j2]; longest = j2; }
+      }
+    }
+    var p1 = coords[longest];
+    var p2 = coords[(longest + 1) % coords.length];
+    var ang = Math.atan2(p2[1] - p1[1], p2[0] - p1[0]);
+    var ca = Math.cos(-ang);
+    var sa = Math.sin(-ang);
+    coords = coords.map(function (c) {
+      return [c[0] * ca - c[1] * sa, c[0] * sa + c[1] * ca];
+    });
+    var baseY = (coords[longest][1] + coords[(longest + 1) % coords.length][1]) / 2;
+    var above = 0;
+    var below = 0;
+    coords.forEach(function (c) {
+      if (c[1] > baseY + 1e-7) above++;
+      else if (c[1] < baseY - 1e-7) below++;
+    });
+    if (below > above) {
+      coords = coords.map(function (c) { return [c[0], -c[1]]; });
+    }
+    return coords;
+  }
+
+  function fitPointsToBox(coords, box) {
+    var minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+    coords.forEach(function (c) {
+      minX = Math.min(minX, c[0]); maxX = Math.max(maxX, c[0]);
+      minY = Math.min(minY, c[1]); maxY = Math.max(maxY, c[1]);
+    });
+    var w = Math.max(1e-9, maxX - minX);
+    var h = Math.max(1e-9, maxY - minY);
+    var padX = box.padX == null ? 20 : box.padX;
+    var padTop = box.padTop == null ? padX : box.padTop;
+    var padBottom = box.padBottom == null ? padX : box.padBottom;
+    var availW = Math.max(10, box.width - padX * 2);
+    var availH = Math.max(10, box.height - padTop - padBottom);
+    var scale = Math.min(availW / w, availH / h);
+    var cx = box.x + box.width / 2;
+    var cy = box.y + padTop + availH / 2;
+    var midX = (minX + maxX) / 2;
+    var midY = (minY + maxY) / 2;
+    var pts = coords.map(function (c) {
+      return { x: cx + (c[0] - midX) * scale, y: cy - (c[1] - midY) * scale };
+    });
+    return { points: pts, scale: scale, bbox: { x: minX, y: minY, w: w, h: h } };
+  }
+
+  // Record the exact number of sides for every gallery preset.
+  PRESETS.forEach(function (p) {
+    var poly = sectionPolygon(p.n, p.d);
+    p.sides = poly ? poly.points.length : 0;
+  });
+
+/* ============================================================
+   Canvas rendering — 3D scene & true-shape card
+   ============================================================ */
+  var DOM = {};
+
+  function rgba(rgb, a) {
+    return 'rgba(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ',' + a + ')';
+  }
+  function rgbCss(rgb) { return 'rgb(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ')'; }
+
+  function prepareCanvas(canvas) {
+    var rect = canvas.getBoundingClientRect();
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var w = Math.max(1, Math.round(rect.width * dpr));
+    var h = Math.max(1, Math.round(rect.height * dpr));
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width = w;
+      canvas.height = h;
+    }
+    var ctx = canvas.getContext('2d');
+    if (!ctx) return null;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    return { ctx: ctx, width: rect.width, height: rect.height, dpr: dpr };
+  }
+
+  function makeCamera() {
+    var cam = state.camera;
+    var cp = Math.cos(cam.pitch);
+    var sp = Math.sin(cam.pitch);
+    var eye = [
+      cam.dist * cp * Math.sin(cam.yaw),
+      cam.dist * sp,
+      cam.dist * cp * Math.cos(cam.yaw)
+    ];
+    var target = [0, 0, 0];
+    var forward = normalize(sub(target, eye));
+    var right = normalize(cross(forward, [0, 1, 0]));
+    var up = normalize(cross(right, forward));
+    return { eye: eye, forward: forward, right: right, up: up, dist: cam.dist };
+  }
+
+  function makeProjector(cam, width, height) {
+    var f = Math.min((height / 2) / Math.tan(FOV / 2), width * 1.55);
+    f *= clamp(7.25 / Math.max(0.001, state.camera.dist), 0.84, 1.42);
+    var cx = width * 0.5;
+    var cy = height * 0.485;
+    function project(p) {
+      var v = sub(p, cam.eye);
+      var depth = dot(v, cam.forward);
+      if (depth <= 0.08) return null;
+      return {
+        x: cx + dot(v, cam.right) * f / depth,
+        y: cy - dot(v, cam.up) * f / depth,
+        depth: depth
+      };
+    }
+    return { project: project, focal: f, cx: cx, cy: cy };
+  }
+
+  function pathFromProjected(ctx, pts) {
+    if (!pts || !pts.length) return false;
+    ctx.beginPath();
+    ctx.moveTo(pts[0].x, pts[0].y);
+    for (var i = 1; i < pts.length; i++) ctx.lineTo(pts[i].x, pts[i].y);
+    ctx.closePath();
+    return true;
+  }
+
+  function drawBackdrop(ctx, w, h) {
+    ctx.clearRect(0, 0, w, h);
+    var g = ctx.createRadialGradient(w * 0.5, h * 0.43, 4, w * 0.5, h * 0.43, Math.max(w, h) * 0.64);
+    g.addColorStop(0, 'rgba(44,111,102,.15)');
+    g.addColorStop(0.42, 'rgba(23,58,53,.07)');
+    g.addColorStop(1, 'rgba(4,10,12,0)');
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, w, h);
+
+    var v = ctx.createRadialGradient(w * 0.5, h * 0.48, Math.min(w, h) * 0.30, w * 0.5, h * 0.5, Math.max(w, h) * 0.78);
+    v.addColorStop(0, 'rgba(0,0,0,0)');
+    v.addColorStop(1, 'rgba(0,0,0,.20)');
+    ctx.fillStyle = v;
+    ctx.fillRect(0, 0, w, h);
+
+    // extremely subtle horizontal reference line
+    ctx.strokeStyle = 'rgba(190,235,224,.035)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(w * 0.08, h * 0.79);
+    ctx.lineTo(w * 0.92, h * 0.79);
+    ctx.stroke();
+  }
+
+  function drawGroundShadow(ctx, projector, w, h) {
+    var base = projector.project([0, -1.28, 0]);
+    var top = projector.project([0, 1.05, 0]);
+    if (!base || !top) return;
+    var size = Math.abs(top.y - base.y);
+    if (size < 20) size = Math.min(w, h) * 0.28;
+    ctx.save();
+    ctx.translate(base.x, base.y + size * 0.055);
+    ctx.scale(1, 0.23);
+    var radius = Math.max(30, size * 0.55);
+    var g = ctx.createRadialGradient(0, 0, 0, 0, 0, radius);
+    g.addColorStop(0, 'rgba(0,0,0,.44)');
+    g.addColorStop(0.45, 'rgba(0,0,0,.20)');
+    g.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(0, 0, radius, 0, TAU);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function sectionCutFaces(section) {
+    var keys = {};
+    if (!section) return keys;
+    var pts = section.points;
+    for (var i = 0; i < pts.length; i++) {
+      var a = pts[i];
+      var b = pts[(i + 1) % pts.length];
+      var mid = mul(add(a, b), 0.5);
+      for (var axis = 0; axis < 3; axis++) {
+        if (Math.abs(Math.abs(mid[axis]) - 1) < 3e-4) {
+          keys[axis + ':' + (mid[axis] > 0 ? 1 : -1)] = true;
+        }
+      }
+    }
+    return keys;
+  }
+
+  function edgeKey(a, b) {
+    return Math.min(a, b) + '-' + Math.max(a, b);
+  }
+
+  function drawCube(ctx, cam, projector) {
+    var projected = CUBE_VERTS.map(function (v) { return projector.project(v); });
+    if (projected.some(function (p) { return p === null; })) return;
+
+    var cutKeys = sectionCutFaces(state.section);
+    var accent = state.analysis ? state.analysis.family.rgb : MUTED_RGB;
+    var faces = CUBE_FACES.map(function (face, fi) {
+      var pts = face.verts.map(function (vi) { return projected[vi]; });
+      var center = [0, 0, 0];
+      face.verts.forEach(function (vi) { center = add(center, CUBE_VERTS[vi]); });
+      center = mul(center, 1 / face.verts.length);
+      var front = dot(face.normal, sub(cam.eye, center)) > 0;
+      var depth = 0;
+      pts.forEach(function (p) { depth += p.depth; });
+      depth /= pts.length;
+      var cut = !!cutKeys[face.axis + ':' + face.sign];
+      return { face: face, pts: pts, front: front, depth: depth, cut: cut };
+    });
+    faces.sort(function (a, b) { return b.depth - a.depth; });
+
+    faces.forEach(function (f) {
+      if (!pathFromProjected(ctx, f.pts)) return;
+      if (f.cut && state.showFaces) {
+        ctx.fillStyle = rgba(accent, f.front ? 0.085 : 0.045);
+      } else {
+        ctx.fillStyle = f.front ? 'rgba(218,241,234,.038)' : 'rgba(150,188,179,.014)';
+      }
+      ctx.fill();
+      if (f.front) {
+        ctx.strokeStyle = 'rgba(220,246,239,.018)';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+    });
+
+    // hidden cube edges first (behind the slicing plane)
+    ctx.save();
+    ctx.setLineDash([3.5, 5]);
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'rgba(162,198,189,.15)';
+    CUBE_EDGES.forEach(function (edge) {
+      var key = edgeKey(edge[0], edge[1]);
+      var adj = EDGE_FACES[key] || [];
+      var hidden = adj.every(function (fi) {
+        var face = faces[fi];
+        return face && !face.front;
+      });
+      if (!hidden) return;
+      var a = projected[edge[0]];
+      var b = projected[edge[1]];
+      ctx.beginPath();
+      ctx.moveTo(a.x, a.y);
+      ctx.lineTo(b.x, b.y);
+      ctx.stroke();
+    });
+    ctx.restore();
+    return { projected: projected, faces: faces, cutKeys: cutKeys };
+  }
+
+  function drawPlane(ctx, projector, cam) {
+    if (!state.showPlane) return;
+    var n = state.n;
+    var center = mul(n, state.d);
+    var helper = Math.abs(n[1]) < 0.85 ? [0, 1, 0] : [1, 0, 0];
+    var u = normalize(cross(n, helper));
+    if (length(u) < 0.5) u = normalize(cross(n, [0, 0, 1]));
+    var v = normalize(cross(n, u));
+    var S = 1.98;
+    var corners3 = [
+      add(add(center, mul(u, S)), mul(v, S)),
+      add(add(center, mul(u, -S)), mul(v, S)),
+      add(add(center, mul(u, -S)), mul(v, -S)),
+      add(add(center, mul(u, S)), mul(v, -S))
+    ];
+    var corners = corners3.map(function (p) { return projector.project(p); });
+    if (corners.some(function (p) { return !p; })) return;
+
+    var minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+    corners.forEach(function (p) {
+      minX = Math.min(minX, p.x); maxX = Math.max(maxX, p.x);
+      minY = Math.min(minY, p.y); maxY = Math.max(maxY, p.y);
+    });
+    var g = ctx.createLinearGradient(minX, minY, maxX, maxY);
+    g.addColorStop(0, 'rgba(92,218,204,.055)');
+    g.addColorStop(0.48, 'rgba(92,218,204,.135)');
+    g.addColorStop(1, 'rgba(92,218,204,.065)');
+    pathFromProjected(ctx, corners);
+    ctx.fillStyle = g;
+    ctx.fill();
+
+    // faint plane grid
+    var levels = [-0.72, -0.36, 0, 0.36, 0.72];
+    ctx.save();
+    levels.forEach(function (t) {
+      var alpha = Math.abs(t) < 0.001 ? 0.12 : 0.052;
+      // lines parallel to u
+      var a3 = add(add(center, mul(u, -S)), mul(v, S * t));
+      var b3 = add(add(center, mul(u, S)), mul(v, S * t));
+      var a = projector.project(a3);
+      var b = projector.project(b3);
+      if (a && b) {
+        ctx.strokeStyle = 'rgba(144,238,224,' + alpha + ')';
+        ctx.lineWidth = Math.abs(t) < 0.001 ? 0.85 : 0.6;
+        ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+      }
+      // lines parallel to v
+      var c3 = add(add(center, mul(v, -S)), mul(u, S * t));
+      var d3 = add(add(center, mul(v, S)), mul(u, S * t));
+      var c = projector.project(c3);
+      var d = projector.project(d3);
+      if (c && d) {
+        ctx.strokeStyle = 'rgba(144,238,224,' + alpha + ')';
+        ctx.lineWidth = Math.abs(t) < 0.001 ? 0.85 : 0.6;
+        ctx.beginPath(); ctx.moveTo(c.x, c.y); ctx.lineTo(d.x, d.y); ctx.stroke();
+      }
+    });
+    ctx.restore();
+
+    ctx.save();
+    ctx.setLineDash([6, 7]);
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'rgba(120,234,219,.36)';
+    pathFromProjected(ctx, corners);
+    ctx.stroke();
+    ctx.restore();
+
+    // corner ticks
+    ctx.fillStyle = 'rgba(153,245,229,.50)';
+    corners.forEach(function (p) {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 1.7, 0, TAU);
+      ctx.fill();
+    });
+
+    // normal arrow
+    var start = add(center, mul(n, 0.04));
+    var end = add(center, mul(n, 0.90));
+    var pStart = projector.project(start);
+    var pEnd = projector.project(end);
+    if (pStart && pEnd) {
+      var dx = pEnd.x - pStart.x;
+      var dy = pEnd.y - pStart.y;
+      var dl = Math.hypot(dx, dy);
+      if (dl > 12) {
+        ctx.save();
+        ctx.strokeStyle = 'rgba(155,243,226,.52)';
+        ctx.fillStyle = 'rgba(155,243,226,.72)';
+        ctx.lineWidth = 1;
+        ctx.setLineDash([2, 3]);
+        ctx.beginPath(); ctx.moveTo(pStart.x, pStart.y); ctx.lineTo(pEnd.x, pEnd.y); ctx.stroke();
+        ctx.setLineDash([]);
+        var ux = dx / dl;
+        var uy = dy / dl;
+        ctx.beginPath();
+        ctx.moveTo(pEnd.x, pEnd.y);
+        ctx.lineTo(pEnd.x - ux * 7 - uy * 3.4, pEnd.y - uy * 7 + ux * 3.4);
+        ctx.lineTo(pEnd.x - ux * 7 + uy * 3.4, pEnd.y - uy * 7 - ux * 3.4);
+        ctx.closePath();
+        ctx.fill();
+        ctx.font = 'italic 9px "Cascadia Code", Consolas, monospace';
+        ctx.fillStyle = 'rgba(175,248,234,.75)';
+        ctx.fillText('n', pEnd.x + ux * 9 + 2, pEnd.y + uy * 9 - 2);
+        ctx.restore();
+      }
+    }
+
+    // alpha label near the top corner
+    var labelPoint = corners[0];
+    corners.forEach(function (p) {
+      if (p.y < labelPoint.y) labelPoint = p;
+    });
+    ctx.save();
+    ctx.font = 'italic 11px "Cascadia Code", Consolas, monospace';
+    ctx.fillStyle = 'rgba(158,244,229,.68)';
+    ctx.fillText('α', labelPoint.x + 7, labelPoint.y - 5);
+    ctx.restore();
+  }
+
+  function drawVisibleCubeEdges(ctx, cubeData) {
+    if (!cubeData) return;
+    var projected = cubeData.projected;
+    var faces = cubeData.faces;
+    ctx.save();
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+    CUBE_EDGES.forEach(function (edge) {
+      var adj = EDGE_FACES[edgeKey(edge[0], edge[1])] || [];
+      var hidden = adj.every(function (fi) {
+        var face = faces[fi];
+        return face && !face.front;
+      });
+      if (hidden) return;
+      var a = projected[edge[0]];
+      var b = projected[edge[1]];
+      ctx.strokeStyle = 'rgba(0,0,0,.26)';
+      ctx.lineWidth = 3.1;
+      ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+      ctx.strokeStyle = 'rgba(220,242,234,.62)';
+      ctx.lineWidth = 1.15;
+      ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+    });
+    ctx.restore();
+  }
+
+  function drawSection(ctx, projector) {
+    var section = state.section;
+    if (!section) return;
+    var pts = section.points.map(function (p) { return projector.project(p); });
+    if (pts.some(function (p) { return !p; })) return;
+    if (!pathFromProjected(ctx, pts)) return;
+    var rgb = state.analysis ? state.analysis.family.rgb : MUTED_RGB;
+    var minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+    pts.forEach(function (p) {
+      minX = Math.min(minX, p.x); minY = Math.min(minY, p.y);
+      maxX = Math.max(maxX, p.x); maxY = Math.max(maxY, p.y);
+    });
+    var bw = Math.max(1, maxX - minX);
+    var bh = Math.max(1, maxY - minY);
+
+    ctx.save();
+    // A dark base separates the cut surface from the wireframe behind it.
+    pathFromProjected(ctx, pts);
+    ctx.fillStyle = 'rgba(4,13,15,.48)';
+    ctx.fill();
+    var fill = ctx.createLinearGradient(minX, minY, maxX, maxY);
+    fill.addColorStop(0, rgba(rgb, 0.22));
+    fill.addColorStop(0.48, rgba(rgb, 0.50));
+    fill.addColorStop(1, rgba(rgb, 0.30));
+    ctx.fillStyle = fill;
+    ctx.fill();
+
+    // technical hatching
+    if (bw > 32 && bh > 26) {
+      ctx.save();
+      pathFromProjected(ctx, pts);
+      ctx.clip();
+      ctx.strokeStyle = rgba(rgb, 0.10);
+      ctx.lineWidth = 0.8;
+      var step = 9;
+      for (var x = minX - bh; x < maxX + bh; x += step) {
+        ctx.beginPath();
+        ctx.moveTo(x, maxY + 2);
+        ctx.lineTo(x + bh + 2, minY - 2);
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    // glow
+    ctx.save();
+    ctx.shadowColor = rgba(rgb, 0.75);
+    ctx.shadowBlur = 18;
+    pathFromProjected(ctx, pts);
+    ctx.strokeStyle = rgba(rgb, 0.92);
+    ctx.lineWidth = 2.3;
+    ctx.lineJoin = 'round';
+    ctx.stroke();
+    ctx.restore();
+
+    // crisp inner edge
+    pathFromProjected(ctx, pts);
+    ctx.strokeStyle = 'rgba(255,255,255,.38)';
+    ctx.lineWidth = 0.75;
+    ctx.stroke();
+
+    // vertices + labels
+    var center2D = { x: 0, y: 0 };
+    pts.forEach(function (p) { center2D.x += p.x; center2D.y += p.y; });
+    center2D.x /= pts.length;
+    center2D.y /= pts.length;
+    pts.forEach(function (p, i) {
+      ctx.save();
+      ctx.shadowColor = rgba(rgb, 0.75);
+      ctx.shadowBlur = 10;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 4.4, 0, TAU);
+      ctx.fillStyle = 'rgba(5,15,17,.94)';
+      ctx.fill();
+      ctx.shadowBlur = 0;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 4.4, 0, TAU);
+      ctx.strokeStyle = rgbCss(rgb);
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 1.3, 0, TAU);
+      ctx.fillStyle = '#f4fffc';
+      ctx.fill();
+      ctx.restore();
+      if (state.showLabels) {
+        var dx = p.x - center2D.x;
+        var dy = p.y - center2D.y;
+        var dl = Math.hypot(dx, dy) || 1;
+        var lx = p.x + dx / dl * 16;
+        var ly = p.y + dy / dl * 16 + 3;
+        ctx.save();
+        ctx.font = '600 9.5px "Cascadia Code", Consolas, monospace';
+        ctx.textAlign = 'center';
+        ctx.lineWidth = 3.2;
+        ctx.strokeStyle = 'rgba(4,12,14,.82)';
+        ctx.strokeText(String.fromCharCode(65 + i), lx, ly);
+        ctx.fillStyle = 'rgba(235,253,247,.88)';
+        ctx.fillText(String.fromCharCode(65 + i), lx, ly);
+        ctx.restore();
+      }
+    });
+  }
+
+  function drawTriad(ctx, cam, w, h) {
+    var ox = 31;
+    var oy = h - 105;
+    var axisLength = 21;
+    var axes = [
+      { v: [1, 0, 0], c: '#ffb784', label: 'x' },
+      { v: [0, 1, 0], c: '#85e9b7', label: 'y' },
+      { v: [0, 0, 1], c: '#81bdff', label: 'z' }
+    ];
+    ctx.save();
+    ctx.globalAlpha = 0.82;
+    ctx.beginPath();
+    ctx.arc(ox, oy, 29, 0, TAU);
+    ctx.fillStyle = 'rgba(7,18,20,.25)';
+    ctx.fill();
+    axes.forEach(function (axis) {
+      var sx = dot(axis.v, cam.right);
+      var sy = -dot(axis.v, cam.up);
+      var l = Math.hypot(sx, sy);
+      if (l < 0.12) {
+        sx = 0.12; sy = 0;
+      }
+      var ex = ox + sx * axisLength;
+      var ey = oy + sy * axisLength;
+      ctx.strokeStyle = axis.c;
+      ctx.fillStyle = axis.c;
+      ctx.lineWidth = 1.25;
+      ctx.beginPath();
+      ctx.moveTo(ox, oy);
+      ctx.lineTo(ex, ey);
+      ctx.stroke();
+      ctx.font = 'italic 8px "Cascadia Code", Consolas, monospace';
+      ctx.fillText(axis.label, ex + sx / Math.max(l, 0.1) * 4 - 2, ey + sy / Math.max(l, 0.1) * 4 + 2);
+    });
+    ctx.beginPath();
+    ctx.arc(ox, oy, 1.7, 0, TAU);
+    ctx.fillStyle = 'rgba(221,244,237,.72)';
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function renderScene() {
+    if (!DOM.scene) return;
+    var cv = prepareCanvas(DOM.scene);
+    if (!cv) return;
+    var ctx = cv.ctx;
+    var w = cv.width;
+    var h = cv.height;
+    drawBackdrop(ctx, w, h);
+    if (w < 40 || h < 40) return;
+    var cam = makeCamera();
+    var projector = makeProjector(cam, w, h);
+    drawGroundShadow(ctx, projector, w, h);
+    var cubeData = drawCube(ctx, cam, projector);
+    drawPlane(ctx, projector, cam);
+    drawVisibleCubeEdges(ctx, cubeData);
+    drawSection(ctx, projector);
+    drawTriad(ctx, cam, w, h);
+  }
+
+  /* ---------- true-shape 2D card ---------- */
+  function roundRectPath(ctx, x, y, w, h, r) {
+    var rr = Math.min(r, w / 2, h / 2);
+    ctx.beginPath();
+    ctx.moveTo(x + rr, y);
+    ctx.arcTo(x + w, y, x + w, y + h, rr);
+    ctx.arcTo(x + w, y + h, x, y + h, rr);
+    ctx.arcTo(x, y + h, x, y, rr);
+    ctx.arcTo(x, y, x + w, y, rr);
+    ctx.closePath();
+  }
+
+  function renderShapeCard(analysis) {
+    if (!DOM.shapeCanvas) return;
+    var cv = prepareCanvas(DOM.shapeCanvas);
+    if (!cv) return;
+    var ctx = cv.ctx;
+    var w = cv.width;
+    var h = cv.height;
+    ctx.clearRect(0, 0, w, h);
+    var rgb = analysis ? analysis.family.rgb : MUTED_RGB;
+
+    var glow = ctx.createRadialGradient(w / 2, h * 0.42, 0, w / 2, h * 0.42, Math.max(w, h) * 0.64);
+    glow.addColorStop(0, rgba(rgb, analysis ? 0.075 : 0.035));
+    glow.addColorStop(0.65, rgba(rgb, 0.018));
+    glow.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = glow;
+    ctx.fillRect(0, 0, w, h);
+
+    ctx.save();
+    ctx.strokeStyle = 'rgba(205,236,228,.055)';
+    ctx.lineWidth = 1;
+    ctx.setLineDash([2, 5]);
+    ctx.beginPath();
+    ctx.moveTo(w * 0.09, h * 0.53);
+    ctx.lineTo(w * 0.91, h * 0.53);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.restore();
+
+    if (!analysis) {
+      ctx.save();
+      ctx.strokeStyle = 'rgba(160,192,184,.20)';
+      ctx.lineWidth = 1;
+      ctx.setLineDash([5, 6]);
+      roundRectPath(ctx, w * 0.18, h * 0.27, w * 0.64, h * 0.42, 10);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = 'rgba(160,192,184,.62)';
+      ctx.font = '10px "PingFang SC", "Microsoft YaHei", sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('平面在正方体外 · 暂无截面', w / 2, h * 0.51);
+      ctx.restore();
+      return;
+    }
+
+    var box = {
+      x: 0, y: 0, width: w, height: h,
+      padX: Math.max(38, w * 0.12),
+      padTop: Math.max(22, h * 0.12),
+      padBottom: Math.max(30, h * 0.165)
+    };
+    var fit = fitPointsToBox(analysis.shape2D, box);
+    var pts = fit.points;
+    var center = { x: 0, y: 0 };
+    pts.forEach(function (p) { center.x += p.x; center.y += p.y; });
+    center.x /= pts.length;
+    center.y /= pts.length;
+
+    // main polygon
+    var fill = ctx.createLinearGradient(0, 0, 0, h);
+    fill.addColorStop(0, rgba(rgb, 0.22));
+    fill.addColorStop(1, rgba(rgb, 0.055));
+    pathFromProjected(ctx, pts);
+    ctx.fillStyle = fill;
+    ctx.fill();
+    ctx.save();
+    ctx.shadowColor = rgba(rgb, 0.32);
+    ctx.shadowBlur = 14;
+    ctx.strokeStyle = rgba(rgb, 0.92);
+    ctx.lineWidth = 1.85;
+    ctx.lineJoin = 'round';
+    ctx.stroke();
+    ctx.restore();
+
+    // right-angle markers
+    analysis.angles.forEach(function (a, i) {
+      if (Math.abs(a - 90) > 0.6) return;
+      var p = pts[i];
+      var prev = pts[(i - 1 + pts.length) % pts.length];
+      var next = pts[(i + 1) % pts.length];
+      var d1 = normalize2(prev.x - p.x, prev.y - p.y);
+      var d2 = normalize2(next.x - p.x, next.y - p.y);
+      var s = 7.5;
+      ctx.save();
+      ctx.strokeStyle = rgba(rgb, 0.64);
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(p.x + d1[0] * s, p.y + d1[1] * s);
+      ctx.lineTo(p.x + (d1[0] + d2[0]) * s, p.y + (d1[1] + d2[1]) * s);
+      ctx.lineTo(p.x + d2[0] * s, p.y + d2[1] * s);
+      ctx.stroke();
+      ctx.restore();
+    });
+
+    // parallel marks: one, two or three short slashes per parallel group
+    var pairMarkGroups = groupParallelPairs(analysis.pairs);
+    pairMarkGroups.forEach(function (pairList, groupIndex) {
+      var count = groupIndex + 1;
+      pairList.forEach(function (edgeIndex) {
+        var a = pts[edgeIndex];
+        var b = pts[(edgeIndex + 1) % pts.length];
+        var mx = (a.x + b.x) / 2;
+        var my = (a.y + b.y) / 2;
+        var dx = b.x - a.x;
+        var dy = b.y - a.y;
+        var dl = Math.hypot(dx, dy) || 1;
+        var nx = -dy / dl;
+        var ny = dx / dl;
+        var tx = dx / dl;
+        var ty = dy / dl;
+        ctx.save();
+        ctx.strokeStyle = rgba(rgb, 0.64);
+        ctx.lineWidth = 1.1;
+        for (var k = 0; k < count; k++) {
+          var off = (k - (count - 1) / 2) * 3.2;
+          var cx = mx + tx * off;
+          var cy = my + ty * off;
+          ctx.beginPath();
+          ctx.moveTo(cx - nx * 3.1, cy - ny * 3.1);
+          ctx.lineTo(cx + nx * 3.1, cy + ny * 3.1);
+          ctx.stroke();
+        }
+        ctx.restore();
+      });
+    });
+
+    // side length labels
+    ctx.save();
+    ctx.font = '8.5px "Cascadia Code", Consolas, monospace';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    analysis.sideLengths.forEach(function (s, i) {
+      var a = pts[i];
+      var b = pts[(i + 1) % pts.length];
+      var lenPx = Math.hypot(b.x - a.x, b.y - a.y);
+      if (lenPx < 22) return;
+      var mx = (a.x + b.x) / 2;
+      var my = (a.y + b.y) / 2;
+      var dx = mx - center.x;
+      var dy = my - center.y;
+      var dl = Math.hypot(dx, dy) || 1;
+      var lx = mx + dx / dl * 14;
+      var ly = my + dy / dl * 14;
+      var text = (s * 0.5).toFixed(2);
+      var tw = ctx.measureText(text).width;
+      lx = clamp(lx, tw / 2 + 7, w - tw / 2 - 7);
+      ly = clamp(ly, 18, h - 12);
+      ctx.fillStyle = 'rgba(6,17,19,.78)';
+      roundRectPath(ctx, lx - tw / 2 - 4, ly - 7, tw + 8, 14, 4);
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(220,245,238,.13)';
+      ctx.lineWidth = 0.7;
+      ctx.stroke();
+      ctx.fillStyle = 'rgba(215,236,230,.82)';
+      ctx.fillText(text, lx, ly + 0.4);
+    });
+    ctx.restore();
+
+    // vertex labels
+    var names = 'ABCDEF';
+    if (state.showLabels) pts.forEach(function (p, i) {
+      var dx = p.x - center.x;
+      var dy = p.y - center.y;
+      var dl = Math.hypot(dx, dy) || 1;
+      var lx = p.x + dx / dl * 14;
+      var ly = p.y + dy / dl * 14 + 2.5;
+      ctx.save();
+      ctx.font = '600 9px "Cascadia Code", Consolas, monospace';
+      ctx.textAlign = 'center';
+      ctx.lineWidth = 3.1;
+      ctx.strokeStyle = 'rgba(5,14,16,.8)';
+      ctx.strokeText(names[i], lx, ly);
+      ctx.fillStyle = rgba(rgb, 0.98);
+      ctx.fillText(names[i], lx, ly);
+      ctx.restore();
+    });
+  }
+
+  function normalize2(x, y) {
+    var l = Math.hypot(x, y) || 1;
+    return [x / l, y / l];
+  }
+
+  function groupParallelPairs(pairs) {
+    // Result: array of groups; each group is a flat list of edge indices.
+    var groups = [];
+    pairs.forEach(function (pair) {
+      var ga = null;
+      var gb = null;
+      for (var i = 0; i < groups.length; i++) {
+        if (groups[i].indexOf(pair[0]) !== -1) ga = i;
+        if (groups[i].indexOf(pair[1]) !== -1) gb = i;
+      }
+      if (ga === null && gb === null) {
+        groups.push([pair[0], pair[1]]);
+      } else if (ga === gb) {
+        // already in the same group
+      } else if (ga !== null && gb === null) {
+        groups[ga].push(pair[1]);
+      } else if (gb !== null && ga === null) {
+        groups[gb].push(pair[0]);
+      } else if (ga !== null && gb !== null) {
+        groups[ga] = groups[ga].concat(groups[gb]);
+        groups.splice(gb, 1);
+      }
+    });
+    return groups;
+  }
+
+  function miniSvgForPreset(preset) {
+    var poly = sectionPolygon(preset.n, preset.d);
+    if (!poly) return '';
+    var coords = canonical2D(poly.points);
+    var fit = fitPointsToBox(coords, { x: 0, y: 0, width: 100, height: 58, padX: 12, padTop: 9, padBottom: 9 });
+    var pts = fit.points.map(function (p) { return p.x.toFixed(1) + ',' + p.y.toFixed(1); }).join(' ');
+    var family = FAMILY[poly.points.length] || FAMILY[3];
+    var rgb = family.rgb;
+    var circles = fit.points.map(function (p) {
+      return '<circle cx="' + p.x.toFixed(1) + '" cy="' + p.y.toFixed(1) + '" r="1.4" fill="' + rgbCss(rgb) + '" opacity=".9"/>';
+    }).join('');
+    return '<svg viewBox="0 0 100 58" preserveAspectRatio="xMidYMid meet" aria-hidden="true">' +
+      '<polygon points="' + pts + '" fill="' + rgba(rgb, 0.16) + '" stroke="' + rgba(rgb, 0.88) + '" stroke-width="1.35" stroke-linejoin="round"/>' +
+      circles +
+      '</svg>';
+  }
+
+/* ============================================================
+   Interface, interaction and animation loop
+   ============================================================ */
+  var diagEl = null;
+  var toastTimer = 0;
+  var modalOpen = false;
+  var modalLastFocus = null;
+  var staticMode = false;
+  var lastFrameTime = 0;
+
+  function cacheDom() {
+    var ids = [
+      'scene', 'shapeCanvas', 'stage', 'stageEmpty', 'liveDot', 'liveName', 'liveSides',
+      'autoRotateBtn', 'resetViewBtn', 'playBtn', 'playBtnText', 'resetBtn', 'stagePlay',
+      'sweepFill', 'sweepValue', 'playState', 'thetaRange', 'thetaVal', 'phiRange', 'phiVal',
+      'dRange', 'dVal', 'supportVal', 'equationText', 'normalText', 'familyChip',
+      'shapeNameZh', 'shapeNameEn', 'sidePill', 'perimeterVal', 'areaVal', 'angleVal',
+      'propertyChips', 'noteText', 'shapeFootNote', 'catalogTrack', 'guideModal',
+      'whyBtn', 'guideBtn', 'fullBtn', 'toast', 'faceCount', 'faceChips', 'faceHint'
+    ];
+    ids.forEach(function (id) {
+      DOM[id] = document.getElementById(id);
+    });
+    DOM.app = document.querySelector('.app');
+    DOM.toggles = Array.prototype.slice.call(document.querySelectorAll('.switch[data-toggle]'));
+    DOM.modalPanel = DOM.guideModal ? DOM.guideModal.querySelector('.modal-panel') : null;
+    DOM.modalClose = DOM.guideModal ? DOM.guideModal.querySelector('.modal-close') : null;
+    DOM.stageEmptyStrong = DOM.stageEmpty ? DOM.stageEmpty.querySelector('strong') : null;
+    DOM.stageEmptySpan = DOM.stageEmpty ? DOM.stageEmpty.querySelector('span') : null;
+
+    diagEl = document.createElement('div');
+    diagEl.id = 'diagData';
+    diagEl.hidden = true;
+    diagEl.setAttribute('aria-hidden', 'true');
+    diagEl.style.display = 'none';
+    diagEl.textContent = '{}';
+    document.body.appendChild(diagEl);
+  }
+
+  function setSectionColor(rgb, css) {
+    var root = document.documentElement;
+    root.style.setProperty('--section', css);
+    root.style.setProperty('--section-rgb', rgb.join(','));
+  }
+
+  function markDirty() { state.dirty = true; }
+
+  function showToast(text) {
+    if (!DOM.toast) return;
+    DOM.toast.textContent = text;
+    DOM.toast.classList.add('show');
+    window.clearTimeout(toastTimer);
+    toastTimer = window.setTimeout(function () {
+      DOM.toast.classList.remove('show');
+    }, 2100);
+  }
+
+  /* ---------- gallery ---------- */
+  function buildCatalog() {
+    if (!DOM.catalogTrack) return;
+    DOM.catalogTrack.removeAttribute('role');
+    var html = '';
+    PRESETS.forEach(function (p) {
+      var family = FAMILY[p.sides] || FAMILY[3];
+      var index = p.index < 10 ? '0' + p.index : String(p.index);
+      html += '<button class="shape-tile" type="button" data-id="' + p.id + '" aria-pressed="false" style="--tile-rgb:' + family.rgb.join(',') + '">' +
+        '<span class="tile-active-flag"></span>' +
+        '<span class="tile-top"><span class="tile-index">' + index + '</span><span class="tile-sides">' + p.sides + ' 边</span></span>' +
+        '<span class="tile-art">' + miniSvgForPreset(p) + '</span>' +
+        '<span class="tile-name">' + p.name + '</span>' +
+        '<span class="tile-en">' + p.en + '</span>' +
+        '</button>';
+    });
+    DOM.catalogTrack.innerHTML = html;
+    var cards = DOM.catalogTrack.querySelectorAll('.shape-tile');
+    for (var i = 0; i < cards.length; i++) {
+      var p = PRESET_BY_ID[cards[i].getAttribute('data-id')];
+      if (p) {
+        cards[i].title = p.name + ' · ' + p.sides + ' 条边\n' + p.note;
+        cards[i].setAttribute('aria-label', p.name + '，' + p.sides + ' 条边。' + p.note);
+      }
+    }
+  }
+
+  function updateCatalogActive() {
+    if (!DOM.catalogTrack) return;
+    var cards = DOM.catalogTrack.querySelectorAll('.shape-tile');
+    for (var i = 0; i < cards.length; i++) {
+      var active = cards[i].getAttribute('data-id') === state.activePresetId;
+      cards[i].classList.toggle('active', active);
+      cards[i].setAttribute('aria-pressed', active ? 'true' : 'false');
+    }
+  }
+
+  /* ---------- section / panel refresh ---------- */
+  function refreshSection() {
+    var poly = sectionPolygon(state.n, state.d);
+    var analysis = poly ? analyzeSection(poly) : null;
+    if (analysis && state.activePresetId && !state.playing) {
+      var preset = PRESET_BY_ID[state.activePresetId];
+      if (preset && preset.sides === analysis.sides) analysis.note = preset.note;
+    }
+    state.section = poly;
+    state.analysis = analysis;
+  }
+
+  function updateFaceChips(analysis) {
+    if (!DOM.faceChips) return;
+    var chips = DOM.faceChips.querySelectorAll('.face-chip');
+    var keys = analysis ? analysis.cutFaceKeys : null;
+    for (var i = 0; i < chips.length; i++) {
+      var on = !!(keys && keys[chips[i].getAttribute('data-face')]);
+      chips[i].classList.toggle('on', on);
+    }
+    var count = analysis && analysis.cutFaces ? analysis.cutFaces.length : 0;
+    if (DOM.faceCount) DOM.faceCount.textContent = count + ' / 6';
+    if (DOM.faceHint) {
+      if (!analysis) {
+        DOM.faceHint.textContent = '平面在正方体外，暂无被切到的面';
+      } else if (count === 3) {
+        DOM.faceHint.textContent = '截到 3 个面 → 三角形';
+      } else if (count === 4) {
+        DOM.faceHint.textContent = '截到 4 个面 → 四边形';
+      } else if (count === 5) {
+        DOM.faceHint.textContent = '截到 5 个面 → 五边形';
+      } else if (count === 6) {
+        DOM.faceHint.textContent = '六个面全被截到 → 六边形';
+      } else {
+        DOM.faceHint.textContent = '截到 ' + count + ' 个面';
+      }
+    }
+  }
+
+  function updateDetailUI(analysis) {
+    updateFaceChips(analysis);
+    var family = analysis ? analysis.family : null;
+    if (analysis) {
+      setSectionColor(family.rgb, family.css);
+      DOM.liveName.textContent = analysis.name;
+      DOM.liveSides.textContent = analysis.sides + ' 条边';
+      DOM.familyChip.textContent = family.label;
+      DOM.shapeNameZh.textContent = analysis.name;
+      DOM.shapeNameEn.textContent = analysis.en;
+      DOM.sidePill.textContent = analysis.sides + ' 边';
+      DOM.perimeterVal.textContent = fmt(analysis.perimeter, 2);
+      DOM.areaVal.textContent = fmt(analysis.area, 2);
+      DOM.angleVal.textContent = analysis.angleLabel;
+      var chips = analysis.props.slice(0, 5).map(function (prop) {
+        return '<span class="prop-chip">' + prop + '</span>';
+      }).join('');
+      DOM.propertyChips.innerHTML = chips;
+      DOM.noteText.textContent = analysis.note;
+      DOM.shapeFootNote.textContent = analysis.pairs.length > 0
+        ? '同数量短斜线 = 一组平行边'
+        : '顶点 A–F 与三维截面一一对应';
+      DOM.stageEmpty.classList.remove('show');
+      document.documentElement.dataset.section = analysis.name;
+      document.documentElement.dataset.sides = String(analysis.sides);
+    } else {
+      setSectionColor(MUTED_RGB, '#8ba29d');
+      DOM.liveName.textContent = '无截面';
+      DOM.liveSides.textContent = '—';
+      DOM.familyChip.textContent = '无截面';
+      DOM.shapeNameZh.textContent = '无截面';
+      DOM.shapeNameEn.textContent = 'NO SECTION';
+      DOM.sidePill.textContent = '—';
+      DOM.perimeterVal.textContent = '—';
+      DOM.areaVal.textContent = '—';
+      DOM.angleVal.textContent = '—';
+      DOM.propertyChips.innerHTML = '<span class="prop-chip">平面位于正方体外</span>';
+      DOM.noteText.textContent = '平面已经离开正方体。拖动“截面位置 d”滑块，让平面穿过正方体，就会重新出现截面。';
+      DOM.shapeFootNote.textContent = '棱长 1 · 正交投影';
+      DOM.stageEmpty.classList.add('show');
+      var h = supportRadius(state.n);
+      if (DOM.stageEmptyStrong) {
+        DOM.stageEmptyStrong.textContent = Math.abs(Math.abs(state.d) - h) < 0.03
+          ? '平面与正方体相切'
+          : '平面已移出正方体';
+      }
+      if (DOM.stageEmptySpan) {
+        DOM.stageEmptySpan.textContent = Math.abs(Math.abs(state.d) - h) < 0.03
+          ? '此时截面退化为点或线段，移动平面即可恢复'
+          : '拖动下方位置滑块，让平面穿过正方体';
+      }
+      document.documentElement.dataset.section = 'none';
+      document.documentElement.dataset.sides = '0';
+    }
+  }
+
+  function detailSignature() {
+    var a = state.analysis;
+    if (!a) return 'none|' + state.activePresetId + '|' + (state.playing ? '1' : '0') + '|' + (state.showLabels ? '1' : '0') + '|' + state.d.toFixed(4) + '|' + state.n.map(function (v) { return round(v, 4); }).join(',');
+    return a.sides + '|' + a.name + '|' + a.perimeter.toFixed(5) + '|' + a.area.toFixed(5) + '|' +
+      a.angleLabel + '|' + a.note + '|' + state.activePresetId + '|' + (state.playing ? '1' : '0') +
+      '|' + (state.showLabels ? '1' : '0') + '|' + a.props.join('~');
+  }
+
+  /* ---------- control sync ---------- */
+  function setRangeFill(input) {
+    var min = parseFloat(input.min);
+    var max = parseFloat(input.max);
+    var value = parseFloat(input.value);
+    var pct = ((value - min) / (max - min)) * 100;
+    input.style.setProperty('--fill', pct.toFixed(2) + '%');
+  }
+
+  function buildEquationHtml(n, d) {
+    var axes = ['x', 'y', 'z'];
+    var terms = [];
+    for (var i = 0; i < 3; i++) {
+      if (Math.abs(n[i]) < 0.0005) continue;
+      terms.push({ abs: Math.abs(n[i]), neg: n[i] < 0, axis: axes[i] });
+    }
+    if (!terms.length) return '<span class="coef">0</span><span class="equals">=</span><span class="rhs">0</span>';
+    var html = '';
+    terms.forEach(function (t, index) {
+      if (index === 0) {
+        if (t.neg) html += '<span class="equals">−</span>';
+      } else {
+        html += '<span class="equals">' + (t.neg ? '−' : '+') + '</span>';
+      }
+      html += '<span class="coef">' + t.abs.toFixed(2) + '</span><span class="axis">' + t.axis + '</span>';
+    });
+    html += '<span class="equals">=</span><span class="rhs">' + fmtSigned(d, 2) + '</span>';
+    return html;
+  }
+
+  function syncControls() {
+    var angles = normalAngles(state.n);
+    var h = supportRadius(state.n);
+    var sig = angles.theta.toFixed(2) + '|' + angles.phi.toFixed(2) + '|' + state.d.toFixed(4) + '|' + h.toFixed(4);
+    if (sig === state.lastControlSignature) return;
+    state.lastControlSignature = sig;
+
+    DOM.thetaRange.value = String(clamp(angles.theta, 0, 360));
+    DOM.phiRange.value = String(clamp(angles.phi, -90, 90));
+    DOM.dRange.value = String(clamp(state.d, -1.95, 1.95));
+    DOM.thetaVal.textContent = Math.round(angles.theta) + '°';
+    DOM.phiVal.textContent = (angles.phi < 0 ? '−' : '') + Math.abs(Math.round(angles.phi)) + '°';
+    DOM.dVal.textContent = fmtSigned(state.d, 2);
+    DOM.equationText.innerHTML = buildEquationHtml(state.n, state.d);
+    DOM.normalText.textContent = '(' + fmt(state.n[0], 2) + ', ' + fmt(state.n[1], 2) + ', ' + fmt(state.n[2], 2) + ')';
+    DOM.supportVal.textContent = '−' + fmt(h, 2) + ' … ' + fmt(h, 2);
+    setRangeFill(DOM.thetaRange);
+    setRangeFill(DOM.phiRange);
+    setRangeFill(DOM.dRange);
+  }
+
+  function updateSweepUI() {
+    var h = supportRadius(state.n);
+    var min = -h - 0.18;
+    var max = h + 0.18;
+    var progress = clamp((state.d - min) / (max - min), 0, 1);
+    DOM.sweepFill.style.width = (progress * 100).toFixed(1) + '%';
+    DOM.sweepValue.textContent = 'd = ' + fmtSigned(state.d, 2);
+  }
+
+  /* ---------- play UI ---------- */
+  function setPlayIcon(svg, playing) {
+    if (!svg) return;
+    svg.innerHTML = playing ? ICON_PAUSE : ICON_PLAY;
+  }
+
+  function syncPlayUI() {
+    var playing = state.playing;
+    var leftSvg = DOM.playBtn ? DOM.playBtn.querySelector('svg') : null;
+    var stageSvg = DOM.stagePlay ? DOM.stagePlay.querySelector('svg') : null;
+    setPlayIcon(leftSvg, playing);
+    setPlayIcon(stageSvg, playing);
+    if (DOM.playBtn) DOM.playBtn.classList.toggle('is-playing', playing);
+    if (DOM.stagePlay) DOM.stagePlay.classList.toggle('is-playing', playing);
+    if (DOM.playBtnText) DOM.playBtnText.textContent = playing ? '暂停切割' : (state.hasPlayed ? '继续切割' : '播放切割');
+    if (DOM.stagePlay) DOM.stagePlay.setAttribute('aria-label', playing ? '暂停切割动画' : '播放切割动画');
+    if (DOM.playState) {
+      if (playing) {
+        DOM.playState.innerHTML = '<b>扫描中</b> · 平面沿法向量平移';
+      } else if (state.hasPlayed) {
+        DOM.playState.innerHTML = '<b>已暂停</b> · 点击继续扫描';
+      } else {
+        DOM.playState.innerHTML = '<b>扫描切割</b> · 平面沿法向量平移';
+      }
+    }
+  }
+
+  /* ---------- camera / preset / playback actions ---------- */
+  function slerpUnit(a, b, t) {
+    var d = clamp(dot(a, b), -1, 1);
+    if (d > 0.9995) return normalize([lerp(a[0], b[0], t), lerp(a[1], b[1], t), lerp(a[2], b[2], t)]);
+    if (d < -0.9995) {
+      // Not used by the current presets; choose a stable orthogonal midpoint path.
+      var helper = Math.abs(a[0]) < 0.8 ? [1, 0, 0] : [0, 1, 0];
+      var mid = normalize(add(a, mul(helper, 0.002)));
+      var ca = Math.cos(Math.PI * t);
+      var sa = Math.sin(Math.PI * t);
+      return normalize(add(mul(a, ca), mul(mid, sa)));
+    }
+    var omega = Math.acos(d);
+    var so = Math.sin(omega);
+    var wa = Math.sin((1 - t) * omega) / so;
+    var wb = Math.sin(t * omega) / so;
+    return normalize(add(mul(a, wa), mul(b, wb)));
+  }
+
+  function applyPreset(id, options) {
+    var p = PRESET_BY_ID[id];
+    if (!p) return;
+    var opts = options || {};
+    stopPlayback(true);
+    state.activePresetId = id;
+    state.tween = null;
+    var immediate = opts.immediate || PREFERS_REDUCED;
+    if (immediate) {
+      state.n = p.n.slice();
+      state.d = p.d;
+    } else {
+      state.tween = {
+        fromN: state.n.slice(),
+        fromD: state.d,
+        toN: p.n.slice(),
+        toD: p.d,
+        t: 0,
+        dur: 1.0
+      };
+    }
+    updateCatalogActive();
+    syncPlayUI();
+    markDirty();
+  }
+
+  function stopPlayback(silent) {
+    if (!state.playing) return;
+    state.playing = false;
+    if (!silent) syncPlayUI();
+    markDirty();
+  }
+
+  function togglePlayback() {
+    if (state.playing) {
+      stopPlayback(false);
+      return;
+    }
+    state.tween = null;
+    state.activePresetId = null;
+    var h = supportRadius(state.n);
+    var min = -h - 0.18;
+    var max = h + 0.18;
+    state.sweep.min = min;
+    state.sweep.max = max;
+    var u = clamp((state.d - min) / (max - min), 0, 1);
+    state.sweep.dir = 1;
+    state.sweep.hold = 0;
+    if (u > 0.985) {
+      state.sweep.u = 1;
+      state.sweep.dir = -1;
+      state.sweep.hold = 0.45;
+    } else if (u < 0.015) {
+      state.sweep.u = 0;
+      state.sweep.dir = 1;
+    } else {
+      state.sweep.u = u;
+    }
+    state.playing = true;
+    state.hasPlayed = true;
+    updateCatalogActive();
+    syncPlayUI();
+    markDirty();
+  }
+
+  function resetView() {
+    state.cameraTween = null;
+    state.camera.yaw = cameraHome.yaw;
+    state.camera.pitch = cameraHome.pitch;
+    state.camera.dist = cameraHome.dist;
+    markDirty();
+  }
+
+  function resetAll() {
+    stopPlayback(true);
+    state.tween = null;
+    state.cameraTween = null;
+    state.n = PRESET_BY_ID[DEFAULT_PRESET_ID].n.slice();
+    state.d = PRESET_BY_ID[DEFAULT_PRESET_ID].d;
+    state.activePresetId = DEFAULT_PRESET_ID;
+    state.showPlane = true;
+    state.showFaces = true;
+    state.showLabels = true;
+    state.autoRotate = false;
+    state.hasPlayed = false;
+    state.camera.yaw = cameraHome.yaw;
+    state.camera.pitch = cameraHome.pitch;
+    state.camera.dist = cameraHome.dist;
+    updateSwitchUI();
+    syncPlayUI();
+    updateCatalogActive();
+    markDirty();
+    showToast('已重置画面');
+  }
+
+  function updateSwitchUI() {
+    DOM.toggles.forEach(function (btn) {
+      var key = btn.getAttribute('data-toggle');
+      var on = false;
+      if (key === 'plane') on = state.showPlane;
+      else if (key === 'faces') on = state.showFaces;
+      else if (key === 'labels') on = state.showLabels;
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    if (DOM.autoRotateBtn) DOM.autoRotateBtn.setAttribute('aria-pressed', state.autoRotate ? 'true' : 'false');
+  }
+
+  /* ---------- animation advances ---------- */
+  function advanceTween(dt) {
+    var tw = state.tween;
+    tw.t = Math.min(1, tw.t + dt / tw.dur);
+    var k = easeInOutCubic(tw.t);
+    state.n = slerpUnit(tw.fromN, tw.toN, k);
+    state.d = lerp(tw.fromD, tw.toD, k);
+    if (tw.t >= 1) {
+      state.n = tw.toN.slice();
+      state.d = tw.toD;
+      state.tween = null;
+    }
+    markDirty();
+  }
+
+  function advanceSweep(dt) {
+    var sw = state.sweep;
+    if (sw.hold > 0) {
+      sw.hold = Math.max(0, sw.hold - dt);
+    } else {
+      var u = sw.u + sw.dir * dt * 0.145;
+      if (u >= 1) {
+        u = 1;
+        sw.dir = -1;
+        sw.hold = 0.55;
+      } else if (u <= 0) {
+        u = 0;
+        sw.dir = 1;
+        sw.hold = 0.55;
+      }
+      sw.u = u;
+    }
+    state.d = sw.min + sw.u * (sw.max - sw.min);
+    markDirty();
+  }
+
+  function advanceCameraTween(dt) {
+    var tw = state.cameraTween;
+    if (!tw) return;
+    tw.t = Math.min(1, tw.t + dt / tw.dur);
+    var k = easeInOutCubic(tw.t);
+    state.camera.yaw = lerp(tw.from.yaw, tw.to.yaw, k);
+    state.camera.pitch = lerp(tw.from.pitch, tw.to.pitch, k);
+    state.camera.dist = lerp(tw.from.dist, tw.to.dist, k);
+    if (tw.t >= 1) {
+      state.cameraTween = null;
+      state.camera.yaw = tw.to.yaw;
+      state.camera.pitch = tw.to.pitch;
+      state.camera.dist = tw.to.dist;
+    }
+    markDirty();
+  }
+
+  /* ---------- diagnostics ---------- */
+  function currentDiagnostics() {
+    var a = state.analysis;
+    var active = state.activePresetId ? PRESET_BY_ID[state.activePresetId] : null;
+    var expectedName = active ? active.name : null;
+    var match = null;
+    if (active && a) match = active.sides === a.sides && active.name === a.name;
+    return {
+      ready: true,
+      version: '1.0.0',
+      activePresetId: state.activePresetId,
+      expectedPreset: active ? { id: active.id, name: active.name, sides: active.sides, normal: active.n.map(function (v) { return round(v, 6); }), d: round(active.d, 6) } : null,
+      shape: a ? {
+        name: a.name,
+        en: a.en,
+        sides: a.sides,
+        classification: a.classification.type,
+        family: a.family.label,
+        perimeter: round(a.perimeter, 5),
+        area: round(a.area, 5),
+        minAngle: round(a.minAngle, 3),
+        maxAngle: round(a.maxAngle, 3),
+        sideLengthsUnit: a.unitSideLengths.map(function (v) { return round(v, 5); }),
+        parallelPairs: a.pairs.map(function (pair) { return pair.slice(); }),
+        cutFaces: a.cutFaces.slice(),
+        vertices: a.points.map(function (p) { return p.map(function (v) { return round(v, 5); }); }),
+        props: a.props
+      } : null,
+      presetMatches: match,
+      activeNameMatches: active && a ? (active.sides === a.sides) : null,
+      plane: {
+        normal: state.n.map(function (v) { return round(v, 6); }),
+        d: round(state.d, 6),
+        support: round(supportRadius(state.n), 6)
+      },
+      playing: state.playing,
+      tweening: !!state.tween,
+      camera: { yaw: round(state.camera.yaw, 4), pitch: round(state.camera.pitch, 4), dist: round(state.camera.dist, 4) },
+      presets: PRESETS.map(function (p) {
+        return { id: p.id, name: p.name, sides: p.sides, d: round(p.d, 5), normal: p.n.map(function (v) { return round(v, 5); }) };
+      }),
+      errors: state.errors.slice()
+    };
+  }
+
+  function updateDiagnostics() {
+    if (!diagEl) return;
+    diagEl.textContent = JSON.stringify(currentDiagnostics());
+    syncPlayUI();
+  }
+
+  /* ---------- main render ---------- */
+  function renderNow() {
+    refreshSection();
+    renderScene();
+    var sig = detailSignature();
+    if (sig !== state.lastDetailSignature) {
+      renderShapeCard(state.analysis);
+      updateDetailUI(state.analysis);
+      state.lastDetailSignature = sig;
+    }
+    syncControls();
+    updateSweepUI();
+    updateCatalogActive();
+    updateDiagnostics();
+    state.dirty = false;
+  }
+
+  function frame(ts) {
+    if (!lastFrameTime) lastFrameTime = ts;
+    var dt = Math.min(0.05, Math.max(0, (ts - lastFrameTime) / 1000));
+    lastFrameTime = ts;
+    if (state.cameraTween) advanceCameraTween(dt);
+    if (state.tween) advanceTween(dt);
+    if (state.playing) advanceSweep(dt);
+    if (state.autoRotate && !state.dragging) {
+      state.camera.yaw += dt * 0.105;
+      markDirty();
+    }
+    if (state.dirty) renderNow();
+    window.requestAnimationFrame(frame);
+  }
+
+  /* ---------- modal / fullscreen ---------- */
+  function openGuide() {
+    if (!DOM.guideModal) return;
+    modalOpen = true;
+    var opener = document.activeElement;
+    if (!opener || opener === document.body || opener === document.documentElement) opener = DOM.guideBtn;
+    modalLastFocus = opener;
+    DOM.guideModal.classList.add('open');
+    DOM.guideModal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+    if (DOM.app) DOM.app.setAttribute('inert', '');
+    if (DOM.modalClose) {
+      var focusClose = function () {
+        if (modalOpen && DOM.modalClose) {
+          try { DOM.modalClose.focus({ preventScroll: true }); } catch (err) { DOM.modalClose.focus(); }
+        }
+      };
+      focusClose();
+      [30, 110, 250].forEach(function (delay) { window.setTimeout(focusClose, delay); });
+      window.requestAnimationFrame(focusClose);
+    }
+  }
+
+  function closeGuide() {
+    if (!DOM.guideModal) return;
+    modalOpen = false;
+    DOM.guideModal.classList.remove('open');
+    DOM.guideModal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
+    if (DOM.app) DOM.app.removeAttribute('inert');
+    var target = modalLastFocus;
+    if (!target || target === document.body || !target.focus || (document.contains && !document.contains(target))) target = DOM.guideBtn;
+    if (target && target.focus) target.focus({ preventScroll: true });
+  }
+
+  function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      var root = document.documentElement;
+      if (root.requestFullscreen) {
+        root.requestFullscreen().catch(function () {
+          showToast('当前浏览器不支持全屏，请使用 F11');
+        });
+      } else {
+        showToast('当前浏览器不支持全屏，请使用 F11');
+      }
+    } else if (document.exitFullscreen) {
+      document.exitFullscreen();
+    }
+  }
+
+  /* ---------- events ---------- */
+  function stopForManualEdit() {
+    stopPlayback(true);
+    state.tween = null;
+    state.activePresetId = null;
+  }
+
+  function onOrientationInput() {
+    stopForManualEdit();
+    state.n = normalFromAngles(parseFloat(DOM.thetaRange.value), parseFloat(DOM.phiRange.value));
+    updateCatalogActive();
+    markDirty();
+  }
+
+  function onDistanceInput() {
+    stopForManualEdit();
+    state.d = parseFloat(DOM.dRange.value);
+    updateCatalogActive();
+    markDirty();
+  }
+
+  function bindEvents() {
+    DOM.playBtn.addEventListener('click', togglePlayback);
+    DOM.stagePlay.addEventListener('click', togglePlayback);
+    DOM.resetBtn.addEventListener('click', resetAll);
+    DOM.resetViewBtn.addEventListener('click', resetView);
+
+    DOM.autoRotateBtn.addEventListener('click', function () {
+      state.autoRotate = !state.autoRotate;
+      updateSwitchUI();
+      markDirty();
+    });
+
+    DOM.toggles.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var key = btn.getAttribute('data-toggle');
+        if (key === 'plane') state.showPlane = !state.showPlane;
+        else if (key === 'faces') state.showFaces = !state.showFaces;
+        else if (key === 'labels') {
+          state.showLabels = !state.showLabels;
+          state.lastDetailSignature = '';
+        }
+        updateSwitchUI();
+        markDirty();
+      });
+    });
+
+    DOM.thetaRange.addEventListener('input', onOrientationInput);
+    DOM.phiRange.addEventListener('input', onOrientationInput);
+    DOM.dRange.addEventListener('input', onDistanceInput);
+
+    DOM.catalogTrack.addEventListener('click', function (event) {
+      var card = event.target.closest('.shape-tile');
+      if (!card) return;
+      applyPreset(card.getAttribute('data-id'));
+    });
+
+    DOM.guideBtn.addEventListener('click', openGuide);
+    if (DOM.whyBtn) DOM.whyBtn.addEventListener('click', openGuide);
+    if (DOM.fullBtn) DOM.fullBtn.addEventListener('click', toggleFullscreen);
+
+    DOM.guideModal.addEventListener('click', function (event) {
+      if (event.target.hasAttribute('data-close')) closeGuide();
+    });
+    Array.prototype.slice.call(DOM.guideModal.querySelectorAll('[data-jump]')).forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var id = btn.getAttribute('data-jump');
+        closeGuide();
+        applyPreset(id);
+      });
+    });
+
+    var scene = DOM.scene;
+    scene.addEventListener('pointerdown', function (event) {
+      if (event.button !== 0 && event.pointerType === 'mouse') return;
+      state.dragging = true;
+      state.cameraTween = null;
+      state.dragPointerId = event.pointerId;
+      state.lastPointerX = event.clientX;
+      state.lastPointerY = event.clientY;
+      scene.classList.add('dragging');
+      if (scene.setPointerCapture) {
+        try { scene.setPointerCapture(event.pointerId); } catch (err) { /* ignore */ }
+      }
+      event.preventDefault();
+    });
+
+    scene.addEventListener('pointermove', function (event) {
+      if (!state.dragging) return;
+      var dx = event.clientX - state.lastPointerX;
+      var dy = event.clientY - state.lastPointerY;
+      state.lastPointerX = event.clientX;
+      state.lastPointerY = event.clientY;
+      state.camera.yaw -= dx * 0.0062;
+      state.camera.pitch = clamp(state.camera.pitch + dy * 0.0052, -1.24, 1.24);
+      markDirty();
+    });
+
+    function endDrag(event) {
+      if (!state.dragging) return;
+      state.dragging = false;
+      state.dragPointerId = null;
+      scene.classList.remove('dragging');
+      if (scene.releasePointerCapture && event && event.pointerId != null) {
+        try { scene.releasePointerCapture(event.pointerId); } catch (err) { /* ignore */ }
+      }
+    }
+    scene.addEventListener('pointerup', endDrag);
+    scene.addEventListener('pointercancel', endDrag);
+    scene.addEventListener('lostpointercapture', function () {
+      state.dragging = false;
+      scene.classList.remove('dragging');
+    });
+
+    scene.addEventListener('wheel', function (event) {
+      event.preventDefault();
+      state.camera.dist = clamp(state.camera.dist * Math.exp(event.deltaY * 0.0009), 5.10, 10.8);
+      markDirty();
+    }, { passive: false });
+
+    scene.addEventListener('dblclick', function () {
+      resetView();
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (modalOpen) {
+        if (event.key === 'Escape') {
+          event.preventDefault();
+          closeGuide();
+        } else if (event.key === 'Tab' && DOM.guideModal) {
+          var focusables = Array.prototype.slice.call(DOM.guideModal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])')).filter(function (el) {
+            return el.getClientRects().length > 0 && !el.disabled;
+          });
+          if (focusables.length) {
+            var firstF = focusables[0];
+            var lastF = focusables[focusables.length - 1];
+            var activeIndex = focusables.indexOf(document.activeElement);
+            if (activeIndex === -1) {
+              event.preventDefault();
+              (event.shiftKey ? lastF : firstF).focus();
+            } else if (event.shiftKey && document.activeElement === firstF) {
+              event.preventDefault();
+              lastF.focus();
+            } else if (!event.shiftKey && document.activeElement === lastF) {
+              event.preventDefault();
+              firstF.focus();
+            }
+          }
+        }
+        return;
+      }
+      var tag = (event.target && event.target.tagName) ? event.target.tagName.toLowerCase() : '';
+      var interactive = tag === 'input' || tag === 'textarea' || tag === 'select' || tag === 'button' || tag === 'a' || (event.target && event.target.isContentEditable);
+      if (event.key === 'Escape') {
+        closeGuide();
+        return;
+      }
+      if (interactive) return;
+      if (event.key === ' ' || event.key === 'Spacebar') {
+        event.preventDefault();
+        togglePlayback();
+      } else if (event.key.toLowerCase() === 'r') {
+        event.preventDefault();
+        resetView();
+      } else if (event.key.toLowerCase() === 'g') {
+        event.preventDefault();
+        openGuide();
+      }
+    });
+
+    window.addEventListener('resize', function () {
+      state.lastDetailSignature = '';
+      markDirty();
+    });
+
+    document.addEventListener('visibilitychange', function () {
+      lastFrameTime = 0;
+      markDirty();
+    });
+
+    document.addEventListener('fullscreenchange', function () {
+      if (DOM.fullBtn) {
+        DOM.fullBtn.title = document.fullscreenElement ? '退出全屏' : '全屏显示';
+        DOM.fullBtn.setAttribute('aria-label', document.fullscreenElement ? '退出全屏' : '全屏显示');
+      }
+    });
+
+    if (window.ResizeObserver) {
+      var ro = new ResizeObserver(function () {
+        state.lastDetailSignature = '';
+        markDirty();
+      });
+      ro.observe(DOM.stage);
+      ro.observe(DOM.shapeCanvas);
+      ro.observe(DOM.catalogTrack);
+    }
+  }
+
+  /* ---------- setup ---------- */
+  function readUrlState() {
+    try {
+      var params = new URLSearchParams(window.location.search);
+      staticMode = params.get('static') === '1';
+      var requested = params.get('preset');
+      if (!requested || !PRESET_BY_ID[requested]) requested = DEFAULT_PRESET_ID;
+      var yaw = parseFloat(params.get('yaw'));
+      var pitch = parseFloat(params.get('pitch'));
+      var dist = parseFloat(params.get('dist'));
+      if (isFinite(yaw)) state.camera.yaw = yaw;
+      if (isFinite(pitch)) state.camera.pitch = clamp(pitch, -1.24, 1.24);
+      if (isFinite(dist)) state.camera.dist = clamp(dist, 5.1, 10.8);
+      return requested;
+    } catch (err) {
+      return DEFAULT_PRESET_ID;
+    }
+  }
+
+  function init() {
+    cacheDom();
+    if (!DOM.scene || !DOM.shapeCanvas) {
+      state.errors.push('Required canvas element missing.');
+      return;
+    }
+    buildCatalog();
+    bindEvents();
+
+    var initialPresetId = readUrlState();
+    var initial = PRESET_BY_ID[initialPresetId] || PRESET_BY_ID[DEFAULT_PRESET_ID];
+    state.n = initial.n.slice();
+    state.d = initial.d;
+    state.activePresetId = initial.id;
+    state.tween = null;
+    state.playing = false;
+    state.hasPlayed = false;
+
+    updateSwitchUI();
+    updateCatalogActive();
+    syncPlayUI();
+    markDirty();
+    renderNow();
+
+    window.__CUBE_LAB__ = {
+      version: '1.0.0',
+      presets: function () {
+        return PRESETS.map(function (p) {
+          return { id: p.id, name: p.name, sides: p.sides, normal: p.n.slice(), d: p.d };
+        });
+      },
+      getDiagnostics: function () {
+        return currentDiagnostics();
+      },
+      applyPreset: function (id) {
+        applyPreset(id, { immediate: true });
+        renderNow();
+        return currentDiagnostics();
+      },
+      setPlane: function (normal, d) {
+        stopForManualEdit();
+        state.n = normalize(normal);
+        state.d = Number(d);
+        state.lastControlSignature = '';
+        renderNow();
+        return currentDiagnostics();
+      },
+      setCamera: function (yaw, pitch, dist) {
+        if (isFinite(yaw)) state.camera.yaw = yaw;
+        if (isFinite(pitch)) state.camera.pitch = pitch;
+        if (isFinite(dist)) state.camera.dist = dist;
+        markDirty();
+        return true;
+      },
+      render: function () { renderNow(); return true; }
+    };
+    window.requestAnimationFrame(frame);
+    document.documentElement.dataset.ready = 'true';
+    document.documentElement.dataset.version = '1.0.0';
+  }
+
+  window.addEventListener('error', function (event) {
+    state.errors.push(String(event.message || 'Unknown error'));
+    if (diagEl) updateDiagnostics();
+  });
+  window.addEventListener('unhandledrejection', function (event) {
+    state.errors.push(String(event.reason || 'Unhandled rejection'));
+    if (diagEl) updateDiagnostics();
+  });
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+</body>
+</html>

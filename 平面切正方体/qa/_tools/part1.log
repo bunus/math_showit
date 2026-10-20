@@ -1,0 +1,164 @@
+EDGE Edg/155.0.4283.62 pid 7800
+PASS env.ready {"ready":"true","apiVersion":"1.0.0"}
+PASS env.preset-count-12 12
+PASS env.two-canvases 2
+PASS env.no-resources []
+PASS env.diag-errors-empty []
+PASS env.default-regular-hexagon {"shape":"正六边形","match":true}
+PASS catalog.order ["equilateral-triangle","isosceles-triangle","scalene-triangle","square","rectangle","rhombus","parallelogram","trapezoid","isosceles-trapezoid","pentagon","regular-hexagon","hexagon"]
+PASS catalog.tally-12 "3–6 条边12 个代表形态"
+PASS preset.equilateral-triangle.id+match {"activePresetId":"equilateral-triangle","presetMatches":true,"activeTile":"equilateral-triangle"}
+PASS preset.equilateral-triangle.sides {"page":3,"expected":3}
+PASS preset.equilateral-triangle.name {"page":"等边三角形","dom":"等边三角形","live":"等边三角形","expected":"等边三角形"}
+PASS preset.equilateral-triangle.classification {"page":"equilateral","expected":"equilateral"}
+PASS preset.equilateral-triangle.side-lengths {"maxDiff":0.0000032188134523325473,"page":[0.70711,0.70711,0.70711],"expected":[0.7071067811865477,0.7071067811865477,0.7071067811865478]}
+PASS preset.equilateral-triangle.angles {"maxDiff":7.105427357601002e-15,"page":[60,60],"expected":[60.00000000000001,60.00000000000001]}
+PASS preset.equilateral-triangle.parallel-pairs {"page":0,"expected":0}
+PASS preset.equilateral-triangle.face-chips {"cutFaces":3,"faceOn":3,"faceCount":"3 / 6","hint":"截到 3 个面 → 三角形"}
+PASS preset.equilateral-triangle.shape-canvas-painted {"pixels":62194,"w":308,"h":202,"sig":1113194254}
+PASS preset.equilateral-triangle.metric-and-note-text {"perimeter":"2.12","area":"0.22","angle":"60°","props":["平面截去一个角","三边相等","三个内角都是 60°","与 3 个面相交"],"note":"平面在顶点附近斜切，三条截棱长度相等，因此截面的三条边等长，三个内角都是 60°"}
+PASS preset.equilateral-triangle.acute-triangle {"maxAngle":60,"expected":60.00000000000001}
+PASS preset.isosceles-triangle.id+match {"activePresetId":"isosceles-triangle","presetMatches":true,"activeTile":"isosceles-triangle"}
+PASS preset.isosceles-triangle.sides {"page":3,"expected":3}
+PASS preset.isosceles-triangle.name {"page":"等腰三角形","dom":"等腰三角形","live":"等腰三角形","expected":"等腰三角形"}
+PASS preset.isosceles-triangle.classification {"page":"isosceles","expected":"isosceles"}
+PASS preset.isosceles-triangle.side-lengths {"maxDiff":5.849579050032361e-7,"page":[0.79057,0.79057,1.06066],"expected":[0.790569415042095,0.790569415042095,1.0606601717798214]}
+PASS preset.isosceles-triangle.angles {"maxDiff":0.0004147613666063421,"page":[47.87,84.261],"expected":[47.86958523863339,84.26082952273322]}
+PASS preset.isosceles-triangle.parallel-pairs {"page":0,"expected":0}
+PASS preset.isosceles-triangle.face-chips {"cutFaces":3,"faceOn":3,"faceCount":"3 / 6","hint":"截到 3 个面 → 三角形"}
+PASS preset.isosceles-triangle.shape-canvas-painted {"pixels":62194,"w":308,"h":202,"sig":725761490}
+PASS preset.isosceles-triangle.metric-and-note-text {"perimeter":"2.64","area":"0.31","angle":"48°–84°","props":["平面截去一个角","有两条边相等","两个底角相等","三个内角都是锐角","与 3 个面相交"],"note":"三条截棱中有两条相等、第三条不同，于是得到等腰但非等边的三角形。它的两个底角相等"}
+PASS preset.isosceles-triangle.acute-triangle {"maxAngle":84.261,"expected":84.26082952273322}
+PASS preset.scalene-triangle.id+match {"activePresetId":"scalene-triangle","presetMatches":true,"activeTile":"scalene-triangle"}
+PASS preset.scalene-triangle.sides {"page":3,"expected":3}
+PASS preset.scalene-triangle.name {"page":"不等边三角形","dom":"不等边三角形","live":"不等边三角形","expected":"不等边三角形"}
+PASS preset.scalene-triangle.classification {"page":"scalene","expected":"scalene"}
+PASS preset.scalene-triangle.side-lengths {"maxDiff":0.000004617360803260695,"page":[0.67082,0.94868,1.08167],"expected":[0.6708203932499368,0.9486832980505137,1.0816653826391966]}
+PASS preset.scalene-triangle.angles {"maxDiff":0.00010235415597037445,"page":[37.875,81.87],"expected":[37.8749836510982,81.86989764584403]}
+PASS preset.scalene-triangle.parallel-pairs {"page":0,"expected":0}
+PASS preset.scalene-triangle.face-chips {"cutFaces":3,"faceOn":3,"faceCount":"3 / 6","hint":"截到 3 个面 → 三角形"}
+PASS preset.scalene-triangle.shape-canvas-painted {"pixels":62194,"w":308,"h":202,"sig":3860503668}
+PASS preset.scalene-triangle.metric-and-note-text {"perimeter":"2.70","area":"0.32","angle":"38°–82°","props":["平面截去一个角","三边互不相等","三个内角都是锐角","与 3 个面相交"],"note":"三条截棱长度互不相同，三边也都不相等。注意：正方体的三角形截面一定都是锐角三角形"}
+PASS preset.scalene-triangle.acute-triangle {"maxAngle":81.87,"expected":81.86989764584403}
+PASS preset.square.id+match {"activePresetId":"square","presetMatches":true,"activeTile":"square"}
+PASS preset.square.sides {"page":4,"expected":4}
+PASS preset.square.name {"page":"正方形","dom":"正方形","live":"正方形","expected":"正方形"}
+PASS preset.square.classification {"page":"square","expected":"square"}
+PASS preset.square.side-lengths {"maxDiff":0,"page":[1,1,1,1],"expected":[1,1,1,1]}
+PASS preset.square.angles {"maxDiff":0,"page":[90,90],"expected":[90,90]}
+PASS preset.square.parallel-pairs {"page":2,"expected":2}
+PASS preset.square.face-chips {"cutFaces":4,"faceOn":4,"faceCount":"4 / 6","hint":"截到 4 个面 → 四边形"}
+PASS preset.square.shape-canvas-painted {"pixels":62194,"w":308,"h":202,"sig":1266599332}
+PASS preset.square.metric-and-note-text {"perimeter":"4.00","area":"1.00","angle":"90°","props":["2 组对边平行","对边相等","四个角都是直角","四条边相等","与 4 个面相交"],"note":"平面平行于一组对面时，截面与正方体的面全等，是边长等于棱长的正方形。"}
+PASS preset.square.has-parallel-pair {"pairs":[[0,2],[1,3]]}
+PASS preset.rectangle.id+match {"activePresetId":"rectangle","presetMatches":true,"activeTile":"rectangle"}
+PASS preset.rectangle.sides {"page":4,"expected":4}
+PASS preset.rectangle.name {"page":"矩形","dom":"矩形","live":"矩形","expected":"矩形"}
+PASS preset.rectangle.classification {"page":"rectangle","expected":"rectangle"}
+PASS preset.rectangle.side-lengths {"maxDiff":0.000002540694797659171,"page":[1,0.77782,1,0.77782],"expected":[0.7778174593052023,0.7778174593052023,1,1]}
+PASS preset.rectangle.angles {"maxDiff":0,"page":[90,90],"expected":[90,90]}
+PASS preset.rectangle.parallel-pairs {"page":2,"expected":2}
+PASS preset.rectangle.face-chips {"cutFaces":4,"faceOn":4,"faceCount":"4 / 6","hint":"截到 4 个面 → 四边形"}
+PASS preset.rectangle.shape-canvas-painted {"pixels":62194,"w":308,"h":202,"sig":1502236779}
+PASS preset.rectangle.metric-and-note-text {"perimeter":"3.56","area":"0.78","angle":"90°","props":["2 组对边平行","对边相等","四个角都是直角","邻边长度不等","与 4 个面相交"],"note":"当平面平行于正方体的一条棱时，截面可以拉长成长方形。这里的平面斜着穿过四个面，得"}
+PASS preset.rectangle.has-parallel-pair {"pairs":[[0,2],[1,3]]}
+PASS preset.rhombus.id+match {"activePresetId":"rhombus","presetMatches":true,"activeTile":"rhombus"}
+PASS preset.rhombus.sides {"page":4,"expected":4}
+PASS preset.rhombus.name {"page":"菱形","dom":"菱形","live":"菱形","expected":"菱形"}
+PASS preset.rhombus.classification {"page":"rhombus","expected":"rhombus"}
+PASS preset.rhombus.side-lengths {"maxDiff":0.000002553389459869493,"page":[1.05409,1.05409,1.05409,1.05409],"expected":[1.0540925533894598,1.0540925533894598,1.0540925533894598,1.0540925533894598]}
+PASS preset.rhombus.angles {"maxDiff":0.00017047726677787978,"page":[84.261,95.739],"expected":[84.26082952273322,95.73917047726678]}
+PASS preset.rhombus.parallel-pairs {"page":2,"expected":2}
+PASS preset.rhombus.face-chips {"cutFaces":4,"faceOn":4,"faceCount":"4 / 6","hint":"截到 4 个面 → 四边形"}
+PASS preset.rhombus.shape-canvas-painted {"pixels":62194,"w":308,"h":202,"sig":2689137234}
+PASS preset.rhombus.metric-and-note-text {"perimeter":"4.22","area":"1.11","angle":"84°–96°","props":["2 组对边平行","对边相等","四条边相等","与 4 个面相交"],"note":"四边形截面至少有一组对边平行。当两组对边都平行、四条边又相等时，就得到菱形。这里"}
+PASS preset.rhombus.has-parallel-pair {"pairs":[[0,2],[1,3]]}
+PASS preset.rhombus.non-square {"unitSides":[1.0540925533894598,1.0540925533894598,1.0540925533894598,1.0540925533894598],"angles":[84.26082952273322,84.26082952273323,95.73917047726678,95.73917047726678]}
+PASS preset.parallelogram.id+match {"activePresetId":"parallelogram","presetMatches":true,"activeTile":"parallelogram"}
+PASS preset.parallelogram.sides {"page":4,"expected":4}
+PASS preset.parallelogram.name {"page":"平行四边形","dom":"平行四边形","live":"平行四边形","expected":"平行四边形"}
+PASS preset.parallelogram.classification {"page":"parallelogram","expected":"parallelogram"}
+PASS preset.parallelogram.side-lengths {"maxDiff":0.000003988749894823229,"page":[1.11803,1.03078,1.11803,1.03078],"expected":[1.030776406404415,1.030776406404415,1.118033988749895,1.118033988749895]}
+PASS preset.parallelogram.angles {"maxDiff":0.0001497028656274324,"page":[83.773,96.227],"expected":[83.77314970286562,96.22685029713438]}
+PASS preset.parallelogram.parallel-pairs {"page":2,"expected":2}
+PASS preset.parallelogram.face-chips {"cutFaces":4,"faceOn":4,"faceCount":"4 / 6","hint":"截到 4 个面 → 四边形"}
+PASS preset.parallelogram.shape-canvas-painted {"pixels":62194,"w":308,"h":202,"sig":1906602433}
+PASS preset.parallelogram.metric-and-note-text {"perimeter":"4.30","area":"1.15","angle":"84°–96°","props":["2 组对边平行","对边相等","邻边长度不等","与 4 个面相交"],"note":"两组对边分别平行，但邻边长度不同、内角不是直角，因此是一般的平行四边形。"}
+PASS preset.parallelogram.has-parallel-pair {"pairs":[[0,2],[1,3]]}
+PASS preset.trapezoid.id+match {"activePresetId":"trapezoid","presetMatches":true,"activeTile":"trapezoid"}
+PASS preset.trapezoid.sides {"page":4,"expected":4}
+PASS preset.trapezoid.name {"page":"梯形","dom":"梯形","live":"梯形","expected":"梯形"}
+PASS preset.trapezoid.classification {"page":"trapezoid","expected":"trapezoid"}
+PASS preset.trapezoid.side-lengths {"maxDiff":0.000003988749895045274,"page":[0.99153,1.05409,0.3906,1.11803],"expected":[0.39060138817526546,0.9915266007525971,1.0540925533894603,1.1180339887498951]}
+PASS preset.trapezoid.angles {"maxDiff":0.0004476396425019402,"page":[68.155,111.845],"expected":[68.15455236035753,111.8454476396425]}
+PASS preset.trapezoid.parallel-pairs {"page":1,"expected":1}
+PASS preset.trapezoid.face-chips {"cutFaces":4,"faceOn":4,"faceCount":"4 / 6","hint":"截到 4 个面 → 四边形"}
+PASS preset.trapezoid.shape-canvas-painted {"pixels":62194,"w":308,"h":202,"sig":94360392}
+PASS preset.trapezoid.metric-and-note-text {"perimeter":"3.55","area":"0.72","angle":"68°–112°","props":["1 组对边平行","两腰不等","与 4 个面相交"],"note":"平面只截到 4 个面，且只有一组对边平行，因此得到梯形。注意这里不是平行四边形。"}
+PASS preset.trapezoid.has-parallel-pair {"pairs":[[0,2]]}
+PASS preset.trapezoid.legs-unequal-no-right {"sortedUnitSides":[0.39060138817526546,0.9915266007525971,1.0540925533894603,1.1180339887498951],"angles":[68.15455236035753,79.89738820831244,100.10261179168756,111.8454476396425]}
+PASS preset.isosceles-trapezoid.id+match {"activePresetId":"isosceles-trapezoid","presetMatches":true,"activeTile":"isosceles-trapezoid"}
+PASS preset.isosceles-trapezoid.sides {"page":4,"expected":4}
+PASS preset.isosceles-trapezoid.name {"page":"等腰梯形","dom":"等腰梯形","live":"等腰梯形","expected":"等腰梯形"}
+PASS preset.isosceles-trapezoid.classification {"page":"isosceles-trapezoid","expected":"isosceles-trapezoid"}
+PASS preset.isosceles-trapezoid.side-lengths {"maxDiff":0.0000032188134523325473,"page":[1.17851,1.05409,0.70711,1.05409],"expected":[0.7071067811865477,1.0540925533894596,1.0540925533894598,1.1785113019775793]}
+PASS preset.isosceles-trapezoid.angles {"maxDiff":0.00003361841643823027,"page":[77.079,102.921],"expected":[77.07903361841643,102.92096638158357]}
+PASS preset.isosceles-trapezoid.parallel-pairs {"page":1,"expected":1}
+PASS preset.isosceles-trapezoid.face-chips {"cutFaces":4,"faceOn":4,"faceCount":"4 / 6","hint":"截到 4 个面 → 四边形"}
+PASS preset.isosceles-trapezoid.shape-canvas-painted {"pixels":62194,"w":308,"h":202,"sig":2653579827}
+PASS preset.isosceles-trapezoid.metric-and-note-text {"perimeter":"3.99","area":"0.97","angle":"77°–103°","props":["1 组对边平行","两腰相等","与 4 个面相交"],"note":"只截到 4 个面、仅有一组对边平行，同时两条腰相等，因此得到等腰梯形。它是梯形的"}
+PASS preset.isosceles-trapezoid.has-parallel-pair {"pairs":[[0,2]]}
+PASS preset.isosceles-trapezoid.legs-equal {"sortedUnitSides":[0.7071067811865477,1.0540925533894596,1.0540925533894598,1.1785113019775793]}
+PASS preset.pentagon.id+match {"activePresetId":"pentagon","presetMatches":true,"activeTile":"pentagon"}
+PASS preset.pentagon.sides {"page":5,"expected":5}
+PASS preset.pentagon.name {"page":"五边形","dom":"五边形","live":"五边形","expected":"五边形"}
+PASS preset.pentagon.classification {"page":"pentagon","expected":"pentagon"}
+PASS preset.pentagon.side-lengths {"maxDiff":0.000003988749895045274,"page":[0.27951,1.11803,1.11803,0.27951,1.06066],"expected":[0.2795084971874737,0.2795084971874738,1.0606601717798214,1.118033988749895,1.1180339887498951]}
+PASS preset.pentagon.angles {"maxDiff":0.0004795164077506797,"page":[78.463,129.232],"expected":[78.46304096718453,129.23152048359225]}
+PASS preset.pentagon.parallel-pairs {"page":2,"expected":2}
+PASS preset.pentagon.face-chips {"cutFaces":5,"faceOn":5,"faceCount":"5 / 6","hint":"截到 5 个面 → 五边形"}
+PASS preset.pentagon.shape-canvas-painted {"pixels":62194,"w":308,"h":202,"sig":3772689411}
+PASS preset.pentagon.metric-and-note-text {"perimeter":"3.86","area":"0.88","angle":"78°–129°","props":["2 组平行边","不可能是正五边形","与 5 个面相交"],"note":"平面截到 5 个面。必有一组对面没有被同时截到，所以五边形截面至少含两组平行边，"}
+PASS preset.pentagon.two-parallel-pairs-not-regular {"pairs":2,"unitSides":[0.2795084971874737,0.2795084971874738,1.0606601717798214,1.118033988749895,1.1180339887498951]}
+PASS preset.regular-hexagon.id+match {"activePresetId":"regular-hexagon","presetMatches":true,"activeTile":"regular-hexagon"}
+PASS preset.regular-hexagon.sides {"page":6,"expected":6}
+PASS preset.regular-hexagon.name {"page":"正六边形","dom":"正六边形","live":"正六边形","expected":"正六边形"}
+PASS preset.regular-hexagon.classification {"page":"regular-hexagon","expected":"regular-hexagon"}
+PASS preset.regular-hexagon.side-lengths {"maxDiff":0.0000032188134524435696,"page":[0.70711,0.70711,0.70711,0.70711,0.70711,0.70711],"expected":[0.7071067811865476,0.7071067811865476,0.7071067811865476,0.7071067811865476,0.7071067811865476,0.7071067811865476]}
+PASS preset.regular-hexagon.angles {"maxDiff":1.4210854715202004e-14,"page":[120,120],"expected":[120.00000000000001,120.00000000000001]}
+PASS preset.regular-hexagon.parallel-pairs {"page":3,"expected":3}
+PASS preset.regular-hexagon.face-chips {"cutFaces":6,"faceOn":6,"faceCount":"6 / 6","hint":"六个面全被截到 → 六边形"}
+PASS preset.regular-hexagon.shape-canvas-painted {"pixels":62194,"w":308,"h":202,"sig":1977583519}
+PASS preset.regular-hexagon.metric-and-note-text {"perimeter":"4.24","area":"1.30","angle":"120°","props":["六条边相等","六个内角都是 120°","三组对边平行","与 6 个面相交"],"note":"平面垂直于正方体的体对角线并经过中心，截到全部 6 个面，得到正六边形：六边等长"}
+PASS preset.regular-hexagon.three-parallel-pairs {"pairs":[[0,3],[1,4],[2,5]]}
+PASS preset.regular-hexagon.regular {"angles":[120.00000000000001,120.00000000000001,120.00000000000001,120.00000000000001,120.00000000000001,120.00000000000001],"sides":[0.7071067811865476,0.7071067811865476,0.7071067811865476,0.7071067811865476,0.7071067811865476,0.70710678
+PASS preset.hexagon.id+match {"activePresetId":"hexagon","presetMatches":true,"activeTile":"hexagon"}
+PASS preset.hexagon.sides {"page":6,"expected":6}
+PASS preset.hexagon.name {"page":"一般六边形","dom":"一般六边形","live":"一般六边形","expected":"一般六边形"}
+PASS preset.hexagon.classification {"page":"hexagon","expected":"hexagon"}
+PASS preset.hexagon.side-lengths {"maxDiff":0.000004746830583102213,"page":[1.02157,0.21213,1.02157,0.7812,0.49497,0.7812],"expected":[0.21213203435596412,0.4949747468305831,0.781202776350531,0.7812027763505311,1.0215728613814636,1.0215728613814639]}
+PASS preset.hexagon.angles {"maxDiff":0.00021313939228662093,"page":[107.92,126.04],"expected":[107.92021313939229,126.03989343030389]}
+PASS preset.hexagon.parallel-pairs {"page":3,"expected":3}
+PASS preset.hexagon.face-chips {"cutFaces":6,"faceOn":6,"faceCount":"6 / 6","hint":"六个面全被截到 → 六边形"}
+PASS preset.hexagon.shape-canvas-painted {"pixels":62194,"w":308,"h":202,"sig":897125876}
+PASS preset.hexagon.metric-and-note-text {"perimeter":"4.31","area":"1.27","angle":"108°–126°","props":["三组对边分别平行","边长与内角一般不相等","与 6 个面相交"],"note":"平面截到全部 6 个面时得到六边形，三组对边分别平行；但不一定像正六边形那样六边"}
+PASS preset.hexagon.three-parallel-pairs {"pairs":[[0,3],[1,4],[2,5]]}
+PASS preset.hexagon.general {"angles":[107.92021313939229,107.92021313939229,126.03989343030383,126.03989343030386,126.03989343030386,126.03989343030389],"sides":[0.21213203435596412,0.4949747468305831,0.781202776350531,0.7812027763505311,1.0215728613814636,1.02157286
+PASS preset.shape-canvases-distinct {"distinct":12,"total":12}
+PASS math.slanted-square-exists {"page":{"name":"正方形","sides":4,"unitSides":[1,1,1,1],"minAngle":90,"maxAngle":90},"expected":{"type":"square","unitSides":[1,1,1,1],"angles":[90,90,90,90],"d":0.5416407864998738}}
+PASS math.equiangular-hexagon-not-regular {"page":{"name":"等角六边形","sides":6,"minAngle":120,"maxAngle":120,"sideLengthsUnit":[0.58463,0.82958,0.58463,0.82958,0.58463,0.82958]},"expected":{"type":"equiangular-hexagon","angles":[119.99999999999999,120.00000000000001,120.00000000000001
+PASS math.random-sample-no-theorem-violations {"count":0,"sample":[]}
+PASS math.random-sample-classification-agreement {"mismatchCount":2,"allNearToleranceBoundary":true,"sample":[{"i":157,"n":[-0.6856721547997146,-0.7279085901697522,-0.001667479954899211],"d":-0.1754984774022808,"pageName":"矩形","pageType":"rectangle","independentType":"isosceles-trapezoid"
+PASS math.random-sample-all-four-side-counts {"3":62,"4":159,"5":70,"6":9}
+PASS math.regular-hexagon-needs-equal-normal-components {"sixGonsChecked":60,"violations":[]}
+PASS math.regular-hexagon-positive {"name":"正六边形","minAngle":120,"maxAngle":120,"sides":[0.70711,0.70711,0.70711,0.70711,0.70711,0.70711]}
+PASS state.outside-cube-empty {"shape":null,"empty":true,"strong":"平面已移出正方体","span":"拖动下方位置滑块，让平面穿过正方体","live":"无截面","faceCount":"0 / 6","shapeName":"无截面"}
+PASS state.tangent-vertex {"shape":null,"empty":true,"strong":"平面与正方体相切","span":"此时截面退化为点或线段，移动平面即可恢复","live":"无截面"}
+PASS robust.rapid-preset-switching {"activePresetId":"hexagon","shape":"一般六边形","sides":6,"match":true,"errors":[],"painted":62194}
+PASS robust.random-slider-events {"errors":[],"playing":false,"tweening":false,"shape":"等腰梯形","plane":{"normal":[0.021703,-0.909961,-0.414125],"d":1.085,"support":1.34579}}
+PASS errors.no-runtime-exceptions 
+PASS errors.no-console-or-log-errors []
+PASS errors.diag-empty-at-end []
+PASS robust.no-external-network []
+==== PART1 DONE pass=161 fail=0 ====
+RESULT_FILE qa/_tools/results-part1.json

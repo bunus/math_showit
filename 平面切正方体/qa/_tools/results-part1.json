@@ -1,0 +1,5724 @@
+{
+ "part": 1,
+ "startedAt": "2026-10-19T15:38:25.509Z",
+ "target": {
+  "file": "index.html",
+  "size": 141010,
+  "sha256": "0F9761D1726488FEC4D42FA5A7DBEF49D6B237FFDEFB69DBE103413C0712870D",
+  "mtime": "2026-10-19T15:37:57.915Z"
+ },
+ "env": {
+  "href": "file:///D:/workspace/%E6%95%B0%E5%AD%A6%E6%BC%94%E7%A4%BA/index.html?preset=regular-hexagon&static=1",
+  "title": "正方体截面实验室 · 一张平面，切出全部可能",
+  "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36 Edg/155.0.0.0",
+  "innerW": 1920,
+  "innerH": 1080,
+  "dpr": 1,
+  "ready": "true",
+  "version": "1.0.0",
+  "apiVersion": "1.0.0",
+  "presetCount": 12,
+  "canvasCount": 2,
+  "diagErrors": [],
+  "resources": [],
+  "shape": "正六边形",
+  "presetMatches": true,
+  "homeCamera": {
+   "yaw": 0.68,
+   "pitch": 0.31,
+   "dist": 7.25
+  }
+ },
+ "checks": [
+  {
+   "id": "env.ready",
+   "ok": true,
+   "detail": {
+    "ready": "true",
+    "apiVersion": "1.0.0"
+   }
+  },
+  {
+   "id": "env.preset-count-12",
+   "ok": true,
+   "detail": 12
+  },
+  {
+   "id": "env.two-canvases",
+   "ok": true,
+   "detail": 2
+  },
+  {
+   "id": "env.no-resources",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "env.diag-errors-empty",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "env.default-regular-hexagon",
+   "ok": true,
+   "detail": {
+    "shape": "正六边形",
+    "match": true
+   }
+  },
+  {
+   "id": "catalog.order",
+   "ok": true,
+   "detail": [
+    "equilateral-triangle",
+    "isosceles-triangle",
+    "scalene-triangle",
+    "square",
+    "rectangle",
+    "rhombus",
+    "parallelogram",
+    "trapezoid",
+    "isosceles-trapezoid",
+    "pentagon",
+    "regular-hexagon",
+    "hexagon"
+   ]
+  },
+  {
+   "id": "catalog.tally-12",
+   "ok": true,
+   "detail": "3–6 条边12 个代表形态"
+  },
+  {
+   "id": "preset.equilateral-triangle.id+match",
+   "ok": true,
+   "detail": {
+    "activePresetId": "equilateral-triangle",
+    "presetMatches": true,
+    "activeTile": "equilateral-triangle"
+   }
+  },
+  {
+   "id": "preset.equilateral-triangle.sides",
+   "ok": true,
+   "detail": {
+    "page": 3,
+    "expected": 3
+   }
+  },
+  {
+   "id": "preset.equilateral-triangle.name",
+   "ok": true,
+   "detail": {
+    "page": "等边三角形",
+    "dom": "等边三角形",
+    "live": "等边三角形",
+    "expected": "等边三角形"
+   }
+  },
+  {
+   "id": "preset.equilateral-triangle.classification",
+   "ok": true,
+   "detail": {
+    "page": "equilateral",
+    "expected": "equilateral"
+   }
+  },
+  {
+   "id": "preset.equilateral-triangle.side-lengths",
+   "ok": true,
+   "detail": {
+    "maxDiff": 0.0000032188134523325473,
+    "page": [
+     0.70711,
+     0.70711,
+     0.70711
+    ],
+    "expected": [
+     0.7071067811865477,
+     0.7071067811865477,
+     0.7071067811865478
+    ]
+   }
+  },
+  {
+   "id": "preset.equilateral-triangle.angles",
+   "ok": true,
+   "detail": {
+    "maxDiff": 7.105427357601002e-15,
+    "page": [
+     60,
+     60
+    ],
+    "expected": [
+     60.00000000000001,
+     60.00000000000001
+    ]
+   }
+  },
+  {
+   "id": "preset.equilateral-triangle.parallel-pairs",
+   "ok": true,
+   "detail": {
+    "page": 0,
+    "expected": 0
+   }
+  },
+  {
+   "id": "preset.equilateral-triangle.face-chips",
+   "ok": true,
+   "detail": {
+    "cutFaces": 3,
+    "faceOn": 3,
+    "faceCount": "3 / 6",
+    "hint": "截到 3 个面 → 三角形"
+   }
+  },
+  {
+   "id": "preset.equilateral-triangle.shape-canvas-painted",
+   "ok": true,
+   "detail": {
+    "pixels": 62194,
+    "w": 308,
+    "h": 202,
+    "sig": 1113194254
+   }
+  },
+  {
+   "id": "preset.equilateral-triangle.metric-and-note-text",
+   "ok": true,
+   "detail": {
+    "perimeter": "2.12",
+    "area": "0.22",
+    "angle": "60°",
+    "props": [
+     "平面截去一个角",
+     "三边相等",
+     "三个内角都是 60°",
+     "与 3 个面相交"
+    ],
+    "note": "平面在顶点附近斜切，三条截棱长度相等，因此截面的三条边等长，三个内角都是 60°"
+   }
+  },
+  {
+   "id": "preset.equilateral-triangle.acute-triangle",
+   "ok": true,
+   "detail": {
+    "maxAngle": 60,
+    "expected": 60.00000000000001
+   }
+  },
+  {
+   "id": "preset.isosceles-triangle.id+match",
+   "ok": true,
+   "detail": {
+    "activePresetId": "isosceles-triangle",
+    "presetMatches": true,
+    "activeTile": "isosceles-triangle"
+   }
+  },
+  {
+   "id": "preset.isosceles-triangle.sides",
+   "ok": true,
+   "detail": {
+    "page": 3,
+    "expected": 3
+   }
+  },
+  {
+   "id": "preset.isosceles-triangle.name",
+   "ok": true,
+   "detail": {
+    "page": "等腰三角形",
+    "dom": "等腰三角形",
+    "live": "等腰三角形",
+    "expected": "等腰三角形"
+   }
+  },
+  {
+   "id": "preset.isosceles-triangle.classification",
+   "ok": true,
+   "detail": {
+    "page": "isosceles",
+    "expected": "isosceles"
+   }
+  },
+  {
+   "id": "preset.isosceles-triangle.side-lengths",
+   "ok": true,
+   "detail": {
+    "maxDiff": 5.849579050032361e-7,
+    "page": [
+     0.79057,
+     0.79057,
+     1.06066
+    ],
+    "expected": [
+     0.790569415042095,
+     0.790569415042095,
+     1.0606601717798214
+    ]
+   }
+  },
+  {
+   "id": "preset.isosceles-triangle.angles",
+   "ok": true,
+   "detail": {
+    "maxDiff": 0.0004147613666063421,
+    "page": [
+     47.87,
+     84.261
+    ],
+    "expected": [
+     47.86958523863339,
+     84.26082952273322
+    ]
+   }
+  },
+  {
+   "id": "preset.isosceles-triangle.parallel-pairs",
+   "ok": true,
+   "detail": {
+    "page": 0,
+    "expected": 0
+   }
+  },
+  {
+   "id": "preset.isosceles-triangle.face-chips",
+   "ok": true,
+   "detail": {
+    "cutFaces": 3,
+    "faceOn": 3,
+    "faceCount": "3 / 6",
+    "hint": "截到 3 个面 → 三角形"
+   }
+  },
+  {
+   "id": "preset.isosceles-triangle.shape-canvas-painted",
+   "ok": true,
+   "detail": {
+    "pixels": 62194,
+    "w": 308,
+    "h": 202,
+    "sig": 725761490
+   }
+  },
+  {
+   "id": "preset.isosceles-triangle.metric-and-note-text",
+   "ok": true,
+   "detail": {
+    "perimeter": "2.64",
+    "area": "0.31",
+    "angle": "48°–84°",
+    "props": [
+     "平面截去一个角",
+     "有两条边相等",
+     "两个底角相等",
+     "三个内角都是锐角",
+     "与 3 个面相交"
+    ],
+    "note": "三条截棱中有两条相等、第三条不同，于是得到等腰但非等边的三角形。它的两个底角相等"
+   }
+  },
+  {
+   "id": "preset.isosceles-triangle.acute-triangle",
+   "ok": true,
+   "detail": {
+    "maxAngle": 84.261,
+    "expected": 84.26082952273322
+   }
+  },
+  {
+   "id": "preset.scalene-triangle.id+match",
+   "ok": true,
+   "detail": {
+    "activePresetId": "scalene-triangle",
+    "presetMatches": true,
+    "activeTile": "scalene-triangle"
+   }
+  },
+  {
+   "id": "preset.scalene-triangle.sides",
+   "ok": true,
+   "detail": {
+    "page": 3,
+    "expected": 3
+   }
+  },
+  {
+   "id": "preset.scalene-triangle.name",
+   "ok": true,
+   "detail": {
+    "page": "不等边三角形",
+    "dom": "不等边三角形",
+    "live": "不等边三角形",
+    "expected": "不等边三角形"
+   }
+  },
+  {
+   "id": "preset.scalene-triangle.classification",
+   "ok": true,
+   "detail": {
+    "page": "scalene",
+    "expected": "scalene"
+   }
+  },
+  {
+   "id": "preset.scalene-triangle.side-lengths",
+   "ok": true,
+   "detail": {
+    "maxDiff": 0.000004617360803260695,
+    "page": [
+     0.67082,
+     0.94868,
+     1.08167
+    ],
+    "expected": [
+     0.6708203932499368,
+     0.9486832980505137,
+     1.0816653826391966
+    ]
+   }
+  },
+  {
+   "id": "preset.scalene-triangle.angles",
+   "ok": true,
+   "detail": {
+    "maxDiff": 0.00010235415597037445,
+    "page": [
+     37.875,
+     81.87
+    ],
+    "expected": [
+     37.8749836510982,
+     81.86989764584403
+    ]
+   }
+  },
+  {
+   "id": "preset.scalene-triangle.parallel-pairs",
+   "ok": true,
+   "detail": {
+    "page": 0,
+    "expected": 0
+   }
+  },
+  {
+   "id": "preset.scalene-triangle.face-chips",
+   "ok": true,
+   "detail": {
+    "cutFaces": 3,
+    "faceOn": 3,
+    "faceCount": "3 / 6",
+    "hint": "截到 3 个面 → 三角形"
+   }
+  },
+  {
+   "id": "preset.scalene-triangle.shape-canvas-painted",
+   "ok": true,
+   "detail": {
+    "pixels": 62194,
+    "w": 308,
+    "h": 202,
+    "sig": 3860503668
+   }
+  },
+  {
+   "id": "preset.scalene-triangle.metric-and-note-text",
+   "ok": true,
+   "detail": {
+    "perimeter": "2.70",
+    "area": "0.32",
+    "angle": "38°–82°",
+    "props": [
+     "平面截去一个角",
+     "三边互不相等",
+     "三个内角都是锐角",
+     "与 3 个面相交"
+    ],
+    "note": "三条截棱长度互不相同，三边也都不相等。注意：正方体的三角形截面一定都是锐角三角形"
+   }
+  },
+  {
+   "id": "preset.scalene-triangle.acute-triangle",
+   "ok": true,
+   "detail": {
+    "maxAngle": 81.87,
+    "expected": 81.86989764584403
+   }
+  },
+  {
+   "id": "preset.square.id+match",
+   "ok": true,
+   "detail": {
+    "activePresetId": "square",
+    "presetMatches": true,
+    "activeTile": "square"
+   }
+  },
+  {
+   "id": "preset.square.sides",
+   "ok": true,
+   "detail": {
+    "page": 4,
+    "expected": 4
+   }
+  },
+  {
+   "id": "preset.square.name",
+   "ok": true,
+   "detail": {
+    "page": "正方形",
+    "dom": "正方形",
+    "live": "正方形",
+    "expected": "正方形"
+   }
+  },
+  {
+   "id": "preset.square.classification",
+   "ok": true,
+   "detail": {
+    "page": "square",
+    "expected": "square"
+   }
+  },
+  {
+   "id": "preset.square.side-lengths",
+   "ok": true,
+   "detail": {
+    "maxDiff": 0,
+    "page": [
+     1,
+     1,
+     1,
+     1
+    ],
+    "expected": [
+     1,
+     1,
+     1,
+     1
+    ]
+   }
+  },
+  {
+   "id": "preset.square.angles",
+   "ok": true,
+   "detail": {
+    "maxDiff": 0,
+    "page": [
+     90,
+     90
+    ],
+    "expected": [
+     90,
+     90
+    ]
+   }
+  },
+  {
+   "id": "preset.square.parallel-pairs",
+   "ok": true,
+   "detail": {
+    "page": 2,
+    "expected": 2
+   }
+  },
+  {
+   "id": "preset.square.face-chips",
+   "ok": true,
+   "detail": {
+    "cutFaces": 4,
+    "faceOn": 4,
+    "faceCount": "4 / 6",
+    "hint": "截到 4 个面 → 四边形"
+   }
+  },
+  {
+   "id": "preset.square.shape-canvas-painted",
+   "ok": true,
+   "detail": {
+    "pixels": 62194,
+    "w": 308,
+    "h": 202,
+    "sig": 1266599332
+   }
+  },
+  {
+   "id": "preset.square.metric-and-note-text",
+   "ok": true,
+   "detail": {
+    "perimeter": "4.00",
+    "area": "1.00",
+    "angle": "90°",
+    "props": [
+     "2 组对边平行",
+     "对边相等",
+     "四个角都是直角",
+     "四条边相等",
+     "与 4 个面相交"
+    ],
+    "note": "平面平行于一组对面时，截面与正方体的面全等，是边长等于棱长的正方形。"
+   }
+  },
+  {
+   "id": "preset.square.has-parallel-pair",
+   "ok": true,
+   "detail": {
+    "pairs": [
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      3
+     ]
+    ]
+   }
+  },
+  {
+   "id": "preset.rectangle.id+match",
+   "ok": true,
+   "detail": {
+    "activePresetId": "rectangle",
+    "presetMatches": true,
+    "activeTile": "rectangle"
+   }
+  },
+  {
+   "id": "preset.rectangle.sides",
+   "ok": true,
+   "detail": {
+    "page": 4,
+    "expected": 4
+   }
+  },
+  {
+   "id": "preset.rectangle.name",
+   "ok": true,
+   "detail": {
+    "page": "矩形",
+    "dom": "矩形",
+    "live": "矩形",
+    "expected": "矩形"
+   }
+  },
+  {
+   "id": "preset.rectangle.classification",
+   "ok": true,
+   "detail": {
+    "page": "rectangle",
+    "expected": "rectangle"
+   }
+  },
+  {
+   "id": "preset.rectangle.side-lengths",
+   "ok": true,
+   "detail": {
+    "maxDiff": 0.000002540694797659171,
+    "page": [
+     1,
+     0.77782,
+     1,
+     0.77782
+    ],
+    "expected": [
+     0.7778174593052023,
+     0.7778174593052023,
+     1,
+     1
+    ]
+   }
+  },
+  {
+   "id": "preset.rectangle.angles",
+   "ok": true,
+   "detail": {
+    "maxDiff": 0,
+    "page": [
+     90,
+     90
+    ],
+    "expected": [
+     90,
+     90
+    ]
+   }
+  },
+  {
+   "id": "preset.rectangle.parallel-pairs",
+   "ok": true,
+   "detail": {
+    "page": 2,
+    "expected": 2
+   }
+  },
+  {
+   "id": "preset.rectangle.face-chips",
+   "ok": true,
+   "detail": {
+    "cutFaces": 4,
+    "faceOn": 4,
+    "faceCount": "4 / 6",
+    "hint": "截到 4 个面 → 四边形"
+   }
+  },
+  {
+   "id": "preset.rectangle.shape-canvas-painted",
+   "ok": true,
+   "detail": {
+    "pixels": 62194,
+    "w": 308,
+    "h": 202,
+    "sig": 1502236779
+   }
+  },
+  {
+   "id": "preset.rectangle.metric-and-note-text",
+   "ok": true,
+   "detail": {
+    "perimeter": "3.56",
+    "area": "0.78",
+    "angle": "90°",
+    "props": [
+     "2 组对边平行",
+     "对边相等",
+     "四个角都是直角",
+     "邻边长度不等",
+     "与 4 个面相交"
+    ],
+    "note": "当平面平行于正方体的一条棱时，截面可以拉长成长方形。这里的平面斜着穿过四个面，得"
+   }
+  },
+  {
+   "id": "preset.rectangle.has-parallel-pair",
+   "ok": true,
+   "detail": {
+    "pairs": [
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      3
+     ]
+    ]
+   }
+  },
+  {
+   "id": "preset.rhombus.id+match",
+   "ok": true,
+   "detail": {
+    "activePresetId": "rhombus",
+    "presetMatches": true,
+    "activeTile": "rhombus"
+   }
+  },
+  {
+   "id": "preset.rhombus.sides",
+   "ok": true,
+   "detail": {
+    "page": 4,
+    "expected": 4
+   }
+  },
+  {
+   "id": "preset.rhombus.name",
+   "ok": true,
+   "detail": {
+    "page": "菱形",
+    "dom": "菱形",
+    "live": "菱形",
+    "expected": "菱形"
+   }
+  },
+  {
+   "id": "preset.rhombus.classification",
+   "ok": true,
+   "detail": {
+    "page": "rhombus",
+    "expected": "rhombus"
+   }
+  },
+  {
+   "id": "preset.rhombus.side-lengths",
+   "ok": true,
+   "detail": {
+    "maxDiff": 0.000002553389459869493,
+    "page": [
+     1.05409,
+     1.05409,
+     1.05409,
+     1.05409
+    ],
+    "expected": [
+     1.0540925533894598,
+     1.0540925533894598,
+     1.0540925533894598,
+     1.0540925533894598
+    ]
+   }
+  },
+  {
+   "id": "preset.rhombus.angles",
+   "ok": true,
+   "detail": {
+    "maxDiff": 0.00017047726677787978,
+    "page": [
+     84.261,
+     95.739
+    ],
+    "expected": [
+     84.26082952273322,
+     95.73917047726678
+    ]
+   }
+  },
+  {
+   "id": "preset.rhombus.parallel-pairs",
+   "ok": true,
+   "detail": {
+    "page": 2,
+    "expected": 2
+   }
+  },
+  {
+   "id": "preset.rhombus.face-chips",
+   "ok": true,
+   "detail": {
+    "cutFaces": 4,
+    "faceOn": 4,
+    "faceCount": "4 / 6",
+    "hint": "截到 4 个面 → 四边形"
+   }
+  },
+  {
+   "id": "preset.rhombus.shape-canvas-painted",
+   "ok": true,
+   "detail": {
+    "pixels": 62194,
+    "w": 308,
+    "h": 202,
+    "sig": 2689137234
+   }
+  },
+  {
+   "id": "preset.rhombus.metric-and-note-text",
+   "ok": true,
+   "detail": {
+    "perimeter": "4.22",
+    "area": "1.11",
+    "angle": "84°–96°",
+    "props": [
+     "2 组对边平行",
+     "对边相等",
+     "四条边相等",
+     "与 4 个面相交"
+    ],
+    "note": "四边形截面至少有一组对边平行。当两组对边都平行、四条边又相等时，就得到菱形。这里"
+   }
+  },
+  {
+   "id": "preset.rhombus.has-parallel-pair",
+   "ok": true,
+   "detail": {
+    "pairs": [
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      3
+     ]
+    ]
+   }
+  },
+  {
+   "id": "preset.rhombus.non-square",
+   "ok": true,
+   "detail": {
+    "unitSides": [
+     1.0540925533894598,
+     1.0540925533894598,
+     1.0540925533894598,
+     1.0540925533894598
+    ],
+    "angles": [
+     84.26082952273322,
+     84.26082952273323,
+     95.73917047726678,
+     95.73917047726678
+    ]
+   }
+  },
+  {
+   "id": "preset.parallelogram.id+match",
+   "ok": true,
+   "detail": {
+    "activePresetId": "parallelogram",
+    "presetMatches": true,
+    "activeTile": "parallelogram"
+   }
+  },
+  {
+   "id": "preset.parallelogram.sides",
+   "ok": true,
+   "detail": {
+    "page": 4,
+    "expected": 4
+   }
+  },
+  {
+   "id": "preset.parallelogram.name",
+   "ok": true,
+   "detail": {
+    "page": "平行四边形",
+    "dom": "平行四边形",
+    "live": "平行四边形",
+    "expected": "平行四边形"
+   }
+  },
+  {
+   "id": "preset.parallelogram.classification",
+   "ok": true,
+   "detail": {
+    "page": "parallelogram",
+    "expected": "parallelogram"
+   }
+  },
+  {
+   "id": "preset.parallelogram.side-lengths",
+   "ok": true,
+   "detail": {
+    "maxDiff": 0.000003988749894823229,
+    "page": [
+     1.11803,
+     1.03078,
+     1.11803,
+     1.03078
+    ],
+    "expected": [
+     1.030776406404415,
+     1.030776406404415,
+     1.118033988749895,
+     1.118033988749895
+    ]
+   }
+  },
+  {
+   "id": "preset.parallelogram.angles",
+   "ok": true,
+   "detail": {
+    "maxDiff": 0.0001497028656274324,
+    "page": [
+     83.773,
+     96.227
+    ],
+    "expected": [
+     83.77314970286562,
+     96.22685029713438
+    ]
+   }
+  },
+  {
+   "id": "preset.parallelogram.parallel-pairs",
+   "ok": true,
+   "detail": {
+    "page": 2,
+    "expected": 2
+   }
+  },
+  {
+   "id": "preset.parallelogram.face-chips",
+   "ok": true,
+   "detail": {
+    "cutFaces": 4,
+    "faceOn": 4,
+    "faceCount": "4 / 6",
+    "hint": "截到 4 个面 → 四边形"
+   }
+  },
+  {
+   "id": "preset.parallelogram.shape-canvas-painted",
+   "ok": true,
+   "detail": {
+    "pixels": 62194,
+    "w": 308,
+    "h": 202,
+    "sig": 1906602433
+   }
+  },
+  {
+   "id": "preset.parallelogram.metric-and-note-text",
+   "ok": true,
+   "detail": {
+    "perimeter": "4.30",
+    "area": "1.15",
+    "angle": "84°–96°",
+    "props": [
+     "2 组对边平行",
+     "对边相等",
+     "邻边长度不等",
+     "与 4 个面相交"
+    ],
+    "note": "两组对边分别平行，但邻边长度不同、内角不是直角，因此是一般的平行四边形。"
+   }
+  },
+  {
+   "id": "preset.parallelogram.has-parallel-pair",
+   "ok": true,
+   "detail": {
+    "pairs": [
+     [
+      0,
+      2
+     ],
+     [
+      1,
+      3
+     ]
+    ]
+   }
+  },
+  {
+   "id": "preset.trapezoid.id+match",
+   "ok": true,
+   "detail": {
+    "activePresetId": "trapezoid",
+    "presetMatches": true,
+    "activeTile": "trapezoid"
+   }
+  },
+  {
+   "id": "preset.trapezoid.sides",
+   "ok": true,
+   "detail": {
+    "page": 4,
+    "expected": 4
+   }
+  },
+  {
+   "id": "preset.trapezoid.name",
+   "ok": true,
+   "detail": {
+    "page": "梯形",
+    "dom": "梯形",
+    "live": "梯形",
+    "expected": "梯形"
+   }
+  },
+  {
+   "id": "preset.trapezoid.classification",
+   "ok": true,
+   "detail": {
+    "page": "trapezoid",
+    "expected": "trapezoid"
+   }
+  },
+  {
+   "id": "preset.trapezoid.side-lengths",
+   "ok": true,
+   "detail": {
+    "maxDiff": 0.000003988749895045274,
+    "page": [
+     0.99153,
+     1.05409,
+     0.3906,
+     1.11803
+    ],
+    "expected": [
+     0.39060138817526546,
+     0.9915266007525971,
+     1.0540925533894603,
+     1.1180339887498951
+    ]
+   }
+  },
+  {
+   "id": "preset.trapezoid.angles",
+   "ok": true,
+   "detail": {
+    "maxDiff": 0.0004476396425019402,
+    "page": [
+     68.155,
+     111.845
+    ],
+    "expected": [
+     68.15455236035753,
+     111.8454476396425
+    ]
+   }
+  },
+  {
+   "id": "preset.trapezoid.parallel-pairs",
+   "ok": true,
+   "detail": {
+    "page": 1,
+    "expected": 1
+   }
+  },
+  {
+   "id": "preset.trapezoid.face-chips",
+   "ok": true,
+   "detail": {
+    "cutFaces": 4,
+    "faceOn": 4,
+    "faceCount": "4 / 6",
+    "hint": "截到 4 个面 → 四边形"
+   }
+  },
+  {
+   "id": "preset.trapezoid.shape-canvas-painted",
+   "ok": true,
+   "detail": {
+    "pixels": 62194,
+    "w": 308,
+    "h": 202,
+    "sig": 94360392
+   }
+  },
+  {
+   "id": "preset.trapezoid.metric-and-note-text",
+   "ok": true,
+   "detail": {
+    "perimeter": "3.55",
+    "area": "0.72",
+    "angle": "68°–112°",
+    "props": [
+     "1 组对边平行",
+     "两腰不等",
+     "与 4 个面相交"
+    ],
+    "note": "平面只截到 4 个面，且只有一组对边平行，因此得到梯形。注意这里不是平行四边形。"
+   }
+  },
+  {
+   "id": "preset.trapezoid.has-parallel-pair",
+   "ok": true,
+   "detail": {
+    "pairs": [
+     [
+      0,
+      2
+     ]
+    ]
+   }
+  },
+  {
+   "id": "preset.trapezoid.legs-unequal-no-right",
+   "ok": true,
+   "detail": {
+    "sortedUnitSides": [
+     0.39060138817526546,
+     0.9915266007525971,
+     1.0540925533894603,
+     1.1180339887498951
+    ],
+    "angles": [
+     68.15455236035753,
+     79.89738820831244,
+     100.10261179168756,
+     111.8454476396425
+    ]
+   }
+  },
+  {
+   "id": "preset.isosceles-trapezoid.id+match",
+   "ok": true,
+   "detail": {
+    "activePresetId": "isosceles-trapezoid",
+    "presetMatches": true,
+    "activeTile": "isosceles-trapezoid"
+   }
+  },
+  {
+   "id": "preset.isosceles-trapezoid.sides",
+   "ok": true,
+   "detail": {
+    "page": 4,
+    "expected": 4
+   }
+  },
+  {
+   "id": "preset.isosceles-trapezoid.name",
+   "ok": true,
+   "detail": {
+    "page": "等腰梯形",
+    "dom": "等腰梯形",
+    "live": "等腰梯形",
+    "expected": "等腰梯形"
+   }
+  },
+  {
+   "id": "preset.isosceles-trapezoid.classification",
+   "ok": true,
+   "detail": {
+    "page": "isosceles-trapezoid",
+    "expected": "isosceles-trapezoid"
+   }
+  },
+  {
+   "id": "preset.isosceles-trapezoid.side-lengths",
+   "ok": true,
+   "detail": {
+    "maxDiff": 0.0000032188134523325473,
+    "page": [
+     1.17851,
+     1.05409,
+     0.70711,
+     1.05409
+    ],
+    "expected": [
+     0.7071067811865477,
+     1.0540925533894596,
+     1.0540925533894598,
+     1.1785113019775793
+    ]
+   }
+  },
+  {
+   "id": "preset.isosceles-trapezoid.angles",
+   "ok": true,
+   "detail": {
+    "maxDiff": 0.00003361841643823027,
+    "page": [
+     77.079,
+     102.921
+    ],
+    "expected": [
+     77.07903361841643,
+     102.92096638158357
+    ]
+   }
+  },
+  {
+   "id": "preset.isosceles-trapezoid.parallel-pairs",
+   "ok": true,
+   "detail": {
+    "page": 1,
+    "expected": 1
+   }
+  },
+  {
+   "id": "preset.isosceles-trapezoid.face-chips",
+   "ok": true,
+   "detail": {
+    "cutFaces": 4,
+    "faceOn": 4,
+    "faceCount": "4 / 6",
+    "hint": "截到 4 个面 → 四边形"
+   }
+  },
+  {
+   "id": "preset.isosceles-trapezoid.shape-canvas-painted",
+   "ok": true,
+   "detail": {
+    "pixels": 62194,
+    "w": 308,
+    "h": 202,
+    "sig": 2653579827
+   }
+  },
+  {
+   "id": "preset.isosceles-trapezoid.metric-and-note-text",
+   "ok": true,
+   "detail": {
+    "perimeter": "3.99",
+    "area": "0.97",
+    "angle": "77°–103°",
+    "props": [
+     "1 组对边平行",
+     "两腰相等",
+     "与 4 个面相交"
+    ],
+    "note": "只截到 4 个面、仅有一组对边平行，同时两条腰相等，因此得到等腰梯形。它是梯形的"
+   }
+  },
+  {
+   "id": "preset.isosceles-trapezoid.has-parallel-pair",
+   "ok": true,
+   "detail": {
+    "pairs": [
+     [
+      0,
+      2
+     ]
+    ]
+   }
+  },
+  {
+   "id": "preset.isosceles-trapezoid.legs-equal",
+   "ok": true,
+   "detail": {
+    "sortedUnitSides": [
+     0.7071067811865477,
+     1.0540925533894596,
+     1.0540925533894598,
+     1.1785113019775793
+    ]
+   }
+  },
+  {
+   "id": "preset.pentagon.id+match",
+   "ok": true,
+   "detail": {
+    "activePresetId": "pentagon",
+    "presetMatches": true,
+    "activeTile": "pentagon"
+   }
+  },
+  {
+   "id": "preset.pentagon.sides",
+   "ok": true,
+   "detail": {
+    "page": 5,
+    "expected": 5
+   }
+  },
+  {
+   "id": "preset.pentagon.name",
+   "ok": true,
+   "detail": {
+    "page": "五边形",
+    "dom": "五边形",
+    "live": "五边形",
+    "expected": "五边形"
+   }
+  },
+  {
+   "id": "preset.pentagon.classification",
+   "ok": true,
+   "detail": {
+    "page": "pentagon",
+    "expected": "pentagon"
+   }
+  },
+  {
+   "id": "preset.pentagon.side-lengths",
+   "ok": true,
+   "detail": {
+    "maxDiff": 0.000003988749895045274,
+    "page": [
+     0.27951,
+     1.11803,
+     1.11803,
+     0.27951,
+     1.06066
+    ],
+    "expected": [
+     0.2795084971874737,
+     0.2795084971874738,
+     1.0606601717798214,
+     1.118033988749895,
+     1.1180339887498951
+    ]
+   }
+  },
+  {
+   "id": "preset.pentagon.angles",
+   "ok": true,
+   "detail": {
+    "maxDiff": 0.0004795164077506797,
+    "page": [
+     78.463,
+     129.232
+    ],
+    "expected": [
+     78.46304096718453,
+     129.23152048359225
+    ]
+   }
+  },
+  {
+   "id": "preset.pentagon.parallel-pairs",
+   "ok": true,
+   "detail": {
+    "page": 2,
+    "expected": 2
+   }
+  },
+  {
+   "id": "preset.pentagon.face-chips",
+   "ok": true,
+   "detail": {
+    "cutFaces": 5,
+    "faceOn": 5,
+    "faceCount": "5 / 6",
+    "hint": "截到 5 个面 → 五边形"
+   }
+  },
+  {
+   "id": "preset.pentagon.shape-canvas-painted",
+   "ok": true,
+   "detail": {
+    "pixels": 62194,
+    "w": 308,
+    "h": 202,
+    "sig": 3772689411
+   }
+  },
+  {
+   "id": "preset.pentagon.metric-and-note-text",
+   "ok": true,
+   "detail": {
+    "perimeter": "3.86",
+    "area": "0.88",
+    "angle": "78°–129°",
+    "props": [
+     "2 组平行边",
+     "不可能是正五边形",
+     "与 5 个面相交"
+    ],
+    "note": "平面截到 5 个面。必有一组对面没有被同时截到，所以五边形截面至少含两组平行边，"
+   }
+  },
+  {
+   "id": "preset.pentagon.two-parallel-pairs-not-regular",
+   "ok": true,
+   "detail": {
+    "pairs": 2,
+    "unitSides": [
+     0.2795084971874737,
+     0.2795084971874738,
+     1.0606601717798214,
+     1.118033988749895,
+     1.1180339887498951
+    ]
+   }
+  },
+  {
+   "id": "preset.regular-hexagon.id+match",
+   "ok": true,
+   "detail": {
+    "activePresetId": "regular-hexagon",
+    "presetMatches": true,
+    "activeTile": "regular-hexagon"
+   }
+  },
+  {
+   "id": "preset.regular-hexagon.sides",
+   "ok": true,
+   "detail": {
+    "page": 6,
+    "expected": 6
+   }
+  },
+  {
+   "id": "preset.regular-hexagon.name",
+   "ok": true,
+   "detail": {
+    "page": "正六边形",
+    "dom": "正六边形",
+    "live": "正六边形",
+    "expected": "正六边形"
+   }
+  },
+  {
+   "id": "preset.regular-hexagon.classification",
+   "ok": true,
+   "detail": {
+    "page": "regular-hexagon",
+    "expected": "regular-hexagon"
+   }
+  },
+  {
+   "id": "preset.regular-hexagon.side-lengths",
+   "ok": true,
+   "detail": {
+    "maxDiff": 0.0000032188134524435696,
+    "page": [
+     0.70711,
+     0.70711,
+     0.70711,
+     0.70711,
+     0.70711,
+     0.70711
+    ],
+    "expected": [
+     0.7071067811865476,
+     0.7071067811865476,
+     0.7071067811865476,
+     0.7071067811865476,
+     0.7071067811865476,
+     0.7071067811865476
+    ]
+   }
+  },
+  {
+   "id": "preset.regular-hexagon.angles",
+   "ok": true,
+   "detail": {
+    "maxDiff": 1.4210854715202004e-14,
+    "page": [
+     120,
+     120
+    ],
+    "expected": [
+     120.00000000000001,
+     120.00000000000001
+    ]
+   }
+  },
+  {
+   "id": "preset.regular-hexagon.parallel-pairs",
+   "ok": true,
+   "detail": {
+    "page": 3,
+    "expected": 3
+   }
+  },
+  {
+   "id": "preset.regular-hexagon.face-chips",
+   "ok": true,
+   "detail": {
+    "cutFaces": 6,
+    "faceOn": 6,
+    "faceCount": "6 / 6",
+    "hint": "六个面全被截到 → 六边形"
+   }
+  },
+  {
+   "id": "preset.regular-hexagon.shape-canvas-painted",
+   "ok": true,
+   "detail": {
+    "pixels": 62194,
+    "w": 308,
+    "h": 202,
+    "sig": 1977583519
+   }
+  },
+  {
+   "id": "preset.regular-hexagon.metric-and-note-text",
+   "ok": true,
+   "detail": {
+    "perimeter": "4.24",
+    "area": "1.30",
+    "angle": "120°",
+    "props": [
+     "六条边相等",
+     "六个内角都是 120°",
+     "三组对边平行",
+     "与 6 个面相交"
+    ],
+    "note": "平面垂直于正方体的体对角线并经过中心，截到全部 6 个面，得到正六边形：六边等长"
+   }
+  },
+  {
+   "id": "preset.regular-hexagon.three-parallel-pairs",
+   "ok": true,
+   "detail": {
+    "pairs": [
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      2,
+      5
+     ]
+    ]
+   }
+  },
+  {
+   "id": "preset.regular-hexagon.regular",
+   "ok": true,
+   "detail": {
+    "angles": [
+     120.00000000000001,
+     120.00000000000001,
+     120.00000000000001,
+     120.00000000000001,
+     120.00000000000001,
+     120.00000000000001
+    ],
+    "sides": [
+     0.7071067811865476,
+     0.7071067811865476,
+     0.7071067811865476,
+     0.7071067811865476,
+     0.7071067811865476,
+     0.7071067811865476
+    ]
+   }
+  },
+  {
+   "id": "preset.hexagon.id+match",
+   "ok": true,
+   "detail": {
+    "activePresetId": "hexagon",
+    "presetMatches": true,
+    "activeTile": "hexagon"
+   }
+  },
+  {
+   "id": "preset.hexagon.sides",
+   "ok": true,
+   "detail": {
+    "page": 6,
+    "expected": 6
+   }
+  },
+  {
+   "id": "preset.hexagon.name",
+   "ok": true,
+   "detail": {
+    "page": "一般六边形",
+    "dom": "一般六边形",
+    "live": "一般六边形",
+    "expected": "一般六边形"
+   }
+  },
+  {
+   "id": "preset.hexagon.classification",
+   "ok": true,
+   "detail": {
+    "page": "hexagon",
+    "expected": "hexagon"
+   }
+  },
+  {
+   "id": "preset.hexagon.side-lengths",
+   "ok": true,
+   "detail": {
+    "maxDiff": 0.000004746830583102213,
+    "page": [
+     1.02157,
+     0.21213,
+     1.02157,
+     0.7812,
+     0.49497,
+     0.7812
+    ],
+    "expected": [
+     0.21213203435596412,
+     0.4949747468305831,
+     0.781202776350531,
+     0.7812027763505311,
+     1.0215728613814636,
+     1.0215728613814639
+    ]
+   }
+  },
+  {
+   "id": "preset.hexagon.angles",
+   "ok": true,
+   "detail": {
+    "maxDiff": 0.00021313939228662093,
+    "page": [
+     107.92,
+     126.04
+    ],
+    "expected": [
+     107.92021313939229,
+     126.03989343030389
+    ]
+   }
+  },
+  {
+   "id": "preset.hexagon.parallel-pairs",
+   "ok": true,
+   "detail": {
+    "page": 3,
+    "expected": 3
+   }
+  },
+  {
+   "id": "preset.hexagon.face-chips",
+   "ok": true,
+   "detail": {
+    "cutFaces": 6,
+    "faceOn": 6,
+    "faceCount": "6 / 6",
+    "hint": "六个面全被截到 → 六边形"
+   }
+  },
+  {
+   "id": "preset.hexagon.shape-canvas-painted",
+   "ok": true,
+   "detail": {
+    "pixels": 62194,
+    "w": 308,
+    "h": 202,
+    "sig": 897125876
+   }
+  },
+  {
+   "id": "preset.hexagon.metric-and-note-text",
+   "ok": true,
+   "detail": {
+    "perimeter": "4.31",
+    "area": "1.27",
+    "angle": "108°–126°",
+    "props": [
+     "三组对边分别平行",
+     "边长与内角一般不相等",
+     "与 6 个面相交"
+    ],
+    "note": "平面截到全部 6 个面时得到六边形，三组对边分别平行；但不一定像正六边形那样六边"
+   }
+  },
+  {
+   "id": "preset.hexagon.three-parallel-pairs",
+   "ok": true,
+   "detail": {
+    "pairs": [
+     [
+      0,
+      3
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      2,
+      5
+     ]
+    ]
+   }
+  },
+  {
+   "id": "preset.hexagon.general",
+   "ok": true,
+   "detail": {
+    "angles": [
+     107.92021313939229,
+     107.92021313939229,
+     126.03989343030383,
+     126.03989343030386,
+     126.03989343030386,
+     126.03989343030389
+    ],
+    "sides": [
+     0.21213203435596412,
+     0.4949747468305831,
+     0.781202776350531,
+     0.7812027763505311,
+     1.0215728613814636,
+     1.0215728613814639
+    ]
+   }
+  },
+  {
+   "id": "preset.shape-canvases-distinct",
+   "ok": true,
+   "detail": {
+    "distinct": 12,
+    "total": 12
+   }
+  },
+  {
+   "id": "math.slanted-square-exists",
+   "ok": true,
+   "detail": {
+    "page": {
+     "name": "正方形",
+     "sides": 4,
+     "unitSides": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "minAngle": 90,
+     "maxAngle": 90
+    },
+    "expected": {
+     "type": "square",
+     "unitSides": [
+      1,
+      1,
+      1,
+      1
+     ],
+     "angles": [
+      90,
+      90,
+      90,
+      90
+     ],
+     "d": 0.5416407864998738
+    }
+   }
+  },
+  {
+   "id": "math.equiangular-hexagon-not-regular",
+   "ok": true,
+   "detail": {
+    "page": {
+     "name": "等角六边形",
+     "sides": 6,
+     "minAngle": 120,
+     "maxAngle": 120,
+     "sideLengthsUnit": [
+      0.58463,
+      0.82958,
+      0.58463,
+      0.82958,
+      0.58463,
+      0.82958
+     ]
+    },
+    "expected": {
+     "type": "equiangular-hexagon",
+     "angles": [
+      119.99999999999999,
+      120.00000000000001,
+      120.00000000000001,
+      120.00000000000001,
+      119.99999999999999,
+      120.00000000000001
+     ],
+     "unitSides": [
+      0.5846322940473887,
+      0.8295812683257064,
+      0.5846322940473887,
+      0.8295812683257064,
+      0.5846322940473887,
+      0.8295812683257064
+     ]
+    }
+   }
+  },
+  {
+   "id": "math.random-sample-no-theorem-violations",
+   "ok": true,
+   "detail": {
+    "count": 0,
+    "sample": []
+   }
+  },
+  {
+   "id": "math.random-sample-classification-agreement",
+   "ok": true,
+   "detail": {
+    "mismatchCount": 2,
+    "allNearToleranceBoundary": true,
+    "sample": [
+     {
+      "i": 157,
+      "n": [
+       -0.6856721547997146,
+       -0.7279085901697522,
+       -0.001667479954899211
+      ],
+      "d": -0.1754984774022808,
+      "pageName": "矩形",
+      "pageType": "rectangle",
+      "independentType": "isosceles-trapezoid",
+      "independentAngles": [
+       90.08999586708616,
+       89.91000413291384,
+       89.89857544003861,
+       90.1014245599614
+      ],
+      "independentSides": [
+       1.0000026238378288,
+       1.241967042707689,
+       1.000002957042591,
+       1.2386261182146616
+      ],
+      "allSidesEqual": false,
+      "allAnglesEqual": true,
+      "rightCount": 4,
+      "pairs": 1,
+      "minAbsNormal": 0.001667479954899211,
+      "nearBoundary": true
+     },
+     {
+      "i": 190,
+      "n": [
+       0.33561487660020456,
+       0.9419940739608148,
+       -0.0031335646373476583
+      ],
+      "d": 0.7413162345459029,
+      "pageName": "矩形",
+      "pageType": "rectangle",
+      "independentType": "isosceles-trapezoid",
+      "independentAngles": [
+       90.063966728834,
+       89.93603327116601,
+       89.49608526321472,
+       90.50391473678526
+      ],
+      "independentSides": [
+       1.0000055328612143,
+       0.8531209351247432,
+       1.0000435868464055,
+       0.8432092578870144
+      ],
+      "allSidesEqual": false,
+      "allAnglesEqual": false,
+      "rightCount": 4,
+      "pairs": 1,
+      "minAbsNormal": 0.0031335646373476583,
+      "nearBoundary": true
+     }
+    ]
+   }
+  },
+  {
+   "id": "math.random-sample-all-four-side-counts",
+   "ok": true,
+   "detail": {
+    "3": 62,
+    "4": 159,
+    "5": 70,
+    "6": 9
+   }
+  },
+  {
+   "id": "math.regular-hexagon-needs-equal-normal-components",
+   "ok": true,
+   "detail": {
+    "sixGonsChecked": 60,
+    "violations": []
+   }
+  },
+  {
+   "id": "math.regular-hexagon-positive",
+   "ok": true,
+   "detail": {
+    "name": "正六边形",
+    "minAngle": 120,
+    "maxAngle": 120,
+    "sides": [
+     0.70711,
+     0.70711,
+     0.70711,
+     0.70711,
+     0.70711,
+     0.70711
+    ]
+   }
+  },
+  {
+   "id": "state.outside-cube-empty",
+   "ok": true,
+   "detail": {
+    "shape": null,
+    "empty": true,
+    "strong": "平面已移出正方体",
+    "span": "拖动下方位置滑块，让平面穿过正方体",
+    "live": "无截面",
+    "faceCount": "0 / 6",
+    "shapeName": "无截面"
+   }
+  },
+  {
+   "id": "state.tangent-vertex",
+   "ok": true,
+   "detail": {
+    "shape": null,
+    "empty": true,
+    "strong": "平面与正方体相切",
+    "span": "此时截面退化为点或线段，移动平面即可恢复",
+    "live": "无截面"
+   }
+  },
+  {
+   "id": "robust.rapid-preset-switching",
+   "ok": true,
+   "detail": {
+    "activePresetId": "hexagon",
+    "shape": "一般六边形",
+    "sides": 6,
+    "match": true,
+    "errors": [],
+    "painted": 62194
+   }
+  },
+  {
+   "id": "robust.random-slider-events",
+   "ok": true,
+   "detail": {
+    "errors": [],
+    "playing": false,
+    "tweening": false,
+    "shape": "等腰梯形",
+    "plane": {
+     "normal": [
+      0.021703,
+      -0.909961,
+      -0.414125
+     ],
+     "d": 1.085,
+     "support": 1.34579
+    }
+   }
+  },
+  {
+   "id": "errors.no-runtime-exceptions",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "errors.no-console-or-log-errors",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "errors.diag-empty-at-end",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "robust.no-external-network",
+   "ok": true,
+   "detail": []
+  }
+ ],
+ "presets": [
+  {
+   "id": "equilateral-triangle",
+   "clickRect": {
+    "x": 106.125,
+    "y": 997.125,
+    "w": 148.25,
+    "h": 105.75,
+    "visible": true
+   },
+   "page": {
+    "diag": {
+     "ready": true,
+     "version": "1.0.0",
+     "activePresetId": "equilateral-triangle",
+     "expectedPreset": {
+      "id": "equilateral-triangle",
+      "name": "等边三角形",
+      "sides": 3,
+      "normal": [
+       0.57735,
+       0.57735,
+       0.57735
+      ],
+      "d": 1.154701
+     },
+     "shape": {
+      "name": "等边三角形",
+      "en": "EQUILATERAL TRIANGLE",
+      "sides": 3,
+      "classification": "equilateral",
+      "family": "三角形",
+      "perimeter": 2.12132,
+      "area": 0.21651,
+      "minAngle": 60,
+      "maxAngle": 60,
+      "sideLengthsUnit": [
+       0.70711,
+       0.70711,
+       0.70711
+      ],
+      "parallelPairs": [],
+      "cutFaces": [
+       "0:1",
+       "1:1",
+       "2:1"
+      ],
+      "vertices": [
+       [
+        1,
+        0,
+        1
+       ],
+       [
+        1,
+        1,
+        0
+       ],
+       [
+        0,
+        1,
+        1
+       ]
+      ],
+      "props": [
+       "平面截去一个角",
+       "三边相等",
+       "三个内角都是 60°",
+       "与 3 个面相交"
+      ]
+     },
+     "presetMatches": true,
+     "activeNameMatches": true,
+     "plane": {
+      "normal": [
+       0.57735,
+       0.57735,
+       0.57735
+      ],
+      "d": 1.154701,
+      "support": 1.732051
+     },
+     "playing": false,
+     "tweening": false,
+     "camera": {
+      "yaw": 0.68,
+      "pitch": 0.31,
+      "dist": 7.25
+     },
+     "presets": [
+      {
+       "id": "equilateral-triangle",
+       "name": "等边三角形",
+       "sides": 3,
+       "d": 1.1547,
+       "normal": [
+        0.57735,
+        0.57735,
+        0.57735
+       ]
+      },
+      {
+       "id": "isosceles-triangle",
+       "name": "等腰三角形",
+       "sides": 3,
+       "d": 1.05529,
+       "normal": [
+        0.30151,
+        0.30151,
+        0.90453
+       ]
+      },
+      {
+       "id": "scalene-triangle",
+       "name": "不等边三角形",
+       "sides": 3,
+       "d": 1.05714,
+       "normal": [
+        0.28571,
+        0.42857,
+        0.85714
+       ]
+      },
+      {
+       "id": "square",
+       "name": "正方形",
+       "sides": 4,
+       "d": 0.2,
+       "normal": [
+        0,
+        0,
+        1
+       ]
+      },
+      {
+       "id": "rectangle",
+       "name": "矩形",
+       "sides": 4,
+       "d": 0.6364,
+       "normal": [
+        0.70711,
+        0.70711,
+        0
+       ]
+      },
+      {
+       "id": "rhombus",
+       "name": "菱形",
+       "sides": 4,
+       "d": 0,
+       "normal": [
+        0.30151,
+        0.30151,
+        0.90453
+       ]
+      },
+      {
+       "id": "parallelogram",
+       "name": "平行四边形",
+       "sides": 4,
+       "d": 0,
+       "normal": [
+        0.21822,
+        0.43644,
+        0.87287
+       ]
+      },
+      {
+       "id": "trapezoid",
+       "name": "梯形",
+       "sides": 4,
+       "d": 0.72161,
+       "normal": [
+        0.26726,
+        0.53452,
+        0.80178
+       ]
+      },
+      {
+       "id": "isosceles-trapezoid",
+       "name": "等腰梯形",
+       "sides": 4,
+       "d": 0.45883,
+       "normal": [
+        0.22942,
+        0.68825,
+        0.68825
+       ]
+      },
+      {
+       "id": "pentagon",
+       "name": "五边形",
+       "sides": 5,
+       "d": 0.61237,
+       "normal": [
+        0.40825,
+        0.40825,
+        0.8165
+       ]
+      },
+      {
+       "id": "regular-hexagon",
+       "name": "正六边形",
+       "sides": 6,
+       "d": 0,
+       "normal": [
+        0.57735,
+        0.57735,
+        0.57735
+       ]
+      },
+      {
+       "id": "hexagon",
+       "name": "一般六边形",
+       "sides": 6,
+       "d": 0.09701,
+       "normal": [
+        0.48507,
+        0.48507,
+        0.72761
+       ]
+      }
+     ],
+     "errors": []
+    },
+    "active": "equilateral-triangle",
+    "liveName": "等边三角形",
+    "liveSides": "3 条边",
+    "shapeNameZh": "等边三角形",
+    "shapeNameEn": "EQUILATERAL TRIANGLE",
+    "sidePill": "3 边",
+    "perimeter": "2.12",
+    "area": "0.22",
+    "angle": "60°",
+    "props": [
+     "平面截去一个角",
+     "三边相等",
+     "三个内角都是 60°",
+     "与 3 个面相交"
+    ],
+    "note": "平面在顶点附近斜切，三条截棱长度相等，因此截面的三条边等长，三个内角都是 60°。",
+    "faceCount": "3 / 6",
+    "faceOn": 3,
+    "faceHint": "截到 3 个面 → 三角形",
+    "canvasPixels": 62194,
+    "canvasSig": 1113194254,
+    "canvasW": 308,
+    "canvasH": 202,
+    "dataSection": "等边三角形",
+    "dataSides": "3"
+   },
+   "expected": {
+    "name": "等边三角形",
+    "type": "equilateral",
+    "sides": 3,
+    "parallelPairCount": 0,
+    "unitSides": [
+     0.7071067811865477,
+     0.7071067811865477,
+     0.7071067811865478
+    ],
+    "angles": [
+     60.00000000000001,
+     60.00000000000001,
+     60.00000000000001
+    ],
+    "rightCount": 0,
+    "allSidesEqual": true,
+    "allAnglesEqual": true
+   }
+  },
+  {
+   "id": "isosceles-triangle",
+   "clickRect": {
+    "x": 261.375,
+    "y": 997.125,
+    "w": 148.25,
+    "h": 105.75,
+    "visible": true
+   },
+   "page": {
+    "diag": {
+     "ready": true,
+     "version": "1.0.0",
+     "activePresetId": "isosceles-triangle",
+     "expectedPreset": {
+      "id": "isosceles-triangle",
+      "name": "等腰三角形",
+      "sides": 3,
+      "normal": [
+       0.301511,
+       0.301511,
+       0.904534
+      ],
+      "d": 1.05529
+     },
+     "shape": {
+      "name": "等腰三角形",
+      "en": "ISOSCELES TRIANGLE",
+      "sides": 3,
+      "classification": "isosceles",
+      "family": "三角形",
+      "perimeter": 2.6418,
+      "area": 0.31093,
+      "minAngle": 47.87,
+      "maxAngle": 84.261,
+      "sideLengthsUnit": [
+       0.79057,
+       0.79057,
+       1.06066
+      ],
+      "parallelPairs": [],
+      "cutFaces": [
+       "0:1",
+       "1:1",
+       "2:1"
+      ],
+      "vertices": [
+       [
+        1,
+        -0.5,
+        1
+       ],
+       [
+        1,
+        1,
+        0.5
+       ],
+       [
+        -0.5,
+        1,
+        1
+       ]
+      ],
+      "props": [
+       "平面截去一个角",
+       "有两条边相等",
+       "两个底角相等",
+       "三个内角都是锐角",
+       "与 3 个面相交"
+      ]
+     },
+     "presetMatches": true,
+     "activeNameMatches": true,
+     "plane": {
+      "normal": [
+       0.301511,
+       0.301511,
+       0.904534
+      ],
+      "d": 1.05529,
+      "support": 1.507557
+     },
+     "playing": false,
+     "tweening": false,
+     "camera": {
+      "yaw": 0.68,
+      "pitch": 0.31,
+      "dist": 7.25
+     },
+     "presets": [
+      {
+       "id": "equilateral-triangle",
+       "name": "等边三角形",
+       "sides": 3,
+       "d": 1.1547,
+       "normal": [
+        0.57735,
+        0.57735,
+        0.57735
+       ]
+      },
+      {
+       "id": "isosceles-triangle",
+       "name": "等腰三角形",
+       "sides": 3,
+       "d": 1.05529,
+       "normal": [
+        0.30151,
+        0.30151,
+        0.90453
+       ]
+      },
+      {
+       "id": "scalene-triangle",
+       "name": "不等边三角形",
+       "sides": 3,
+       "d": 1.05714,
+       "normal": [
+        0.28571,
+        0.42857,
+        0.85714
+       ]
+      },
+      {
+       "id": "square",
+       "name": "正方形",
+       "sides": 4,
+       "d": 0.2,
+       "normal": [
+        0,
+        0,
+        1
+       ]
+      },
+      {
+       "id": "rectangle",
+       "name": "矩形",
+       "sides": 4,
+       "d": 0.6364,
+       "normal": [
+        0.70711,
+        0.70711,
+        0
+       ]
+      },
+      {
+       "id": "rhombus",
+       "name": "菱形",
+       "sides": 4,
+       "d": 0,
+       "normal": [
+        0.30151,
+        0.30151,
+        0.90453
+       ]
+      },
+      {
+       "id": "parallelogram",
+       "name": "平行四边形",
+       "sides": 4,
+       "d": 0,
+       "normal": [
+        0.21822,
+        0.43644,
+        0.87287
+       ]
+      },
+      {
+       "id": "trapezoid",
+       "name": "梯形",
+       "sides": 4,
+       "d": 0.72161,
+       "normal": [
+        0.26726,
+        0.53452,
+        0.80178
+       ]
+      },
+      {
+       "id": "isosceles-trapezoid",
+       "name": "等腰梯形",
+       "sides": 4,
+       "d": 0.45883,
+       "normal": [
+        0.22942,
+        0.68825,
+        0.68825
+       ]
+      },
+      {
+       "id": "pentagon",
+       "name": "五边形",
+       "sides": 5,
+       "d": 0.61237,
+       "normal": [
+        0.40825,
+        0.40825,
+        0.8165
+       ]
+      },
+      {
+       "id": "regular-hexagon",
+       "name": "正六边形",
+       "sides": 6,
+       "d": 0,
+       "normal": [
+        0.57735,
+        0.57735,
+        0.57735
+       ]
+      },
+      {
+       "id": "hexagon",
+       "name": "一般六边形",
+       "sides": 6,
+       "d": 0.09701,
+       "normal": [
+        0.48507,
+        0.48507,
+        0.72761
+       ]
+      }
+     ],
+     "errors": []
+    },
+    "active": "isosceles-triangle",
+    "liveName": "等腰三角形",
+    "liveSides": "3 条边",
+    "shapeNameZh": "等腰三角形",
+    "shapeNameEn": "ISOSCELES TRIANGLE",
+    "sidePill": "3 边",
+    "perimeter": "2.64",
+    "area": "0.31",
+    "angle": "48°–84°",
+    "props": [
+     "平面截去一个角",
+     "有两条边相等",
+     "两个底角相等",
+     "三个内角都是锐角",
+     "与 3 个面相交"
+    ],
+    "note": "三条截棱中有两条相等、第三条不同，于是得到等腰但非等边的三角形。它的两个底角相等。",
+    "faceCount": "3 / 6",
+    "faceOn": 3,
+    "faceHint": "截到 3 个面 → 三角形",
+    "canvasPixels": 62194,
+    "canvasSig": 725761490,
+    "canvasW": 308,
+    "canvasH": 202,
+    "dataSection": "等腰三角形",
+    "dataSides": "3"
+   },
+   "expected": {
+    "name": "等腰三角形",
+    "type": "isosceles",
+    "sides": 3,
+    "parallelPairCount": 0,
+    "unitSides": [
+     0.790569415042095,
+     0.790569415042095,
+     1.0606601717798214
+    ],
+    "angles": [
+     47.86958523863339,
+     47.869585238633405,
+     84.26082952273322
+    ],
+    "rightCount": 0,
+    "allSidesEqual": false,
+    "allAnglesEqual": false
+   }
+  },
+  {
+   "id": "scalene-triangle",
+   "clickRect": {
+    "x": 416.625,
+    "y": 997.125,
+    "w": 148.25,
+    "h": 105.75,
+    "visible": true
+   },
+   "page": {
+    "diag": {
+     "ready": true,
+     "version": "1.0.0",
+     "activePresetId": "scalene-triangle",
+     "expectedPreset": {
+      "id": "scalene-triangle",
+      "name": "不等边三角形",
+      "sides": 3,
+      "normal": [
+       0.285714,
+       0.428571,
+       0.857143
+      ],
+      "d": 1.057143
+     },
+     "shape": {
+      "name": "不等边三角形",
+      "en": "SCALENE TRIANGLE",
+      "sides": 3,
+      "classification": "scalene",
+      "family": "三角形",
+      "perimeter": 2.70117,
+      "area": 0.315,
+      "minAngle": 37.875,
+      "maxAngle": 81.87,
+      "sideLengthsUnit": [
+       0.67082,
+       0.94868,
+       1.08167
+      ],
+      "parallelPairs": [],
+      "cutFaces": [
+       "0:1",
+       "1:1",
+       "2:1"
+      ],
+      "vertices": [
+       [
+        1,
+        -0.2,
+        1
+       ],
+       [
+        1,
+        1,
+        0.4
+       ],
+       [
+        -0.8,
+        1,
+        1
+       ]
+      ],
+      "props": [
+       "平面截去一个角",
+       "三边互不相等",
+       "三个内角都是锐角",
+       "与 3 个面相交"
+      ]
+     },
+     "presetMatches": true,
+     "activeNameMatches": true,
+     "plane": {
+      "normal": [
+       0.285714,
+       0.428571,
+       0.857143
+      ],
+      "d": 1.057143,
+      "support": 1.571429
+     },
+     "playing": false,
+     "tweening": false,
+     "camera": {
+      "yaw": 0.68,
+      "pitch": 0.31,
+      "dist": 7.25
+     },
+     "presets": [
+      {
+       "id": "equilateral-triangle",
+       "name": "等边三角形",
+       "sides": 3,
+       "d": 1.1547,
+       "normal": [
+        0.57735,
+        0.57735,
+        0.57735
+       ]
+      },
+      {
+       "id": "isosceles-triangle",
+       "name": "等腰三角形",
+       "sides": 3,
+       "d": 1.05529,
+       "normal": [
+        0.30151,
+        0.30151,
+        0.90453
+       ]
+      },
+      {
+       "id": "scalene-triangle",
+       "name": "不等边三角形",
+       "sides": 3,
+       "d": 1.05714,
+       "normal": [
+        0.28571,
+        0.42857,
+        0.85714
+       ]
+      },
+      {
+       "id": "square",
+       "name": "正方形",
+       "sides": 4,
+       "d": 0.2,
+       "normal": [
+        0,
+        0,
+        1
+       ]
+      },
+      {
+       "id": "rectangle",
+       "name": "矩形",
+       "sides": 4,
+       "d": 0.6364,
+       "normal": [
+        0.70711,
+        0.70711,
+        0
+       ]
+      },
+      {
+       "id": "rhombus",
+       "name": "菱形",
+       "sides": 4,
+       "d": 0,
+       "normal": [
+        0.30151,
+        0.30151,
+        0.90453
+       ]
+      },
+      {
+       "id": "parallelogram",
+       "name": "平行四边形",
+       "sides": 4,
+       "d": 0,
+       "normal": [
+        0.21822,
+        0.43644,
+        0.87287
+       ]
+      },
+      {
+       "id": "trapezoid",
+       "name": "梯形",
+       "sides": 4,
+       "d": 0.72161,
+       "normal": [
+        0.26726,
+        0.53452,
+        0.80178
+       ]
+      },
+      {
+       "id": "isosceles-trapezoid",
+       "name": "等腰梯形",
+       "sides": 4,
+       "d": 0.45883,
+       "normal": [
+        0.22942,
+        0.68825,
+        0.68825
+       ]
+      },
+      {
+       "id": "pentagon",
+       "name": "五边形",
+       "sides": 5,
+       "d": 0.61237,
+       "normal": [
+        0.40825,
+        0.40825,
+        0.8165
+       ]
+      },
+      {
+       "id": "regular-hexagon",
+       "name": "正六边形",
+       "sides": 6,
+       "d": 0,
+       "normal": [
+        0.57735,
+        0.57735,
+        0.57735
+       ]
+      },
+      {
+       "id": "hexagon",
+       "name": "一般六边形",
+       "sides": 6,
+       "d": 0.09701,
+       "normal": [
+        0.48507,
+        0.48507,
+        0.72761
+       ]
+      }
+     ],
+     "errors": []
+    },
+    "active": "scalene-triangle",
+    "liveName": "不等边三角形",
+    "liveSides": "3 条边",
+    "shapeNameZh": "不等边三角形",
+    "shapeNameEn": "SCALENE TRIANGLE",
+    "sidePill": "3 边",
+    "perimeter": "2.70",
+    "area": "0.32",
+    "angle": "38°–82°",
+    "props": [
+     "平面截去一个角",
+     "三边互不相等",
+     "三个内角都是锐角",
+     "与 3 个面相交"
+    ],
+    "note": "三条截棱长度互不相同，三边也都不相等。注意：正方体的三角形截面一定都是锐角三角形。",
+    "faceCount": "3 / 6",
+    "faceOn": 3,
+    "faceHint": "截到 3 个面 → 三角形",
+    "canvasPixels": 62194,
+    "canvasSig": 3860503668,
+    "canvasW": 308,
+    "canvasH": 202,
+    "dataSection": "不等边三角形",
+    "dataSides": "3"
+   },
+   "expected": {
+    "name": "不等边三角形",
+    "type": "scalene",
+    "sides": 3,
+    "parallelPairCount": 0,
+    "unitSides": [
+     0.6708203932499368,
+     0.9486832980505137,
+     1.0816653826391966
+    ],
+    "angles": [
+     37.8749836510982,
+     60.25511870305777,
+     81.86989764584403
+    ],
+    "rightCount": 0,
+    "allSidesEqual": false,
+    "allAnglesEqual": false
+   }
+  },
+  {
+   "id": "square",
+   "clickRect": {
+    "x": 571.875,
+    "y": 997.125,
+    "w": 148.25,
+    "h": 105.75,
+    "visible": true
+   },
+   "page": {
+    "diag": {
+     "ready": true,
+     "version": "1.0.0",
+     "activePresetId": "square",
+     "expectedPreset": {
+      "id": "square",
+      "name": "正方形",
+      "sides": 4,
+      "normal": [
+       0,
+       0,
+       1
+      ],
+      "d": 0.2
+     },
+     "shape": {
+      "name": "正方形",
+      "en": "SQUARE",
+      "sides": 4,
+      "classification": "square",
+      "family": "四边形",
+      "perimeter": 4,
+      "area": 1,
+      "minAngle": 90,
+      "maxAngle": 90,
+      "sideLengthsUnit": [
+       1,
+       1,
+       1,
+       1
+      ],
+      "parallelPairs": [
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        3
+       ]
+      ],
+      "cutFaces": [
+       "0:1",
+       "1:1",
+       "0:-1",
+       "1:-1"
+      ],
+      "vertices": [
+       [
+        1,
+        -1,
+        0.2
+       ],
+       [
+        1,
+        1,
+        0.2
+       ],
+       [
+        -1,
+        1,
+        0.2
+       ],
+       [
+        -1,
+        -1,
+        0.2
+       ]
+      ],
+      "props": [
+       "2 组对边平行",
+       "对边相等",
+       "四个角都是直角",
+       "四条边相等",
+       "与 4 个面相交"
+      ]
+     },
+     "presetMatches": true,
+     "activeNameMatches": true,
+     "plane": {
+      "normal": [
+       0,
+       0,
+       1
+      ],
+      "d": 0.2,
+      "support": 1
+     },
+     "playing": false,
+     "tweening": false,
+     "camera": {
+      "yaw": 0.68,
+      "pitch": 0.31,
+      "dist": 7.25
+     },
+     "presets": [
+      {
+       "id": "equilateral-triangle",
+       "name": "等边三角形",
+       "sides": 3,
+       "d": 1.1547,
+       "normal": [
+        0.57735,
+        0.57735,
+        0.57735
+       ]
+      },
+      {
+       "id": "isosceles-triangle",
+       "name": "等腰三角形",
+       "sides": 3,
+       "d": 1.05529,
+       "normal": [
+        0.30151,
+        0.30151,
+        0.90453
+       ]
+      },
+      {
+       "id": "scalene-triangle",
+       "name": "不等边三角形",
+       "sides": 3,
+       "d": 1.05714,
+       "normal": [
+        0.28571,
+        0.42857,
+        0.85714
+       ]
+      },
+      {
+       "id": "square",
+       "name": "正方形",
+       "sides": 4,
+       "d": 0.2,
+       "normal": [
+        0,
+        0,
+        1
+       ]
+      },
+      {
+       "id": "rectangle",
+       "name": "矩形",
+       "sides": 4,
+       "d": 0.6364,
+       "normal": [
+        0.70711,
+        0.70711,
+        0
+       ]
+      },
+      {
+       "id": "rhombus",
+       "name": "菱形",
+       "sides": 4,
+       "d": 0,
+       "normal": [
+        0.30151,
+        0.30151,
+        0.90453
+       ]
+      },
+      {
+       "id": "parallelogram",
+       "name": "平行四边形",
+       "sides": 4,
+       "d": 0,
+       "normal": [
+        0.21822,
+        0.43644,
+        0.87287
+       ]
+      },
+      {
+       "id": "trapezoid",
+       "name": "梯形",
+       "sides": 4,
+       "d": 0.72161,
+       "normal": [
+        0.26726,
+        0.53452,
+        0.80178
+       ]
+      },
+      {
+       "id": "isosceles-trapezoid",
+       "name": "等腰梯形",
+       "sides": 4,
+       "d": 0.45883,
+       "normal": [
+        0.22942,
+        0.68825,
+        0.68825
+       ]
+      },
+      {
+       "id": "pentagon",
+       "name": "五边形",
+       "sides": 5,
+       "d": 0.61237,
+       "normal": [
+        0.40825,
+        0.40825,
+        0.8165
+       ]
+      },
+      {
+       "id": "regular-hexagon",
+       "name": "正六边形",
+       "sides": 6,
+       "d": 0,
+       "normal": [
+        0.57735,
+        0.57735,
+        0.57735
+       ]
+      },
+      {
+       "id": "hexagon",
+       "name": "一般六边形",
+       "sides": 6,
+       "d": 0.09701,
+       "normal": [
+        0.48507,
+        0.48507,
+        0.72761
+       ]
+      }
+     ],
+     "errors": []
+    },
+    "active": "square",
+    "liveName": "正方形",
+    "liveSides": "4 条边",
+    "shapeNameZh": "正方形",
+    "shapeNameEn": "SQUARE",
+    "sidePill": "4 边",
+    "perimeter": "4.00",
+    "area": "1.00",
+    "angle": "90°",
+    "props": [
+     "2 组对边平行",
+     "对边相等",
+     "四个角都是直角",
+     "四条边相等",
+     "与 4 个面相交"
+    ],
+    "note": "平面平行于一组对面时，截面与正方体的面全等，是边长等于棱长的正方形。",
+    "faceCount": "4 / 6",
+    "faceOn": 4,
+    "faceHint": "截到 4 个面 → 四边形",
+    "canvasPixels": 62194,
+    "canvasSig": 1266599332,
+    "canvasW": 308,
+    "canvasH": 202,
+    "dataSection": "正方形",
+    "dataSides": "4"
+   },
+   "expected": {
+    "name": "正方形",
+    "type": "square",
+    "sides": 4,
+    "parallelPairCount": 2,
+    "unitSides": [
+     1,
+     1,
+     1,
+     1
+    ],
+    "angles": [
+     90,
+     90,
+     90,
+     90
+    ],
+    "rightCount": 4,
+    "allSidesEqual": true,
+    "allAnglesEqual": true
+   }
+  },
+  {
+   "id": "rectangle",
+   "clickRect": {
+    "x": 727.125,
+    "y": 997.125,
+    "w": 148.25,
+    "h": 105.75,
+    "visible": true
+   },
+   "page": {
+    "diag": {
+     "ready": true,
+     "version": "1.0.0",
+     "activePresetId": "rectangle",
+     "expectedPreset": {
+      "id": "rectangle",
+      "name": "矩形",
+      "sides": 4,
+      "normal": [
+       0.707107,
+       0.707107,
+       0
+      ],
+      "d": 0.636396
+     },
+     "shape": {
+      "name": "矩形",
+      "en": "RECTANGLE",
+      "sides": 4,
+      "classification": "rectangle",
+      "family": "四边形",
+      "perimeter": 3.55563,
+      "area": 0.77782,
+      "minAngle": 90,
+      "maxAngle": 90,
+      "sideLengthsUnit": [
+       1,
+       0.77782,
+       1,
+       0.77782
+      ],
+      "parallelPairs": [
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        3
+       ]
+      ],
+      "cutFaces": [
+       "0:1",
+       "2:-1",
+       "1:1",
+       "2:1"
+      ],
+      "vertices": [
+       [
+        1,
+        -0.1,
+        1
+       ],
+       [
+        1,
+        -0.1,
+        -1
+       ],
+       [
+        -0.1,
+        1,
+        -1
+       ],
+       [
+        -0.1,
+        1,
+        1
+       ]
+      ],
+      "props": [
+       "2 组对边平行",
+       "对边相等",
+       "四个角都是直角",
+       "邻边长度不等",
+       "与 4 个面相交"
+      ]
+     },
+     "presetMatches": true,
+     "activeNameMatches": true,
+     "plane": {
+      "normal": [
+       0.707107,
+       0.707107,
+       0
+      ],
+      "d": 0.636396,
+      "support": 1.414214
+     },
+     "playing": false,
+     "tweening": false,
+     "camera": {
+      "yaw": 0.68,
+      "pitch": 0.31,
+      "dist": 7.25
+     },
+     "presets": [
+      {
+       "id": "equilateral-triangle",
+       "name": "等边三角形",
+       "sides": 3,
+       "d": 1.1547,
+       "normal": [
+        0.57735,
+        0.57735,
+        0.57735
+       ]
+      },
+      {
+       "id": "isosceles-triangle",
+       "name": "等腰三角形",
+       "sides": 3,
+       "d": 1.05529,
+       "normal": [
+        0.30151,
+        0.30151,
+        0.90453
+       ]
+      },
+      {
+       "id": "scalene-triangle",
+       "name": "不等边三角形",
+       "sides": 3,
+       "d": 1.05714,
+       "normal": [
+        0.28571,
+        0.42857,
+        0.85714
+       ]
+      },
+      {
+       "id": "square",
+       "name": "正方形",
+       "sides": 4,
+       "d": 0.2,
+       "normal": [
+        0,
+        0,
+        1
+       ]
+      },
+      {
+       "id": "rectangle",
+       "name": "矩形",
+       "sides": 4,
+       "d": 0.6364,
+       "normal": [
+        0.70711,
+        0.70711,
+        0
+       ]
+      },
+      {
+       "id": "rhombus",
+       "name": "菱形",
+       "sides": 4,
+       "d": 0,
+       "normal": [
+        0.30151,
+        0.30151,
+        0.90453
+       ]
+      },
+      {
+       "id": "parallelogram",
+       "name": "平行四边形",
+       "sides": 4,
+       "d": 0,
+       "normal": [
+        0.21822,
+        0.43644,
+        0.87287
+       ]
+      },
+      {
+       "id": "trapezoid",
+       "name": "梯形",
+       "sides": 4,
+       "d": 0.72161,
+       "normal": [
+        0.26726,
+        0.53452,
+        0.80178
+       ]
+      },
+      {
+       "id": "isosceles-trapezoid",
+       "name": "等腰梯形",
+       "sides": 4,
+       "d": 0.45883,
+       "normal": [
+        0.22942,
+        0.68825,
+        0.68825
+       ]
+      },
+      {
+       "id": "pentagon",
+       "name": "五边形",
+       "sides": 5,
+       "d": 0.61237,
+       "normal": [
+        0.40825,
+        0.40825,
+        0.8165
+       ]
+      },
+      {
+       "id": "regular-hexagon",
+       "name": "正六边形",
+       "sides": 6,
+       "d": 0,
+       "normal": [
+        0.57735,
+        0.57735,
+        0.57735
+       ]
+      },
+      {
+       "id": "hexagon",
+       "name": "一般六边形",
+       "sides": 6,
+       "d": 0.09701,
+       "normal": [
+        0.48507,
+        0.48507,
+        0.72761
+       ]
+      }
+     ],
+     "errors": []
+    },
+    "active": "rectangle",
+    "liveName": "矩形",
+    "liveSides": "4 条边",
+    "shapeNameZh": "矩形",
+    "shapeNameEn": "RECTANGLE",
+    "sidePill": "4 边",
+    "perimeter": "3.56",
+    "area": "0.78",
+    "angle": "90°",
+    "props": [
+     "2 组对边平行",
+     "对边相等",
+     "四个角都是直角",
+     "邻边长度不等",
+     "与 4 个面相交"
+    ],
+    "note": "当平面平行于正方体的一条棱时，截面可以拉长成长方形。这里的平面斜着穿过四个面，得到长宽不等的矩形。",
+    "faceCount": "4 / 6",
+    "faceOn": 4,
+    "faceHint": "截到 4 个面 → 四边形",
+    "canvasPixels": 62194,
+    "canvasSig": 1502236779,
+    "canvasW": 308,
+    "canvasH": 202,
+    "dataSection": "矩形",
+    "dataSides": "4"
+   },
+   "expected": {
+    "name": "矩形",
+    "type": "rectangle",
+    "sides": 4,
+    "parallelPairCount": 2,
+    "unitSides": [
+     0.7778174593052023,
+     0.7778174593052023,
+     1,
+     1
+    ],
+    "angles": [
+     90,
+     90,
+     90,
+     90
+    ],
+    "rightCount": 4,
+    "allSidesEqual": false,
+    "allAnglesEqual": true
+   }
+  },
+  {
+   "id": "rhombus",
+   "clickRect": {
+    "x": 882.375,
+    "y": 997.125,
+    "w": 148.25,
+    "h": 105.75,
+    "visible": true
+   },
+   "page": {
+    "diag": {
+     "ready": true,
+     "version": "1.0.0",
+     "activePresetId": "rhombus",
+     "expectedPreset": {
+      "id": "rhombus",
+      "name": "菱形",
+      "sides": 4,
+      "normal": [
+       0.301511,
+       0.301511,
+       0.904534
+      ],
+      "d": 0
+     },
+     "shape": {
+      "name": "菱形",
+      "en": "RHOMBUS",
+      "sides": 4,
+      "classification": "rhombus",
+      "family": "四边形",
+      "perimeter": 4.21637,
+      "area": 1.10554,
+      "minAngle": 84.261,
+      "maxAngle": 95.739,
+      "sideLengthsUnit": [
+       1.05409,
+       1.05409,
+       1.05409,
+       1.05409
+      ],
+      "parallelPairs": [
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        3
+       ]
+      ],
+      "cutFaces": [
+       "0:1",
+       "1:1",
+       "0:-1",
+       "1:-1"
+      ],
+      "vertices": [
+       [
+        1,
+        -1,
+        0
+       ],
+       [
+        1,
+        1,
+        -0.66667
+       ],
+       [
+        -1,
+        1,
+        0
+       ],
+       [
+        -1,
+        -1,
+        0.66667
+       ]
+      ],
+      "props": [
+       "2 组对边平行",
+       "对边相等",
+       "四条边相等",
+       "与 4 个面相交"
+      ]
+     },
+     "presetMatches": true,
+     "activeNameMatches": true,
+     "plane": {
+      "normal": [
+       0.301511,
+       0.301511,
+       0.904534
+      ],
+      "d": 0,
+      "support": 1.507557
+     },
+     "playing": false,
+     "tweening": false,
+     "camera": {
+      "yaw": 0.68,
+      "pitch": 0.31,
+      "dist": 7.25
+     },
+     "presets": [
+      {
+       "id": "equilateral-triangle",
+       "name": "等边三角形",
+       "sides": 3,
+       "d": 1.1547,
+       "normal": [
+        0.57735,
+        0.57735,
+        0.57735
+       ]
+      },
+      {
+       "id": "isosceles-triangle",
+       "name": "等腰三角形",
+       "sides": 3,
+       "d": 1.05529,
+       "normal": [
+        0.30151,
+        0.30151,
+        0.90453
+       ]
+      },
+      {
+       "id": "scalene-triangle",
+       "name": "不等边三角形",
+       "sides": 3,
+       "d": 1.05714,
+       "normal": [
+        0.28571,
+        0.42857,
+        0.85714
+       ]
+      },
+      {
+       "id": "square",
+       "name": "正方形",
+       "sides": 4,
+       "d": 0.2,
+       "normal": [
+        0,
+        0,
+        1
+       ]
+      },
+      {
+       "id": "rectangle",
+       "name": "矩形",
+       "sides": 4,
+       "d": 0.6364,
+       "normal": [
+        0.70711,
+        0.70711,
+        0
+       ]
+      },
+      {
+       "id": "rhombus",
+       "name": "菱形",
+       "sides": 4,
+       "d": 0,
+       "normal": [
+        0.30151,
+        0.30151,
+        0.90453
+       ]
+      },
+      {
+       "id": "parallelogram",
+       "name": "平行四边形",
+       "sides": 4,
+       "d": 0,
+       "normal": [
+        0.21822,
+        0.43644,
+        0.87287
+       ]
+      },
+      {
+       "id": "trapezoid",
+       "name": "梯形",
+       "sides": 4,
+       "d": 0.72161,
+       "normal": [
+        0.26726,
+        0.53452,
+        0.80178
+       ]
+      },
+      {
+       "id": "isosceles-trapezoid",
+       "name": "等腰梯形",
+       "sides": 4,
+       "d": 0.45883,
+       "normal": [
+        0.22942,
+        0.68825,
+        0.68825
+       ]
+      },
+      {
+       "id": "pentagon",
+       "name": "五边形",
+       "sides": 5,
+       "d": 0.61237,
+       "normal": [
+        0.40825,
+        0.40825,
+        0.8165
+       ]
+      },
+      {
+       "id": "regular-hexagon",
+       "name": "正六边形",
+       "sides": 6,
+       "d": 0,
+       "normal": [
+        0.57735,
+        0.57735,
+        0.57735
+       ]
+      },
+      {
+       "id": "hexagon",
+       "name": "一般六边形",
+       "sides": 6,
+       "d": 0.09701,
+       "normal": [
+        0.48507,
+        0.48507,
+        0.72761
+       ]
+      }
+     ],
+     "errors": []
+    },
+    "active": "rhombus",
+    "liveName": "菱形",
+    "liveSides": "4 条边",
+    "shapeNameZh": "菱形",
+    "shapeNameEn": "RHOMBUS",
+    "sidePill": "4 边",
+    "perimeter": "4.22",
+    "area": "1.11",
+    "angle": "84°–96°",
+    "props": [
+     "2 组对边平行",
+     "对边相等",
+     "四条边相等",
+     "与 4 个面相交"
+    ],
+    "note": "四边形截面至少有一组对边平行。当两组对边都平行、四条边又相等时，就得到菱形。这里的内角不是 90°，所以它不是正方形。",
+    "faceCount": "4 / 6",
+    "faceOn": 4,
+    "faceHint": "截到 4 个面 → 四边形",
+    "canvasPixels": 62194,
+    "canvasSig": 2689137234,
+    "canvasW": 308,
+    "canvasH": 202,
+    "dataSection": "菱形",
+    "dataSides": "4"
+   },
+   "expected": {
+    "name": "菱形",
+    "type": "rhombus",
+    "sides": 4,
+    "parallelPairCount": 2,
+    "unitSides": [
+     1.0540925533894598,
+     1.0540925533894598,
+     1.0540925533894598,
+     1.0540925533894598
+    ],
+    "angles": [
+     84.26082952273322,
+     84.26082952273323,
+     95.73917047726678,
+     95.73917047726678
+    ],
+    "rightCount": 0,
+    "allSidesEqual": true,
+    "allAnglesEqual": false
+   }
+  },
+  {
+   "id": "parallelogram",
+   "clickRect": {
+    "x": 1037.625,
+    "y": 997.125,
+    "w": 148.25,
+    "h": 105.75,
+    "visible": true
+   },
+   "page": {
+    "diag": {
+     "ready": true,
+     "version": "1.0.0",
+     "activePresetId": "parallelogram",
+     "expectedPreset": {
+      "id": "parallelogram",
+      "name": "平行四边形",
+      "sides": 4,
+      "normal": [
+       0.218218,
+       0.436436,
+       0.872872
+      ],
+      "d": 0
+     },
+     "shape": {
+      "name": "平行四边形",
+      "en": "PARALLELOGRAM",
+      "sides": 4,
+      "classification": "parallelogram",
+      "family": "四边形",
+      "perimeter": 4.29762,
+      "area": 1.14564,
+      "minAngle": 83.773,
+      "maxAngle": 96.227,
+      "sideLengthsUnit": [
+       1.11803,
+       1.03078,
+       1.11803,
+       1.03078
+      ],
+      "parallelPairs": [
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        3
+       ]
+      ],
+      "cutFaces": [
+       "0:1",
+       "1:1",
+       "0:-1",
+       "1:-1"
+      ],
+      "vertices": [
+       [
+        1,
+        -1,
+        0.25
+       ],
+       [
+        1,
+        1,
+        -0.75
+       ],
+       [
+        -1,
+        1,
+        -0.25
+       ],
+       [
+        -1,
+        -1,
+        0.75
+       ]
+      ],
+      "props": [
+       "2 组对边平行",
+       "对边相等",
+       "邻边长度不等",
+       "与 4 个面相交"
+      ]
+     },
+     "presetMatches": true,
+     "activeNameMatches": true,
+     "plane": {
+      "normal": [
+       0.218218,
+       0.436436,
+       0.872872
+      ],
+      "d": 0,
+      "support": 1.527525
+     },
+     "playing": false,
+     "tweening": false,
+     "camera": {
+      "yaw": 0.68,
+      "pitch": 0.31,
+      "dist": 7.25
+     },
+     "presets": [
+      {
+       "id": "equilateral-triangle",
+       "name": "等边三角形",
+       "sides": 3,
+       "d": 1.1547,
+       "normal": [
+        0.57735,
+        0.57735,
+        0.57735
+       ]
+      },
+      {
+       "id": "isosceles-triangle",
+       "name": "等腰三角形",
+       "sides": 3,
+       "d": 1.05529,
+       "normal": [
+        0.30151,
+        0.30151,
+        0.90453
+       ]
+      },
+      {
+       "id": "scalene-triangle",
+       "name": "不等边三角形",
+       "sides": 3,
+       "d": 1.05714,
+       "normal": [
+        0.28571,
+        0.42857,
+        0.85714
+       ]
+      },
+      {
+       "id": "square",
+       "name": "正方形",
+       "sides": 4,
+       "d": 0.2,
+       "normal": [
+        0,
+        0,
+        1
+       ]
+      },
+      {
+       "id": "rectangle",
+       "name": "矩形",
+       "sides": 4,
+       "d": 0.6364,
+       "normal": [
+        0.70711,
+        0.70711,
+        0
+       ]
+      },
+      {
+       "id": "rhombus",
+       "name": "菱形",
+       "sides": 4,
+       "d": 0,
+       "normal": [
+        0.30151,
+        0.30151,
+        0.90453
+       ]
+      },
+      {
+       "id": "parallelogram",
+       "name": "平行四边形",
+       "sides": 4,
+       "d": 0,
+       "normal": [
+        0.21822,
+        0.43644,
+        0.87287
+       ]
+      },
+      {
+       "id": "trapezoid",
+       "name": "梯形",
+       "sides": 4,
+       "d": 0.72161,
+       "normal": [
+        0.26726,
+        0.53452,
+        0.80178
+       ]
+      },
+      {
+       "id": "isosceles-trapezoid",
+       "name": "等腰梯形",
+       "sides": 4,
+       "d": 0.45883,
+       "normal": [
+        0.22942,
+        0.68825,
+        0.68825
+       ]
+      },
+      {
+       "id": "pentagon",
+       "name": "五边形",
+       "sides": 5,
+       "d": 0.61237,
+       "normal": [
+        0.40825,
+        0.40825,
+        0.8165
+       ]
+      },
+      {
+       "id": "regular-hexagon",
+       "name": "正六边形",
+       "sides": 6,
+       "d": 0,
+       "normal": [
+        0.57735,
+        0.57735,
+        0.57735
+       ]
+      },
+      {
+       "id": "hexagon",
+       "name": "一般六边形",
+       "sides": 6,
+       "d": 0.09701,
+       "normal": [
+        0.48507,
+        0.48507,
+        0.72761
+       ]
+      }
+     ],
+     "errors": []
+    },
+    "active": "parallelogram",
+    "liveName": "平行四边形",
+    "liveSides": "4 条边",
+    "shapeNameZh": "平行四边形",
+    "shapeNameEn": "PARALLELOGRAM",
+    "sidePill": "4 边",
+    "perimeter": "4.30",
+    "area": "1.15",
+    "angle": "84°–96°",
+    "props": [
+     "2 组对边平行",
+     "对边相等",
+     "邻边长度不等",
+     "与 4 个面相交"
+    ],
+    "note": "两组对边分别平行，但邻边长度不同、内角不是直角，因此是一般的平行四边形。",
+    "faceCount": "4 / 6",
+    "faceOn": 4,
+    "faceHint": "截到 4 个面 → 四边形",
+    "canvasPixels": 62194,
+    "canvasSig": 1906602433,
+    "canvasW": 308,
+    "canvasH": 202,
+    "dataSection": "平行四边形",
+    "dataSides": "4"
+   },
+   "expected": {
+    "name": "平行四边形",
+    "type": "parallelogram",
+    "sides": 4,
+    "parallelPairCount": 2,
+    "unitSides": [
+     1.030776406404415,
+     1.030776406404415,
+     1.118033988749895,
+     1.118033988749895
+    ],
+    "angles": [
+     83.77314970286562,
+     83.77314970286562,
+     96.22685029713438,
+     96.22685029713438
+    ],
+    "rightCount": 0,
+    "allSidesEqual": false,
+    "allAnglesEqual": false
+   }
+  },
+  {
+   "id": "trapezoid",
+   "clickRect": {
+    "x": 1192.875,
+    "y": 997.125,
+    "w": 148.25,
+    "h": 105.75,
+    "visible": true
+   },
+   "page": {
+    "diag": {
+     "ready": true,
+     "version": "1.0.0",
+     "activePresetId": "trapezoid",
+     "expectedPreset": {
+      "id": "trapezoid",
+      "name": "梯形",
+      "sides": 4,
+      "normal": [
+       0.267261,
+       0.534522,
+       0.801784
+      ],
+      "d": 0.721605
+     },
+     "shape": {
+      "name": "梯形",
+      "en": "TRAPEZOID",
+      "sides": 4,
+      "classification": "trapezoid",
+      "family": "四边形",
+      "perimeter": 3.55425,
+      "area": 0.71715,
+      "minAngle": 68.155,
+      "maxAngle": 111.845,
+      "sideLengthsUnit": [
+       0.99153,
+       1.05409,
+       0.3906,
+       1.11803
+      ],
+      "parallelPairs": [
+       [
+        0,
+        2
+       ]
+      ],
+      "cutFaces": [
+       "0:1",
+       "1:1",
+       "0:-1",
+       "2:1"
+      ],
+      "vertices": [
+       [
+        1,
+        -0.65,
+        1
+       ],
+       [
+        1,
+        1,
+        -0.1
+       ],
+       [
+        -1,
+        1,
+        0.56667
+       ],
+       [
+        -1,
+        0.35,
+        1
+       ]
+      ],
+      "props": [
+       "1 组对边平行",
+       "两腰不等",
+       "与 4 个面相交"
+      ]
+     },
+     "presetMatches": true,
+     "activeNameMatches": true,
+     "plane": {
+      "normal": [
+       0.267261,
+       0.534522,
+       0.801784
+      ],
+      "d": 0.721605,
+      "support": 1.603567
+     },
+     "playing": false,
+     "tweening": false,
+     "camera": {
+      "yaw": 0.68,
+      "pitch": 0.31,
+      "dist": 7.25
+     },
+     "presets": [
+      {
+       "id": "equilateral-triangle",
+       "name": "等边三角形",
+       "sides": 3,
+       "d": 1.1547,
+       "normal": [
+        0.57735,
+        0.57735,
+        0.57735
+       ]
+      },
+      {
+       "id": "isosceles-triangle",
+       "name": "等腰三角形",
+       "sides": 3,
+       "d": 1.05529,
+       "normal": [
+        0.30151,
+        0.30151,
+        0.90453
+       ]
+      },
+      {
+       "id": "scalene-triangle",
+       "name": "不等边三角形",
+       "sides": 3,
+       "d": 1.05714,
+       "normal": [
+        0.28571,
+        0.42857,
+        0.85714
+       ]
+      },
+      {
+       "id": "square",
+       "name": "正方形",
+       "sides": 4,
+       "d": 0.2,
+       "normal": [
+        0,
+        0,
+        1
+       ]
+      },
+      {
+       "id": "rectangle",
+       "name": "矩形",
+       "sides": 4,
+       "d": 0.6364,
+       "normal": [
+        0.70711,
+        0.70711,
+        0
+       ]
+      },
+      {
+       "id": "rhombus",
+       "name": "菱形",
+       "sides": 4,
+       "d": 0,
+       "normal": [
+        0.30151,
+        0.30151,
+        0.90453
+       ]
+      },
+      {
+       "id": "parallelogram",
+       "name": "平行四边形",
+       "sides": 4,
+       "d": 0,
+       "normal": [
+        0.21822,
+        0.43644,
+        0.87287
+       ]
+      },
+      {
+       "id": "trapezoid",
+       "name": "梯形",
+       "sides": 4,
+       "d": 0.72161,
+       "normal": [
+        0.26726,
+        0.53452,
+        0.80178
+       ]
+      },
+      {
+       "id": "isosceles-trapezoid",
+       "name": "等腰梯形",
+       "sides": 4,
+       "d": 0.45883,
+       "normal": [
+        0.22942,
+        0.68825,
+        0.68825
+       ]
+      },
+      {
+       "id": "pentagon",
+       "name": "五边形",
+       "sides": 5,
+       "d": 0.61237,
+       "normal": [
+        0.40825,
+        0.40825,
+        0.8165
+       ]
+      },
+      {
+       "id": "regular-hexagon",
+       "name": "正六边形",
+       "sides": 6,
+       "d": 0,
+       "normal": [
+        0.57735,
+        0.57735,
+        0.57735
+       ]
+      },
+      {
+       "id": "hexagon",
+       "name": "一般六边形",
+       "sides": 6,
+       "d": 0.09701,
+       "normal": [
+        0.48507,
+        0.48507,
+        0.72761
+       ]
+      }
+     ],
+     "errors": []
+    },
+    "active": "trapezoid",
+    "liveName": "梯形",
+    "liveSides": "4 条边",
+    "shapeNameZh": "梯形",
+    "shapeNameEn": "TRAPEZOID",
+    "sidePill": "4 边",
+    "perimeter": "3.55",
+    "area": "0.72",
+    "angle": "68°–112°",
+    "props": [
+     "1 组对边平行",
+     "两腰不等",
+     "与 4 个面相交"
+    ],
+    "note": "平面只截到 4 个面，且只有一组对边平行，因此得到梯形。注意这里不是平行四边形。",
+    "faceCount": "4 / 6",
+    "faceOn": 4,
+    "faceHint": "截到 4 个面 → 四边形",
+    "canvasPixels": 62194,
+    "canvasSig": 94360392,
+    "canvasW": 308,
+    "canvasH": 202,
+    "dataSection": "梯形",
+    "dataSides": "4"
+   },
+   "expected": {
+    "name": "梯形",
+    "type": "trapezoid",
+    "sides": 4,
+    "parallelPairCount": 1,
+    "unitSides": [
+     0.39060138817526546,
+     0.9915266007525971,
+     1.0540925533894603,
+     1.1180339887498951
+    ],
+    "angles": [
+     68.15455236035753,
+     79.89738820831244,
+     100.10261179168756,
+     111.8454476396425
+    ],
+    "rightCount": 0,
+    "allSidesEqual": false,
+    "allAnglesEqual": false
+   }
+  },
+  {
+   "id": "isosceles-trapezoid",
+   "clickRect": {
+    "x": 1348.125,
+    "y": 997.125,
+    "w": 148.25,
+    "h": 105.75,
+    "visible": true
+   },
+   "page": {
+    "diag": {
+     "ready": true,
+     "version": "1.0.0",
+     "activePresetId": "isosceles-trapezoid",
+     "expectedPreset": {
+      "id": "isosceles-trapezoid",
+      "name": "等腰梯形",
+      "sides": 4,
+      "normal": [
+       0.229416,
+       0.688247,
+       0.688247
+      ],
+      "d": 0.458831
+     },
+     "shape": {
+      "name": "等腰梯形",
+      "en": "ISOSCELES TRAPEZOID",
+      "sides": 4,
+      "classification": "isosceles-trapezoid",
+      "family": "四边形",
+      "perimeter": 3.9938,
+      "area": 0.96864,
+      "minAngle": 77.079,
+      "maxAngle": 102.921,
+      "sideLengthsUnit": [
+       1.17851,
+       1.05409,
+       0.70711,
+       1.05409
+      ],
+      "parallelPairs": [
+       [
+        0,
+        2
+       ]
+      ],
+      "cutFaces": [
+       "0:1",
+       "1:1",
+       "0:-1",
+       "2:1"
+      ],
+      "vertices": [
+       [
+        1,
+        -0.66667,
+        1
+       ],
+       [
+        1,
+        1,
+        -0.66667
+       ],
+       [
+        -1,
+        1,
+        0
+       ],
+       [
+        -1,
+        0,
+        1
+       ]
+      ],
+      "props": [
+       "1 组对边平行",
+       "两腰相等",
+       "与 4 个面相交"
+      ]
+     },
+     "presetMatches": true,
+     "activeNameMatches": true,
+     "plane": {
+      "normal": [
+       0.229416,
+       0.688247,
+       0.688247
+      ],
+      "d": 0.458831,
+      "support": 1.60591
+     },
+     "playing": false,
+     "tweening": false,
+     "camera": {
+      "yaw": 0.68,
+      "pitch": 0.31,
+      "dist": 7.25
+     },
+     "presets": [
+      {
+       "id": "equilateral-triangle",
+       "name": "等边三角形",
+       "sides": 3,
+       "d": 1.1547,
+       "normal": [
+        0.57735,
+        0.57735,
+        0.57735
+       ]
+      },
+      {
+       "id": "isosceles-triangle",
+       "name": "等腰三角形",
+       "sides": 3,
+       "d": 1.05529,
+       "normal": [
+        0.30151,
+        0.30151,
+        0.90453
+       ]
+      },
+      {
+       "id": "scalene-triangle",
+       "name": "不等边三角形",
+       "sides": 3,
+       "d": 1.05714,
+       "normal": [
+        0.28571,
+        0.42857,
+        0.85714
+       ]
+      },
+      {
+       "id": "square",
+       "name": "正方形",
+       "sides": 4,
+       "d": 0.2,
+       "normal": [
+        0,
+        0,
+        1
+       ]
+      },
+      {
+       "id": "rectangle",
+       "name": "矩形",
+       "sides": 4,
+       "d": 0.6364,
+       "normal": [
+        0.70711,
+        0.70711,
+        0
+       ]
+      },
+      {
+       "id": "rhombus",
+       "name": "菱形",
+       "sides": 4,
+       "d": 0,
+       "normal": [
+        0.30151,
+        0.30151,
+        0.90453
+       ]
+      },
+      {
+       "id": "parallelogram",
+       "name": "平行四边形",
+       "sides": 4,
+       "d": 0,
+       "normal": [
+        0.21822,
+        0.43644,
+        0.87287
+       ]
+      },
+      {
+       "id": "trapezoid",
+       "name": "梯形",
+       "sides": 4,
+       "d": 0.72161,
+       "normal": [
+        0.26726,
+        0.53452,
+        0.80178
+       ]
+      },
+      {
+       "id": "isosceles-trapezoid",
+       "name": "等腰梯形",
+       "sides": 4,
+       "d": 0.45883,
+       "normal": [
+        0.22942,
+        0.68825,
+        0.68825
+       ]
+      },
+      {
+       "id": "pentagon",
+       "name": "五边形",
+       "sides": 5,
+       "d": 0.61237,
+       "normal": [
+        0.40825,
+        0.40825,
+        0.8165
+       ]
+      },
+      {
+       "id": "regular-hexagon",
+       "name": "正六边形",
+       "sides": 6,
+       "d": 0,
+       "normal": [
+        0.57735,
+        0.57735,
+        0.57735
+       ]
+      },
+      {
+       "id": "hexagon",
+       "name": "一般六边形",
+       "sides": 6,
+       "d": 0.09701,
+       "normal": [
+        0.48507,
+        0.48507,
+        0.72761
+       ]
+      }
+     ],
+     "errors": []
+    },
+    "active": "isosceles-trapezoid",
+    "liveName": "等腰梯形",
+    "liveSides": "4 条边",
+    "shapeNameZh": "等腰梯形",
+    "shapeNameEn": "ISOSCELES TRAPEZOID",
+    "sidePill": "4 边",
+    "perimeter": "3.99",
+    "area": "0.97",
+    "angle": "77°–103°",
+    "props": [
+     "1 组对边平行",
+     "两腰相等",
+     "与 4 个面相交"
+    ],
+    "note": "只截到 4 个面、仅有一组对边平行，同时两条腰相等，因此得到等腰梯形。它是梯形的一个特殊形态。",
+    "faceCount": "4 / 6",
+    "faceOn": 4,
+    "faceHint": "截到 4 个面 → 四边形",
+    "canvasPixels": 62194,
+    "canvasSig": 2653579827,
+    "canvasW": 308,
+    "canvasH": 202,
+    "dataSection": "等腰梯形",
+    "dataSides": "4"
+   },
+   "expected": {
+    "name": "等腰梯形",
+    "type": "isosceles-trapezoid",
+    "sides": 4,
+    "parallelPairCount": 1,
+    "unitSides": [
+     0.7071067811865477,
+     1.0540925533894596,
+     1.0540925533894598,
+     1.1785113019775793
+    ],
+    "angles": [
+     77.07903361841643,
+     77.07903361841643,
+     102.92096638158357,
+     102.92096638158357
+    ],
+    "rightCount": 0,
+    "allSidesEqual": false,
+    "allAnglesEqual": false
+   }
+  },
+  {
+   "id": "pentagon",
+   "clickRect": {
+    "x": 1503.375,
+    "y": 997.125,
+    "w": 148.25,
+    "h": 105.75,
+    "visible": true
+   },
+   "page": {
+    "diag": {
+     "ready": true,
+     "version": "1.0.0",
+     "activePresetId": "pentagon",
+     "expectedPreset": {
+      "id": "pentagon",
+      "name": "五边形",
+      "sides": 5,
+      "normal": [
+       0.408248,
+       0.408248,
+       0.816497
+      ],
+      "d": 0.612372
+     },
+     "shape": {
+      "name": "五边形",
+      "en": "PENTAGON",
+      "sides": 5,
+      "classification": "pentagon",
+      "family": "五边形",
+      "perimeter": 3.85575,
+      "area": 0.88029,
+      "minAngle": 78.463,
+      "maxAngle": 129.232,
+      "sideLengthsUnit": [
+       0.27951,
+       1.11803,
+       1.11803,
+       0.27951,
+       1.06066
+      ],
+      "parallelPairs": [
+       [
+        0,
+        2
+       ],
+       [
+        1,
+        3
+       ]
+      ],
+      "cutFaces": [
+       "1:-1",
+       "0:1",
+       "1:1",
+       "0:-1",
+       "2:1"
+      ],
+      "vertices": [
+       [
+        0.5,
+        -1,
+        1
+       ],
+       [
+        1,
+        -1,
+        0.75
+       ],
+       [
+        1,
+        1,
+        -0.25
+       ],
+       [
+        -1,
+        1,
+        0.75
+       ],
+       [
+        -1,
+        0.5,
+        1
+       ]
+      ],
+      "props": [
+       "2 组平行边",
+       "不可能是正五边形",
+       "与 5 个面相交"
+      ]
+     },
+     "presetMatches": true,
+     "activeNameMatches": true,
+     "plane": {
+      "normal": [
+       0.408248,
+       0.408248,
+       0.816497
+      ],
+      "d": 0.612372,
+      "support": 1.632993
+     },
+     "playing": false,
+     "tweening": false,
+     "camera": {
+      "yaw": 0.68,
+      "pitch": 0.31,
+      "dist": 7.25
+     },
+     "presets": [
+      {
+       "id": "equilateral-triangle",
+       "name": "等边三角形",
+       "sides": 3,
+       "d": 1.1547,
+       "normal": [
+        0.57735,
+        0.57735,
+        0.57735
+       ]
+      },
+      {
+       "id": "isosceles-triangle",
+       "name": "等腰三角形",
+       "sides": 3,
+       "d": 1.05529,
+       "normal": [
+        0.30151,
+        0.30151,
+        0.90453
+       ]
+      },
+      {
+       "id": "scalene-triangle",
+       "name": "不等边三角形",
+       "sides": 3,
+       "d": 1.05714,
+       "normal": [
+        0.28571,
+        0.42857,
+        0.85714
+       ]
+      },
+      {
+       "id": "square",
+       "name": "正方形",
+       "sides": 4,
+       "d": 0.2,
+       "normal": [
+        0,
+        0,
+        1
+       ]
+      },
+      {
+       "id": "rectangle",
+       "name": "矩形",
+       "sides": 4,
+       "d": 0.6364,
+       "normal": [
+        0.70711,
+        0.70711,
+        0
+       ]
+      },
+      {
+       "id": "rhombus",
+       "name": "菱形",
+       "sides": 4,
+       "d": 0,
+       "normal": [
+        0.30151,
+        0.30151,
+        0.90453
+       ]
+      },
+      {
+       "id": "parallelogram",
+       "name": "平行四边形",
+       "sides": 4,
+       "d": 0,
+       "normal": [
+        0.21822,
+        0.43644,
+        0.87287
+       ]
+      },
+      {
+       "id": "trapezoid",
+       "name": "梯形",
+       "sides": 4,
+       "d": 0.72161,
+       "normal": [
+        0.26726,
+        0.53452,
+        0.80178
+       ]
+      },
+      {
+       "id": "isosceles-trapezoid",
+       "name": "等腰梯形",
+       "sides": 4,
+       "d": 0.45883,
+       "normal": [
+        0.22942,
+        0.68825,
+        0.68825
+       ]
+      },
+      {
+       "id": "pentagon",
+       "name": "五边形",
+       "sides": 5,
+       "d": 0.61237,
+       "normal": [
+        0.40825,
+        0.40825,
+        0.8165
+       ]
+      },
+      {
+       "id": "regular-hexagon",
+       "name": "正六边形",
+       "sides": 6,
+       "d": 0,
+       "normal": [
+        0.57735,
+        0.57735,
+        0.57735
+       ]
+      },
+      {
+       "id": "hexagon",
+       "name": "一般六边形",
+       "sides": 6,
+       "d": 0.09701,
+       "normal": [
+        0.48507,
+        0.48507,
+        0.72761
+       ]
+      }
+     ],
+     "errors": []
+    },
+    "active": "pentagon",
+    "liveName": "五边形",
+    "liveSides": "5 条边",
+    "shapeNameZh": "五边形",
+    "shapeNameEn": "PENTAGON",
+    "sidePill": "5 边",
+    "perimeter": "3.86",
+    "area": "0.88",
+    "angle": "78°–129°",
+    "props": [
+     "2 组平行边",
+     "不可能是正五边形",
+     "与 5 个面相交"
+    ],
+    "note": "平面截到 5 个面。必有一组对面没有被同时截到，所以五边形截面至少含两组平行边，不可能是正五边形。",
+    "faceCount": "5 / 6",
+    "faceOn": 5,
+    "faceHint": "截到 5 个面 → 五边形",
+    "canvasPixels": 62194,
+    "canvasSig": 3772689411,
+    "canvasW": 308,
+    "canvasH": 202,
+    "dataSection": "五边形",
+    "dataSides": "5"
+   },
+   "expected": {
+    "name": "五边形",
+    "type": "pentagon",
+    "sides": 5,
+    "parallelPairCount": 2,
+    "unitSides": [
+     0.2795084971874737,
+     0.2795084971874738,
+     1.0606601717798214,
+     1.118033988749895,
+     1.1180339887498951
+    ],
+    "angles": [
+     78.46304096718453,
+     101.53695903281549,
+     101.53695903281549,
+     129.23152048359225,
+     129.23152048359225
+    ],
+    "rightCount": 0,
+    "allSidesEqual": false,
+    "allAnglesEqual": false
+   }
+  },
+  {
+   "id": "regular-hexagon",
+   "clickRect": {
+    "x": 1658.625,
+    "y": 997.125,
+    "w": 148.25,
+    "h": 105.75,
+    "visible": true
+   },
+   "page": {
+    "diag": {
+     "ready": true,
+     "version": "1.0.0",
+     "activePresetId": "regular-hexagon",
+     "expectedPreset": {
+      "id": "regular-hexagon",
+      "name": "正六边形",
+      "sides": 6,
+      "normal": [
+       0.57735,
+       0.57735,
+       0.57735
+      ],
+      "d": 0
+     },
+     "shape": {
+      "name": "正六边形",
+      "en": "REGULAR HEXAGON",
+      "sides": 6,
+      "classification": "regular-hexagon",
+      "family": "六边形",
+      "perimeter": 4.24264,
+      "area": 1.29904,
+      "minAngle": 120,
+      "maxAngle": 120,
+      "sideLengthsUnit": [
+       0.70711,
+       0.70711,
+       0.70711,
+       0.70711,
+       0.70711,
+       0.70711
+      ],
+      "parallelPairs": [
+       [
+        0,
+        3
+       ],
+       [
+        1,
+        4
+       ],
+       [
+        2,
+        5
+       ]
+      ],
+      "cutFaces": [
+       "0:1",
+       "2:-1",
+       "1:1",
+       "0:-1",
+       "2:1",
+       "1:-1"
+      ],
+      "vertices": [
+       [
+        1,
+        -1,
+        0
+       ],
+       [
+        1,
+        0,
+        -1
+       ],
+       [
+        0,
+        1,
+        -1
+       ],
+       [
+        -1,
+        1,
+        0
+       ],
+       [
+        -1,
+        0,
+        1
+       ],
+       [
+        0,
+        -1,
+        1
+       ]
+      ],
+      "props": [
+       "六条边相等",
+       "六个内角都是 120°",
+       "三组对边平行",
+       "与 6 个面相交"
+      ]
+     },
+     "presetMatches": true,
+     "activeNameMatches": true,
+     "plane": {
+      "normal": [
+       0.57735,
+       0.57735,
+       0.57735
+      ],
+      "d": 0,
+      "support": 1.732051
+     },
+     "playing": false,
+     "tweening": false,
+     "camera": {
+      "yaw": 0.68,
+      "pitch": 0.31,
+      "dist": 7.25
+     },
+     "presets": [
+      {
+       "id": "equilateral-triangle",
+       "name": "等边三角形",
+       "sides": 3,
+       "d": 1.1547,
+       "normal": [
+        0.57735,
+        0.57735,
+        0.57735
+       ]
+      },
+      {
+       "id": "isosceles-triangle",
+       "name": "等腰三角形",
+       "sides": 3,
+       "d": 1.05529,
+       "normal": [
+        0.30151,
+        0.30151,
+        0.90453
+       ]
+      },
+      {
+       "id": "scalene-triangle",
+       "name": "不等边三角形",
+       "sides": 3,
+       "d": 1.05714,
+       "normal": [
+        0.28571,
+        0.42857,
+        0.85714
+       ]
+      },
+      {
+       "id": "square",
+       "name": "正方形",
+       "sides": 4,
+       "d": 0.2,
+       "normal": [
+        0,
+        0,
+        1
+       ]
+      },
+      {
+       "id": "rectangle",
+       "name": "矩形",
+       "sides": 4,
+       "d": 0.6364,
+       "normal": [
+        0.70711,
+        0.70711,
+        0
+       ]
+      },
+      {
+       "id": "rhombus",
+       "name": "菱形",
+       "sides": 4,
+       "d": 0,
+       "normal": [
+        0.30151,
+        0.30151,
+        0.90453
+       ]
+      },
+      {
+       "id": "parallelogram",
+       "name": "平行四边形",
+       "sides": 4,
+       "d": 0,
+       "normal": [
+        0.21822,
+        0.43644,
+        0.87287
+       ]
+      },
+      {
+       "id": "trapezoid",
+       "name": "梯形",
+       "sides": 4,
+       "d": 0.72161,
+       "normal": [
+        0.26726,
+        0.53452,
+        0.80178
+       ]
+      },
+      {
+       "id": "isosceles-trapezoid",
+       "name": "等腰梯形",
+       "sides": 4,
+       "d": 0.45883,
+       "normal": [
+        0.22942,
+        0.68825,
+        0.68825
+       ]
+      },
+      {
+       "id": "pentagon",
+       "name": "五边形",
+       "sides": 5,
+       "d": 0.61237,
+       "normal": [
+        0.40825,
+        0.40825,
+        0.8165
+       ]
+      },
+      {
+       "id": "regular-hexagon",
+       "name": "正六边形",
+       "sides": 6,
+       "d": 0,
+       "normal": [
+        0.57735,
+        0.57735,
+        0.57735
+       ]
+      },
+      {
+       "id": "hexagon",
+       "name": "一般六边形",
+       "sides": 6,
+       "d": 0.09701,
+       "normal": [
+        0.48507,
+        0.48507,
+        0.72761
+       ]
+      }
+     ],
+     "errors": []
+    },
+    "active": "regular-hexagon",
+    "liveName": "正六边形",
+    "liveSides": "6 条边",
+    "shapeNameZh": "正六边形",
+    "shapeNameEn": "REGULAR HEXAGON",
+    "sidePill": "6 边",
+    "perimeter": "4.24",
+    "area": "1.30",
+    "angle": "120°",
+    "props": [
+     "六条边相等",
+     "六个内角都是 120°",
+     "三组对边平行",
+     "与 6 个面相交"
+    ],
+    "note": "平面垂直于正方体的体对角线并经过中心，截到全部 6 个面，得到正六边形：六边等长，每个内角都是 120°。",
+    "faceCount": "6 / 6",
+    "faceOn": 6,
+    "faceHint": "六个面全被截到 → 六边形",
+    "canvasPixels": 62194,
+    "canvasSig": 1977583519,
+    "canvasW": 308,
+    "canvasH": 202,
+    "dataSection": "正六边形",
+    "dataSides": "6"
+   },
+   "expected": {
+    "name": "正六边形",
+    "type": "regular-hexagon",
+    "sides": 6,
+    "parallelPairCount": 3,
+    "unitSides": [
+     0.7071067811865476,
+     0.7071067811865476,
+     0.7071067811865476,
+     0.7071067811865476,
+     0.7071067811865476,
+     0.7071067811865476
+    ],
+    "angles": [
+     120.00000000000001,
+     120.00000000000001,
+     120.00000000000001,
+     120.00000000000001,
+     120.00000000000001,
+     120.00000000000001
+    ],
+    "rightCount": 0,
+    "allSidesEqual": true,
+    "allAnglesEqual": true
+   }
+  },
+  {
+   "id": "hexagon",
+   "clickRect": {
+    "x": 1813.875,
+    "y": 997.125,
+    "w": 148.25,
+    "h": 105.75,
+    "visible": true
+   },
+   "page": {
+    "diag": {
+     "ready": true,
+     "version": "1.0.0",
+     "activePresetId": "hexagon",
+     "expectedPreset": {
+      "id": "hexagon",
+      "name": "一般六边形",
+      "sides": 6,
+      "normal": [
+       0.485071,
+       0.485071,
+       0.727607
+      ],
+      "d": 0.097014
+     },
+     "shape": {
+      "name": "一般六边形",
+      "en": "GENERAL HEXAGON",
+      "sides": 6,
+      "classification": "hexagon",
+      "family": "六边形",
+      "perimeter": 4.31266,
+      "area": 1.27473,
+      "minAngle": 107.92,
+      "maxAngle": 126.04,
+      "sideLengthsUnit": [
+       1.02157,
+       0.21213,
+       1.02157,
+       0.7812,
+       0.49497,
+       0.7812
+      ],
+      "parallelPairs": [
+       [
+        0,
+        3
+       ],
+       [
+        1,
+        4
+       ],
+       [
+        2,
+        5
+       ]
+      ],
+      "cutFaces": [
+       "0:1",
+       "2:-1",
+       "1:1",
+       "0:-1",
+       "2:1",
+       "1:-1"
+      ],
+      "vertices": [
+       [
+        1,
+        -1,
+        0.13333
+       ],
+       [
+        1,
+        0.7,
+        -1
+       ],
+       [
+        0.7,
+        1,
+        -1
+       ],
+       [
+        -1,
+        1,
+        0.13333
+       ],
+       [
+        -1,
+        -0.3,
+        1
+       ],
+       [
+        -0.3,
+        -1,
+        1
+       ]
+      ],
+      "props": [
+       "三组对边分别平行",
+       "边长与内角一般不相等",
+       "与 6 个面相交"
+      ]
+     },
+     "presetMatches": true,
+     "activeNameMatches": true,
+     "plane": {
+      "normal": [
+       0.485071,
+       0.485071,
+       0.727607
+      ],
+      "d": 0.097014,
+      "support": 1.697749
+     },
+     "playing": false,
+     "tweening": false,
+     "camera": {
+      "yaw": 0.68,
+      "pitch": 0.31,
+      "dist": 7.25
+     },
+     "presets": [
+      {
+       "id": "equilateral-triangle",
+       "name": "等边三角形",
+       "sides": 3,
+       "d": 1.1547,
+       "normal": [
+        0.57735,
+        0.57735,
+        0.57735
+       ]
+      },
+      {
+       "id": "isosceles-triangle",
+       "name": "等腰三角形",
+       "sides": 3,
+       "d": 1.05529,
+       "normal": [
+        0.30151,
+        0.30151,
+        0.90453
+       ]
+      },
+      {
+       "id": "scalene-triangle",
+       "name": "不等边三角形",
+       "sides": 3,
+       "d": 1.05714,
+       "normal": [
+        0.28571,
+        0.42857,
+        0.85714
+       ]
+      },
+      {
+       "id": "square",
+       "name": "正方形",
+       "sides": 4,
+       "d": 0.2,
+       "normal": [
+        0,
+        0,
+        1
+       ]
+      },
+      {
+       "id": "rectangle",
+       "name": "矩形",
+       "sides": 4,
+       "d": 0.6364,
+       "normal": [
+        0.70711,
+        0.70711,
+        0
+       ]
+      },
+      {
+       "id": "rhombus",
+       "name": "菱形",
+       "sides": 4,
+       "d": 0,
+       "normal": [
+        0.30151,
+        0.30151,
+        0.90453
+       ]
+      },
+      {
+       "id": "parallelogram",
+       "name": "平行四边形",
+       "sides": 4,
+       "d": 0,
+       "normal": [
+        0.21822,
+        0.43644,
+        0.87287
+       ]
+      },
+      {
+       "id": "trapezoid",
+       "name": "梯形",
+       "sides": 4,
+       "d": 0.72161,
+       "normal": [
+        0.26726,
+        0.53452,
+        0.80178
+       ]
+      },
+      {
+       "id": "isosceles-trapezoid",
+       "name": "等腰梯形",
+       "sides": 4,
+       "d": 0.45883,
+       "normal": [
+        0.22942,
+        0.68825,
+        0.68825
+       ]
+      },
+      {
+       "id": "pentagon",
+       "name": "五边形",
+       "sides": 5,
+       "d": 0.61237,
+       "normal": [
+        0.40825,
+        0.40825,
+        0.8165
+       ]
+      },
+      {
+       "id": "regular-hexagon",
+       "name": "正六边形",
+       "sides": 6,
+       "d": 0,
+       "normal": [
+        0.57735,
+        0.57735,
+        0.57735
+       ]
+      },
+      {
+       "id": "hexagon",
+       "name": "一般六边形",
+       "sides": 6,
+       "d": 0.09701,
+       "normal": [
+        0.48507,
+        0.48507,
+        0.72761
+       ]
+      }
+     ],
+     "errors": []
+    },
+    "active": "hexagon",
+    "liveName": "一般六边形",
+    "liveSides": "6 条边",
+    "shapeNameZh": "一般六边形",
+    "shapeNameEn": "GENERAL HEXAGON",
+    "sidePill": "6 边",
+    "perimeter": "4.31",
+    "area": "1.27",
+    "angle": "108°–126°",
+    "props": [
+     "三组对边分别平行",
+     "边长与内角一般不相等",
+     "与 6 个面相交"
+    ],
+    "note": "平面截到全部 6 个面时得到六边形，三组对边分别平行；但不一定像正六边形那样六边等长、每个角都是 120°。",
+    "faceCount": "6 / 6",
+    "faceOn": 6,
+    "faceHint": "六个面全被截到 → 六边形",
+    "canvasPixels": 62194,
+    "canvasSig": 897125876,
+    "canvasW": 308,
+    "canvasH": 202,
+    "dataSection": "一般六边形",
+    "dataSides": "6"
+   },
+   "expected": {
+    "name": "一般六边形",
+    "type": "hexagon",
+    "sides": 6,
+    "parallelPairCount": 3,
+    "unitSides": [
+     0.21213203435596412,
+     0.4949747468305831,
+     0.781202776350531,
+     0.7812027763505311,
+     1.0215728613814636,
+     1.0215728613814639
+    ],
+    "angles": [
+     107.92021313939229,
+     107.92021313939229,
+     126.03989343030383,
+     126.03989343030386,
+     126.03989343030386,
+     126.03989343030389
+    ],
+    "rightCount": 0,
+    "allSidesEqual": false,
+    "allAnglesEqual": false
+   }
+  }
+ ],
+ "math": {
+  "slantedSquare": {
+   "page": {
+    "name": "正方形",
+    "sides": 4,
+    "unitSides": [
+     1,
+     1,
+     1,
+     1
+    ],
+    "minAngle": 90,
+    "maxAngle": 90
+   },
+   "expected": {
+    "type": "square",
+    "unitSides": [
+     1,
+     1,
+     1,
+     1
+    ],
+    "angles": [
+     90,
+     90,
+     90,
+     90
+    ],
+    "d": 0.5416407864998738
+   }
+  },
+  "equiangularHexagon": {
+   "page": {
+    "name": "等角六边形",
+    "sides": 6,
+    "minAngle": 120,
+    "maxAngle": 120,
+    "sideLengthsUnit": [
+     0.58463,
+     0.82958,
+     0.58463,
+     0.82958,
+     0.58463,
+     0.82958
+    ]
+   },
+   "expected": {
+    "type": "equiangular-hexagon",
+    "angles": [
+     119.99999999999999,
+     120.00000000000001,
+     120.00000000000001,
+     120.00000000000001,
+     119.99999999999999,
+     120.00000000000001
+    ],
+    "unitSides": [
+     0.5846322940473887,
+     0.8295812683257064,
+     0.5846322940473887,
+     0.8295812683257064,
+     0.5846322940473887,
+     0.8295812683257064
+    ]
+   }
+  },
+  "randomSample": {
+   "N": 300,
+   "counts": {
+    "3": 62,
+    "4": 159,
+    "5": 70,
+    "6": 9
+   },
+   "violations": [],
+   "classificationMismatches": [
+    {
+     "i": 157,
+     "n": [
+      -0.6856721547997146,
+      -0.7279085901697522,
+      -0.001667479954899211
+     ],
+     "d": -0.1754984774022808,
+     "pageName": "矩形",
+     "pageType": "rectangle",
+     "independentType": "isosceles-trapezoid",
+     "independentAngles": [
+      90.08999586708616,
+      89.91000413291384,
+      89.89857544003861,
+      90.1014245599614
+     ],
+     "independentSides": [
+      1.0000026238378288,
+      1.241967042707689,
+      1.000002957042591,
+      1.2386261182146616
+     ],
+     "allSidesEqual": false,
+     "allAnglesEqual": true,
+     "rightCount": 4,
+     "pairs": 1,
+     "minAbsNormal": 0.001667479954899211,
+     "nearBoundary": true
+    },
+    {
+     "i": 190,
+     "n": [
+      0.33561487660020456,
+      0.9419940739608148,
+      -0.0031335646373476583
+     ],
+     "d": 0.7413162345459029,
+     "pageName": "矩形",
+     "pageType": "rectangle",
+     "independentType": "isosceles-trapezoid",
+     "independentAngles": [
+      90.063966728834,
+      89.93603327116601,
+      89.49608526321472,
+      90.50391473678526
+     ],
+     "independentSides": [
+      1.0000055328612143,
+      0.8531209351247432,
+      1.0000435868464055,
+      0.8432092578870144
+     ],
+     "allSidesEqual": false,
+     "allAnglesEqual": false,
+     "rightCount": 4,
+     "pairs": 1,
+     "minAbsNormal": 0.0031335646373476583,
+     "nearBoundary": true
+    }
+   ]
+  },
+  "regularHexagonNecessity": {
+   "checked": {
+    "six": 60
+   },
+   "violations": [],
+   "skippedNearEqual": 0
+  }
+ },
+ "robustness": {
+  "rapidSwitching": {
+   "activePresetId": "hexagon",
+   "shape": "一般六边形",
+   "sides": 6,
+   "match": true,
+   "errors": [],
+   "painted": 62194
+  },
+  "randomSliderEvents": {
+   "errors": [],
+   "playing": false,
+   "tweening": false,
+   "shape": "等腰梯形",
+   "plane": {
+    "normal": [
+     0.021703,
+     -0.909961,
+     -0.414125
+    ],
+    "d": 1.085,
+    "support": 1.34579
+   }
+  }
+ },
+ "screenshots": [
+  "qa/shots/01-hero-1920-regular-hexagon.png",
+  "qa/shots/02-preset-equilateral-triangle-1920.png",
+  "qa/shots/04-preset-rhombus-1920.png",
+  "qa/shots/05-preset-isosceles-trapezoid-1920.png",
+  "qa/shots/03-preset-pentagon-1920.png",
+  "qa/shots/06-preset-hexagon-1920.png",
+  "qa/shots/11-empty-state-1920.png"
+ ],
+ "consoleErrors": [],
+ "runtimeExceptions": 0,
+ "catalog": {
+  "ids": [
+   "equilateral-triangle",
+   "isosceles-triangle",
+   "scalene-triangle",
+   "square",
+   "rectangle",
+   "rhombus",
+   "parallelogram",
+   "trapezoid",
+   "isosceles-trapezoid",
+   "pentagon",
+   "regular-hexagon",
+   "hexagon"
+  ],
+  "labels": [
+   {
+    "id": "equilateral-triangle",
+    "sides": "3 边",
+    "name": "等边三角形",
+    "pressed": "false"
+   },
+   {
+    "id": "isosceles-triangle",
+    "sides": "3 边",
+    "name": "等腰三角形",
+    "pressed": "false"
+   },
+   {
+    "id": "scalene-triangle",
+    "sides": "3 边",
+    "name": "不等边三角形",
+    "pressed": "false"
+   },
+   {
+    "id": "square",
+    "sides": "4 边",
+    "name": "正方形",
+    "pressed": "false"
+   },
+   {
+    "id": "rectangle",
+    "sides": "4 边",
+    "name": "矩形",
+    "pressed": "false"
+   },
+   {
+    "id": "rhombus",
+    "sides": "4 边",
+    "name": "菱形",
+    "pressed": "false"
+   },
+   {
+    "id": "parallelogram",
+    "sides": "4 边",
+    "name": "平行四边形",
+    "pressed": "false"
+   },
+   {
+    "id": "trapezoid",
+    "sides": "4 边",
+    "name": "梯形",
+    "pressed": "false"
+   },
+   {
+    "id": "isosceles-trapezoid",
+    "sides": "4 边",
+    "name": "等腰梯形",
+    "pressed": "false"
+   },
+   {
+    "id": "pentagon",
+    "sides": "5 边",
+    "name": "五边形",
+    "pressed": "false"
+   },
+   {
+    "id": "regular-hexagon",
+    "sides": "6 边",
+    "name": "正六边形",
+    "pressed": "true"
+   },
+   {
+    "id": "hexagon",
+    "sides": "6 边",
+    "name": "一般六边形",
+    "pressed": "false"
+   }
+  ],
+  "tally": "3–6 条边12 个代表形态",
+  "groupHeads": [
+   "全截面图鉴"
+  ]
+ },
+ "emptyState": {
+  "shape": null,
+  "empty": true,
+  "strong": "平面已移出正方体",
+  "span": "拖动下方位置滑块，让平面穿过正方体",
+  "live": "无截面",
+  "faceCount": "0 / 6",
+  "shapeName": "无截面"
+ },
+ "tangentState": {
+  "shape": null,
+  "empty": true,
+  "strong": "平面与正方体相切",
+  "span": "此时截面退化为点或线段，移动平面即可恢复",
+  "live": "无截面"
+ },
+ "finalDiagErrors": [],
+ "networkRequests": [
+  "file:///D:/workspace/%E6%95%B0%E5%AD%A6%E6%BC%94%E7%A4%BA/index.html?preset=regular-hexagon&static=1"
+ ],
+ "passCount": 161,
+ "failCount": 0
+}
