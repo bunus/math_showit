@@ -1,0 +1,7511 @@
+{
+ "part": 1,
+ "startedAt": "2026-10-20T15:33:53.730Z",
+ "target": {
+  "file": "index.html",
+  "size": 131865,
+  "mtime": "2026-10-20T15:32:49.230Z",
+  "sha256": "5A829440E1A699AB2E92946AE0D0646028F26B56513A5702E403C7DED27E6F99"
+ },
+ "env": {
+  "title": "圆锥曲线方程实验室 · 从定义到方程",
+  "ready": "true",
+  "version": "1.0.0",
+  "api": true,
+  "innerW": 1920,
+  "innerH": 1080,
+  "dpr": 1,
+  "scrollW": 1920,
+  "canvases": 1,
+  "diagErrors": [],
+  "resources": [],
+  "mode": "ellipse",
+  "name": "椭圆",
+  "playing": false,
+  "modes": [
+   {
+    "id": "ellipse",
+    "name": "椭圆",
+    "en": "ELLIPSE"
+   },
+   {
+    "id": "hyperbola",
+    "name": "双曲线",
+    "en": "HYPERBOLA"
+   },
+   {
+    "id": "parabola",
+    "name": "抛物线",
+    "en": "PARABOLA"
+   },
+   {
+    "id": "unified",
+    "name": "统一视角",
+    "en": "UNIFIED"
+   }
+  ]
+ },
+ "checks": [
+  {
+   "id": "env.ready",
+   "ok": true,
+   "detail": {
+    "ready": "true",
+    "api": true
+   }
+  },
+  {
+   "id": "env.title",
+   "ok": true,
+   "detail": "圆锥曲线方程实验室 · 从定义到方程"
+  },
+  {
+   "id": "env.modes-four",
+   "ok": true,
+   "detail": [
+    {
+     "id": "ellipse",
+     "name": "椭圆",
+     "en": "ELLIPSE"
+    },
+    {
+     "id": "hyperbola",
+     "name": "双曲线",
+     "en": "HYPERBOLA"
+    },
+    {
+     "id": "parabola",
+     "name": "抛物线",
+     "en": "PARABOLA"
+    },
+    {
+     "id": "unified",
+     "name": "统一视角",
+     "en": "UNIFIED"
+    }
+   ]
+  },
+  {
+   "id": "env.diag-errors-empty",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "env.one-canvas",
+   "ok": true,
+   "detail": 1
+  },
+  {
+   "id": "env.no-external-resources",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "scenario.ellipse-h-E1.mode-name",
+   "ok": true,
+   "detail": {
+    "mode": "ellipse",
+    "name": "椭圆"
+   }
+  },
+  {
+   "id": "scenario.ellipse-h-E1.no-nonfinite",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "scenario.ellipse-h-E1.origin-annotation",
+   "ok": true,
+   "detail": {
+    "stageNote": "原点 = 中心 O · P 由参数方程生成",
+    "originChip": "标准位置 · 中心在原点"
+   }
+  },
+  {
+   "id": "scenario.ellipse-h-E1.orientation-label",
+   "ok": true,
+   "detail": {
+    "page": "焦点在 x 轴",
+    "expected": "焦点在 x 轴"
+   }
+  },
+  {
+   "id": "scenario.ellipse-h-E1.def-formula",
+   "ok": true,
+   "detail": {
+    "page": "|PF₁| + |PF₂| = 2a",
+    "expected": "|PF₁| + |PF₂| = 2a"
+   }
+  },
+  {
+   "id": "scenario.ellipse-h-E1.point-readout",
+   "ok": true,
+   "detail": {
+    "text": "P (3.11, 3.13)",
+    "P": [
+     3.108049841353322,
+     3.1333076385099337
+    ]
+   }
+  },
+  {
+   "id": "scenario.ellipse-h-E1.def-values-text",
+   "ok": true,
+   "detail": "PF₁ = 6.86 · PF₂ = 3.14 · 和 = 10.00 = 2a = 10.00"
+  },
+  {
+   "id": "scenario.ellipse-h-E1.derived",
+   "ok": true,
+   "detail": {
+    "a": 5,
+    "b": 4,
+    "c": 3,
+    "e": 0.6
+   }
+  },
+  {
+   "id": "scenario.ellipse-h-E1.circle-special",
+   "ok": true,
+   "detail": {
+    "directrices": [
+     {
+      "type": "v",
+      "value": 8.333333333333334,
+      "label": "x = 8.33"
+     },
+     {
+      "type": "v",
+      "value": -8.333333333333334,
+      "label": "x = −8.33"
+     }
+    ],
+    "features": [
+     "焦点(−3.00, 0.00) · (3.00, 0.00)",
+     "准线x = ±8.33",
+     "通径6.40"
+    ]
+   }
+  },
+  {
+   "id": "scenario.ellipse-h-E1.foci",
+   "ok": true,
+   "detail": {
+    "page": [
+     [
+      -3,
+      0
+     ],
+     [
+      3,
+      0
+     ]
+    ],
+    "expected": [
+     [
+      -3,
+      0
+     ],
+     [
+      3,
+      0
+     ]
+    ]
+   }
+  },
+  {
+   "id": "scenario.ellipse-h-E1.directrices",
+   "ok": true,
+   "detail": {
+    "page": [
+     {
+      "type": "v",
+      "value": 8.333333333333334,
+      "label": "x = 8.33"
+     },
+     {
+      "type": "v",
+      "value": -8.333333333333334,
+      "label": "x = −8.33"
+     }
+    ],
+    "expected": [
+     {
+      "type": "vertical",
+      "value": -8.333333333333334
+     },
+     {
+      "type": "vertical",
+      "value": 8.333333333333334
+     }
+    ]
+   }
+  },
+  {
+   "id": "scenario.ellipse-h-E1.equation-numeric",
+   "ok": true,
+   "detail": {
+    "numeric": "x² / 25.00 + y² / 16.00 = 1",
+    "want": [
+     25,
+     16
+    ]
+   }
+  },
+  {
+   "id": "scenario.ellipse-h-E1.P-on-curve",
+   "ok": true,
+   "detail": {
+    "residual": 0,
+    "P": [
+     3.108049841353322,
+     3.1333076385099337
+    ]
+   }
+  },
+  {
+   "id": "scenario.ellipse-h-E1.definition-residual",
+   "ok": true,
+   "detail": {
+    "residual": 0
+   }
+  },
+  {
+   "id": "scenario.ellipse-h-E1.distances-independent",
+   "ok": true,
+   "detail": {
+    "page": {
+     "d1": 6.864829904811994,
+     "d2": 3.1351700951880064,
+     "sum": 10,
+     "e": 0.6
+    },
+    "independent": {
+     "d1": 6.864829904811994,
+     "d2": 3.1351700951880064,
+     "sum": 10,
+     "diff": 3.7296598096239872,
+     "dFocus": 3.1351700951880064,
+     "dDirectrix": 11.441383174686656
+    }
+   }
+  },
+  {
+   "id": "scenario.ellipse-h-E1.invariant-sum",
+   "ok": true,
+   "detail": {
+    "sum": 10,
+    "target": 10
+   }
+  },
+  {
+   "id": "scenario.ellipse-h-E1.feature-focus",
+   "ok": true,
+   "detail": {
+    "text": "(−3.00, 0.00) · (3.00, 0.00)",
+    "expectedTokens": [
+     -3,
+     0,
+     3,
+     0
+    ],
+    "tokens": [
+     -3,
+     0,
+     3,
+     0
+    ]
+   }
+  },
+  {
+   "id": "scenario.ellipse-h-E1.feature-directrix",
+   "ok": true,
+   "detail": {
+    "text": "x = ±8.33",
+    "expected": [
+     {
+      "type": "vertical",
+      "value": -8.333333333333334
+     },
+     {
+      "type": "vertical",
+      "value": 8.333333333333334
+     }
+    ]
+   }
+  },
+  {
+   "id": "scenario.ellipse-h-E1.feature-latus-rectum",
+   "ok": true,
+   "detail": {
+    "text": "6.40",
+    "expected": 6.4
+   }
+  },
+  {
+   "id": "preset.E1-ellipse-h-a5-e06.matches-json",
+   "ok": true,
+   "detail": {
+    "focusMatch": true,
+    "dirMatch": true,
+    "asymMatch": true,
+    "lMatch": true,
+    "lSource": "feature:6.40",
+    "pageFoci": [
+     [
+      -3,
+      0
+     ],
+     [
+      3,
+      0
+     ]
+    ],
+    "pageDirectrices": [
+     {
+      "type": "v",
+      "value": 8.333333333333334,
+      "label": "x = 8.33"
+     },
+     {
+      "type": "v",
+      "value": -8.333333333333334,
+      "label": "x = −8.33"
+     }
+    ],
+    "pageAsym": []
+   }
+  },
+  {
+   "id": "scenario.ellipse-v-E2.mode-name",
+   "ok": true,
+   "detail": {
+    "mode": "ellipse",
+    "name": "椭圆"
+   }
+  },
+  {
+   "id": "scenario.ellipse-v-E2.no-nonfinite",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "scenario.ellipse-v-E2.origin-annotation",
+   "ok": true,
+   "detail": {
+    "stageNote": "原点 = 中心 O · P 由参数方程生成",
+    "originChip": "标准位置 · 中心在原点"
+   }
+  },
+  {
+   "id": "scenario.ellipse-v-E2.orientation-label",
+   "ok": true,
+   "detail": {
+    "page": "焦点在 y 轴",
+    "expected": "焦点在 y 轴"
+   }
+  },
+  {
+   "id": "scenario.ellipse-v-E2.def-formula",
+   "ok": true,
+   "detail": {
+    "page": "|PF₁| + |PF₂| = 2a",
+    "expected": "|PF₁| + |PF₂| = 2a"
+   }
+  },
+  {
+   "id": "scenario.ellipse-v-E2.point-readout",
+   "ok": true,
+   "detail": {
+    "text": "P (3.13, 3.11)",
+    "P": [
+     3.1333076385099337,
+     3.108049841353322
+    ]
+   }
+  },
+  {
+   "id": "scenario.ellipse-v-E2.def-values-text",
+   "ok": true,
+   "detail": "PF₁ = 6.86 · PF₂ = 3.14 · 和 = 10.00 = 2a = 10.00"
+  },
+  {
+   "id": "scenario.ellipse-v-E2.derived",
+   "ok": true,
+   "detail": {
+    "a": 5,
+    "b": 4,
+    "c": 3,
+    "e": 0.6
+   }
+  },
+  {
+   "id": "scenario.ellipse-v-E2.circle-special",
+   "ok": true,
+   "detail": {
+    "directrices": [
+     {
+      "type": "h",
+      "value": 8.333333333333334,
+      "label": "y = 8.33"
+     },
+     {
+      "type": "h",
+      "value": -8.333333333333334,
+      "label": "y = −8.33"
+     }
+    ],
+    "features": [
+     "焦点(0.00, −3.00) · (0.00, 3.00)",
+     "准线y = ±8.33",
+     "通径6.40"
+    ]
+   }
+  },
+  {
+   "id": "scenario.ellipse-v-E2.foci",
+   "ok": true,
+   "detail": {
+    "page": [
+     [
+      0,
+      -3
+     ],
+     [
+      0,
+      3
+     ]
+    ],
+    "expected": [
+     [
+      0,
+      -3
+     ],
+     [
+      0,
+      3
+     ]
+    ]
+   }
+  },
+  {
+   "id": "scenario.ellipse-v-E2.directrices",
+   "ok": true,
+   "detail": {
+    "page": [
+     {
+      "type": "h",
+      "value": 8.333333333333334,
+      "label": "y = 8.33"
+     },
+     {
+      "type": "h",
+      "value": -8.333333333333334,
+      "label": "y = −8.33"
+     }
+    ],
+    "expected": [
+     {
+      "type": "horizontal",
+      "value": -8.333333333333334
+     },
+     {
+      "type": "horizontal",
+      "value": 8.333333333333334
+     }
+    ]
+   }
+  },
+  {
+   "id": "scenario.ellipse-v-E2.equation-numeric",
+   "ok": true,
+   "detail": {
+    "numeric": "x² / 16.00 + y² / 25.00 = 1",
+    "want": [
+     16,
+     25
+    ]
+   }
+  },
+  {
+   "id": "scenario.ellipse-v-E2.P-on-curve",
+   "ok": true,
+   "detail": {
+    "residual": 0,
+    "P": [
+     3.1333076385099337,
+     3.108049841353322
+    ]
+   }
+  },
+  {
+   "id": "scenario.ellipse-v-E2.definition-residual",
+   "ok": true,
+   "detail": {
+    "residual": 0
+   }
+  },
+  {
+   "id": "scenario.ellipse-v-E2.distances-independent",
+   "ok": true,
+   "detail": {
+    "page": {
+     "d1": 6.864829904811994,
+     "d2": 3.1351700951880064,
+     "sum": 10,
+     "e": 0.6
+    },
+    "independent": {
+     "d1": 6.864829904811994,
+     "d2": 3.1351700951880064,
+     "sum": 10,
+     "diff": 3.7296598096239872,
+     "dFocus": 3.1351700951880064,
+     "dDirectrix": 11.441383174686656
+    }
+   }
+  },
+  {
+   "id": "scenario.ellipse-v-E2.invariant-sum",
+   "ok": true,
+   "detail": {
+    "sum": 10,
+    "target": 10
+   }
+  },
+  {
+   "id": "scenario.ellipse-v-E2.feature-focus",
+   "ok": true,
+   "detail": {
+    "text": "(0.00, −3.00) · (0.00, 3.00)",
+    "expectedTokens": [
+     0,
+     -3,
+     0,
+     3
+    ],
+    "tokens": [
+     0,
+     -3,
+     0,
+     3
+    ]
+   }
+  },
+  {
+   "id": "scenario.ellipse-v-E2.feature-directrix",
+   "ok": true,
+   "detail": {
+    "text": "y = ±8.33",
+    "expected": [
+     {
+      "type": "horizontal",
+      "value": -8.333333333333334
+     },
+     {
+      "type": "horizontal",
+      "value": 8.333333333333334
+     }
+    ]
+   }
+  },
+  {
+   "id": "scenario.ellipse-v-E2.feature-latus-rectum",
+   "ok": true,
+   "detail": {
+    "text": "6.40",
+    "expected": 6.4
+   }
+  },
+  {
+   "id": "preset.E2-ellipse-v-a5-e06.matches-json",
+   "ok": true,
+   "detail": {
+    "focusMatch": true,
+    "dirMatch": true,
+    "asymMatch": true,
+    "lMatch": true,
+    "lSource": "feature:6.40",
+    "pageFoci": [
+     [
+      0,
+      -3
+     ],
+     [
+      0,
+      3
+     ]
+    ],
+    "pageDirectrices": [
+     {
+      "type": "h",
+      "value": 8.333333333333334,
+      "label": "y = 8.33"
+     },
+     {
+      "type": "h",
+      "value": -8.333333333333334,
+      "label": "y = −8.33"
+     }
+    ],
+    "pageAsym": []
+   }
+  },
+  {
+   "id": "scenario.circle-E3.mode-name",
+   "ok": true,
+   "detail": {
+    "mode": "ellipse",
+    "name": "圆"
+   }
+  },
+  {
+   "id": "scenario.circle-E3.no-nonfinite",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "scenario.circle-E3.origin-annotation",
+   "ok": true,
+   "detail": {
+    "stageNote": "原点 = 中心 O · P 由参数方程生成",
+    "originChip": "标准位置 · 中心在原点"
+   }
+  },
+  {
+   "id": "scenario.circle-E3.orientation-label",
+   "ok": true,
+   "detail": {
+    "page": "圆心在原点",
+    "expected": "圆心在原点"
+   }
+  },
+  {
+   "id": "scenario.circle-E3.def-formula",
+   "ok": true,
+   "detail": {
+    "page": "|PO| = a",
+    "expected": "|PO| = a"
+   }
+  },
+  {
+   "id": "scenario.circle-E3.point-readout",
+   "ok": true,
+   "detail": {
+    "text": "P (2.49, 3.13)",
+    "P": [
+     2.4864398730826576,
+     3.1333076385099337
+    ]
+   }
+  },
+  {
+   "id": "scenario.circle-E3.def-values-text",
+   "ok": true,
+   "detail": "PO = 4.00 = a = 4.00"
+  },
+  {
+   "id": "scenario.circle-E3.derived",
+   "ok": true,
+   "detail": {
+    "a": 4,
+    "b": 4,
+    "c": 0,
+    "e": 0
+   }
+  },
+  {
+   "id": "scenario.circle-E3.circle-special",
+   "ok": true,
+   "detail": {
+    "directrices": [],
+    "features": [
+     "焦点F₁ = F₂ = O(0, 0)",
+     "准线圆没有准线",
+     "半径r = a = 4.00",
+     "离心率e = 0"
+    ]
+   }
+  },
+  {
+   "id": "scenario.circle-E3.foci",
+   "ok": true,
+   "detail": {
+    "page": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      0
+     ]
+    ],
+    "expected": [
+     [
+      0,
+      0
+     ]
+    ]
+   }
+  },
+  {
+   "id": "scenario.circle-E3.directrices",
+   "ok": true,
+   "detail": {
+    "page": [],
+    "expected": []
+   }
+  },
+  {
+   "id": "scenario.circle-E3.equation-numeric",
+   "ok": true,
+   "detail": "x² + y² = 16.00"
+  },
+  {
+   "id": "scenario.circle-E3.P-on-curve",
+   "ok": true,
+   "detail": {
+    "residual": 0,
+    "P": [
+     2.4864398730826576,
+     3.1333076385099337
+    ]
+   }
+  },
+  {
+   "id": "scenario.circle-E3.definition-residual",
+   "ok": true,
+   "detail": {
+    "residual": 8.881784197001252e-16
+   }
+  },
+  {
+   "id": "scenario.circle-E3.distances-independent",
+   "ok": true,
+   "detail": {
+    "page": {
+     "d1": 3.9999999999999996,
+     "d2": 3.9999999999999996,
+     "sum": 7.999999999999999,
+     "e": 0
+    },
+    "independent": {
+     "d1": 3.9999999999999996,
+     "d2": 3.9999999999999996,
+     "sum": 7.999999999999999,
+     "diff": 0,
+     "dFocus": 3.9999999999999996,
+     "dDirectrix": null
+    }
+   }
+  },
+  {
+   "id": "scenario.circle-E3.invariant-sum",
+   "ok": true,
+   "detail": {
+    "sum": 7.999999999999999,
+    "target": 8
+   }
+  },
+  {
+   "id": "scenario.circle-E3.feature-focus",
+   "ok": true,
+   "detail": {
+    "text": "F₁ = F₂ = O(0, 0)",
+    "expectedTokens": [
+     0,
+     0
+    ],
+    "tokens": [
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "id": "scenario.circle-E3.feature-directrix",
+   "ok": true,
+   "detail": "圆没有准线"
+  },
+  {
+   "id": "preset.E3-circle-a4-e0.matches-json",
+   "ok": true,
+   "detail": {
+    "focusMatch": true,
+    "dirMatch": true,
+    "asymMatch": true,
+    "lMatch": true,
+    "lSource": "derived.a",
+    "pageFoci": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      0
+     ]
+    ],
+    "pageDirectrices": [],
+    "pageAsym": []
+   }
+  },
+  {
+   "id": "scenario.hyperbola-h-H1.mode-name",
+   "ok": true,
+   "detail": {
+    "mode": "hyperbola",
+    "name": "双曲线"
+   }
+  },
+  {
+   "id": "scenario.hyperbola-h-H1.no-nonfinite",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "scenario.hyperbola-h-H1.origin-annotation",
+   "ok": true,
+   "detail": {
+    "stageNote": "原点 = 中心 O · P 由参数方程生成",
+    "originChip": "标准位置 · 中心在原点"
+   }
+  },
+  {
+   "id": "scenario.hyperbola-h-H1.orientation-label",
+   "ok": true,
+   "detail": {
+    "page": "实轴水平",
+    "expected": "实轴水平"
+   }
+  },
+  {
+   "id": "scenario.hyperbola-h-H1.def-formula",
+   "ok": true,
+   "detail": {
+    "page": "| |PF₁| − |PF₂| | = 2a",
+    "expected": "| |PF₁| − |PF₂| | = 2a"
+   }
+  },
+  {
+   "id": "scenario.hyperbola-h-H1.point-readout",
+   "ok": true,
+   "detail": {
+    "text": "P (4.48, 4.43)",
+    "P": [
+     4.476518443085017,
+     4.4300423617298
+    ]
+   }
+  },
+  {
+   "id": "scenario.hyperbola-h-H1.def-values-text",
+   "ok": true,
+   "detail": "PF₁ = 10.46 · PF₂ = 4.46 · |差| = 6.00 = 2a = 6.00"
+  },
+  {
+   "id": "scenario.hyperbola-h-H1.derived",
+   "ok": true,
+   "detail": {
+    "a": 3,
+    "b": 4,
+    "c": 5,
+    "e": 1.6666666666666667
+   }
+  },
+  {
+   "id": "scenario.hyperbola-h-H1.foci",
+   "ok": true,
+   "detail": {
+    "page": [
+     [
+      -5,
+      0
+     ],
+     [
+      5,
+      0
+     ]
+    ],
+    "expected": [
+     [
+      -5,
+      0
+     ],
+     [
+      5,
+      0
+     ]
+    ]
+   }
+  },
+  {
+   "id": "scenario.hyperbola-h-H1.directrices",
+   "ok": true,
+   "detail": {
+    "page": [
+     {
+      "type": "v",
+      "value": 1.8,
+      "label": "x = 1.80"
+     },
+     {
+      "type": "v",
+      "value": -1.8,
+      "label": "x = −1.80"
+     }
+    ],
+    "expected": [
+     {
+      "type": "vertical",
+      "value": -1.8
+     },
+     {
+      "type": "vertical",
+      "value": 1.8
+     }
+    ]
+   }
+  },
+  {
+   "id": "scenario.hyperbola-h-H1.asymptotes",
+   "ok": true,
+   "detail": {
+    "labels": [
+     "y = ±1.33x",
+     "y = ±1.33x"
+    ],
+    "parsed": [
+     1.33,
+     1.33
+    ],
+    "expectedAbsSlopes": [
+     1.3333333333333333,
+     1.3333333333333333
+    ]
+   }
+  },
+  {
+   "id": "scenario.hyperbola-h-H1.equation-numeric",
+   "ok": true,
+   "detail": {
+    "numeric": "x² / 9.00 − y² / 16.00 = 1",
+    "want": [
+     9,
+     16
+    ]
+   }
+  },
+  {
+   "id": "scenario.hyperbola-h-H1.P-on-curve",
+   "ok": true,
+   "detail": {
+    "residual": 2.220446049250313e-16,
+    "P": [
+     4.476518443085017,
+     4.4300423617298
+    ]
+   }
+  },
+  {
+   "id": "scenario.hyperbola-h-H1.definition-residual",
+   "ok": true,
+   "detail": {
+    "residual": 8.881784197001252e-16
+   }
+  },
+  {
+   "id": "scenario.hyperbola-h-H1.distances-independent",
+   "ok": true,
+   "detail": {
+    "page": {
+     "d1": 10.460864071808363,
+     "d2": 4.460864071808362,
+     "diff": 6.000000000000001,
+     "e": 1.6666666666666667
+    },
+    "independent": {
+     "d1": 10.460864071808363,
+     "d2": 4.460864071808362,
+     "sum": 14.921728143616726,
+     "diff": 6.000000000000001,
+     "dFocus": 4.460864071808362,
+     "dDirectrix": 0
+    }
+   }
+  },
+  {
+   "id": "scenario.hyperbola-h-H1.invariant-diff",
+   "ok": true,
+   "detail": {
+    "diff": 6.000000000000001,
+    "target": 6
+   }
+  },
+  {
+   "id": "scenario.hyperbola-h-H1.feature-focus",
+   "ok": true,
+   "detail": {
+    "text": "(−5.00, 0.00) · (5.00, 0.00)",
+    "expectedTokens": [
+     -5,
+     0,
+     5,
+     0
+    ],
+    "tokens": [
+     -5,
+     0,
+     5,
+     0
+    ]
+   }
+  },
+  {
+   "id": "scenario.hyperbola-h-H1.feature-directrix",
+   "ok": true,
+   "detail": {
+    "text": "x = ±1.80",
+    "expected": [
+     {
+      "type": "vertical",
+      "value": -1.8
+     },
+     {
+      "type": "vertical",
+      "value": 1.8
+     }
+    ]
+   }
+  },
+  {
+   "id": "scenario.hyperbola-h-H1.feature-asymptote",
+   "ok": true,
+   "detail": {
+    "text": "y = ±1.33x",
+    "expected": 1.3333333333333333
+   }
+  },
+  {
+   "id": "preset.H1-hyperbola-h-a3-e1667.matches-json",
+   "ok": true,
+   "detail": {
+    "focusMatch": true,
+    "dirMatch": true,
+    "asymMatch": true,
+    "lMatch": true,
+    "lSource": "derived b^2/a",
+    "pageFoci": [
+     [
+      -5,
+      0
+     ],
+     [
+      5,
+      0
+     ]
+    ],
+    "pageDirectrices": [
+     {
+      "type": "v",
+      "value": 1.8,
+      "label": "x = 1.80"
+     },
+     {
+      "type": "v",
+      "value": -1.8,
+      "label": "x = −1.80"
+     }
+    ],
+    "pageAsym": [
+     "y = ±1.33x",
+     "y = ±1.33x"
+    ]
+   }
+  },
+  {
+   "id": "scenario.hyperbola-v-H2.mode-name",
+   "ok": true,
+   "detail": {
+    "mode": "hyperbola",
+    "name": "双曲线"
+   }
+  },
+  {
+   "id": "scenario.hyperbola-v-H2.no-nonfinite",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "scenario.hyperbola-v-H2.origin-annotation",
+   "ok": true,
+   "detail": {
+    "stageNote": "原点 = 中心 O · P 由参数方程生成",
+    "originChip": "标准位置 · 中心在原点"
+   }
+  },
+  {
+   "id": "scenario.hyperbola-v-H2.orientation-label",
+   "ok": true,
+   "detail": {
+    "page": "实轴竖直",
+    "expected": "实轴竖直"
+   }
+  },
+  {
+   "id": "scenario.hyperbola-v-H2.def-formula",
+   "ok": true,
+   "detail": {
+    "page": "| |PF₁| − |PF₂| | = 2a",
+    "expected": "| |PF₁| − |PF₂| | = 2a"
+   }
+  },
+  {
+   "id": "scenario.hyperbola-v-H2.point-readout",
+   "ok": true,
+   "detail": {
+    "text": "P (4.43, 4.48)",
+    "P": [
+     4.4300423617298,
+     4.476518443085017
+    ]
+   }
+  },
+  {
+   "id": "scenario.hyperbola-v-H2.def-values-text",
+   "ok": true,
+   "detail": "PF₁ = 10.46 · PF₂ = 4.46 · |差| = 6.00 = 2a = 6.00"
+  },
+  {
+   "id": "scenario.hyperbola-v-H2.derived",
+   "ok": true,
+   "detail": {
+    "a": 3,
+    "b": 4,
+    "c": 5,
+    "e": 1.6666666666666667
+   }
+  },
+  {
+   "id": "scenario.hyperbola-v-H2.foci",
+   "ok": true,
+   "detail": {
+    "page": [
+     [
+      0,
+      -5
+     ],
+     [
+      0,
+      5
+     ]
+    ],
+    "expected": [
+     [
+      0,
+      -5
+     ],
+     [
+      0,
+      5
+     ]
+    ]
+   }
+  },
+  {
+   "id": "scenario.hyperbola-v-H2.directrices",
+   "ok": true,
+   "detail": {
+    "page": [
+     {
+      "type": "h",
+      "value": 1.8,
+      "label": "y = 1.80"
+     },
+     {
+      "type": "h",
+      "value": -1.8,
+      "label": "y = −1.80"
+     }
+    ],
+    "expected": [
+     {
+      "type": "horizontal",
+      "value": -1.8
+     },
+     {
+      "type": "horizontal",
+      "value": 1.8
+     }
+    ]
+   }
+  },
+  {
+   "id": "scenario.hyperbola-v-H2.asymptotes",
+   "ok": true,
+   "detail": {
+    "labels": [
+     "y = ±0.75x",
+     "y = ±0.75x"
+    ],
+    "parsed": [
+     0.75,
+     0.75
+    ],
+    "expectedAbsSlopes": [
+     0.75,
+     0.75
+    ]
+   }
+  },
+  {
+   "id": "scenario.hyperbola-v-H2.equation-numeric",
+   "ok": true,
+   "detail": {
+    "numeric": "y² / 9.00 − x² / 16.00 = 1",
+    "want": [
+     9,
+     16
+    ]
+   }
+  },
+  {
+   "id": "scenario.hyperbola-v-H2.P-on-curve",
+   "ok": true,
+   "detail": {
+    "residual": 2.220446049250313e-16,
+    "P": [
+     4.4300423617298,
+     4.476518443085017
+    ]
+   }
+  },
+  {
+   "id": "scenario.hyperbola-v-H2.definition-residual",
+   "ok": true,
+   "detail": {
+    "residual": 8.881784197001252e-16
+   }
+  },
+  {
+   "id": "scenario.hyperbola-v-H2.distances-independent",
+   "ok": true,
+   "detail": {
+    "page": {
+     "d1": 10.460864071808363,
+     "d2": 4.460864071808362,
+     "diff": 6.000000000000001,
+     "e": 1.6666666666666667
+    },
+    "independent": {
+     "d1": 10.460864071808363,
+     "d2": 4.460864071808362,
+     "sum": 14.921728143616726,
+     "diff": 6.000000000000001,
+     "dFocus": 4.460864071808362,
+     "dDirectrix": 0
+    }
+   }
+  },
+  {
+   "id": "scenario.hyperbola-v-H2.invariant-diff",
+   "ok": true,
+   "detail": {
+    "diff": 6.000000000000001,
+    "target": 6
+   }
+  },
+  {
+   "id": "scenario.hyperbola-v-H2.feature-focus",
+   "ok": true,
+   "detail": {
+    "text": "(0.00, −5.00) · (0.00, 5.00)",
+    "expectedTokens": [
+     0,
+     -5,
+     0,
+     5
+    ],
+    "tokens": [
+     0,
+     -5,
+     0,
+     5
+    ]
+   }
+  },
+  {
+   "id": "scenario.hyperbola-v-H2.feature-directrix",
+   "ok": true,
+   "detail": {
+    "text": "y = ±1.80",
+    "expected": [
+     {
+      "type": "horizontal",
+      "value": -1.8
+     },
+     {
+      "type": "horizontal",
+      "value": 1.8
+     }
+    ]
+   }
+  },
+  {
+   "id": "scenario.hyperbola-v-H2.feature-asymptote",
+   "ok": true,
+   "detail": {
+    "text": "y = ±0.75x",
+    "expected": 0.75
+   }
+  },
+  {
+   "id": "preset.H2-hyperbola-v-a3-e1667.matches-json",
+   "ok": true,
+   "detail": {
+    "focusMatch": true,
+    "dirMatch": true,
+    "asymMatch": true,
+    "lMatch": true,
+    "lSource": "derived b^2/a",
+    "pageFoci": [
+     [
+      0,
+      -5
+     ],
+     [
+      0,
+      5
+     ]
+    ],
+    "pageDirectrices": [
+     {
+      "type": "h",
+      "value": 1.8,
+      "label": "y = 1.80"
+     },
+     {
+      "type": "h",
+      "value": -1.8,
+      "label": "y = −1.80"
+     }
+    ],
+    "pageAsym": [
+     "y = ±0.75x",
+     "y = ±0.75x"
+    ]
+   }
+  },
+  {
+   "id": "scenario.parabola-h-P1.mode-name",
+   "ok": true,
+   "detail": {
+    "mode": "parabola",
+    "name": "抛物线"
+   }
+  },
+  {
+   "id": "scenario.parabola-h-P1.no-nonfinite",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "scenario.parabola-h-P1.origin-annotation",
+   "ok": true,
+   "detail": {
+    "stageNote": "原点 = 顶点 O · P 由参数方程生成",
+    "originChip": "标准位置 · 顶点在原点"
+   }
+  },
+  {
+   "id": "scenario.parabola-h-P1.orientation-label",
+   "ok": true,
+   "detail": {
+    "page": "开口向右",
+    "expected": "开口向右"
+   }
+  },
+  {
+   "id": "scenario.parabola-h-P1.def-formula",
+   "ok": true,
+   "detail": {
+    "page": "|PF| = d(P, ℓ)",
+    "expected": "|PF| = d(P, ℓ)"
+   }
+  },
+  {
+   "id": "scenario.parabola-h-P1.point-readout",
+   "ok": true,
+   "detail": {
+    "text": "P (6.08, 6.97)",
+    "P": [
+     6.079685078225757,
+     6.974057687301278
+    ]
+   }
+  },
+  {
+   "id": "scenario.parabola-h-P1.def-values-text",
+   "ok": true,
+   "detail": "PF = 8.08 · d(P, ℓ) = 8.08"
+  },
+  {
+   "id": "scenario.parabola-h-P1.derived",
+   "ok": true,
+   "detail": {
+    "p": 4,
+    "e": 1
+   }
+  },
+  {
+   "id": "scenario.parabola-h-P1.foci",
+   "ok": true,
+   "detail": {
+    "page": [
+     [
+      2,
+      0
+     ]
+    ],
+    "expected": [
+     [
+      2,
+      0
+     ]
+    ]
+   }
+  },
+  {
+   "id": "scenario.parabola-h-P1.directrices",
+   "ok": true,
+   "detail": {
+    "page": [
+     {
+      "type": "v",
+      "value": -2,
+      "label": "x = −2.00"
+     }
+    ],
+    "expected": [
+     {
+      "type": "vertical",
+      "value": -2
+     }
+    ]
+   }
+  },
+  {
+   "id": "scenario.parabola-h-P1.equation-numeric",
+   "ok": true,
+   "detail": "y² = 8.00x"
+  },
+  {
+   "id": "scenario.parabola-h-P1.P-on-curve",
+   "ok": true,
+   "detail": {
+    "residual": 0,
+    "P": [
+     6.079685078225757,
+     6.974057687301278
+    ]
+   }
+  },
+  {
+   "id": "scenario.parabola-h-P1.definition-residual",
+   "ok": true,
+   "detail": {
+    "residual": 1.7763568394002505e-15
+   }
+  },
+  {
+   "id": "scenario.parabola-h-P1.distances-independent",
+   "ok": true,
+   "detail": {
+    "page": {
+     "dFocus": 8.079685078225756,
+     "dDirectrix": 8.079685078225758
+    },
+    "independent": {
+     "dFocus": 8.079685078225756,
+     "dDirectrix": 8.079685078225758,
+     "ratio": 0.9999999999999998
+    }
+   }
+  },
+  {
+   "id": "scenario.parabola-h-P1.invariant-ratio1",
+   "ok": true,
+   "detail": {
+    "dFocus": 8.079685078225756,
+    "dDirectrix": 8.079685078225758
+   }
+  },
+  {
+   "id": "scenario.parabola-h-P1.feature-focus",
+   "ok": true,
+   "detail": {
+    "text": "(2.00, 0.00)",
+    "expectedTokens": [
+     2,
+     0
+    ],
+    "tokens": [
+     2,
+     0
+    ]
+   }
+  },
+  {
+   "id": "scenario.parabola-h-P1.feature-directrix",
+   "ok": true,
+   "detail": {
+    "text": "x = −2.00",
+    "expected": [
+     {
+      "type": "vertical",
+      "value": -2
+     }
+    ]
+   }
+  },
+  {
+   "id": "preset.P1-parabola-h-p4.matches-json",
+   "ok": true,
+   "detail": {
+    "focusMatch": true,
+    "dirMatch": true,
+    "asymMatch": true,
+    "lMatch": true,
+    "lSource": "metricGrid:p4.00e1.00p/22.00通径8.00",
+    "pageFoci": [
+     [
+      2,
+      0
+     ]
+    ],
+    "pageDirectrices": [
+     {
+      "type": "v",
+      "value": -2,
+      "label": "x = −2.00"
+     }
+    ],
+    "pageAsym": []
+   }
+  },
+  {
+   "id": "scenario.parabola-v-P2.mode-name",
+   "ok": true,
+   "detail": {
+    "mode": "parabola",
+    "name": "抛物线"
+   }
+  },
+  {
+   "id": "scenario.parabola-v-P2.no-nonfinite",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "scenario.parabola-v-P2.origin-annotation",
+   "ok": true,
+   "detail": {
+    "stageNote": "原点 = 顶点 O · P 由参数方程生成",
+    "originChip": "标准位置 · 顶点在原点"
+   }
+  },
+  {
+   "id": "scenario.parabola-v-P2.orientation-label",
+   "ok": true,
+   "detail": {
+    "page": "开口向上",
+    "expected": "开口向上"
+   }
+  },
+  {
+   "id": "scenario.parabola-v-P2.def-formula",
+   "ok": true,
+   "detail": {
+    "page": "|PF| = d(P, ℓ)",
+    "expected": "|PF| = d(P, ℓ)"
+   }
+  },
+  {
+   "id": "scenario.parabola-v-P2.point-readout",
+   "ok": true,
+   "detail": {
+    "text": "P (5.23, 4.56)",
+    "P": [
+     5.230543265475959,
+     4.559763808669319
+    ]
+   }
+  },
+  {
+   "id": "scenario.parabola-v-P2.def-values-text",
+   "ok": true,
+   "detail": "PF = 6.06 · d(P, ℓ) = 6.06"
+  },
+  {
+   "id": "scenario.parabola-v-P2.derived",
+   "ok": true,
+   "detail": {
+    "p": 3,
+    "e": 1
+   }
+  },
+  {
+   "id": "scenario.parabola-v-P2.foci",
+   "ok": true,
+   "detail": {
+    "page": [
+     [
+      0,
+      1.5
+     ]
+    ],
+    "expected": [
+     [
+      0,
+      1.5
+     ]
+    ]
+   }
+  },
+  {
+   "id": "scenario.parabola-v-P2.directrices",
+   "ok": true,
+   "detail": {
+    "page": [
+     {
+      "type": "h",
+      "value": -1.5,
+      "label": "y = −1.50"
+     }
+    ],
+    "expected": [
+     {
+      "type": "horizontal",
+      "value": -1.5
+     }
+    ]
+   }
+  },
+  {
+   "id": "scenario.parabola-v-P2.equation-numeric",
+   "ok": true,
+   "detail": "x² = 6.00y"
+  },
+  {
+   "id": "scenario.parabola-v-P2.P-on-curve",
+   "ok": true,
+   "detail": {
+    "residual": 0,
+    "P": [
+     5.230543265475959,
+     4.559763808669319
+    ]
+   }
+  },
+  {
+   "id": "scenario.parabola-v-P2.definition-residual",
+   "ok": true,
+   "detail": {
+    "residual": 0
+   }
+  },
+  {
+   "id": "scenario.parabola-v-P2.distances-independent",
+   "ok": true,
+   "detail": {
+    "page": {
+     "dFocus": 6.059763808669319,
+     "dDirectrix": 6.059763808669319
+    },
+    "independent": {
+     "dFocus": 6.059763808669319,
+     "dDirectrix": 6.059763808669319,
+     "ratio": 1
+    }
+   }
+  },
+  {
+   "id": "scenario.parabola-v-P2.invariant-ratio1",
+   "ok": true,
+   "detail": {
+    "dFocus": 6.059763808669319,
+    "dDirectrix": 6.059763808669319
+   }
+  },
+  {
+   "id": "scenario.parabola-v-P2.feature-focus",
+   "ok": true,
+   "detail": {
+    "text": "(0.00, 1.50)",
+    "expectedTokens": [
+     0,
+     1.5
+    ],
+    "tokens": [
+     0,
+     1.5
+    ]
+   }
+  },
+  {
+   "id": "scenario.parabola-v-P2.feature-directrix",
+   "ok": true,
+   "detail": {
+    "text": "y = −1.50",
+    "expected": [
+     {
+      "type": "horizontal",
+      "value": -1.5
+     }
+    ]
+   }
+  },
+  {
+   "id": "preset.P2-parabola-v-p3.matches-json",
+   "ok": true,
+   "detail": {
+    "focusMatch": true,
+    "dirMatch": true,
+    "asymMatch": true,
+    "lMatch": true,
+    "lSource": "metricGrid:p3.00e1.00p/21.50通径6.00",
+    "pageFoci": [
+     [
+      0,
+      1.5
+     ]
+    ],
+    "pageDirectrices": [
+     {
+      "type": "h",
+      "value": -1.5,
+      "label": "y = −1.50"
+     }
+    ],
+    "pageAsym": []
+   }
+  },
+  {
+   "id": "scenario.unified-e065-U1.mode-name",
+   "ok": true,
+   "detail": {
+    "mode": "unified",
+    "name": "椭圆"
+   }
+  },
+  {
+   "id": "scenario.unified-e065-U1.no-nonfinite",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "scenario.unified-e065-U1.origin-annotation",
+   "ok": true,
+   "detail": {
+    "stageNote": "原点 = 焦点 F · 准线在焦点左侧 · P 由参数方程生成",
+    "originChip": "焦点在原点 · 准线在左"
+   }
+  },
+  {
+   "id": "scenario.unified-e065-U1.orientation-label",
+   "ok": true,
+   "detail": {
+    "page": "焦点在原点 · 准线在左",
+    "expected": "焦点在原点 · 准线在左"
+   }
+  },
+  {
+   "id": "scenario.unified-e065-U1.def-formula",
+   "ok": true,
+   "detail": {
+    "page": "|PF| / d(P, ℓ) = e",
+    "expected": "|PF| / d(P, ℓ) = e"
+   }
+  },
+  {
+   "id": "scenario.unified-e065-U1.point-readout",
+   "ok": true,
+   "detail": {
+    "text": "P (2.56, 3.98)",
+    "P": [
+     2.55833049966222,
+     3.9843636823941764
+    ]
+   }
+  },
+  {
+   "id": "scenario.unified-e065-U1.def-values-text",
+   "ok": true,
+   "detail": "PF = 4.73 · PD = 7.89 · PF/PD = 0.6000 · e = 0.6000"
+  },
+  {
+   "id": "scenario.unified-e065-U1.derived",
+   "ok": true,
+   "detail": {
+    "e": 0.6,
+    "l": 3.2,
+    "d": 5.333333333333334
+   }
+  },
+  {
+   "id": "scenario.unified-e065-U1.foci",
+   "ok": true,
+   "detail": {
+    "page": [
+     [
+      0,
+      0
+     ]
+    ],
+    "expected": [
+     [
+      0,
+      0
+     ]
+    ]
+   }
+  },
+  {
+   "id": "scenario.unified-e065-U1.directrices",
+   "ok": true,
+   "detail": {
+    "page": [
+     {
+      "type": "v",
+      "value": -5.333333333333334,
+      "label": "x = −5.33"
+     }
+    ],
+    "expected": [
+     {
+      "type": "vertical",
+      "value": -5.333333333333334
+     }
+    ]
+   }
+  },
+  {
+   "id": "scenario.unified-e065-U1.equation-numeric",
+   "ok": true,
+   "detail": {
+    "numeric": "r = 3.20 / (1 − 0.60 cos θ)",
+    "expected": {
+     "l": 3.2,
+     "e": 0.6
+    }
+   }
+  },
+  {
+   "id": "scenario.unified-e065-U1.P-on-curve",
+   "ok": true,
+   "detail": {
+    "residual": 0,
+    "P": [
+     2.55833049966222,
+     3.9843636823941764
+    ]
+   }
+  },
+  {
+   "id": "scenario.unified-e065-U1.definition-residual",
+   "ok": true,
+   "detail": {
+    "residual": 0
+   }
+  },
+  {
+   "id": "scenario.unified-e065-U1.distances-independent",
+   "ok": true,
+   "detail": {
+    "page": {
+     "dFocus": 4.734998299797332,
+     "dDirectrix": 7.891663832995554,
+     "ratio": 0.6
+    },
+    "independent": {
+     "dFocus": 4.734998299797332,
+     "dDirectrix": 7.891663832995554,
+     "ratio": 0.6
+    }
+   }
+  },
+  {
+   "id": "scenario.unified-e065-U1.invariant-ratio-e",
+   "ok": true,
+   "detail": {
+    "ratio": 0.6,
+    "e": 0.6
+   }
+  },
+  {
+   "id": "scenario.unified-e065-U1.feature-focus",
+   "ok": true,
+   "detail": "F(0, 0)"
+  },
+  {
+   "id": "scenario.unified-e065-U1.feature-directrix",
+   "ok": true,
+   "detail": {
+    "text": "x = −5.33",
+    "expected": -5.333333333333334
+   }
+  },
+  {
+   "id": "scenario.unified-e065-U1.feature-semi-latus",
+   "ok": true,
+   "detail": {
+    "text": "ℓ = 3.20",
+    "expected": 3.2
+   }
+  },
+  {
+   "id": "preset.U1-unified-ellipse-l32-e06.matches-json",
+   "ok": true,
+   "detail": {
+    "focusMatch": true,
+    "dirMatch": true,
+    "asymMatch": true,
+    "lMatch": true,
+    "lSource": "feature:ℓ = 3.20",
+    "pageFoci": [
+     [
+      0,
+      0
+     ]
+    ],
+    "pageDirectrices": [
+     {
+      "type": "v",
+      "value": -5.333333333333334,
+      "label": "x = −5.33"
+     }
+    ],
+    "pageAsym": []
+   }
+  },
+  {
+   "id": "scenario.unified-e1-U2.mode-name",
+   "ok": true,
+   "detail": {
+    "mode": "unified",
+    "name": "抛物线"
+   }
+  },
+  {
+   "id": "scenario.unified-e1-U2.no-nonfinite",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "scenario.unified-e1-U2.origin-annotation",
+   "ok": true,
+   "detail": {
+    "stageNote": "原点 = 焦点 F · 准线在焦点左侧 · P 由参数方程生成",
+    "originChip": "焦点在原点 · 准线在左"
+   }
+  },
+  {
+   "id": "scenario.unified-e1-U2.orientation-label",
+   "ok": true,
+   "detail": {
+    "page": "焦点在原点 · 准线在左",
+    "expected": "焦点在原点 · 准线在左"
+   }
+  },
+  {
+   "id": "scenario.unified-e1-U2.def-formula",
+   "ok": true,
+   "detail": {
+    "page": "|PF| / d(P, ℓ) = e",
+    "expected": "|PF| / d(P, ℓ) = e"
+   }
+  },
+  {
+   "id": "scenario.unified-e1-U2.point-readout",
+   "ok": true,
+   "detail": {
+    "text": "P (1.29, −5.13)",
+    "P": [
+     1.2937944162966766,
+     -5.133259717798565
+    ]
+   }
+  },
+  {
+   "id": "scenario.unified-e1-U2.def-values-text",
+   "ok": true,
+   "detail": "PF = 5.29 · PD = 5.29 · PF/PD = 1.0000 · e = 1.0000"
+  },
+  {
+   "id": "scenario.unified-e1-U2.derived",
+   "ok": true,
+   "detail": {
+    "e": 1,
+    "l": 4,
+    "d": 4
+   }
+  },
+  {
+   "id": "scenario.unified-e1-U2.foci",
+   "ok": true,
+   "detail": {
+    "page": [
+     [
+      0,
+      0
+     ]
+    ],
+    "expected": [
+     [
+      0,
+      0
+     ]
+    ]
+   }
+  },
+  {
+   "id": "scenario.unified-e1-U2.directrices",
+   "ok": true,
+   "detail": {
+    "page": [
+     {
+      "type": "v",
+      "value": -4,
+      "label": "x = −4.00"
+     }
+    ],
+    "expected": [
+     {
+      "type": "vertical",
+      "value": -4
+     }
+    ]
+   }
+  },
+  {
+   "id": "scenario.unified-e1-U2.equation-numeric",
+   "ok": true,
+   "detail": {
+    "numeric": "r = 4.00 / (1 − 1.00 cos θ)",
+    "expected": {
+     "l": 4,
+     "e": 1
+    }
+   }
+  },
+  {
+   "id": "scenario.unified-e1-U2.P-on-curve",
+   "ok": true,
+   "detail": {
+    "residual": 0,
+    "P": [
+     1.2937944162966766,
+     -5.133259717798565
+    ]
+   }
+  },
+  {
+   "id": "scenario.unified-e1-U2.definition-residual",
+   "ok": true,
+   "detail": {
+    "residual": 0
+   }
+  },
+  {
+   "id": "scenario.unified-e1-U2.distances-independent",
+   "ok": true,
+   "detail": {
+    "page": {
+     "dFocus": 5.293794416296676,
+     "dDirectrix": 5.293794416296676,
+     "ratio": 1
+    },
+    "independent": {
+     "dFocus": 5.293794416296676,
+     "dDirectrix": 5.293794416296676,
+     "ratio": 1
+    }
+   }
+  },
+  {
+   "id": "scenario.unified-e1-U2.invariant-ratio-e",
+   "ok": true,
+   "detail": {
+    "ratio": 1,
+    "e": 1
+   }
+  },
+  {
+   "id": "scenario.unified-e1-U2.feature-focus",
+   "ok": true,
+   "detail": "F(0, 0)"
+  },
+  {
+   "id": "scenario.unified-e1-U2.feature-directrix",
+   "ok": true,
+   "detail": {
+    "text": "x = −4.00",
+    "expected": -4
+   }
+  },
+  {
+   "id": "scenario.unified-e1-U2.feature-semi-latus",
+   "ok": true,
+   "detail": {
+    "text": "ℓ = 4.00",
+    "expected": 4
+   }
+  },
+  {
+   "id": "preset.U2-unified-parabola-l4-e1.matches-json",
+   "ok": true,
+   "detail": {
+    "focusMatch": true,
+    "dirMatch": true,
+    "asymMatch": true,
+    "lMatch": true,
+    "lSource": "feature:ℓ = 4.00",
+    "pageFoci": [
+     [
+      0,
+      0
+     ]
+    ],
+    "pageDirectrices": [
+     {
+      "type": "v",
+      "value": -4,
+      "label": "x = −4.00"
+     }
+    ],
+    "pageAsym": []
+   }
+  },
+  {
+   "id": "scenario.unified-e1667-U4.mode-name",
+   "ok": true,
+   "detail": {
+    "mode": "unified",
+    "name": "双曲线"
+   }
+  },
+  {
+   "id": "scenario.unified-e1667-U4.no-nonfinite",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "scenario.unified-e1667-U4.origin-annotation",
+   "ok": true,
+   "detail": {
+    "stageNote": "原点 = 焦点 F · 准线在焦点左侧 · P 由参数方程生成",
+    "originChip": "焦点在原点 · 准线在左"
+   }
+  },
+  {
+   "id": "scenario.unified-e1667-U4.orientation-label",
+   "ok": true,
+   "detail": {
+    "page": "焦点在原点 · 准线在左",
+    "expected": "焦点在原点 · 准线在左"
+   }
+  },
+  {
+   "id": "scenario.unified-e1667-U4.def-formula",
+   "ok": true,
+   "detail": {
+    "page": "|PF| / d(P, ℓ) = e",
+    "expected": "|PF| / d(P, ℓ) = e"
+   }
+  },
+  {
+   "id": "scenario.unified-e1667-U4.point-readout",
+   "ok": true,
+   "detail": {
+    "text": "P (0.34, −2.31)",
+    "P": [
+     0.3357614331242304,
+     -2.3131386257472504
+    ]
+   }
+  },
+  {
+   "id": "scenario.unified-e1667-U4.def-values-text",
+   "ok": true,
+   "detail": "PF = 2.34 · PD = 1.40 · PF/PD = 1.6667 · e = 1.6667"
+  },
+  {
+   "id": "scenario.unified-e1667-U4.derived",
+   "ok": true,
+   "detail": {
+    "e": 1.6666666666666667,
+    "l": 1.7777777777777777,
+    "d": 1.0666666666666667
+   }
+  },
+  {
+   "id": "scenario.unified-e1667-U4.foci",
+   "ok": true,
+   "detail": {
+    "page": [
+     [
+      0,
+      0
+     ]
+    ],
+    "expected": [
+     [
+      0,
+      0
+     ]
+    ]
+   }
+  },
+  {
+   "id": "scenario.unified-e1667-U4.directrices",
+   "ok": true,
+   "detail": {
+    "page": [
+     {
+      "type": "v",
+      "value": -1.0666666666666667,
+      "label": "x = −1.07"
+     }
+    ],
+    "expected": [
+     {
+      "type": "vertical",
+      "value": -1.0666666666666667
+     }
+    ]
+   }
+  },
+  {
+   "id": "scenario.unified-e1667-U4.equation-numeric",
+   "ok": true,
+   "detail": {
+    "numeric": "r = 1.78 / (1 − 1.67 cos θ)",
+    "expected": {
+     "l": 1.7777777777777777,
+     "e": 1.6666666666666667
+    }
+   }
+  },
+  {
+   "id": "scenario.unified-e1667-U4.P-on-curve",
+   "ok": true,
+   "detail": {
+    "residual": 4.440892098500626e-16,
+    "P": [
+     0.3357614331242304,
+     -2.3131386257472504
+    ]
+   }
+  },
+  {
+   "id": "scenario.unified-e1667-U4.definition-residual",
+   "ok": true,
+   "detail": {
+    "residual": 4.440892098500626e-16
+   }
+  },
+  {
+   "id": "scenario.unified-e1667-U4.distances-independent",
+   "ok": true,
+   "detail": {
+    "page": {
+     "dFocus": 2.3373801663181615,
+     "dDirectrix": 1.402428099790897,
+     "ratio": 1.6666666666666663
+    },
+    "independent": {
+     "dFocus": 2.3373801663181615,
+     "dDirectrix": 1.402428099790897,
+     "ratio": 1.6666666666666663
+    }
+   }
+  },
+  {
+   "id": "scenario.unified-e1667-U4.invariant-ratio-e",
+   "ok": true,
+   "detail": {
+    "ratio": 1.6666666666666663,
+    "e": 1.6666666666666667
+   }
+  },
+  {
+   "id": "scenario.unified-e1667-U4.feature-focus",
+   "ok": true,
+   "detail": "F(0, 0)"
+  },
+  {
+   "id": "scenario.unified-e1667-U4.feature-directrix",
+   "ok": true,
+   "detail": {
+    "text": "x = −1.07",
+    "expected": -1.0666666666666667
+   }
+  },
+  {
+   "id": "scenario.unified-e1667-U4.feature-semi-latus",
+   "ok": true,
+   "detail": {
+    "text": "ℓ = 1.78",
+    "expected": 1.7777777777777777
+   }
+  },
+  {
+   "id": "preset.U4-unified-hyperbola-l169-e53.matches-json",
+   "ok": true,
+   "detail": {
+    "focusMatch": true,
+    "dirMatch": true,
+    "asymMatch": true,
+    "lMatch": true,
+    "lSource": "feature:ℓ = 1.78",
+    "pageFoci": [
+     [
+      0,
+      0
+     ]
+    ],
+    "pageDirectrices": [
+     {
+      "type": "v",
+      "value": -1.0666666666666667,
+      "label": "x = −1.07"
+     }
+    ],
+    "pageAsym": []
+   }
+  },
+  {
+   "id": "scenario.unified-e16.mode-name",
+   "ok": true,
+   "detail": {
+    "mode": "unified",
+    "name": "双曲线"
+   }
+  },
+  {
+   "id": "scenario.unified-e16.no-nonfinite",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "scenario.unified-e16.origin-annotation",
+   "ok": true,
+   "detail": {
+    "stageNote": "原点 = 焦点 F · 准线在焦点左侧 · P 由参数方程生成",
+    "originChip": "焦点在原点 · 准线在左"
+   }
+  },
+  {
+   "id": "scenario.unified-e16.orientation-label",
+   "ok": true,
+   "detail": {
+    "page": "焦点在原点 · 准线在左",
+    "expected": "焦点在原点 · 准线在左"
+   }
+  },
+  {
+   "id": "scenario.unified-e16.def-formula",
+   "ok": true,
+   "detail": {
+    "page": "|PF| / d(P, ℓ) = e",
+    "expected": "|PF| / d(P, ℓ) = e"
+   }
+  },
+  {
+   "id": "scenario.unified-e16.point-readout",
+   "ok": true,
+   "detail": {
+    "text": "P (−0.33, −1.94)",
+    "P": [
+     -0.3324592263147322,
+     -1.939781339082974
+    ]
+   }
+  },
+  {
+   "id": "scenario.unified-e16.def-values-text",
+   "ok": true,
+   "detail": "PF = 1.97 · PD = 1.23 · PF/PD = 1.6000 · e = 1.6000"
+  },
+  {
+   "id": "scenario.unified-e16.derived",
+   "ok": true,
+   "detail": {
+    "e": 1.6,
+    "l": 2.5,
+    "d": 1.5625
+   }
+  },
+  {
+   "id": "scenario.unified-e16.foci",
+   "ok": true,
+   "detail": {
+    "page": [
+     [
+      0,
+      0
+     ]
+    ],
+    "expected": [
+     [
+      0,
+      0
+     ]
+    ]
+   }
+  },
+  {
+   "id": "scenario.unified-e16.directrices",
+   "ok": true,
+   "detail": {
+    "page": [
+     {
+      "type": "v",
+      "value": -1.5625,
+      "label": "x = −1.56"
+     }
+    ],
+    "expected": [
+     {
+      "type": "vertical",
+      "value": -1.5625
+     }
+    ]
+   }
+  },
+  {
+   "id": "scenario.unified-e16.equation-numeric",
+   "ok": true,
+   "detail": {
+    "numeric": "r = 2.50 / (1 − 1.60 cos θ)",
+    "expected": {
+     "l": 2.5,
+     "e": 1.6
+    }
+   }
+  },
+  {
+   "id": "scenario.unified-e16.P-on-curve",
+   "ok": true,
+   "detail": {
+    "residual": 2.220446049250313e-16,
+    "P": [
+     -0.3324592263147322,
+     -1.939781339082974
+    ]
+   }
+  },
+  {
+   "id": "scenario.unified-e16.definition-residual",
+   "ok": true,
+   "detail": {
+    "residual": 2.220446049250313e-16
+   }
+  },
+  {
+   "id": "scenario.unified-e16.distances-independent",
+   "ok": true,
+   "detail": {
+    "page": {
+     "dFocus": 1.9680652378964285,
+     "dDirectrix": 1.2300407736852679,
+     "ratio": 1.5999999999999999
+    },
+    "independent": {
+     "dFocus": 1.9680652378964285,
+     "dDirectrix": 1.2300407736852679,
+     "ratio": 1.5999999999999999
+    }
+   }
+  },
+  {
+   "id": "scenario.unified-e16.invariant-ratio-e",
+   "ok": true,
+   "detail": {
+    "ratio": 1.5999999999999999,
+    "e": 1.6
+   }
+  },
+  {
+   "id": "scenario.unified-e16.feature-focus",
+   "ok": true,
+   "detail": "F(0, 0)"
+  },
+  {
+   "id": "scenario.unified-e16.feature-directrix",
+   "ok": true,
+   "detail": {
+    "text": "x = −1.56",
+    "expected": -1.5625
+   }
+  },
+  {
+   "id": "scenario.unified-e16.feature-semi-latus",
+   "ok": true,
+   "detail": {
+    "text": "ℓ = 2.50",
+    "expected": 2.5
+   }
+  },
+  {
+   "id": "scenario.unified-e098-clip.mode-name",
+   "ok": true,
+   "detail": {
+    "mode": "unified",
+    "name": "椭圆"
+   }
+  },
+  {
+   "id": "scenario.unified-e098-clip.no-nonfinite",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "scenario.unified-e098-clip.origin-annotation",
+   "ok": true,
+   "detail": {
+    "stageNote": "原点 = 焦点 F · 准线在焦点左侧 · P 由参数方程生成",
+    "originChip": "焦点在原点 · 准线在左"
+   }
+  },
+  {
+   "id": "scenario.unified-e098-clip.orientation-label",
+   "ok": true,
+   "detail": {
+    "page": "焦点在原点 · 准线在左",
+    "expected": "焦点在原点 · 准线在左"
+   }
+  },
+  {
+   "id": "scenario.unified-e098-clip.def-formula",
+   "ok": true,
+   "detail": {
+    "page": "|PF| / d(P, ℓ) = e",
+    "expected": "|PF| / d(P, ℓ) = e"
+   }
+  },
+  {
+   "id": "scenario.unified-e098-clip.point-readout",
+   "ok": true,
+   "detail": {
+    "text": "P (0.89, −3.25)",
+    "P": [
+     0.8903718861664297,
+     -3.2529108292768725
+    ]
+   }
+  },
+  {
+   "id": "scenario.unified-e098-clip.def-values-text",
+   "ok": true,
+   "detail": "PF = 3.37 · PD = 3.44 · PF/PD = 0.9800 · e = 0.9800"
+  },
+  {
+   "id": "scenario.unified-e098-clip.derived",
+   "ok": true,
+   "detail": {
+    "e": 0.98,
+    "l": 2.5,
+    "d": 2.5510204081632653
+   }
+  },
+  {
+   "id": "scenario.unified-e098-clip.foci",
+   "ok": true,
+   "detail": {
+    "page": [
+     [
+      0,
+      0
+     ]
+    ],
+    "expected": [
+     [
+      0,
+      0
+     ]
+    ]
+   }
+  },
+  {
+   "id": "scenario.unified-e098-clip.directrices",
+   "ok": true,
+   "detail": {
+    "page": [
+     {
+      "type": "v",
+      "value": -2.5510204081632653,
+      "label": "x = −2.55"
+     }
+    ],
+    "expected": [
+     {
+      "type": "vertical",
+      "value": -2.5510204081632653
+     }
+    ]
+   }
+  },
+  {
+   "id": "scenario.unified-e098-clip.equation-numeric",
+   "ok": true,
+   "detail": {
+    "numeric": "r = 2.50 / (1 − 0.98 cos θ)",
+    "expected": {
+     "l": 2.5,
+     "e": 0.98
+    }
+   }
+  },
+  {
+   "id": "scenario.unified-e098-clip.P-on-curve",
+   "ok": true,
+   "detail": {
+    "residual": 0,
+    "P": [
+     0.8903718861664297,
+     -3.2529108292768725
+    ]
+   }
+  },
+  {
+   "id": "scenario.unified-e098-clip.definition-residual",
+   "ok": true,
+   "detail": {
+    "residual": 0
+   }
+  },
+  {
+   "id": "scenario.unified-e098-clip.distances-independent",
+   "ok": true,
+   "detail": {
+    "page": {
+     "dFocus": 3.372564448443101,
+     "dDirectrix": 3.441392294329695,
+     "ratio": 0.98
+    },
+    "independent": {
+     "dFocus": 3.372564448443101,
+     "dDirectrix": 3.441392294329695,
+     "ratio": 0.98
+    }
+   }
+  },
+  {
+   "id": "scenario.unified-e098-clip.invariant-ratio-e",
+   "ok": true,
+   "detail": {
+    "ratio": 0.98,
+    "e": 0.98
+   }
+  },
+  {
+   "id": "scenario.unified-e098-clip.feature-focus",
+   "ok": true,
+   "detail": "F(0, 0)"
+  },
+  {
+   "id": "scenario.unified-e098-clip.feature-directrix",
+   "ok": true,
+   "detail": {
+    "text": "x = −2.55",
+    "expected": -2.5510204081632653
+   }
+  },
+  {
+   "id": "scenario.unified-e098-clip.feature-semi-latus",
+   "ok": true,
+   "detail": {
+    "text": "ℓ = 2.50",
+    "expected": 2.5
+   }
+  },
+  {
+   "id": "preset.U3.out-of-ui-range-clamped",
+   "ok": true,
+   "detail": {
+    "presetL": 1,
+    "pageL": 1.5,
+    "curves": 2
+   }
+  },
+  {
+   "id": "preset.U5.out-of-ui-range-clamped",
+   "ok": true,
+   "detail": {
+    "presetE": 0,
+    "pageE": 0.35,
+    "name": "椭圆"
+   }
+  },
+  {
+   "id": "unified.e16.two-branches",
+   "ok": true,
+   "detail": [
+    {
+     "closed": false,
+     "fill": false,
+     "dim": false,
+     "points": 281
+    },
+    {
+     "closed": false,
+     "fill": false,
+     "dim": true,
+     "points": 281
+    }
+   ]
+  },
+  {
+   "id": "unified.e16.branch-copy-text",
+   "ok": true,
+   "detail": {
+    "note": "e > 1：轨迹是双曲线。两支上的点到同一焦点 F、同一准线 ℓ 的距离比都等于 e。极坐标取 r > 0 只描出含焦点的一支，图中另一支由中心对称补画。"
+   }
+  },
+  {
+   "id": "unified.e16.second-branch-satisfies-definition",
+   "ok": true,
+   "detail": {
+    "residual": 8.881784197001252e-16,
+    "ratio": 1.6000000000000003
+   }
+  },
+  {
+   "id": "unified.e16.P-focus-side",
+   "ok": true,
+   "detail": {
+    "P": [
+     -0.3324592263147322,
+     -1.939781339082974
+    ],
+    "directrixX": -1.5625
+   }
+  },
+  {
+   "id": "unified.e105-far-branch-note",
+   "ok": true,
+   "detail": {
+    "note": "e > 1：轨迹是双曲线。两支上的点到同一焦点 F、同一准线 ℓ 的距离比都等于 e。e 很接近 1，另一支离得很远，当前视野只显示含焦点的一支；「中心」给出它的对称中心。",
+    "curves": [
+     {
+      "closed": false,
+      "fill": false,
+      "dim": false,
+      "points": 281
+     },
+     {
+      "closed": false,
+      "fill": false,
+      "dim": true,
+      "points": 281
+     }
+    ]
+   }
+  },
+  {
+   "id": "unified.e098.clipped-open",
+   "ok": true,
+   "detail": [
+    {
+     "closed": false,
+     "fill": false,
+     "dim": false,
+     "points": 281
+    }
+   ]
+  },
+  {
+   "id": "unified.e098.clip-message",
+   "ok": true,
+   "detail": "e 很接近 1，完整椭圆向右延伸得很远。图中仅显示视野内的一段椭圆弧，端点在视野边界处断开；这并不表示椭圆在这里终止。"
+  },
+  {
+   "id": "unified.e098.no-fill",
+   "ok": true,
+   "detail": {
+    "closed": false,
+    "fill": false,
+    "dim": false,
+    "points": 281
+   }
+  },
+  {
+   "id": "unified.e065.closed-ellipse",
+   "ok": true,
+   "detail": [
+    {
+     "closed": true,
+     "fill": true,
+     "dim": false,
+     "points": 281
+    }
+   ]
+  },
+  {
+   "id": "unified.e1.parabola",
+   "ok": true,
+   "detail": {
+    "curves": [
+     {
+      "closed": false,
+      "fill": false,
+      "dim": false,
+      "points": 281
+     }
+    ],
+    "eRange": "e = 1（抛物线）"
+   }
+  },
+  {
+   "id": "unified.wording.no-definition-one-branch",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "unified.wording.explains-both-branches",
+   "ok": true,
+   "detail": {
+    "hasTwoBranches": true,
+    "hasPolarNote": true,
+    "hasSymmetry": true
+   }
+  },
+  {
+   "id": "endpoint.ellipse-circle-min",
+   "ok": true,
+   "detail": {
+    "derived": {
+     "a": 2,
+     "b": 2,
+     "c": 0,
+     "e": 0
+    },
+    "residual": 0,
+    "onCurve": 0,
+    "curves": [
+     {
+      "closed": true,
+      "fill": true,
+      "dim": false,
+      "points": 221
+     }
+    ]
+   }
+  },
+  {
+   "id": "endpoint.ellipse-max",
+   "ok": true,
+   "detail": {
+    "derived": {
+     "a": 5,
+     "b": 2.633913438213185,
+     "c": 4.25,
+     "e": 0.85
+    },
+    "residual": 1.7763568394002505e-15,
+    "onCurve": 0,
+    "curves": [
+     {
+      "closed": true,
+      "fill": true,
+      "dim": false,
+      "points": 221
+     }
+    ]
+   }
+  },
+  {
+   "id": "endpoint.ellipse-min-flat",
+   "ok": true,
+   "detail": {
+    "derived": {
+     "a": 2,
+     "b": 1.053565375285274,
+     "c": 1.7,
+     "e": 0.85
+    },
+    "residual": 0,
+    "onCurve": 0,
+    "curves": [
+     {
+      "closed": true,
+      "fill": true,
+      "dim": false,
+      "points": 221
+     }
+    ]
+   }
+  },
+  {
+   "id": "endpoint.hyperbola-min",
+   "ok": true,
+   "detail": {
+    "derived": {
+     "a": 1.2,
+     "b": 0.384187454245971,
+     "c": 1.26,
+     "e": 1.05
+    },
+    "residual": 4.440892098500626e-16,
+    "onCurve": 0,
+    "curves": [
+     {
+      "closed": false,
+      "fill": false,
+      "dim": false,
+      "points": 131
+     },
+     {
+      "closed": false,
+      "fill": false,
+      "dim": false,
+      "points": 131
+     }
+    ]
+   }
+  },
+  {
+   "id": "endpoint.hyperbola-max",
+   "ok": true,
+   "detail": {
+    "derived": {
+     "a": 3.2,
+     "b": 5.542562584220407,
+     "c": 6.4,
+     "e": 2
+    },
+    "residual": 8.881784197001252e-16,
+    "onCurve": 0,
+    "curves": [
+     {
+      "closed": false,
+      "fill": false,
+      "dim": false,
+      "points": 131
+     },
+     {
+      "closed": false,
+      "fill": false,
+      "dim": false,
+      "points": 131
+     }
+    ]
+   }
+  },
+  {
+   "id": "endpoint.hyperbola-max-v",
+   "ok": true,
+   "detail": {
+    "derived": {
+     "a": 3.2,
+     "b": 5.542562584220407,
+     "c": 6.4,
+     "e": 2
+    },
+    "residual": 8.881784197001252e-16,
+    "onCurve": 0,
+    "curves": [
+     {
+      "closed": false,
+      "fill": false,
+      "dim": false,
+      "points": 131
+     },
+     {
+      "closed": false,
+      "fill": false,
+      "dim": false,
+      "points": 131
+     }
+    ]
+   }
+  },
+  {
+   "id": "endpoint.parabola-min",
+   "ok": true,
+   "detail": {
+    "derived": {
+     "p": 1,
+     "e": 1
+    },
+    "residual": 0,
+    "onCurve": 0,
+    "curves": [
+     {
+      "closed": false,
+      "fill": false,
+      "dim": false,
+      "points": 181
+     }
+    ]
+   }
+  },
+  {
+   "id": "endpoint.parabola-max",
+   "ok": true,
+   "detail": {
+    "derived": {
+     "p": 5,
+     "e": 1
+    },
+    "residual": 1.7763568394002505e-15,
+    "onCurve": 0,
+    "curves": [
+     {
+      "closed": false,
+      "fill": false,
+      "dim": false,
+      "points": 181
+     }
+    ]
+   }
+  },
+  {
+   "id": "endpoint.parabola-max-v",
+   "ok": true,
+   "detail": {
+    "derived": {
+     "p": 5,
+     "e": 1
+    },
+    "residual": 1.7763568394002505e-15,
+    "onCurve": 0,
+    "curves": [
+     {
+      "closed": false,
+      "fill": false,
+      "dim": false,
+      "points": 181
+     }
+    ]
+   }
+  },
+  {
+   "id": "endpoint.unified-min",
+   "ok": true,
+   "detail": {
+    "derived": {
+     "e": 0.35,
+     "l": 1.5,
+     "d": 4.285714285714286
+    },
+    "residual": 1.1102230246251565e-16,
+    "onCurve": 4.440892098500626e-16,
+    "curves": [
+     {
+      "closed": true,
+      "fill": true,
+      "dim": false,
+      "points": 281
+     }
+    ]
+   }
+  },
+  {
+   "id": "endpoint.unified-min-e-max-l",
+   "ok": true,
+   "detail": {
+    "derived": {
+     "e": 0.35,
+     "l": 4,
+     "d": 11.428571428571429
+    },
+    "residual": 0,
+    "onCurve": 0,
+    "curves": [
+     {
+      "closed": true,
+      "fill": true,
+      "dim": false,
+      "points": 281
+     }
+    ]
+   }
+  },
+  {
+   "id": "endpoint.unified-max",
+   "ok": true,
+   "detail": {
+    "derived": {
+     "e": 2.2,
+     "l": 1.5,
+     "d": 0.6818181818181818
+    },
+    "residual": 8.881784197001252e-16,
+    "onCurve": 2.220446049250313e-16,
+    "curves": [
+     {
+      "closed": false,
+      "fill": false,
+      "dim": false,
+      "points": 281
+     },
+     {
+      "closed": false,
+      "fill": false,
+      "dim": true,
+      "points": 281
+     }
+    ]
+   }
+  },
+  {
+   "id": "endpoint.unified-max-both",
+   "ok": true,
+   "detail": {
+    "derived": {
+     "e": 2.2,
+     "l": 4,
+     "d": 1.8181818181818181
+    },
+    "residual": 8.881784197001252e-16,
+    "onCurve": 6.661338147750939e-16,
+    "curves": [
+     {
+      "closed": false,
+      "fill": false,
+      "dim": false,
+      "points": 281
+     },
+     {
+      "closed": false,
+      "fill": false,
+      "dim": true,
+      "points": 281
+     }
+    ]
+   }
+  },
+  {
+   "id": "endpoint.unified-parabola-min-l",
+   "ok": true,
+   "detail": {
+    "derived": {
+     "e": 1,
+     "l": 1.5,
+     "d": 1.5
+    },
+    "residual": 0,
+    "onCurve": 0,
+    "curves": [
+     {
+      "closed": false,
+      "fill": false,
+      "dim": false,
+      "points": 281
+     }
+    ]
+   }
+  },
+  {
+   "id": "endpoint.unified-parabola-max-l",
+   "ok": true,
+   "detail": {
+    "derived": {
+     "e": 1,
+     "l": 4,
+     "d": 4
+    },
+    "residual": 0,
+    "onCurve": 0,
+    "curves": [
+     {
+      "closed": false,
+      "fill": false,
+      "dim": false,
+      "points": 281
+     }
+    ]
+   }
+  },
+  {
+   "id": "url.url-ellipse",
+   "ok": true,
+   "detail": {
+    "okParts": {
+     "mode": true,
+     "playing": true,
+     "name": true,
+     "orientation": true,
+     "phase": true,
+     "a": true
+    },
+    "state": {
+     "mode": "ellipse",
+     "orientation": "x",
+     "params": {
+      "ellipse": {
+       "a": 5,
+       "e": 0.6
+      },
+      "hyperbola": {
+       "a": 2.2,
+       "e": 1.45
+      },
+      "parabola": {
+       "p": 3
+      },
+      "unified": {
+       "e": 0.65,
+       "l": 2.5
+      }
+     },
+     "phase": 0.95,
+     "playing": false
+    },
+    "name": "椭圆"
+   }
+  },
+  {
+   "id": "url.url-hyperbola-v",
+   "ok": true,
+   "detail": {
+    "okParts": {
+     "mode": true,
+     "playing": true,
+     "name": true,
+     "orientation": true,
+     "phase": true,
+     "a": true
+    },
+    "state": {
+     "mode": "hyperbola",
+     "orientation": "y",
+     "params": {
+      "ellipse": {
+       "a": 4,
+       "e": 0.55
+      },
+      "hyperbola": {
+       "a": 2.2,
+       "e": 1.45
+      },
+      "parabola": {
+       "p": 3
+      },
+      "unified": {
+       "e": 0.65,
+       "l": 2.5
+      }
+     },
+     "phase": 1.2,
+     "playing": false
+    },
+    "name": "双曲线"
+   }
+  },
+  {
+   "id": "url.url-parabola",
+   "ok": true,
+   "detail": {
+    "okParts": {
+     "mode": true,
+     "playing": true,
+     "name": true,
+     "orientation": true,
+     "phase": true
+    },
+    "state": {
+     "mode": "parabola",
+     "orientation": "x",
+     "params": {
+      "ellipse": {
+       "a": 4,
+       "e": 0.55
+      },
+      "hyperbola": {
+       "a": 2.2,
+       "e": 1.45
+      },
+      "parabola": {
+       "p": 3
+      },
+      "unified": {
+       "e": 0.65,
+       "l": 2.5
+      }
+     },
+     "phase": 1.2,
+     "playing": false
+    },
+    "name": "抛物线"
+   }
+  },
+  {
+   "id": "url.url-unified-e16",
+   "ok": true,
+   "detail": {
+    "okParts": {
+     "mode": true,
+     "playing": true,
+     "name": true,
+     "phase": true
+    },
+    "state": {
+     "mode": "unified",
+     "orientation": "x",
+     "params": {
+      "ellipse": {
+       "a": 4,
+       "e": 0.55
+      },
+      "hyperbola": {
+       "a": 2.2,
+       "e": 1.45
+      },
+      "parabola": {
+       "p": 3
+      },
+      "unified": {
+       "e": 1.6,
+       "l": 2.5
+      }
+     },
+     "phase": 2,
+     "playing": false
+    },
+    "name": "双曲线"
+   }
+  },
+  {
+   "id": "url.url-unified-e098",
+   "ok": true,
+   "detail": {
+    "okParts": {
+     "mode": true,
+     "playing": true,
+     "name": true
+    },
+    "state": {
+     "mode": "unified",
+     "orientation": "x",
+     "params": {
+      "ellipse": {
+       "a": 4,
+       "e": 0.55
+      },
+      "hyperbola": {
+       "a": 2.2,
+       "e": 1.45
+      },
+      "parabola": {
+       "p": 3
+      },
+      "unified": {
+       "e": 0.98,
+       "l": 2.5
+      }
+     },
+     "phase": 0.9,
+     "playing": false
+    },
+    "name": "椭圆"
+   }
+  },
+  {
+   "id": "url.url-circle",
+   "ok": true,
+   "detail": {
+    "okParts": {
+     "mode": true,
+     "playing": true,
+     "name": true,
+     "a": true
+    },
+    "state": {
+     "mode": "ellipse",
+     "orientation": "x",
+     "params": {
+      "ellipse": {
+       "a": 4,
+       "e": 0
+      },
+      "hyperbola": {
+       "a": 2.2,
+       "e": 1.45
+      },
+      "parabola": {
+       "p": 3
+      },
+      "unified": {
+       "e": 0.65,
+       "l": 2.5
+      }
+     },
+     "phase": 0.9,
+     "playing": false
+    },
+    "name": "圆"
+   }
+  },
+  {
+   "id": "url.url-paused",
+   "ok": true,
+   "detail": {
+    "okParts": {
+     "mode": true,
+     "playing": true
+    },
+    "state": {
+     "mode": "ellipse",
+     "orientation": "x",
+     "params": {
+      "ellipse": {
+       "a": 4,
+       "e": 0.55
+      },
+      "hyperbola": {
+       "a": 2.2,
+       "e": 1.45
+      },
+      "parabola": {
+       "p": 3
+      },
+      "unified": {
+       "e": 0.65,
+       "l": 2.5
+      }
+     },
+     "phase": 0.9,
+     "playing": false
+    },
+    "name": "椭圆"
+   }
+  },
+  {
+   "id": "url.url-bad-mode",
+   "ok": true,
+   "detail": {
+    "okParts": {
+     "mode": true,
+     "playing": true,
+     "name": true
+    },
+    "state": {
+     "mode": "ellipse",
+     "orientation": "x",
+     "params": {
+      "ellipse": {
+       "a": 4,
+       "e": 0.55
+      },
+      "hyperbola": {
+       "a": 2.2,
+       "e": 1.45
+      },
+      "parabola": {
+       "p": 3
+      },
+      "unified": {
+       "e": 0.65,
+       "l": 2.5
+      }
+     },
+     "phase": 1.013646,
+     "playing": true
+    },
+    "name": "椭圆"
+   }
+  },
+  {
+   "id": "errors.no-runtime-exceptions",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "errors.no-console-or-log-errors",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "errors.diag-empty",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "errors.no-external-network",
+   "ok": true,
+   "detail": []
+  }
+ ],
+ "scenarios": [
+  {
+   "id": "ellipse-h-E1",
+   "scenario": {
+    "id": "ellipse-h-E1",
+    "mode": "ellipse",
+    "params": {
+     "a": 5,
+     "e": 0.6
+    },
+    "orientation": "x",
+    "phase": 0.9,
+    "preset": "E1-ellipse-h-a5-e06",
+    "shot": "01-ellipse-horizontal-1920.png"
+   },
+   "snapshot": {
+    "diag": {
+     "ready": true,
+     "version": "1.0.0",
+     "mode": "ellipse",
+     "name": "椭圆",
+     "orientation": "x",
+     "params": {
+      "a": 5,
+      "e": 0.6
+     },
+     "derived": {
+      "a": 5,
+      "b": 4,
+      "c": 3,
+      "e": 0.6
+     },
+     "equation": {
+      "plain": "x²/a² + y²/b² = 1",
+      "numeric": "x² / 25.00 + y² / 16.00 = 1",
+      "relation": "a² = b² + c²",
+      "eRange": "0 ≤ e < 1"
+     },
+     "foci": [
+      {
+       "label": "F₁",
+       "x": -3,
+       "y": 0
+      },
+      {
+       "label": "F₂",
+       "x": 3,
+       "y": 0
+      }
+     ],
+     "directrices": [
+      {
+       "type": "v",
+       "value": 8.333333333333334,
+       "label": "x = 8.33"
+      },
+      {
+       "type": "v",
+       "value": -8.333333333333334,
+       "label": "x = −8.33"
+      }
+     ],
+     "asymptotes": [],
+     "P": [
+      3.108049841353322,
+      3.1333076385099337
+     ],
+     "distances": {
+      "d1": 6.864829904811994,
+      "d2": 3.1351700951880064,
+      "sum": 10,
+      "e": 0.6
+     },
+     "definitionResidual": 0,
+     "curves": [
+      {
+       "closed": true,
+       "fill": true,
+       "dim": false,
+       "points": 221
+      }
+     ],
+     "origin": "原点 = 中心 O",
+     "phase": 0.9,
+     "playing": false,
+     "errors": []
+    },
+    "state": {
+     "mode": "ellipse",
+     "orientation": "x",
+     "params": {
+      "ellipse": {
+       "a": 5,
+       "e": 0.6
+      },
+      "hyperbola": {
+       "a": 2.2,
+       "e": 1.45
+      },
+      "parabola": {
+       "p": 3
+      },
+      "unified": {
+       "e": 0.65,
+       "l": 2.5
+      }
+     },
+     "phase": 0.9,
+     "playing": false
+    },
+    "liveName": "椭圆",
+    "liveE": "e = 0.60",
+    "familyChip": "椭圆",
+    "eqSymbolic": "x²a²+y²b²=1",
+    "eqNumeric": "x² / 25.00 + y² / 16.00 = 1",
+    "relationText": "a² = b² + c²",
+    "eRangeText": "0 ≤ e < 1",
+    "orientationLabel": "焦点在 x 轴",
+    "metricGrid": "a5.00b4.00c3.00e0.60",
+    "features": [
+     "焦点(−3.00, 0.00) · (3.00, 0.00)",
+     "准线x = ±8.33",
+     "通径6.40"
+    ],
+    "noteText": "椭圆中 a 最大，a² = b² + c²；拖动 e 观察 b 与 c 如何此消彼长。",
+    "defTitle": "定义验证 · 椭圆",
+    "defFormula": "|PF₁| + |PF₂| = 2a",
+    "defValues": "PF₁ = 6.86 · PF₂ = 3.14 · 和 = 10.00 = 2a = 10.00",
+    "pointReadout": "P (3.11, 3.13)",
+    "stageNote": "原点 = 中心 O · P 由参数方程生成",
+    "originChip": "标准位置 · 中心在原点",
+    "modeTabs": [
+     "ellipse:true",
+     "hyperbola:false",
+     "parabola:false",
+     "unified:false"
+    ],
+    "modeCards": [
+     "ellipse:true",
+     "hyperbola:false",
+     "parabola:false",
+     "unified:false"
+    ],
+    "toggles": [
+     "directrix:true",
+     "asymptote:true",
+     "labels:true"
+    ],
+    "axis": [
+     "true",
+     "false"
+    ],
+    "rows": {
+     "a": true,
+     "e": true,
+     "p": false,
+     "l": false
+    },
+    "quickHidden": true,
+    "axisHidden": false,
+    "canvas": {
+     "sig": 2679050192,
+     "nz": 239010,
+     "w": 1182,
+     "h": 810
+    }
+   },
+   "expected": {
+    "kind": "ellipse",
+    "a": 5,
+    "b": 4,
+    "c": 3,
+    "e": 0.6,
+    "orientation": "x",
+    "foci": [
+     [
+      -3,
+      0
+     ],
+     [
+      3,
+      0
+     ]
+    ],
+    "vertices": [
+     [
+      -5,
+      0
+     ],
+     [
+      5,
+      0
+     ]
+    ],
+    "directrices": [
+     {
+      "type": "vertical",
+      "value": -8.333333333333334
+     },
+     {
+      "type": "vertical",
+      "value": 8.333333333333334
+     }
+    ],
+    "asymptotes": [],
+    "semiLatusRectum": 3.2,
+    "focalParameter": 5.333333333333333,
+    "equation": "x²/25 + y²/16 = 1",
+    "invariant": {
+     "type": "sum",
+     "value": 10
+    },
+    "eRange": "0<=e<1"
+   }
+  },
+  {
+   "id": "ellipse-v-E2",
+   "scenario": {
+    "id": "ellipse-v-E2",
+    "mode": "ellipse",
+    "params": {
+     "a": 5,
+     "e": 0.6
+    },
+    "orientation": "y",
+    "phase": 0.9,
+    "preset": "E2-ellipse-v-a5-e06",
+    "shot": "02-ellipse-vertical-1920.png"
+   },
+   "snapshot": {
+    "diag": {
+     "ready": true,
+     "version": "1.0.0",
+     "mode": "ellipse",
+     "name": "椭圆",
+     "orientation": "y",
+     "params": {
+      "a": 5,
+      "e": 0.6
+     },
+     "derived": {
+      "a": 5,
+      "b": 4,
+      "c": 3,
+      "e": 0.6
+     },
+     "equation": {
+      "plain": "x²/b² + y²/a² = 1",
+      "numeric": "x² / 16.00 + y² / 25.00 = 1",
+      "relation": "a² = b² + c²",
+      "eRange": "0 ≤ e < 1"
+     },
+     "foci": [
+      {
+       "label": "F₁",
+       "x": 0,
+       "y": -3
+      },
+      {
+       "label": "F₂",
+       "x": 0,
+       "y": 3
+      }
+     ],
+     "directrices": [
+      {
+       "type": "h",
+       "value": 8.333333333333334,
+       "label": "y = 8.33"
+      },
+      {
+       "type": "h",
+       "value": -8.333333333333334,
+       "label": "y = −8.33"
+      }
+     ],
+     "asymptotes": [],
+     "P": [
+      3.1333076385099337,
+      3.108049841353322
+     ],
+     "distances": {
+      "d1": 6.864829904811994,
+      "d2": 3.1351700951880064,
+      "sum": 10,
+      "e": 0.6
+     },
+     "definitionResidual": 0,
+     "curves": [
+      {
+       "closed": true,
+       "fill": true,
+       "dim": false,
+       "points": 221
+      }
+     ],
+     "origin": "原点 = 中心 O",
+     "phase": 0.9,
+     "playing": false,
+     "errors": []
+    },
+    "state": {
+     "mode": "ellipse",
+     "orientation": "y",
+     "params": {
+      "ellipse": {
+       "a": 5,
+       "e": 0.6
+      },
+      "hyperbola": {
+       "a": 2.2,
+       "e": 1.45
+      },
+      "parabola": {
+       "p": 3
+      },
+      "unified": {
+       "e": 0.65,
+       "l": 2.5
+      }
+     },
+     "phase": 0.9,
+     "playing": false
+    },
+    "liveName": "椭圆",
+    "liveE": "e = 0.60",
+    "familyChip": "椭圆",
+    "eqSymbolic": "x²b²+y²a²=1",
+    "eqNumeric": "x² / 16.00 + y² / 25.00 = 1",
+    "relationText": "a² = b² + c²",
+    "eRangeText": "0 ≤ e < 1",
+    "orientationLabel": "焦点在 y 轴",
+    "metricGrid": "a5.00b4.00c3.00e0.60",
+    "features": [
+     "焦点(0.00, −3.00) · (0.00, 3.00)",
+     "准线y = ±8.33",
+     "通径6.40"
+    ],
+    "noteText": "椭圆中 a 最大，a² = b² + c²；拖动 e 观察 b 与 c 如何此消彼长。",
+    "defTitle": "定义验证 · 椭圆",
+    "defFormula": "|PF₁| + |PF₂| = 2a",
+    "defValues": "PF₁ = 6.86 · PF₂ = 3.14 · 和 = 10.00 = 2a = 10.00",
+    "pointReadout": "P (3.13, 3.11)",
+    "stageNote": "原点 = 中心 O · P 由参数方程生成",
+    "originChip": "标准位置 · 中心在原点",
+    "modeTabs": [
+     "ellipse:true",
+     "hyperbola:false",
+     "parabola:false",
+     "unified:false"
+    ],
+    "modeCards": [
+     "ellipse:true",
+     "hyperbola:false",
+     "parabola:false",
+     "unified:false"
+    ],
+    "toggles": [
+     "directrix:true",
+     "asymptote:true",
+     "labels:true"
+    ],
+    "axis": [
+     "false",
+     "true"
+    ],
+    "rows": {
+     "a": true,
+     "e": true,
+     "p": false,
+     "l": false
+    },
+    "quickHidden": true,
+    "axisHidden": false,
+    "canvas": {
+     "sig": 1569368437,
+     "nz": 239010,
+     "w": 1182,
+     "h": 810
+    }
+   },
+   "expected": {
+    "kind": "ellipse",
+    "a": 5,
+    "b": 4,
+    "c": 3,
+    "e": 0.6,
+    "orientation": "y",
+    "foci": [
+     [
+      0,
+      -3
+     ],
+     [
+      0,
+      3
+     ]
+    ],
+    "vertices": [
+     [
+      0,
+      -5
+     ],
+     [
+      0,
+      5
+     ]
+    ],
+    "directrices": [
+     {
+      "type": "horizontal",
+      "value": -8.333333333333334
+     },
+     {
+      "type": "horizontal",
+      "value": 8.333333333333334
+     }
+    ],
+    "asymptotes": [],
+    "semiLatusRectum": 3.2,
+    "focalParameter": 5.333333333333333,
+    "equation": "x²/16 + y²/25 = 1",
+    "invariant": {
+     "type": "sum",
+     "value": 10
+    },
+    "eRange": "0<=e<1"
+   }
+  },
+  {
+   "id": "circle-E3",
+   "scenario": {
+    "id": "circle-E3",
+    "mode": "ellipse",
+    "params": {
+     "a": 4,
+     "e": 0
+    },
+    "orientation": "x",
+    "phase": 0.9,
+    "preset": "E3-circle-a4-e0",
+    "shot": "03-ellipse-circle-e0-1920.png"
+   },
+   "snapshot": {
+    "diag": {
+     "ready": true,
+     "version": "1.0.0",
+     "mode": "ellipse",
+     "name": "圆",
+     "orientation": "x",
+     "params": {
+      "a": 4,
+      "e": 0
+     },
+     "derived": {
+      "a": 4,
+      "b": 4,
+      "c": 0,
+      "e": 0
+     },
+     "equation": {
+      "plain": "x² + y² = a²",
+      "numeric": "x² + y² = 16.00",
+      "relation": "r = a",
+      "eRange": "e = 0（圆）"
+     },
+     "foci": [
+      {
+       "label": "O",
+       "x": 0,
+       "y": 0
+      },
+      {
+       "label": "O",
+       "x": 0,
+       "y": 0
+      }
+     ],
+     "directrices": [],
+     "asymptotes": [],
+     "P": [
+      2.4864398730826576,
+      3.1333076385099337
+     ],
+     "distances": {
+      "d1": 3.9999999999999996,
+      "d2": 3.9999999999999996,
+      "sum": 7.999999999999999,
+      "e": 0
+     },
+     "definitionResidual": 8.881784197001252e-16,
+     "curves": [
+      {
+       "closed": true,
+       "fill": true,
+       "dim": false,
+       "points": 221
+      }
+     ],
+     "origin": "原点 = 中心 O",
+     "phase": 0.9,
+     "playing": false,
+     "errors": []
+    },
+    "state": {
+     "mode": "ellipse",
+     "orientation": "x",
+     "params": {
+      "ellipse": {
+       "a": 4,
+       "e": 0
+      },
+      "hyperbola": {
+       "a": 2.2,
+       "e": 1.45
+      },
+      "parabola": {
+       "p": 3
+      },
+      "unified": {
+       "e": 0.65,
+       "l": 2.5
+      }
+     },
+     "phase": 0.9,
+     "playing": false
+    },
+    "liveName": "圆",
+    "liveE": "e = 0.00",
+    "familyChip": "圆",
+    "eqSymbolic": "x² + y² = a²",
+    "eqNumeric": "x² + y² = 16.00",
+    "relationText": "r = a",
+    "eRangeText": "e = 0（圆）",
+    "orientationLabel": "圆心在原点",
+    "metricGrid": "a4.00b4.00c0.00e0.00",
+    "features": [
+     "焦点F₁ = F₂ = O(0, 0)",
+     "准线圆没有准线",
+     "半径r = a = 4.00",
+     "离心率e = 0"
+    ],
+    "noteText": "e = 0 时，两个焦点重合为圆心，椭圆退化为圆；圆的离心率规定为 0。",
+    "defTitle": "定义验证 · 到圆心的距离",
+    "defFormula": "|PO| = a",
+    "defValues": "PO = 4.00 = a = 4.00",
+    "pointReadout": "P (2.49, 3.13)",
+    "stageNote": "原点 = 中心 O · P 由参数方程生成",
+    "originChip": "标准位置 · 中心在原点",
+    "modeTabs": [
+     "ellipse:true",
+     "hyperbola:false",
+     "parabola:false",
+     "unified:false"
+    ],
+    "modeCards": [
+     "ellipse:true",
+     "hyperbola:false",
+     "parabola:false",
+     "unified:false"
+    ],
+    "toggles": [
+     "directrix:true",
+     "asymptote:true",
+     "labels:true"
+    ],
+    "axis": [
+     "true",
+     "false"
+    ],
+    "rows": {
+     "a": true,
+     "e": true,
+     "p": false,
+     "l": false
+    },
+    "quickHidden": true,
+    "axisHidden": false,
+    "canvas": {
+     "sig": 3140921308,
+     "nz": 239010,
+     "w": 1182,
+     "h": 810
+    }
+   },
+   "expected": {
+    "kind": "circle",
+    "a": 4,
+    "b": 4,
+    "c": 0,
+    "e": 0,
+    "orientation": "x",
+    "foci": [
+     [
+      0,
+      0
+     ]
+    ],
+    "vertices": [
+     [
+      -4,
+      0
+     ],
+     [
+      4,
+      0
+     ]
+    ],
+    "directrices": [],
+    "asymptotes": [],
+    "semiLatusRectum": 4,
+    "focalParameter": null,
+    "equation": "x² + y² = 16",
+    "invariant": {
+     "type": "sum",
+     "value": 8
+    },
+    "eRange": "e=0"
+   }
+  },
+  {
+   "id": "hyperbola-h-H1",
+   "scenario": {
+    "id": "hyperbola-h-H1",
+    "mode": "hyperbola",
+    "params": {
+     "a": 3,
+     "e": 1.6666666666666667
+    },
+    "orientation": "x",
+    "phase": 0.9,
+    "preset": "H1-hyperbola-h-a3-e1667",
+    "shot": "04-hyperbola-horizontal-1920.png"
+   },
+   "snapshot": {
+    "diag": {
+     "ready": true,
+     "version": "1.0.0",
+     "mode": "hyperbola",
+     "name": "双曲线",
+     "orientation": "x",
+     "params": {
+      "a": 3,
+      "e": 1.6666666666666667
+     },
+     "derived": {
+      "a": 3,
+      "b": 4,
+      "c": 5,
+      "e": 1.6666666666666667
+     },
+     "equation": {
+      "plain": "x²/a² − y²/b² = 1",
+      "numeric": "x² / 9.00 − y² / 16.00 = 1",
+      "relation": "c² = a² + b²",
+      "eRange": "e > 1"
+     },
+     "foci": [
+      {
+       "label": "F₁",
+       "x": -5,
+       "y": 0
+      },
+      {
+       "label": "F₂",
+       "x": 5,
+       "y": 0
+      }
+     ],
+     "directrices": [
+      {
+       "type": "v",
+       "value": 1.8,
+       "label": "x = 1.80"
+      },
+      {
+       "type": "v",
+       "value": -1.8,
+       "label": "x = −1.80"
+      }
+     ],
+     "asymptotes": [
+      "y = ±1.33x",
+      "y = ±1.33x"
+     ],
+     "P": [
+      4.476518443085017,
+      4.4300423617298
+     ],
+     "distances": {
+      "d1": 10.460864071808363,
+      "d2": 4.460864071808362,
+      "diff": 6.000000000000001,
+      "e": 1.6666666666666667
+     },
+     "definitionResidual": 8.881784197001252e-16,
+     "curves": [
+      {
+       "closed": false,
+       "fill": false,
+       "dim": false,
+       "points": 131
+      },
+      {
+       "closed": false,
+       "fill": false,
+       "dim": false,
+       "points": 131
+      }
+     ],
+     "origin": "原点 = 中心 O",
+     "phase": 0.9,
+     "playing": false,
+     "errors": []
+    },
+    "state": {
+     "mode": "hyperbola",
+     "orientation": "x",
+     "params": {
+      "ellipse": {
+       "a": 4,
+       "e": 0
+      },
+      "hyperbola": {
+       "a": 3,
+       "e": 1.6666666666666667
+      },
+      "parabola": {
+       "p": 3
+      },
+      "unified": {
+       "e": 0.65,
+       "l": 2.5
+      }
+     },
+     "phase": 0.9,
+     "playing": false
+    },
+    "liveName": "双曲线",
+    "liveE": "e = 1.67",
+    "familyChip": "双曲线",
+    "eqSymbolic": "x²a²−y²b²=1",
+    "eqNumeric": "x² / 9.00 − y² / 16.00 = 1",
+    "relationText": "c² = a² + b²",
+    "eRangeText": "e > 1",
+    "orientationLabel": "实轴水平",
+    "metricGrid": "a3.00b4.00c5.00e1.67",
+    "features": [
+     "焦点(−5.00, 0.00) · (5.00, 0.00)",
+     "准线x = ±1.80",
+     "渐近线y = ±1.33x",
+     "顶点(±3.00, 0)"
+    ],
+    "noteText": "e 越大，c/a 越大，开口越开阔；渐近线斜率为 ±b/a。",
+    "defTitle": "定义验证 · 双曲线",
+    "defFormula": "| |PF₁| − |PF₂| | = 2a",
+    "defValues": "PF₁ = 10.46 · PF₂ = 4.46 · |差| = 6.00 = 2a = 6.00",
+    "pointReadout": "P (4.48, 4.43)",
+    "stageNote": "原点 = 中心 O · P 由参数方程生成",
+    "originChip": "标准位置 · 中心在原点",
+    "modeTabs": [
+     "ellipse:false",
+     "hyperbola:true",
+     "parabola:false",
+     "unified:false"
+    ],
+    "modeCards": [
+     "ellipse:false",
+     "hyperbola:true",
+     "parabola:false",
+     "unified:false"
+    ],
+    "toggles": [
+     "directrix:true",
+     "asymptote:true",
+     "labels:true"
+    ],
+    "axis": [
+     "true",
+     "false"
+    ],
+    "rows": {
+     "a": true,
+     "e": true,
+     "p": false,
+     "l": false
+    },
+    "quickHidden": true,
+    "axisHidden": false,
+    "canvas": {
+     "sig": 3701547467,
+     "nz": 239010,
+     "w": 1182,
+     "h": 810
+    }
+   },
+   "expected": {
+    "kind": "hyperbola",
+    "a": 3,
+    "b": 4,
+    "c": 5,
+    "e": 1.6666666666666667,
+    "orientation": "x",
+    "foci": [
+     [
+      -5,
+      0
+     ],
+     [
+      5,
+      0
+     ]
+    ],
+    "vertices": [
+     [
+      -3,
+      0
+     ],
+     [
+      3,
+      0
+     ]
+    ],
+    "directrices": [
+     {
+      "type": "vertical",
+      "value": -1.8
+     },
+     {
+      "type": "vertical",
+      "value": 1.8
+     }
+    ],
+    "asymptotes": [
+     {
+      "slope": 1.3333333333333333,
+      "intercept": 0
+     },
+     {
+      "slope": -1.3333333333333333,
+      "intercept": 0
+     }
+    ],
+    "semiLatusRectum": 5.333333333333333,
+    "focalParameter": 3.2,
+    "equation": "x²/9 − y²/16 = 1",
+    "invariant": {
+     "type": "diff",
+     "value": 6
+    },
+    "eRange": "e>1"
+   }
+  },
+  {
+   "id": "hyperbola-v-H2",
+   "scenario": {
+    "id": "hyperbola-v-H2",
+    "mode": "hyperbola",
+    "params": {
+     "a": 3,
+     "e": 1.6666666666666667
+    },
+    "orientation": "y",
+    "phase": 0.9,
+    "preset": "H2-hyperbola-v-a3-e1667",
+    "shot": "05-hyperbola-vertical-1920.png"
+   },
+   "snapshot": {
+    "diag": {
+     "ready": true,
+     "version": "1.0.0",
+     "mode": "hyperbola",
+     "name": "双曲线",
+     "orientation": "y",
+     "params": {
+      "a": 3,
+      "e": 1.6666666666666667
+     },
+     "derived": {
+      "a": 3,
+      "b": 4,
+      "c": 5,
+      "e": 1.6666666666666667
+     },
+     "equation": {
+      "plain": "y²/a² − x²/b² = 1",
+      "numeric": "y² / 9.00 − x² / 16.00 = 1",
+      "relation": "c² = a² + b²",
+      "eRange": "e > 1"
+     },
+     "foci": [
+      {
+       "label": "F₁",
+       "x": 0,
+       "y": -5
+      },
+      {
+       "label": "F₂",
+       "x": 0,
+       "y": 5
+      }
+     ],
+     "directrices": [
+      {
+       "type": "h",
+       "value": 1.8,
+       "label": "y = 1.80"
+      },
+      {
+       "type": "h",
+       "value": -1.8,
+       "label": "y = −1.80"
+      }
+     ],
+     "asymptotes": [
+      "y = ±0.75x",
+      "y = ±0.75x"
+     ],
+     "P": [
+      4.4300423617298,
+      4.476518443085017
+     ],
+     "distances": {
+      "d1": 10.460864071808363,
+      "d2": 4.460864071808362,
+      "diff": 6.000000000000001,
+      "e": 1.6666666666666667
+     },
+     "definitionResidual": 8.881784197001252e-16,
+     "curves": [
+      {
+       "closed": false,
+       "fill": false,
+       "dim": false,
+       "points": 131
+      },
+      {
+       "closed": false,
+       "fill": false,
+       "dim": false,
+       "points": 131
+      }
+     ],
+     "origin": "原点 = 中心 O",
+     "phase": 0.9,
+     "playing": false,
+     "errors": []
+    },
+    "state": {
+     "mode": "hyperbola",
+     "orientation": "y",
+     "params": {
+      "ellipse": {
+       "a": 4,
+       "e": 0
+      },
+      "hyperbola": {
+       "a": 3,
+       "e": 1.6666666666666667
+      },
+      "parabola": {
+       "p": 3
+      },
+      "unified": {
+       "e": 0.65,
+       "l": 2.5
+      }
+     },
+     "phase": 0.9,
+     "playing": false
+    },
+    "liveName": "双曲线",
+    "liveE": "e = 1.67",
+    "familyChip": "双曲线",
+    "eqSymbolic": "y²a²−x²b²=1",
+    "eqNumeric": "y² / 9.00 − x² / 16.00 = 1",
+    "relationText": "c² = a² + b²",
+    "eRangeText": "e > 1",
+    "orientationLabel": "实轴竖直",
+    "metricGrid": "a3.00b4.00c5.00e1.67",
+    "features": [
+     "焦点(0.00, −5.00) · (0.00, 5.00)",
+     "准线y = ±1.80",
+     "渐近线y = ±0.75x",
+     "顶点(0, ±3.00)"
+    ],
+    "noteText": "e 越大，c/a 越大，开口越开阔；渐近线斜率为 ±a/b。",
+    "defTitle": "定义验证 · 双曲线",
+    "defFormula": "| |PF₁| − |PF₂| | = 2a",
+    "defValues": "PF₁ = 10.46 · PF₂ = 4.46 · |差| = 6.00 = 2a = 6.00",
+    "pointReadout": "P (4.43, 4.48)",
+    "stageNote": "原点 = 中心 O · P 由参数方程生成",
+    "originChip": "标准位置 · 中心在原点",
+    "modeTabs": [
+     "ellipse:false",
+     "hyperbola:true",
+     "parabola:false",
+     "unified:false"
+    ],
+    "modeCards": [
+     "ellipse:false",
+     "hyperbola:true",
+     "parabola:false",
+     "unified:false"
+    ],
+    "toggles": [
+     "directrix:true",
+     "asymptote:true",
+     "labels:true"
+    ],
+    "axis": [
+     "false",
+     "true"
+    ],
+    "rows": {
+     "a": true,
+     "e": true,
+     "p": false,
+     "l": false
+    },
+    "quickHidden": true,
+    "axisHidden": false,
+    "canvas": {
+     "sig": 2331819694,
+     "nz": 239010,
+     "w": 1182,
+     "h": 810
+    }
+   },
+   "expected": {
+    "kind": "hyperbola",
+    "a": 3,
+    "b": 4,
+    "c": 5,
+    "e": 1.6666666666666667,
+    "orientation": "y",
+    "foci": [
+     [
+      0,
+      -5
+     ],
+     [
+      0,
+      5
+     ]
+    ],
+    "vertices": [
+     [
+      0,
+      -3
+     ],
+     [
+      0,
+      3
+     ]
+    ],
+    "directrices": [
+     {
+      "type": "horizontal",
+      "value": -1.8
+     },
+     {
+      "type": "horizontal",
+      "value": 1.8
+     }
+    ],
+    "asymptotes": [
+     {
+      "slope": 0.75,
+      "intercept": 0
+     },
+     {
+      "slope": -0.75,
+      "intercept": 0
+     }
+    ],
+    "semiLatusRectum": 5.333333333333333,
+    "focalParameter": 3.2,
+    "equation": "y²/9 − x²/16 = 1",
+    "invariant": {
+     "type": "diff",
+     "value": 6
+    },
+    "eRange": "e>1"
+   }
+  },
+  {
+   "id": "parabola-h-P1",
+   "scenario": {
+    "id": "parabola-h-P1",
+    "mode": "parabola",
+    "params": {
+     "p": 4
+    },
+    "orientation": "x",
+    "phase": 0.9,
+    "preset": "P1-parabola-h-p4",
+    "shot": "06-parabola-horizontal-1920.png"
+   },
+   "snapshot": {
+    "diag": {
+     "ready": true,
+     "version": "1.0.0",
+     "mode": "parabola",
+     "name": "抛物线",
+     "orientation": "x",
+     "params": {
+      "p": 4
+     },
+     "derived": {
+      "p": 4,
+      "e": 1
+     },
+     "equation": {
+      "plain": "y² = 2px",
+      "numeric": "y² = 8.00x",
+      "relation": "e = 1（焦点到准线的距离为 p）",
+      "eRange": "e = 1"
+     },
+     "foci": [
+      {
+       "label": "F",
+       "x": 2,
+       "y": 0
+      }
+     ],
+     "directrices": [
+      {
+       "type": "v",
+       "value": -2,
+       "label": "x = −2.00"
+      }
+     ],
+     "asymptotes": [],
+     "P": [
+      6.079685078225757,
+      6.974057687301278
+     ],
+     "distances": {
+      "dFocus": 8.079685078225756,
+      "dDirectrix": 8.079685078225758
+     },
+     "definitionResidual": 1.7763568394002505e-15,
+     "curves": [
+      {
+       "closed": false,
+       "fill": false,
+       "dim": false,
+       "points": 181
+      }
+     ],
+     "origin": "原点 = 顶点 O",
+     "phase": 0.9,
+     "playing": false,
+     "errors": []
+    },
+    "state": {
+     "mode": "parabola",
+     "orientation": "x",
+     "params": {
+      "ellipse": {
+       "a": 4,
+       "e": 0
+      },
+      "hyperbola": {
+       "a": 3,
+       "e": 1.6666666666666667
+      },
+      "parabola": {
+       "p": 4
+      },
+      "unified": {
+       "e": 0.65,
+       "l": 2.5
+      }
+     },
+     "phase": 0.9,
+     "playing": false
+    },
+    "liveName": "抛物线",
+    "liveE": "e = 1.00",
+    "familyChip": "抛物线",
+    "eqSymbolic": "y² = 2p x",
+    "eqNumeric": "y² = 8.00x",
+    "relationText": "e = 1（焦点到准线的距离为 p）",
+    "eRangeText": "e = 1",
+    "orientationLabel": "开口向右",
+    "metricGrid": "p4.00e1.00p/22.00通径8.00",
+    "features": [
+     "焦点(2.00, 0.00)",
+     "准线x = −2.00",
+     "对称轴y = 0（x 轴）",
+     "顶点(0, 0)"
+    ],
+    "noteText": "焦点到准线的距离等于 p；焦点到顶点距离为 p/2，通径长为 2p。p 越大，开口越开阔。",
+    "defTitle": "定义验证 · 抛物线",
+    "defFormula": "|PF| = d(P, ℓ)",
+    "defValues": "PF = 8.08 · d(P, ℓ) = 8.08",
+    "pointReadout": "P (6.08, 6.97)",
+    "stageNote": "原点 = 顶点 O · P 由参数方程生成",
+    "originChip": "标准位置 · 顶点在原点",
+    "modeTabs": [
+     "ellipse:false",
+     "hyperbola:false",
+     "parabola:true",
+     "unified:false"
+    ],
+    "modeCards": [
+     "ellipse:false",
+     "hyperbola:false",
+     "parabola:true",
+     "unified:false"
+    ],
+    "toggles": [
+     "directrix:true",
+     "asymptote:true",
+     "labels:true"
+    ],
+    "axis": [
+     "true",
+     "false"
+    ],
+    "rows": {
+     "a": false,
+     "e": false,
+     "p": true,
+     "l": false
+    },
+    "quickHidden": true,
+    "axisHidden": false,
+    "canvas": {
+     "sig": 1925378102,
+     "nz": 239010,
+     "w": 1182,
+     "h": 810
+    }
+   },
+   "expected": {
+    "kind": "parabola",
+    "p": 4,
+    "e": 1,
+    "orientation": "x",
+    "foci": [
+     [
+      2,
+      0
+     ]
+    ],
+    "vertices": [
+     [
+      0,
+      0
+     ]
+    ],
+    "directrices": [
+     {
+      "type": "vertical",
+      "value": -2
+     }
+    ],
+    "asymptotes": [],
+    "semiLatusRectum": 4,
+    "focalParameter": 4,
+    "equation": "y² = 8x",
+    "invariant": {
+     "type": "parabola",
+     "value": 1
+    },
+    "eRange": "e=1"
+   }
+  },
+  {
+   "id": "parabola-v-P2",
+   "scenario": {
+    "id": "parabola-v-P2",
+    "mode": "parabola",
+    "params": {
+     "p": 3
+    },
+    "orientation": "y",
+    "phase": 0.9,
+    "preset": "P2-parabola-v-p3",
+    "shot": "07-parabola-vertical-1920.png"
+   },
+   "snapshot": {
+    "diag": {
+     "ready": true,
+     "version": "1.0.0",
+     "mode": "parabola",
+     "name": "抛物线",
+     "orientation": "y",
+     "params": {
+      "p": 3
+     },
+     "derived": {
+      "p": 3,
+      "e": 1
+     },
+     "equation": {
+      "plain": "x² = 2py",
+      "numeric": "x² = 6.00y",
+      "relation": "e = 1（焦点到准线的距离为 p）",
+      "eRange": "e = 1"
+     },
+     "foci": [
+      {
+       "label": "F",
+       "x": 0,
+       "y": 1.5
+      }
+     ],
+     "directrices": [
+      {
+       "type": "h",
+       "value": -1.5,
+       "label": "y = −1.50"
+      }
+     ],
+     "asymptotes": [],
+     "P": [
+      5.230543265475959,
+      4.559763808669319
+     ],
+     "distances": {
+      "dFocus": 6.059763808669319,
+      "dDirectrix": 6.059763808669319
+     },
+     "definitionResidual": 0,
+     "curves": [
+      {
+       "closed": false,
+       "fill": false,
+       "dim": false,
+       "points": 181
+      }
+     ],
+     "origin": "原点 = 顶点 O",
+     "phase": 0.9,
+     "playing": false,
+     "errors": []
+    },
+    "state": {
+     "mode": "parabola",
+     "orientation": "y",
+     "params": {
+      "ellipse": {
+       "a": 4,
+       "e": 0
+      },
+      "hyperbola": {
+       "a": 3,
+       "e": 1.6666666666666667
+      },
+      "parabola": {
+       "p": 3
+      },
+      "unified": {
+       "e": 0.65,
+       "l": 2.5
+      }
+     },
+     "phase": 0.9,
+     "playing": false
+    },
+    "liveName": "抛物线",
+    "liveE": "e = 1.00",
+    "familyChip": "抛物线",
+    "eqSymbolic": "x² = 2p y",
+    "eqNumeric": "x² = 6.00y",
+    "relationText": "e = 1（焦点到准线的距离为 p）",
+    "eRangeText": "e = 1",
+    "orientationLabel": "开口向上",
+    "metricGrid": "p3.00e1.00p/21.50通径6.00",
+    "features": [
+     "焦点(0.00, 1.50)",
+     "准线y = −1.50",
+     "对称轴x = 0（y 轴）",
+     "顶点(0, 0)"
+    ],
+    "noteText": "焦点到准线的距离等于 p；焦点到顶点距离为 p/2，通径长为 2p。p 越大，开口越开阔。",
+    "defTitle": "定义验证 · 抛物线",
+    "defFormula": "|PF| = d(P, ℓ)",
+    "defValues": "PF = 6.06 · d(P, ℓ) = 6.06",
+    "pointReadout": "P (5.23, 4.56)",
+    "stageNote": "原点 = 顶点 O · P 由参数方程生成",
+    "originChip": "标准位置 · 顶点在原点",
+    "modeTabs": [
+     "ellipse:false",
+     "hyperbola:false",
+     "parabola:true",
+     "unified:false"
+    ],
+    "modeCards": [
+     "ellipse:false",
+     "hyperbola:false",
+     "parabola:true",
+     "unified:false"
+    ],
+    "toggles": [
+     "directrix:true",
+     "asymptote:true",
+     "labels:true"
+    ],
+    "axis": [
+     "false",
+     "true"
+    ],
+    "rows": {
+     "a": false,
+     "e": false,
+     "p": true,
+     "l": false
+    },
+    "quickHidden": true,
+    "axisHidden": false,
+    "canvas": {
+     "sig": 3924630595,
+     "nz": 239010,
+     "w": 1182,
+     "h": 810
+    }
+   },
+   "expected": {
+    "kind": "parabola",
+    "p": 3,
+    "e": 1,
+    "orientation": "y",
+    "foci": [
+     [
+      0,
+      1.5
+     ]
+    ],
+    "vertices": [
+     [
+      0,
+      0
+     ]
+    ],
+    "directrices": [
+     {
+      "type": "horizontal",
+      "value": -1.5
+     }
+    ],
+    "asymptotes": [],
+    "semiLatusRectum": 3,
+    "focalParameter": 3,
+    "equation": "x² = 6y",
+    "invariant": {
+     "type": "parabola",
+     "value": 1
+    },
+    "eRange": "e=1"
+   }
+  },
+  {
+   "id": "unified-e065-U1",
+   "scenario": {
+    "id": "unified-e065-U1",
+    "mode": "unified",
+    "params": {
+     "e": 0.6,
+     "l": 3.2
+    },
+    "orientation": "x",
+    "phase": 1,
+    "preset": "U1-unified-ellipse-l32-e06",
+    "shot": "08-unified-e0.6-ellipse-1920.png"
+   },
+   "snapshot": {
+    "diag": {
+     "ready": true,
+     "version": "1.0.0",
+     "mode": "unified",
+     "name": "椭圆",
+     "orientation": "x",
+     "params": {
+      "e": 0.6,
+      "l": 3.2
+     },
+     "derived": {
+      "e": 0.6,
+      "l": 3.2,
+      "d": 5.333333333333334
+     },
+     "equation": {
+      "plain": "r = ℓ/(1 − e cos θ)，焦点在极点，准线 x = −ℓ/e",
+      "numeric": "r = 3.20 / (1 − 0.60 cos θ)",
+      "relation": "PF = e · d(P, ℓ)",
+      "eRange": "0 < e < 1（椭圆）"
+     },
+     "foci": [
+      {
+       "label": "F",
+       "x": 0,
+       "y": 0
+      }
+     ],
+     "directrices": [
+      {
+       "type": "v",
+       "value": -5.333333333333334,
+       "label": "x = −5.33"
+      }
+     ],
+     "asymptotes": [],
+     "P": [
+      2.55833049966222,
+      3.9843636823941764
+     ],
+     "distances": {
+      "dFocus": 4.734998299797332,
+      "dDirectrix": 7.891663832995554,
+      "ratio": 0.6
+     },
+     "definitionResidual": 0,
+     "curves": [
+      {
+       "closed": true,
+       "fill": true,
+       "dim": false,
+       "points": 281
+      }
+     ],
+     "origin": "原点 = 焦点 F · 准线在焦点左侧",
+     "phase": 1,
+     "playing": false,
+     "errors": []
+    },
+    "state": {
+     "mode": "unified",
+     "orientation": "x",
+     "params": {
+      "ellipse": {
+       "a": 4,
+       "e": 0
+      },
+      "hyperbola": {
+       "a": 3,
+       "e": 1.6666666666666667
+      },
+      "parabola": {
+       "p": 3
+      },
+      "unified": {
+       "e": 0.6,
+       "l": 3.2
+      }
+     },
+     "phase": 1,
+     "playing": false
+    },
+    "liveName": "椭圆",
+    "liveE": "e = 0.60",
+    "familyChip": "椭圆",
+    "eqSymbolic": "r=ℓ1 − e cos θ",
+    "eqNumeric": "r = 3.20 / (1 − 0.60 cos θ)",
+    "relationText": "PF = e · d(P, ℓ)",
+    "eRangeText": "0 < e < 1（椭圆）",
+    "orientationLabel": "焦点在原点 · 准线在左",
+    "metricGrid": "e0.60ℓ3.20d5.33曲线椭圆",
+    "features": [
+     "焦点F(0, 0)",
+     "准线x = −5.33",
+     "半通径ℓ = 3.20",
+     "中心(3.00, 0.00)"
+    ],
+    "noteText": "e < 1：轨迹是完整的椭圆。e 越接近 1，椭圆越接近抛物线；e 越接近 0，越接近圆。",
+    "defTitle": "定义验证 · 统一视角",
+    "defFormula": "|PF| / d(P, ℓ) = e",
+    "defValues": "PF = 4.73 · PD = 7.89 · PF/PD = 0.6000 · e = 0.6000",
+    "pointReadout": "P (2.56, 3.98)",
+    "stageNote": "原点 = 焦点 F · 准线在焦点左侧 · P 由参数方程生成",
+    "originChip": "焦点在原点 · 准线在左",
+    "modeTabs": [
+     "ellipse:false",
+     "hyperbola:false",
+     "parabola:false",
+     "unified:true"
+    ],
+    "modeCards": [
+     "ellipse:false",
+     "hyperbola:false",
+     "parabola:false",
+     "unified:true"
+    ],
+    "toggles": [
+     "directrix:true",
+     "asymptote:true",
+     "labels:true"
+    ],
+    "axis": [
+     "true",
+     "false"
+    ],
+    "rows": {
+     "a": false,
+     "e": true,
+     "p": false,
+     "l": true
+    },
+    "quickHidden": false,
+    "axisHidden": true,
+    "canvas": {
+     "sig": 2868523129,
+     "nz": 239010,
+     "w": 1182,
+     "h": 810
+    }
+   },
+   "expected": {
+    "kind": "ellipse",
+    "e": 0.6,
+    "l": 3.2,
+    "d": 5.333333333333334,
+    "center": 3,
+    "orientation": "x",
+    "foci": [
+     [
+      0,
+      0
+     ]
+    ],
+    "directrices": [
+     {
+      "type": "vertical",
+      "value": -5.333333333333334
+     }
+    ],
+    "asymptotes": [],
+    "semiLatusRectum": 3.2,
+    "focalParameter": 5.333333333333334,
+    "equation": "r = 3.2 / (1 − 0.6 cos θ)",
+    "invariant": {
+     "type": "ratio",
+     "value": 0.6
+    },
+    "eRange": "e<1"
+   }
+  },
+  {
+   "id": "unified-e1-U2",
+   "scenario": {
+    "id": "unified-e1-U2",
+    "mode": "unified",
+    "params": {
+     "e": 1,
+     "l": 4
+    },
+    "orientation": "x",
+    "phase": 1,
+    "preset": "U2-unified-parabola-l4-e1",
+    "shot": "09-unified-e1-parabola-1920.png"
+   },
+   "snapshot": {
+    "diag": {
+     "ready": true,
+     "version": "1.0.0",
+     "mode": "unified",
+     "name": "抛物线",
+     "orientation": "x",
+     "params": {
+      "e": 1,
+      "l": 4
+     },
+     "derived": {
+      "e": 1,
+      "l": 4,
+      "d": 4
+     },
+     "equation": {
+      "plain": "r = ℓ/(1 − e cos θ)，焦点在极点，准线 x = −ℓ/e",
+      "numeric": "r = 4.00 / (1 − 1.00 cos θ)",
+      "relation": "PF = e · d(P, ℓ)",
+      "eRange": "e = 1（抛物线）"
+     },
+     "foci": [
+      {
+       "label": "F",
+       "x": 0,
+       "y": 0
+      }
+     ],
+     "directrices": [
+      {
+       "type": "v",
+       "value": -4,
+       "label": "x = −4.00"
+      }
+     ],
+     "asymptotes": [],
+     "P": [
+      1.2937944162966766,
+      -5.133259717798565
+     ],
+     "distances": {
+      "dFocus": 5.293794416296676,
+      "dDirectrix": 5.293794416296676,
+      "ratio": 1
+     },
+     "definitionResidual": 0,
+     "curves": [
+      {
+       "closed": false,
+       "fill": false,
+       "dim": false,
+       "points": 281
+      }
+     ],
+     "origin": "原点 = 焦点 F · 准线在焦点左侧",
+     "phase": 1,
+     "playing": false,
+     "errors": []
+    },
+    "state": {
+     "mode": "unified",
+     "orientation": "x",
+     "params": {
+      "ellipse": {
+       "a": 4,
+       "e": 0
+      },
+      "hyperbola": {
+       "a": 3,
+       "e": 1.6666666666666667
+      },
+      "parabola": {
+       "p": 3
+      },
+      "unified": {
+       "e": 1,
+       "l": 4
+      }
+     },
+     "phase": 1,
+     "playing": false
+    },
+    "liveName": "抛物线",
+    "liveE": "e = 1.00",
+    "familyChip": "抛物线",
+    "eqSymbolic": "r=ℓ1 − e cos θ",
+    "eqNumeric": "r = 4.00 / (1 − 1.00 cos θ)",
+    "relationText": "PF = e · d(P, ℓ)",
+    "eRangeText": "e = 1（抛物线）",
+    "orientationLabel": "焦点在原点 · 准线在左",
+    "metricGrid": "e1.00ℓ4.00d4.00曲线抛物线",
+    "features": [
+     "焦点F(0, 0)",
+     "准线x = −4.00",
+     "半通径ℓ = 4.00",
+     "中心—"
+    ],
+    "noteText": "e = 1：到焦点的距离等于到准线的距离，轨迹是抛物线；曲线两端按视野裁剪。",
+    "defTitle": "定义验证 · 统一视角",
+    "defFormula": "|PF| / d(P, ℓ) = e",
+    "defValues": "PF = 5.29 · PD = 5.29 · PF/PD = 1.0000 · e = 1.0000",
+    "pointReadout": "P (1.29, −5.13)",
+    "stageNote": "原点 = 焦点 F · 准线在焦点左侧 · P 由参数方程生成",
+    "originChip": "焦点在原点 · 准线在左",
+    "modeTabs": [
+     "ellipse:false",
+     "hyperbola:false",
+     "parabola:false",
+     "unified:true"
+    ],
+    "modeCards": [
+     "ellipse:false",
+     "hyperbola:false",
+     "parabola:false",
+     "unified:true"
+    ],
+    "toggles": [
+     "directrix:true",
+     "asymptote:true",
+     "labels:true"
+    ],
+    "axis": [
+     "true",
+     "false"
+    ],
+    "rows": {
+     "a": false,
+     "e": true,
+     "p": false,
+     "l": true
+    },
+    "quickHidden": false,
+    "axisHidden": true,
+    "canvas": {
+     "sig": 2265434889,
+     "nz": 239010,
+     "w": 1182,
+     "h": 810
+    }
+   },
+   "expected": {
+    "kind": "parabola",
+    "e": 1,
+    "l": 4,
+    "d": 4,
+    "center": null,
+    "orientation": "x",
+    "foci": [
+     [
+      0,
+      0
+     ]
+    ],
+    "directrices": [
+     {
+      "type": "vertical",
+      "value": -4
+     }
+    ],
+    "asymptotes": [],
+    "semiLatusRectum": 4,
+    "focalParameter": 4,
+    "equation": "r = 4 / (1 − 1 cos θ)",
+    "invariant": {
+     "type": "ratio",
+     "value": 1
+    },
+    "eRange": "e=1"
+   }
+  },
+  {
+   "id": "unified-e1667-U4",
+   "scenario": {
+    "id": "unified-e1667-U4",
+    "mode": "unified",
+    "params": {
+     "e": 1.6666666666666667,
+     "l": 1.7777777777777777
+    },
+    "orientation": "x",
+    "phase": 1.2,
+    "preset": "U4-unified-hyperbola-l169-e53",
+    "shot": "10-unified-e1.6667-two-branches-1920.png"
+   },
+   "snapshot": {
+    "diag": {
+     "ready": true,
+     "version": "1.0.0",
+     "mode": "unified",
+     "name": "双曲线",
+     "orientation": "x",
+     "params": {
+      "e": 1.6666666666666667,
+      "l": 1.7777777777777777
+     },
+     "derived": {
+      "e": 1.6666666666666667,
+      "l": 1.7777777777777777,
+      "d": 1.0666666666666667
+     },
+     "equation": {
+      "plain": "r = ℓ/(1 − e cos θ)，焦点在极点，准线 x = −ℓ/e",
+      "numeric": "r = 1.78 / (1 − 1.67 cos θ)",
+      "relation": "PF = e · d(P, ℓ)",
+      "eRange": "e > 1（双曲线）"
+     },
+     "foci": [
+      {
+       "label": "F",
+       "x": 0,
+       "y": 0
+      }
+     ],
+     "directrices": [
+      {
+       "type": "v",
+       "value": -1.0666666666666667,
+       "label": "x = −1.07"
+      }
+     ],
+     "asymptotes": [],
+     "P": [
+      0.3357614331242304,
+      -2.3131386257472504
+     ],
+     "distances": {
+      "dFocus": 2.3373801663181615,
+      "dDirectrix": 1.402428099790897,
+      "ratio": 1.6666666666666663
+     },
+     "definitionResidual": 4.440892098500626e-16,
+     "curves": [
+      {
+       "closed": false,
+       "fill": false,
+       "dim": false,
+       "points": 281
+      },
+      {
+       "closed": false,
+       "fill": false,
+       "dim": true,
+       "points": 281
+      }
+     ],
+     "origin": "原点 = 焦点 F · 准线在焦点左侧",
+     "phase": 1.2,
+     "playing": false,
+     "errors": []
+    },
+    "state": {
+     "mode": "unified",
+     "orientation": "x",
+     "params": {
+      "ellipse": {
+       "a": 4,
+       "e": 0
+      },
+      "hyperbola": {
+       "a": 3,
+       "e": 1.6666666666666667
+      },
+      "parabola": {
+       "p": 3
+      },
+      "unified": {
+       "e": 1.6666666666666667,
+       "l": 1.7777777777777777
+      }
+     },
+     "phase": 1.2,
+     "playing": false
+    },
+    "liveName": "双曲线",
+    "liveE": "e = 1.67",
+    "familyChip": "双曲线",
+    "eqSymbolic": "r=ℓ1 − e cos θ",
+    "eqNumeric": "r = 1.78 / (1 − 1.67 cos θ)",
+    "relationText": "PF = e · d(P, ℓ)",
+    "eRangeText": "e > 1（双曲线）",
+    "orientationLabel": "焦点在原点 · 准线在左",
+    "metricGrid": "e1.67ℓ1.78d1.07曲线双曲线",
+    "features": [
+     "焦点F(0, 0)",
+     "准线x = −1.07",
+     "半通径ℓ = 1.78",
+     "中心(−1.67, 0.00)"
+    ],
+    "noteText": "e > 1：轨迹是双曲线。两支上的点到同一焦点 F、同一准线 ℓ 的距离比都等于 e。极坐标取 r > 0 只描出含焦点的一支，图中另一支由中心对称补画。",
+    "defTitle": "定义验证 · 统一视角",
+    "defFormula": "|PF| / d(P, ℓ) = e",
+    "defValues": "PF = 2.34 · PD = 1.40 · PF/PD = 1.6667 · e = 1.6667",
+    "pointReadout": "P (0.34, −2.31)",
+    "stageNote": "原点 = 焦点 F · 准线在焦点左侧 · P 由参数方程生成",
+    "originChip": "焦点在原点 · 准线在左",
+    "modeTabs": [
+     "ellipse:false",
+     "hyperbola:false",
+     "parabola:false",
+     "unified:true"
+    ],
+    "modeCards": [
+     "ellipse:false",
+     "hyperbola:false",
+     "parabola:false",
+     "unified:true"
+    ],
+    "toggles": [
+     "directrix:true",
+     "asymptote:true",
+     "labels:true"
+    ],
+    "axis": [
+     "true",
+     "false"
+    ],
+    "rows": {
+     "a": false,
+     "e": true,
+     "p": false,
+     "l": true
+    },
+    "quickHidden": false,
+    "axisHidden": true,
+    "canvas": {
+     "sig": 1821309520,
+     "nz": 239010,
+     "w": 1182,
+     "h": 810
+    }
+   },
+   "expected": {
+    "kind": "hyperbola",
+    "e": 1.6666666666666667,
+    "l": 1.7777777777777777,
+    "d": 1.0666666666666667,
+    "center": -1.6666666666666663,
+    "orientation": "x",
+    "foci": [
+     [
+      0,
+      0
+     ]
+    ],
+    "directrices": [
+     {
+      "type": "vertical",
+      "value": -1.0666666666666667
+     }
+    ],
+    "asymptotes": [],
+    "semiLatusRectum": 1.7777777777777777,
+    "focalParameter": 1.0666666666666667,
+    "equation": "r = 1.7778 / (1 − 1.6667 cos θ)",
+    "invariant": {
+     "type": "ratio",
+     "value": 1.6666666666666667
+    },
+    "eRange": "e>1"
+   }
+  },
+  {
+   "id": "unified-e16",
+   "scenario": {
+    "id": "unified-e16",
+    "mode": "unified",
+    "params": {
+     "e": 1.6,
+     "l": 2.5
+    },
+    "orientation": "x",
+    "phase": 0.9,
+    "preset": null,
+    "shot": "11-unified-e1.6-two-branches-1920.png"
+   },
+   "snapshot": {
+    "diag": {
+     "ready": true,
+     "version": "1.0.0",
+     "mode": "unified",
+     "name": "双曲线",
+     "orientation": "x",
+     "params": {
+      "e": 1.6,
+      "l": 2.5
+     },
+     "derived": {
+      "e": 1.6,
+      "l": 2.5,
+      "d": 1.5625
+     },
+     "equation": {
+      "plain": "r = ℓ/(1 − e cos θ)，焦点在极点，准线 x = −ℓ/e",
+      "numeric": "r = 2.50 / (1 − 1.60 cos θ)",
+      "relation": "PF = e · d(P, ℓ)",
+      "eRange": "e > 1（双曲线）"
+     },
+     "foci": [
+      {
+       "label": "F",
+       "x": 0,
+       "y": 0
+      }
+     ],
+     "directrices": [
+      {
+       "type": "v",
+       "value": -1.5625,
+       "label": "x = −1.56"
+      }
+     ],
+     "asymptotes": [],
+     "P": [
+      -0.3324592263147322,
+      -1.939781339082974
+     ],
+     "distances": {
+      "dFocus": 1.9680652378964285,
+      "dDirectrix": 1.2300407736852679,
+      "ratio": 1.5999999999999999
+     },
+     "definitionResidual": 2.220446049250313e-16,
+     "curves": [
+      {
+       "closed": false,
+       "fill": false,
+       "dim": false,
+       "points": 281
+      },
+      {
+       "closed": false,
+       "fill": false,
+       "dim": true,
+       "points": 281
+      }
+     ],
+     "origin": "原点 = 焦点 F · 准线在焦点左侧",
+     "phase": 0.9,
+     "playing": false,
+     "errors": []
+    },
+    "state": {
+     "mode": "unified",
+     "orientation": "x",
+     "params": {
+      "ellipse": {
+       "a": 4,
+       "e": 0
+      },
+      "hyperbola": {
+       "a": 3,
+       "e": 1.6666666666666667
+      },
+      "parabola": {
+       "p": 3
+      },
+      "unified": {
+       "e": 1.6,
+       "l": 2.5
+      }
+     },
+     "phase": 0.9,
+     "playing": false
+    },
+    "liveName": "双曲线",
+    "liveE": "e = 1.60",
+    "familyChip": "双曲线",
+    "eqSymbolic": "r=ℓ1 − e cos θ",
+    "eqNumeric": "r = 2.50 / (1 − 1.60 cos θ)",
+    "relationText": "PF = e · d(P, ℓ)",
+    "eRangeText": "e > 1（双曲线）",
+    "orientationLabel": "焦点在原点 · 准线在左",
+    "metricGrid": "e1.60ℓ2.50d1.56曲线双曲线",
+    "features": [
+     "焦点F(0, 0)",
+     "准线x = −1.56",
+     "半通径ℓ = 2.50",
+     "中心(−2.56, 0.00)"
+    ],
+    "noteText": "e > 1：轨迹是双曲线。两支上的点到同一焦点 F、同一准线 ℓ 的距离比都等于 e。极坐标取 r > 0 只描出含焦点的一支，图中另一支由中心对称补画。",
+    "defTitle": "定义验证 · 统一视角",
+    "defFormula": "|PF| / d(P, ℓ) = e",
+    "defValues": "PF = 1.97 · PD = 1.23 · PF/PD = 1.6000 · e = 1.6000",
+    "pointReadout": "P (−0.33, −1.94)",
+    "stageNote": "原点 = 焦点 F · 准线在焦点左侧 · P 由参数方程生成",
+    "originChip": "焦点在原点 · 准线在左",
+    "modeTabs": [
+     "ellipse:false",
+     "hyperbola:false",
+     "parabola:false",
+     "unified:true"
+    ],
+    "modeCards": [
+     "ellipse:false",
+     "hyperbola:false",
+     "parabola:false",
+     "unified:true"
+    ],
+    "toggles": [
+     "directrix:true",
+     "asymptote:true",
+     "labels:true"
+    ],
+    "axis": [
+     "true",
+     "false"
+    ],
+    "rows": {
+     "a": false,
+     "e": true,
+     "p": false,
+     "l": true
+    },
+    "quickHidden": false,
+    "axisHidden": true,
+    "canvas": {
+     "sig": 3716800302,
+     "nz": 239010,
+     "w": 1182,
+     "h": 810
+    }
+   },
+   "expected": {
+    "kind": "hyperbola",
+    "e": 1.6,
+    "l": 2.5,
+    "d": 1.5625,
+    "center": -2.5641025641025634,
+    "orientation": "x",
+    "foci": [
+     [
+      0,
+      0
+     ]
+    ],
+    "directrices": [
+     {
+      "type": "vertical",
+      "value": -1.5625
+     }
+    ],
+    "asymptotes": [],
+    "semiLatusRectum": 2.5,
+    "focalParameter": 1.5625,
+    "equation": "r = 2.5 / (1 − 1.6 cos θ)",
+    "invariant": {
+     "type": "ratio",
+     "value": 1.6
+    },
+    "eRange": "e>1"
+   }
+  },
+  {
+   "id": "unified-e098-clip",
+   "scenario": {
+    "id": "unified-e098-clip",
+    "mode": "unified",
+    "params": {
+     "e": 0.98,
+     "l": 2.5
+    },
+    "orientation": "x",
+    "phase": 1,
+    "preset": null,
+    "shot": "12-unified-e0.98-clipped-1920.png"
+   },
+   "snapshot": {
+    "diag": {
+     "ready": true,
+     "version": "1.0.0",
+     "mode": "unified",
+     "name": "椭圆",
+     "orientation": "x",
+     "params": {
+      "e": 0.98,
+      "l": 2.5
+     },
+     "derived": {
+      "e": 0.98,
+      "l": 2.5,
+      "d": 2.5510204081632653
+     },
+     "equation": {
+      "plain": "r = ℓ/(1 − e cos θ)，焦点在极点，准线 x = −ℓ/e",
+      "numeric": "r = 2.50 / (1 − 0.98 cos θ)",
+      "relation": "PF = e · d(P, ℓ)",
+      "eRange": "0 < e < 1（椭圆）"
+     },
+     "foci": [
+      {
+       "label": "F",
+       "x": 0,
+       "y": 0
+      }
+     ],
+     "directrices": [
+      {
+       "type": "v",
+       "value": -2.5510204081632653,
+       "label": "x = −2.55"
+      }
+     ],
+     "asymptotes": [],
+     "P": [
+      0.8903718861664297,
+      -3.2529108292768725
+     ],
+     "distances": {
+      "dFocus": 3.372564448443101,
+      "dDirectrix": 3.441392294329695,
+      "ratio": 0.98
+     },
+     "definitionResidual": 0,
+     "curves": [
+      {
+       "closed": false,
+       "fill": false,
+       "dim": false,
+       "points": 281
+      }
+     ],
+     "origin": "原点 = 焦点 F · 准线在焦点左侧",
+     "phase": 1,
+     "playing": false,
+     "errors": []
+    },
+    "state": {
+     "mode": "unified",
+     "orientation": "x",
+     "params": {
+      "ellipse": {
+       "a": 4,
+       "e": 0
+      },
+      "hyperbola": {
+       "a": 3,
+       "e": 1.6666666666666667
+      },
+      "parabola": {
+       "p": 3
+      },
+      "unified": {
+       "e": 0.98,
+       "l": 2.5
+      }
+     },
+     "phase": 1,
+     "playing": false
+    },
+    "liveName": "椭圆",
+    "liveE": "e = 0.98",
+    "familyChip": "椭圆",
+    "eqSymbolic": "r=ℓ1 − e cos θ",
+    "eqNumeric": "r = 2.50 / (1 − 0.98 cos θ)",
+    "relationText": "PF = e · d(P, ℓ)",
+    "eRangeText": "0 < e < 1（椭圆）",
+    "orientationLabel": "焦点在原点 · 准线在左",
+    "metricGrid": "e0.98ℓ2.50d2.55曲线椭圆",
+    "features": [
+     "焦点F(0, 0)",
+     "准线x = −2.55",
+     "半通径ℓ = 2.50",
+     "中心(61.87, 0.00)"
+    ],
+    "noteText": "e 很接近 1，完整椭圆向右延伸得很远。图中仅显示视野内的一段椭圆弧，端点在视野边界处断开；这并不表示椭圆在这里终止。",
+    "defTitle": "定义验证 · 统一视角",
+    "defFormula": "|PF| / d(P, ℓ) = e",
+    "defValues": "PF = 3.37 · PD = 3.44 · PF/PD = 0.9800 · e = 0.9800",
+    "pointReadout": "P (0.89, −3.25)",
+    "stageNote": "原点 = 焦点 F · 准线在焦点左侧 · P 由参数方程生成",
+    "originChip": "焦点在原点 · 准线在左",
+    "modeTabs": [
+     "ellipse:false",
+     "hyperbola:false",
+     "parabola:false",
+     "unified:true"
+    ],
+    "modeCards": [
+     "ellipse:false",
+     "hyperbola:false",
+     "parabola:false",
+     "unified:true"
+    ],
+    "toggles": [
+     "directrix:true",
+     "asymptote:true",
+     "labels:true"
+    ],
+    "axis": [
+     "true",
+     "false"
+    ],
+    "rows": {
+     "a": false,
+     "e": true,
+     "p": false,
+     "l": true
+    },
+    "quickHidden": false,
+    "axisHidden": true,
+    "canvas": {
+     "sig": 33114281,
+     "nz": 239010,
+     "w": 1182,
+     "h": 810
+    }
+   },
+   "expected": {
+    "kind": "ellipse",
+    "e": 0.98,
+    "l": 2.5,
+    "d": 2.5510204081632653,
+    "center": 61.86868686868675,
+    "orientation": "x",
+    "foci": [
+     [
+      0,
+      0
+     ]
+    ],
+    "directrices": [
+     {
+      "type": "vertical",
+      "value": -2.5510204081632653
+     }
+    ],
+    "asymptotes": [],
+    "semiLatusRectum": 2.5,
+    "focalParameter": 2.5510204081632653,
+    "equation": "r = 2.5 / (1 − 0.98 cos θ)",
+    "invariant": {
+     "type": "ratio",
+     "value": 0.98
+    },
+    "eRange": "e<1"
+   }
+  }
+ ],
+ "presets": [
+  {
+   "preset": "E1-ellipse-h-a5-e06",
+   "scenario": "ellipse-h-E1",
+   "focusMatch": true,
+   "dirMatch": true,
+   "asymMatch": true,
+   "lMatch": true,
+   "lSource": "feature:6.40",
+   "page": {
+    "foci": [
+     [
+      -3,
+      0
+     ],
+     [
+      3,
+      0
+     ]
+    ],
+    "directrices": [
+     {
+      "type": "v",
+      "value": 8.333333333333334,
+      "label": "x = 8.33"
+     },
+     {
+      "type": "v",
+      "value": -8.333333333333334,
+      "label": "x = −8.33"
+     }
+    ],
+    "asymptotes": [],
+    "equation": {
+     "plain": "x²/a² + y²/b² = 1",
+     "numeric": "x² / 25.00 + y² / 16.00 = 1",
+     "relation": "a² = b² + c²",
+     "eRange": "0 ≤ e < 1"
+    },
+    "derived": {
+     "a": 5,
+     "b": 4,
+     "c": 3,
+     "e": 0.6
+    }
+   }
+  },
+  {
+   "preset": "E2-ellipse-v-a5-e06",
+   "scenario": "ellipse-v-E2",
+   "focusMatch": true,
+   "dirMatch": true,
+   "asymMatch": true,
+   "lMatch": true,
+   "lSource": "feature:6.40",
+   "page": {
+    "foci": [
+     [
+      0,
+      -3
+     ],
+     [
+      0,
+      3
+     ]
+    ],
+    "directrices": [
+     {
+      "type": "h",
+      "value": 8.333333333333334,
+      "label": "y = 8.33"
+     },
+     {
+      "type": "h",
+      "value": -8.333333333333334,
+      "label": "y = −8.33"
+     }
+    ],
+    "asymptotes": [],
+    "equation": {
+     "plain": "x²/b² + y²/a² = 1",
+     "numeric": "x² / 16.00 + y² / 25.00 = 1",
+     "relation": "a² = b² + c²",
+     "eRange": "0 ≤ e < 1"
+    },
+    "derived": {
+     "a": 5,
+     "b": 4,
+     "c": 3,
+     "e": 0.6
+    }
+   }
+  },
+  {
+   "preset": "E3-circle-a4-e0",
+   "scenario": "circle-E3",
+   "focusMatch": true,
+   "dirMatch": true,
+   "asymMatch": true,
+   "lMatch": true,
+   "lSource": "derived.a",
+   "page": {
+    "foci": [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      0
+     ]
+    ],
+    "directrices": [],
+    "asymptotes": [],
+    "equation": {
+     "plain": "x² + y² = a²",
+     "numeric": "x² + y² = 16.00",
+     "relation": "r = a",
+     "eRange": "e = 0（圆）"
+    },
+    "derived": {
+     "a": 4,
+     "b": 4,
+     "c": 0,
+     "e": 0
+    }
+   }
+  },
+  {
+   "preset": "H1-hyperbola-h-a3-e1667",
+   "scenario": "hyperbola-h-H1",
+   "focusMatch": true,
+   "dirMatch": true,
+   "asymMatch": true,
+   "lMatch": true,
+   "lSource": "derived b^2/a",
+   "page": {
+    "foci": [
+     [
+      -5,
+      0
+     ],
+     [
+      5,
+      0
+     ]
+    ],
+    "directrices": [
+     {
+      "type": "v",
+      "value": 1.8,
+      "label": "x = 1.80"
+     },
+     {
+      "type": "v",
+      "value": -1.8,
+      "label": "x = −1.80"
+     }
+    ],
+    "asymptotes": [
+     "y = ±1.33x",
+     "y = ±1.33x"
+    ],
+    "equation": {
+     "plain": "x²/a² − y²/b² = 1",
+     "numeric": "x² / 9.00 − y² / 16.00 = 1",
+     "relation": "c² = a² + b²",
+     "eRange": "e > 1"
+    },
+    "derived": {
+     "a": 3,
+     "b": 4,
+     "c": 5,
+     "e": 1.6666666666666667
+    }
+   }
+  },
+  {
+   "preset": "H2-hyperbola-v-a3-e1667",
+   "scenario": "hyperbola-v-H2",
+   "focusMatch": true,
+   "dirMatch": true,
+   "asymMatch": true,
+   "lMatch": true,
+   "lSource": "derived b^2/a",
+   "page": {
+    "foci": [
+     [
+      0,
+      -5
+     ],
+     [
+      0,
+      5
+     ]
+    ],
+    "directrices": [
+     {
+      "type": "h",
+      "value": 1.8,
+      "label": "y = 1.80"
+     },
+     {
+      "type": "h",
+      "value": -1.8,
+      "label": "y = −1.80"
+     }
+    ],
+    "asymptotes": [
+     "y = ±0.75x",
+     "y = ±0.75x"
+    ],
+    "equation": {
+     "plain": "y²/a² − x²/b² = 1",
+     "numeric": "y² / 9.00 − x² / 16.00 = 1",
+     "relation": "c² = a² + b²",
+     "eRange": "e > 1"
+    },
+    "derived": {
+     "a": 3,
+     "b": 4,
+     "c": 5,
+     "e": 1.6666666666666667
+    }
+   }
+  },
+  {
+   "preset": "P1-parabola-h-p4",
+   "scenario": "parabola-h-P1",
+   "focusMatch": true,
+   "dirMatch": true,
+   "asymMatch": true,
+   "lMatch": true,
+   "lSource": "metricGrid:p4.00e1.00p/22.00通径8.00",
+   "page": {
+    "foci": [
+     [
+      2,
+      0
+     ]
+    ],
+    "directrices": [
+     {
+      "type": "v",
+      "value": -2,
+      "label": "x = −2.00"
+     }
+    ],
+    "asymptotes": [],
+    "equation": {
+     "plain": "y² = 2px",
+     "numeric": "y² = 8.00x",
+     "relation": "e = 1（焦点到准线的距离为 p）",
+     "eRange": "e = 1"
+    },
+    "derived": {
+     "p": 4,
+     "e": 1
+    }
+   }
+  },
+  {
+   "preset": "P2-parabola-v-p3",
+   "scenario": "parabola-v-P2",
+   "focusMatch": true,
+   "dirMatch": true,
+   "asymMatch": true,
+   "lMatch": true,
+   "lSource": "metricGrid:p3.00e1.00p/21.50通径6.00",
+   "page": {
+    "foci": [
+     [
+      0,
+      1.5
+     ]
+    ],
+    "directrices": [
+     {
+      "type": "h",
+      "value": -1.5,
+      "label": "y = −1.50"
+     }
+    ],
+    "asymptotes": [],
+    "equation": {
+     "plain": "x² = 2py",
+     "numeric": "x² = 6.00y",
+     "relation": "e = 1（焦点到准线的距离为 p）",
+     "eRange": "e = 1"
+    },
+    "derived": {
+     "p": 3,
+     "e": 1
+    }
+   }
+  },
+  {
+   "preset": "U1-unified-ellipse-l32-e06",
+   "scenario": "unified-e065-U1",
+   "focusMatch": true,
+   "dirMatch": true,
+   "asymMatch": true,
+   "lMatch": true,
+   "lSource": "feature:ℓ = 3.20",
+   "page": {
+    "foci": [
+     [
+      0,
+      0
+     ]
+    ],
+    "directrices": [
+     {
+      "type": "v",
+      "value": -5.333333333333334,
+      "label": "x = −5.33"
+     }
+    ],
+    "asymptotes": [],
+    "equation": {
+     "plain": "r = ℓ/(1 − e cos θ)，焦点在极点，准线 x = −ℓ/e",
+     "numeric": "r = 3.20 / (1 − 0.60 cos θ)",
+     "relation": "PF = e · d(P, ℓ)",
+     "eRange": "0 < e < 1（椭圆）"
+    },
+    "derived": {
+     "e": 0.6,
+     "l": 3.2,
+     "d": 5.333333333333334
+    }
+   }
+  },
+  {
+   "preset": "U2-unified-parabola-l4-e1",
+   "scenario": "unified-e1-U2",
+   "focusMatch": true,
+   "dirMatch": true,
+   "asymMatch": true,
+   "lMatch": true,
+   "lSource": "feature:ℓ = 4.00",
+   "page": {
+    "foci": [
+     [
+      0,
+      0
+     ]
+    ],
+    "directrices": [
+     {
+      "type": "v",
+      "value": -4,
+      "label": "x = −4.00"
+     }
+    ],
+    "asymptotes": [],
+    "equation": {
+     "plain": "r = ℓ/(1 − e cos θ)，焦点在极点，准线 x = −ℓ/e",
+     "numeric": "r = 4.00 / (1 − 1.00 cos θ)",
+     "relation": "PF = e · d(P, ℓ)",
+     "eRange": "e = 1（抛物线）"
+    },
+    "derived": {
+     "e": 1,
+     "l": 4,
+     "d": 4
+    }
+   }
+  },
+  {
+   "preset": "U4-unified-hyperbola-l169-e53",
+   "observation": "unified mode does not render asymptotes (page design)"
+  },
+  {
+   "preset": "U4-unified-hyperbola-l169-e53",
+   "scenario": "unified-e1667-U4",
+   "focusMatch": true,
+   "dirMatch": true,
+   "asymMatch": true,
+   "lMatch": true,
+   "lSource": "feature:ℓ = 1.78",
+   "page": {
+    "foci": [
+     [
+      0,
+      0
+     ]
+    ],
+    "directrices": [
+     {
+      "type": "v",
+      "value": -1.0666666666666667,
+      "label": "x = −1.07"
+     }
+    ],
+    "asymptotes": [],
+    "equation": {
+     "plain": "r = ℓ/(1 − e cos θ)，焦点在极点，准线 x = −ℓ/e",
+     "numeric": "r = 1.78 / (1 − 1.67 cos θ)",
+     "relation": "PF = e · d(P, ℓ)",
+     "eRange": "e > 1（双曲线）"
+    },
+    "derived": {
+     "e": 1.6666666666666667,
+     "l": 1.7777777777777777,
+     "d": 1.0666666666666667
+    }
+   }
+  },
+  {
+   "preset": "U3-unified-hyperbola-l1-e2",
+   "clamped": true,
+   "page": {
+    "derived": {
+     "e": 2,
+     "l": 1.5,
+     "d": 0.75
+    },
+    "name": "双曲线",
+    "curves": [
+     {
+      "closed": false,
+      "fill": false,
+      "dim": false,
+      "points": 281
+     },
+     {
+      "closed": false,
+      "fill": false,
+      "dim": true,
+      "points": 281
+     }
+    ]
+   }
+  },
+  {
+   "preset": "U5-unified-circle-l3-e0",
+   "clamped": true,
+   "page": {
+    "derived": {
+     "e": 0.35,
+     "l": 3,
+     "d": 8.571428571428571
+    },
+    "name": "椭圆",
+    "curves": [
+     {
+      "closed": true,
+      "fill": true,
+      "dim": false,
+      "points": 281
+     }
+    ]
+   }
+  }
+ ],
+ "unified": {
+  "e16": {
+   "diag": {
+    "ready": true,
+    "version": "1.0.0",
+    "mode": "unified",
+    "name": "双曲线",
+    "orientation": "x",
+    "params": {
+     "e": 1.6,
+     "l": 2.5
+    },
+    "derived": {
+     "e": 1.6,
+     "l": 2.5,
+     "d": 1.5625
+    },
+    "equation": {
+     "plain": "r = ℓ/(1 − e cos θ)，焦点在极点，准线 x = −ℓ/e",
+     "numeric": "r = 2.50 / (1 − 1.60 cos θ)",
+     "relation": "PF = e · d(P, ℓ)",
+     "eRange": "e > 1（双曲线）"
+    },
+    "foci": [
+     {
+      "label": "F",
+      "x": 0,
+      "y": 0
+     }
+    ],
+    "directrices": [
+     {
+      "type": "v",
+      "value": -1.5625,
+      "label": "x = −1.56"
+     }
+    ],
+    "asymptotes": [],
+    "P": [
+     -0.3324592263147322,
+     -1.939781339082974
+    ],
+    "distances": {
+     "dFocus": 1.9680652378964285,
+     "dDirectrix": 1.2300407736852679,
+     "ratio": 1.5999999999999999
+    },
+    "definitionResidual": 2.220446049250313e-16,
+    "curves": [
+     {
+      "closed": false,
+      "fill": false,
+      "dim": false,
+      "points": 281
+     },
+     {
+      "closed": false,
+      "fill": false,
+      "dim": true,
+      "points": 281
+     }
+    ],
+    "origin": "原点 = 焦点 F · 准线在焦点左侧",
+    "phase": 0.9,
+    "playing": false,
+    "errors": []
+   },
+   "note": "e > 1：轨迹是双曲线。两支上的点到同一焦点 F、同一准线 ℓ 的距离比都等于 e。极坐标取 r > 0 只描出含焦点的一支，图中另一支由中心对称补画。",
+   "stageNote": "原点 = 焦点 F · 准线在焦点左侧 · P 由参数方程生成",
+   "mirror": [
+    -4.7957459018903945,
+    1.939781339082974
+   ],
+   "mirrorMeasures": {
+    "dFocus": 5.1731934430246325,
+    "dDirectrix": 3.2332459018903945,
+    "ratio": 1.6000000000000003
+   },
+   "mirrorResidual": 8.881784197001252e-16
+  },
+  "stageNoteObservation": {
+   "stageNote": "原点 = 焦点 F · 准线在焦点左侧 · P 由参数方程生成",
+   "note": "e > 1：轨迹是双曲线。两支上的点到同一焦点 F、同一准线 ℓ 的距离比都等于 e。极坐标取 r > 0 只描出含焦点的一支，图中另一支由中心对称补画。",
+   "noteAbout": "buildUnified() 计算了更详细的 stageNote（如「统一视角：e > 1 → 双曲线（两支） · 焦点在原点」），但 updateStaticUI 始终只写 originNote + P 文案，故该字段未显示；属轻微死字段/文案缺失，不影响主面板说明。"
+  },
+  "e105far": {
+   "diag": {
+    "ready": true,
+    "version": "1.0.0",
+    "mode": "unified",
+    "name": "双曲线",
+    "orientation": "x",
+    "params": {
+     "e": 1.05,
+     "l": 4
+    },
+    "derived": {
+     "e": 1.05,
+     "l": 4,
+     "d": 3.8095238095238093
+    },
+    "equation": {
+     "plain": "r = ℓ/(1 − e cos θ)，焦点在极点，准线 x = −ℓ/e",
+     "numeric": "r = 4.00 / (1 − 1.05 cos θ)",
+     "relation": "PF = e · d(P, ℓ)",
+     "eRange": "e > 1（双曲线）"
+    },
+    "foci": [
+     {
+      "label": "F",
+      "x": 0,
+      "y": 0
+     }
+    ],
+    "directrices": [
+     {
+      "type": "v",
+      "value": -3.8095238095238093,
+      "label": "x = −3.81"
+     }
+    ],
+    "asymptotes": [],
+    "P": [
+     1.0183630688419778,
+     -4.965938860942681
+    ],
+    "distances": {
+     "dFocus": 5.069281222284077,
+     "dDirectrix": 4.827886878365787,
+     "ratio": 1.05
+    },
+    "definitionResidual": 0,
+    "curves": [
+     {
+      "closed": false,
+      "fill": false,
+      "dim": false,
+      "points": 281
+     },
+     {
+      "closed": false,
+      "fill": false,
+      "dim": true,
+      "points": 281
+     }
+    ],
+    "origin": "原点 = 焦点 F · 准线在焦点左侧",
+    "phase": 1,
+    "playing": false,
+    "errors": []
+   },
+   "note": "e > 1：轨迹是双曲线。两支上的点到同一焦点 F、同一准线 ℓ 的距离比都等于 e。e 很接近 1，另一支离得很远，当前视野只显示含焦点的一支；「中心」给出它的对称中心。"
+  },
+  "e098": {
+   "diag": {
+    "ready": true,
+    "version": "1.0.0",
+    "mode": "unified",
+    "name": "椭圆",
+    "orientation": "x",
+    "params": {
+     "e": 0.98,
+     "l": 2.5
+    },
+    "derived": {
+     "e": 0.98,
+     "l": 2.5,
+     "d": 2.5510204081632653
+    },
+    "equation": {
+     "plain": "r = ℓ/(1 − e cos θ)，焦点在极点，准线 x = −ℓ/e",
+     "numeric": "r = 2.50 / (1 − 0.98 cos θ)",
+     "relation": "PF = e · d(P, ℓ)",
+     "eRange": "0 < e < 1（椭圆）"
+    },
+    "foci": [
+     {
+      "label": "F",
+      "x": 0,
+      "y": 0
+     }
+    ],
+    "directrices": [
+     {
+      "type": "v",
+      "value": -2.5510204081632653,
+      "label": "x = −2.55"
+     }
+    ],
+    "asymptotes": [],
+    "P": [
+     0.8903718861664297,
+     -3.2529108292768725
+    ],
+    "distances": {
+     "dFocus": 3.372564448443101,
+     "dDirectrix": 3.441392294329695,
+     "ratio": 0.98
+    },
+    "definitionResidual": 0,
+    "curves": [
+     {
+      "closed": false,
+      "fill": false,
+      "dim": false,
+      "points": 281
+     }
+    ],
+    "origin": "原点 = 焦点 F · 准线在焦点左侧",
+    "phase": 1,
+    "playing": false,
+    "errors": []
+   },
+   "note": "e 很接近 1，完整椭圆向右延伸得很远。图中仅显示视野内的一段椭圆弧，端点在视野边界处断开；这并不表示椭圆在这里终止。",
+   "stageNote": "原点 = 焦点 F · 准线在焦点左侧 · P 由参数方程生成",
+   "eRangeText": "0 < e < 1（椭圆）"
+  },
+  "guideText": "×\nEQUATION ATLAS · 方程速查\n一个比值，三种曲线\n\n把“到定点的距离”与“到定直线的距离”作比，比值 e 就是离心率。e 小于、等于、大于 1，分别得到椭圆、抛物线、双曲线。下面把定义、标准方程与推导一次讲清。\n\n设动点 P 到焦点 F 的距离为 r，到一条定直线 ℓ（准线）的距离为 d。若 r / d = e 为常数，则 P 的轨迹是圆锥曲线。\n焦点、准线、离心率三个对象，统一了椭圆、抛物线和双曲线。\n\nPF / d(P, ℓ) = e\n0 < e < 1\n椭圆\nx²/a² + y²/b² = 1\n\na > b > 0，c² = a² − b²，e = c/a。焦点在 x 轴：F(±c, 0)；在 y 轴时交换 x、y。\n\n另一种定义：|PF₁| + |PF₂| = 2a。\n\ne > 1\n双曲线\nx²/a² − y²/b² = 1\n\na,b > 0，c² = a² + b²，e = c/a。焦点在 x 轴：F(±c, 0)；渐近线 y = ±(b/a)x。\n\n另一种定义：| |PF₁| − |PF₂| | = 2a。定义含绝对值，所以轨迹是两支。\n\ne = 1\n抛物线\ny² = 2px\n\np > 0，焦点 F(p/2, 0)，准线 x = −p/2。也有定义 |PF| = d(P, ℓ)。\n\n开口向上时标准方程为 x² = 2py。\n\n椭圆方程的由来\n\n设 F₁(−c,0)、F₂(c,0)，由 |PF₁| + |PF₂| = 2a 移项并平方：\n\n√((x+c)²+y²) + √((x−c)²+y²) = 2a\n\n两次平方后得到 (a²−c²)x² + a²y² = a²(a²−c²)。令 b² = a²−c²，即得 x²/a² + y²/b² = 1。\n\n双曲线方程的由来\n\n把“和”换成“差的绝对值” | |PF₁| − |PF₂| | = 2a，同样移项、平方，整理可得：\n\n(a²−c²)x² + a²y² = a²(a²−c²)，但此时 c > a，所以令 b² = c²−a²，得到 x²/a² − y²/b² = 1。\n\n椭圆中 a 最大；双曲线中 c 最大，这是两个关系式最容易混淆的地方。\n\n抛物线方程的由来\n\n焦点 F(p/2,0)，准线 x = −p/2，由 |PF| = d(P,ℓ)：\n\n√((x−p/2)² + y²) = x + p/2\n\n两边平方并整理，x² 项抵消，得到 y² = 2px。这也是抛物线的焦点到顶点距离为 p/2 的原因。\n\n统一定义的极坐标形式\n\n以焦点为极点、极轴沿对称轴，设半通径为 ℓ，准线在焦点左侧，则轨迹满足：\n\nr = ℓ / (1 − e cos θ)\n\ne < 1 时是椭圆；e = 1 时是抛物线；e > 1 时是双曲线。按定义，两支上的点到同一焦点、同一准线的距离比都等于 e；取 r > 0 作图时只描出含焦点的一支，图中另一支由中心对称补画。\n\n看方程判类型（无 xy 项时）\n\n把方程写成 Ax² + Cy² + Dx + Ey + F = 0：\n\nA、C 同号：椭圆型（A=C 且无平移时为圆）；\nA、C 异号：双曲线型；\nA、C 中恰有一个为 0：抛物线型。\n\n有平移时先配方，化成以 (h,k) 为中心或顶点的标准形式再判断。\n\n五个易错点\n椭圆 a² = b² + c²，a 最大；双曲线 c² = a² + b²，c 最大。\ny² = 2px 的焦点是 (p/2,0)，不是 (p,0)；准线 x = −p/2。\n离心率 e 的范围：椭圆 0 ≤ e < 1（圆 e=0），双曲线 e > 1，抛物线 e=1。\n焦点轴换到 y 轴时，方程与焦点坐标要同时交换 x、y，不能只改方程。\n极坐标 r = ℓ/(1−e cosθ) 在 e > 1 且 r > 0 时只画出双曲线的一支，不能把“定义”说成“只给一支”。\n课堂演示路线\n\n① 先固定椭圆 a，只改变 e：观察 e 越接近 0，椭圆越接近圆。\n\n② 切到双曲线，观察 c² = a² + b² 与渐近线如何同时变化。\n\n③ 切到抛物线，验证 |PF| 与到准线的距离始终相等。\n\n④ 最后进入“统一视角”，让 e 从 0.6 调到 1.6，看三类曲线如何由同一个焦点—准线定义生成。\n\n① 椭圆\n② 双曲线\n③ 抛物线\n④ 统一视角\n操作方式\n\n拖动参数滑杆，曲线与方程实时更新；点击上方或下方卡片切换曲线；空格暂停动点；按 1–4 快速切换模式；R 重置当前模式；G 打开本页。\n\n椭圆、双曲线的标准形式以中心为原点；抛物线以顶点为原点；统一视角以焦点为原点。切换模式时，请注意坐标原点代表的几何对象。\n\n坐标原点：中心 / 顶点 / 焦点（按模式标注）\n图中长度单位与坐标轴一致\n动点 P 由参数方程生成",
+  "forbiddenHits": []
+ },
+ "endpoints": [
+  {
+   "id": "ellipse-circle-min",
+   "params": {
+    "a": 2,
+    "e": 0
+   },
+   "derived": {
+    "a": 2,
+    "b": 2,
+    "c": 0,
+    "e": 0
+   },
+   "definitionResidual": 0,
+   "onCurve": 0,
+   "curves": [
+    {
+     "closed": true,
+     "fill": true,
+     "dim": false,
+     "points": 221
+    }
+   ],
+   "errors": [],
+   "applyError": null
+  },
+  {
+   "id": "ellipse-max",
+   "params": {
+    "a": 5,
+    "e": 0.85
+   },
+   "derived": {
+    "a": 5,
+    "b": 2.633913438213185,
+    "c": 4.25,
+    "e": 0.85
+   },
+   "definitionResidual": 1.7763568394002505e-15,
+   "onCurve": 0,
+   "curves": [
+    {
+     "closed": true,
+     "fill": true,
+     "dim": false,
+     "points": 221
+    }
+   ],
+   "errors": [],
+   "applyError": null
+  },
+  {
+   "id": "ellipse-min-flat",
+   "params": {
+    "a": 2,
+    "e": 0.85
+   },
+   "derived": {
+    "a": 2,
+    "b": 1.053565375285274,
+    "c": 1.7,
+    "e": 0.85
+   },
+   "definitionResidual": 0,
+   "onCurve": 0,
+   "curves": [
+    {
+     "closed": true,
+     "fill": true,
+     "dim": false,
+     "points": 221
+    }
+   ],
+   "errors": [],
+   "applyError": null
+  },
+  {
+   "id": "hyperbola-min",
+   "params": {
+    "a": 1.2,
+    "e": 1.05
+   },
+   "derived": {
+    "a": 1.2,
+    "b": 0.384187454245971,
+    "c": 1.26,
+    "e": 1.05
+   },
+   "definitionResidual": 4.440892098500626e-16,
+   "onCurve": 0,
+   "curves": [
+    {
+     "closed": false,
+     "fill": false,
+     "dim": false,
+     "points": 131
+    },
+    {
+     "closed": false,
+     "fill": false,
+     "dim": false,
+     "points": 131
+    }
+   ],
+   "errors": [],
+   "applyError": null
+  },
+  {
+   "id": "hyperbola-max",
+   "params": {
+    "a": 3.2,
+    "e": 2
+   },
+   "derived": {
+    "a": 3.2,
+    "b": 5.542562584220407,
+    "c": 6.4,
+    "e": 2
+   },
+   "definitionResidual": 8.881784197001252e-16,
+   "onCurve": 0,
+   "curves": [
+    {
+     "closed": false,
+     "fill": false,
+     "dim": false,
+     "points": 131
+    },
+    {
+     "closed": false,
+     "fill": false,
+     "dim": false,
+     "points": 131
+    }
+   ],
+   "errors": [],
+   "applyError": null
+  },
+  {
+   "id": "hyperbola-max-v",
+   "params": {
+    "a": 3.2,
+    "e": 2
+   },
+   "derived": {
+    "a": 3.2,
+    "b": 5.542562584220407,
+    "c": 6.4,
+    "e": 2
+   },
+   "definitionResidual": 8.881784197001252e-16,
+   "onCurve": 0,
+   "curves": [
+    {
+     "closed": false,
+     "fill": false,
+     "dim": false,
+     "points": 131
+    },
+    {
+     "closed": false,
+     "fill": false,
+     "dim": false,
+     "points": 131
+    }
+   ],
+   "errors": [],
+   "applyError": null
+  },
+  {
+   "id": "parabola-min",
+   "params": {
+    "p": 1
+   },
+   "derived": {
+    "p": 1,
+    "e": 1
+   },
+   "definitionResidual": 0,
+   "onCurve": 0,
+   "curves": [
+    {
+     "closed": false,
+     "fill": false,
+     "dim": false,
+     "points": 181
+    }
+   ],
+   "errors": [],
+   "applyError": null
+  },
+  {
+   "id": "parabola-max",
+   "params": {
+    "p": 5
+   },
+   "derived": {
+    "p": 5,
+    "e": 1
+   },
+   "definitionResidual": 1.7763568394002505e-15,
+   "onCurve": 0,
+   "curves": [
+    {
+     "closed": false,
+     "fill": false,
+     "dim": false,
+     "points": 181
+    }
+   ],
+   "errors": [],
+   "applyError": null
+  },
+  {
+   "id": "parabola-max-v",
+   "params": {
+    "p": 5
+   },
+   "derived": {
+    "p": 5,
+    "e": 1
+   },
+   "definitionResidual": 1.7763568394002505e-15,
+   "onCurve": 0,
+   "curves": [
+    {
+     "closed": false,
+     "fill": false,
+     "dim": false,
+     "points": 181
+    }
+   ],
+   "errors": [],
+   "applyError": null
+  },
+  {
+   "id": "unified-min",
+   "params": {
+    "e": 0.35,
+    "l": 1.5
+   },
+   "derived": {
+    "e": 0.35,
+    "l": 1.5,
+    "d": 4.285714285714286
+   },
+   "definitionResidual": 1.1102230246251565e-16,
+   "onCurve": 4.440892098500626e-16,
+   "curves": [
+    {
+     "closed": true,
+     "fill": true,
+     "dim": false,
+     "points": 281
+    }
+   ],
+   "errors": [],
+   "applyError": null
+  },
+  {
+   "id": "unified-min-e-max-l",
+   "params": {
+    "e": 0.35,
+    "l": 4
+   },
+   "derived": {
+    "e": 0.35,
+    "l": 4,
+    "d": 11.428571428571429
+   },
+   "definitionResidual": 0,
+   "onCurve": 0,
+   "curves": [
+    {
+     "closed": true,
+     "fill": true,
+     "dim": false,
+     "points": 281
+    }
+   ],
+   "errors": [],
+   "applyError": null
+  },
+  {
+   "id": "unified-max",
+   "params": {
+    "e": 2.2,
+    "l": 1.5
+   },
+   "derived": {
+    "e": 2.2,
+    "l": 1.5,
+    "d": 0.6818181818181818
+   },
+   "definitionResidual": 8.881784197001252e-16,
+   "onCurve": 2.220446049250313e-16,
+   "curves": [
+    {
+     "closed": false,
+     "fill": false,
+     "dim": false,
+     "points": 281
+    },
+    {
+     "closed": false,
+     "fill": false,
+     "dim": true,
+     "points": 281
+    }
+   ],
+   "errors": [],
+   "applyError": null
+  },
+  {
+   "id": "unified-max-both",
+   "params": {
+    "e": 2.2,
+    "l": 4
+   },
+   "derived": {
+    "e": 2.2,
+    "l": 4,
+    "d": 1.8181818181818181
+   },
+   "definitionResidual": 8.881784197001252e-16,
+   "onCurve": 6.661338147750939e-16,
+   "curves": [
+    {
+     "closed": false,
+     "fill": false,
+     "dim": false,
+     "points": 281
+    },
+    {
+     "closed": false,
+     "fill": false,
+     "dim": true,
+     "points": 281
+    }
+   ],
+   "errors": [],
+   "applyError": null
+  },
+  {
+   "id": "unified-parabola-min-l",
+   "params": {
+    "e": 1,
+    "l": 1.5
+   },
+   "derived": {
+    "e": 1,
+    "l": 1.5,
+    "d": 1.5
+   },
+   "definitionResidual": 0,
+   "onCurve": 0,
+   "curves": [
+    {
+     "closed": false,
+     "fill": false,
+     "dim": false,
+     "points": 281
+    }
+   ],
+   "errors": [],
+   "applyError": null
+  },
+  {
+   "id": "unified-parabola-max-l",
+   "params": {
+    "e": 1,
+    "l": 4
+   },
+   "derived": {
+    "e": 1,
+    "l": 4,
+    "d": 4
+   },
+   "definitionResidual": 0,
+   "onCurve": 0,
+   "curves": [
+    {
+     "closed": false,
+     "fill": false,
+     "dim": false,
+     "points": 281
+    }
+   ],
+   "errors": [],
+   "applyError": null
+  }
+ ],
+ "urlParams": [
+  {
+   "id": "url-ellipse",
+   "url": "file:///D:/workspace/%E6%95%B0%E5%AD%A6%E6%BC%94%E7%A4%BA/%E5%9C%86%E9%94%A5%E6%9B%B2%E7%BA%BF/index.html?mode=ellipse&a=5&e=0.6&axis=x&static=1&t=0.95",
+   "expect": {
+    "mode": "ellipse",
+    "name": "椭圆",
+    "playing": false,
+    "phase": 0.95,
+    "orientation": "x",
+    "a": 5,
+    "e": 0.6
+   },
+   "got": {
+    "state": {
+     "mode": "ellipse",
+     "orientation": "x",
+     "params": {
+      "ellipse": {
+       "a": 5,
+       "e": 0.6
+      },
+      "hyperbola": {
+       "a": 2.2,
+       "e": 1.45
+      },
+      "parabola": {
+       "p": 3
+      },
+      "unified": {
+       "e": 0.65,
+       "l": 2.5
+      }
+     },
+     "phase": 0.95,
+     "playing": false
+    },
+    "diag": {
+     "mode": "ellipse",
+     "name": "椭圆",
+     "derived": {
+      "a": 5,
+      "b": 4,
+      "c": 3,
+      "e": 0.6
+     },
+     "curves": [
+      {
+       "closed": true,
+       "fill": true,
+       "dim": false,
+       "points": 221
+      }
+     ],
+     "eRange": "0 ≤ e < 1"
+    },
+    "errors": [],
+    "playing": false,
+    "bodyText": "CONIC EQUATION LAB\n解析几何\n圆锥曲线方程实验室 / CONIC LAB\n标准位置 · 中心在原点\n方程速查\n01\n曲线与参数\n\n选择曲线 · 调整方程\n\n椭圆\nELLIPSE\n双曲线\nHYPERBOLA\n抛物线\nPARABOLA\n统一视角\nUNIFIED\n方程参数\na² = b² + c²\n长半轴\na\n5.00\n决定椭圆大小\n2 — 5\n离心率\ne\n0.60\n越小越接近圆\n0 — 0.85\n焦点轴\n焦点在 x 轴\n焦点在 y 轴\n准线\n标签\n播放动点\n重置\n空格暂停动点 · 1–4 切换曲线 · R 重置参数 · G 打开方程速查\n当前曲线 / LIVE CURVE\n椭圆\ne = 0.60\n播放动点\n=\n定义验证 · 椭圆\n|PF₁| + |PF₂| = 2a\nPF₁ = 6.75 · PF₂ = 3.25 · 和 = 10.00 = 2a = 10.00\nPOINT P\nP (2.91, 3.25)\n原点 = 中心 O · P 由参数方程生成\n02\n方程档案\n\n标准方程 · 关键几何量\n\n椭圆\n标准方程 / STANDARD FORM\n焦点在 x 轴\nx²\na²\n+\ny²\nb²\n=\n1\nx² / 25.00 + y² / 16.00 = 1\na² = b² + c²\n0 ≤ e < 1\na\n5.00\nb\n4.00\nc\n3.00\ne\n0.60\n几何要素\n实时\n焦点\n(−3.00, 0.00) · (3.00, 0.00)\n准线\nx = ±8.33\n通径\n6.40\ni\n观察提示\n\n椭圆中 a 最大，a² = b² + c²；拖动 e 观察 b 与 c 如何此消彼长。\n\n这个标准方程从哪里来？\n看推导 →\n03\n曲线图鉴\n\n四种方程视角 · 点击卡片切换\n\n统一定义：|PF| / d(P, ℓ) = e\n01\n椭圆\nELLIPSE\nx²/a² + y²/b² = 1\n|PF₁| + |PF₂| = 2a\n02\n双曲线\nHYPERBOLA\nx²/a² − y²/b² = 1\n| |PF₁| − |PF₂| | = 2a\n03\n抛物线\nPARABOLA\ny² = 2px\n|PF| = d(P, ℓ)\n04\n统一视角\nUNIFIED\nPF / d(P, ℓ) = e\ne < 1 · e = 1 · e > 1"
+   }
+  },
+  {
+   "id": "url-hyperbola-v",
+   "url": "file:///D:/workspace/%E6%95%B0%E5%AD%A6%E6%BC%94%E7%A4%BA/%E5%9C%86%E9%94%A5%E6%9B%B2%E7%BA%BF/index.html?mode=hyperbola&a=2.2&e=1.45&axis=y&static=1&t=1.2",
+   "expect": {
+    "mode": "hyperbola",
+    "name": "双曲线",
+    "playing": false,
+    "phase": 1.2,
+    "orientation": "y",
+    "a": 2.2,
+    "e": 1.45
+   },
+   "got": {
+    "state": {
+     "mode": "hyperbola",
+     "orientation": "y",
+     "params": {
+      "ellipse": {
+       "a": 4,
+       "e": 0.55
+      },
+      "hyperbola": {
+       "a": 2.2,
+       "e": 1.45
+      },
+      "parabola": {
+       "p": 3
+      },
+      "unified": {
+       "e": 0.65,
+       "l": 2.5
+      }
+     },
+     "phase": 1.2,
+     "playing": false
+    },
+    "diag": {
+     "mode": "hyperbola",
+     "name": "双曲线",
+     "derived": {
+      "a": 2.2,
+      "b": 2.3100000000000005,
+      "c": 3.19,
+      "e": 1.45
+     },
+     "curves": [
+      {
+       "closed": false,
+       "fill": false,
+       "dim": false,
+       "points": 131
+      },
+      {
+       "closed": false,
+       "fill": false,
+       "dim": false,
+       "points": 131
+      }
+     ],
+     "eRange": "e > 1"
+    },
+    "errors": [],
+    "playing": false,
+    "bodyText": "CONIC EQUATION LAB\n解析几何\n圆锥曲线方程实验室 / CONIC LAB\n标准位置 · 中心在原点\n方程速查\n01\n曲线与参数\n\n选择曲线 · 调整方程\n\n椭圆\nELLIPSE\n双曲线\nHYPERBOLA\n抛物线\nPARABOLA\n统一视角\nUNIFIED\n方程参数\nc² = a² + b²\n实半轴\na\n2.20\n决定顶点间距离\n1.2 — 3.2\n离心率\ne\n1.45\n越大开口越开阔\n1.05 — 2\n实轴方向\n实轴水平\n实轴竖直\n准线\n渐近线\n标签\n播放动点\n重置\n空格暂停动点 · 1–4 切换曲线 · R 重置参数 · G 打开方程速查\n当前曲线 / LIVE CURVE\n双曲线\ne = 1.45\n播放动点\n=\n定义验证 · 双曲线\n| |PF₁| − |PF₂| | = 2a\nPF₁ = 7.89 · PF₂ = 3.49 · |差| = 4.40 = 2a = 4.40\nPOINT P\nP (3.41, 3.93)\n原点 = 中心 O · P 由参数方程生成\n02\n方程档案\n\n标准方程 · 关键几何量\n\n双曲线\n标准方程 / STANDARD FORM\n实轴竖直\ny²\na²\n−\nx²\nb²\n=\n1\ny² / 4.84 − x² / 5.34 = 1\nc² = a² + b²\ne > 1\na\n2.20\nb\n2.31\nc\n3.19\ne\n1.45\n几何要素\n实时\n焦点\n(0.00, −3.19) · (0.00, 3.19)\n准线\ny = ±1.52\n渐近线\ny = ±0.95x\n顶点\n(0, ±2.20)\ni\n观察提示\n\ne 越大，c/a 越大，开口越开阔；渐近线斜率为 ±a/b。\n\n这个标准方程从哪里来？\n看推导 →\n03\n曲线图鉴\n\n四种方程视角 · 点击卡片切换\n\n统一定义：|PF| / d(P, ℓ) = e\n01\n椭圆\nELLIPSE\nx²/a² + y²/b² = 1\n|PF₁| + |PF₂| = 2a\n02\n双曲线\nHYPERBOLA\nx²/a² − y²/b² = 1\n| |PF₁| − |PF₂| | = 2a\n03\n抛物线\nPARABOLA\ny² = 2px\n|PF| = d(P, ℓ)\n04\n统一视角\nUNIFIED\nPF / d(P, ℓ) = e\ne < 1 · e = 1 · e > 1"
+   }
+  },
+  {
+   "id": "url-parabola",
+   "url": "file:///D:/workspace/%E6%95%B0%E5%AD%A6%E6%BC%94%E7%A4%BA/%E5%9C%86%E9%94%A5%E6%9B%B2%E7%BA%BF/index.html?mode=parabola&p=3&axis=x&static=1&t=1.2",
+   "expect": {
+    "mode": "parabola",
+    "name": "抛物线",
+    "playing": false,
+    "phase": 1.2,
+    "orientation": "x",
+    "p": 3
+   },
+   "got": {
+    "state": {
+     "mode": "parabola",
+     "orientation": "x",
+     "params": {
+      "ellipse": {
+       "a": 4,
+       "e": 0.55
+      },
+      "hyperbola": {
+       "a": 2.2,
+       "e": 1.45
+      },
+      "parabola": {
+       "p": 3
+      },
+      "unified": {
+       "e": 0.65,
+       "l": 2.5
+      }
+     },
+     "phase": 1.2,
+     "playing": false
+    },
+    "diag": {
+     "mode": "parabola",
+     "name": "抛物线",
+     "derived": {
+      "p": 3,
+      "e": 1
+     },
+     "curves": [
+      {
+       "closed": false,
+       "fill": false,
+       "dim": false,
+       "points": 181
+      }
+     ],
+     "eRange": "e = 1"
+    },
+    "errors": [],
+    "playing": false,
+    "bodyText": "CONIC EQUATION LAB\n解析几何\n圆锥曲线方程实验室 / CONIC LAB\n标准位置 · 顶点在原点\n方程速查\n01\n曲线与参数\n\n选择曲线 · 调整方程\n\n椭圆\nELLIPSE\n双曲线\nHYPERBOLA\n抛物线\nPARABOLA\n统一视角\nUNIFIED\n方程参数\ne = 1\n焦准距参数\np\n3.00\n焦点到准线的距离 = p\n1 — 5\n开口方向\n开口向右\n开口向上\n准线\n标签\n播放动点\n重置\n空格暂停动点 · 1–4 切换曲线 · R 重置参数 · G 打开方程速查\n当前曲线 / LIVE CURVE\n抛物线\ne = 1.00\n播放动点\n=\n定义验证 · 抛物线\n|PF| = d(P, ℓ)\nPF = 8.59 · d(P, ℓ) = 8.59\nPOINT P\nP (7.09, 6.52)\n原点 = 顶点 O · P 由参数方程生成\n02\n方程档案\n\n标准方程 · 关键几何量\n\n抛物线\n标准方程 / STANDARD FORM\n开口向右\ny² = 2p x\ny² = 6.00x\ne = 1（焦点到准线的距离为 p）\ne = 1\np\n3.00\ne\n1.00\np/2\n1.50\n通径\n6.00\n几何要素\n实时\n焦点\n(1.50, 0.00)\n准线\nx = −1.50\n对称轴\ny = 0（x 轴）\n顶点\n(0, 0)\ni\n观察提示\n\n焦点到准线的距离等于 p；焦点到顶点距离为 p/2，通径长为 2p。p 越大，开口越开阔。\n\n这个标准方程从哪里来？\n看推导 →\n03\n曲线图鉴\n\n四种方程视角 · 点击卡片切换\n\n统一定义：|PF| / d(P, ℓ) = e\n01\n椭圆\nELLIPSE\nx²/a² + y²/b² = 1\n|PF₁| + |PF₂| = 2a\n02\n双曲线\nHYPERBOLA\nx²/a² − y²/b² = 1\n| |PF₁| − |PF₂| | = 2a\n03\n抛物线\nPARABOLA\ny² = 2px\n|PF| = d(P, ℓ)\n04\n统一视角\nUNIFIED\nPF / d(P, ℓ) = e\ne < 1 · e = 1 · e > 1"
+   }
+  },
+  {
+   "id": "url-unified-e16",
+   "url": "file:///D:/workspace/%E6%95%B0%E5%AD%A6%E6%BC%94%E7%A4%BA/%E5%9C%86%E9%94%A5%E6%9B%B2%E7%BA%BF/index.html?mode=unified&e=1.6&l=2.5&static=1&t=2.0",
+   "expect": {
+    "mode": "unified",
+    "name": "双曲线",
+    "playing": false,
+    "phase": 2,
+    "e": 1.6,
+    "l": 2.5
+   },
+   "got": {
+    "state": {
+     "mode": "unified",
+     "orientation": "x",
+     "params": {
+      "ellipse": {
+       "a": 4,
+       "e": 0.55
+      },
+      "hyperbola": {
+       "a": 2.2,
+       "e": 1.45
+      },
+      "parabola": {
+       "p": 3
+      },
+      "unified": {
+       "e": 1.6,
+       "l": 2.5
+      }
+     },
+     "phase": 2,
+     "playing": false
+    },
+    "diag": {
+     "mode": "unified",
+     "name": "双曲线",
+     "derived": {
+      "e": 1.6,
+      "l": 2.5,
+      "d": 1.5625
+     },
+     "curves": [
+      {
+       "closed": false,
+       "fill": false,
+       "dim": false,
+       "points": 281
+      },
+      {
+       "closed": false,
+       "fill": false,
+       "dim": true,
+       "points": 281
+      }
+     ],
+     "eRange": "e > 1（双曲线）"
+    },
+    "errors": [],
+    "playing": false,
+    "bodyText": "CONIC EQUATION LAB\n解析几何\n圆锥曲线方程实验室 / CONIC LAB\n焦点在原点 · 准线在左\n方程速查\n01\n曲线与参数\n\n选择曲线 · 调整方程\n\n椭圆\nELLIPSE\n双曲线\nHYPERBOLA\n抛物线\nPARABOLA\n统一视角\nUNIFIED\n方程参数\nPF / d(P, ℓ) = e\n离心率\ne\n1.60\n<1 椭圆 · 1 抛物线 · >1 双曲线\n0.35 — 2.2\n半通径\nℓ\n2.50\n控制曲线的“大小”\n1.5 — 4\n椭圆 e=0.6\n抛物线 e=1\n双曲线 e=1.6\n准线\n标签\n播放动点\n重置\n空格暂停动点 · 1–4 切换曲线 · R 重置参数 · G 打开方程速查\n当前曲线 / LIVE CURVE\n双曲线\ne = 1.60\n播放动点\n=\n定义验证 · 统一视角\n|PF| / d(P, ℓ) = e\nPF = 11.18 · PD = 6.99 · PF/PD = 1.6000 · e = 1.6000\nPOINT P\nP (5.42, −9.77)\n原点 = 焦点 F · 准线在焦点左侧 · P 由参数方程生成\n02\n方程档案\n\n标准方程 · 关键几何量\n\n双曲线\n极坐标方程 / POLAR FORM\n焦点在原点 · 准线在左\nr\n=\nℓ\n1 − e cos θ\nr = 2.50 / (1 − 1.60 cos θ)\nPF = e · d(P, ℓ)\ne > 1（双曲线）\ne\n1.60\nℓ\n2.50\nd\n1.56\n曲线\n双曲线\n几何要素\n实时\n焦点\nF(0, 0)\n准线\nx = −1.56\n半通径\nℓ = 2.50\n中心\n(−2.56, 0.00)\ni\n观察提示\n\ne > 1：轨迹是双曲线。两支上的点到同一焦点 F、同一准线 ℓ 的距离比都等于 e。极坐标取 r > 0 只描出含焦点的一支，图中另一支由中心对称补画。\n\n这个标准方程从哪里来？\n看推导 →\n03\n曲线图鉴\n\n四种方程视角 · 点击卡片切换\n\n统一定义：|PF| / d(P, ℓ) = e\n01\n椭圆\nELLIPSE\nx²/a² + y²/b² = 1\n|PF₁| + |PF₂| = 2a\n02\n双曲线\nHYPERBOLA\nx²/a² − y²/b² = 1\n| |PF₁| − |PF₂| | = 2a\n03\n抛物线\nPARABOLA\ny² = 2px\n|PF| = d(P, ℓ)\n04\n统一视角\nUNIFIED\nPF / d(P, ℓ) = e\ne < 1 · e = 1 · e > 1"
+   }
+  },
+  {
+   "id": "url-unified-e098",
+   "url": "file:///D:/workspace/%E6%95%B0%E5%AD%A6%E6%BC%94%E7%A4%BA/%E5%9C%86%E9%94%A5%E6%9B%B2%E7%BA%BF/index.html?mode=unified&e=0.98&l=2.5&static=1",
+   "expect": {
+    "mode": "unified",
+    "name": "椭圆",
+    "playing": false,
+    "e": 0.98,
+    "l": 2.5
+   },
+   "got": {
+    "state": {
+     "mode": "unified",
+     "orientation": "x",
+     "params": {
+      "ellipse": {
+       "a": 4,
+       "e": 0.55
+      },
+      "hyperbola": {
+       "a": 2.2,
+       "e": 1.45
+      },
+      "parabola": {
+       "p": 3
+      },
+      "unified": {
+       "e": 0.98,
+       "l": 2.5
+      }
+     },
+     "phase": 0.9,
+     "playing": false
+    },
+    "diag": {
+     "mode": "unified",
+     "name": "椭圆",
+     "derived": {
+      "e": 0.98,
+      "l": 2.5,
+      "d": 2.5510204081632653
+     },
+     "curves": [
+      {
+       "closed": false,
+       "fill": false,
+       "dim": false,
+       "points": 281
+      }
+     ],
+     "eRange": "0 < e < 1（椭圆）"
+    },
+    "errors": [],
+    "playing": false,
+    "bodyText": "CONIC EQUATION LAB\n解析几何\n圆锥曲线方程实验室 / CONIC LAB\n焦点在原点 · 准线在左\n方程速查\n01\n曲线与参数\n\n选择曲线 · 调整方程\n\n椭圆\nELLIPSE\n双曲线\nHYPERBOLA\n抛物线\nPARABOLA\n统一视角\nUNIFIED\n方程参数\nPF / d(P, ℓ) = e\n离心率\ne\n0.98\n<1 椭圆 · 1 抛物线 · >1 双曲线\n0.35 — 2.2\n半通径\nℓ\n2.50\n控制曲线的“大小”\n1.5 — 4\n椭圆 e=0.6\n抛物线 e=1\n双曲线 e=1.6\n准线\n标签\n播放动点\n重置\n空格暂停动点 · 1–4 切换曲线 · R 重置参数 · G 打开方程速查\n当前曲线 / LIVE CURVE\n椭圆\ne = 0.98\n播放动点\n=\n定义验证 · 统一视角\n|PF| / d(P, ℓ) = e\nPF = 2.83 · PD = 2.89 · PF/PD = 0.9800 · e = 0.9800\nPOINT P\nP (0.34, −2.81)\n原点 = 焦点 F · 准线在焦点左侧 · P 由参数方程生成\n02\n方程档案\n\n标准方程 · 关键几何量\n\n椭圆\n极坐标方程 / POLAR FORM\n焦点在原点 · 准线在左\nr\n=\nℓ\n1 − e cos θ\nr = 2.50 / (1 − 0.98 cos θ)\nPF = e · d(P, ℓ)\n0 < e < 1（椭圆）\ne\n0.98\nℓ\n2.50\nd\n2.55\n曲线\n椭圆\n几何要素\n实时\n焦点\nF(0, 0)\n准线\nx = −2.55\n半通径\nℓ = 2.50\n中心\n(61.87, 0.00)\ni\n观察提示\n\ne 很接近 1，完整椭圆向右延伸得很远。图中仅显示视野内的一段椭圆弧，端点在视野边界处断开；这并不表示椭圆在这里终止。\n\n这个标准方程从哪里来？\n看推导 →\n03\n曲线图鉴\n\n四种方程视角 · 点击卡片切换\n\n统一定义：|PF| / d(P, ℓ) = e\n01\n椭圆\nELLIPSE\nx²/a² + y²/b² = 1\n|PF₁| + |PF₂| = 2a\n02\n双曲线\nHYPERBOLA\nx²/a² − y²/b² = 1\n| |PF₁| − |PF₂| | = 2a\n03\n抛物线\nPARABOLA\ny² = 2px\n|PF| = d(P, ℓ)\n04\n统一视角\nUNIFIED\nPF / d(P, ℓ) = e\ne < 1 · e = 1 · e > 1"
+   }
+  },
+  {
+   "id": "url-circle",
+   "url": "file:///D:/workspace/%E6%95%B0%E5%AD%A6%E6%BC%94%E7%A4%BA/%E5%9C%86%E9%94%A5%E6%9B%B2%E7%BA%BF/index.html?mode=ellipse&a=4&e=0&axis=x&static=1",
+   "expect": {
+    "mode": "ellipse",
+    "name": "圆",
+    "playing": false,
+    "a": 4,
+    "e": 0
+   },
+   "got": {
+    "state": {
+     "mode": "ellipse",
+     "orientation": "x",
+     "params": {
+      "ellipse": {
+       "a": 4,
+       "e": 0
+      },
+      "hyperbola": {
+       "a": 2.2,
+       "e": 1.45
+      },
+      "parabola": {
+       "p": 3
+      },
+      "unified": {
+       "e": 0.65,
+       "l": 2.5
+      }
+     },
+     "phase": 0.9,
+     "playing": false
+    },
+    "diag": {
+     "mode": "ellipse",
+     "name": "圆",
+     "derived": {
+      "a": 4,
+      "b": 4,
+      "c": 0,
+      "e": 0
+     },
+     "curves": [
+      {
+       "closed": true,
+       "fill": true,
+       "dim": false,
+       "points": 221
+      }
+     ],
+     "eRange": "e = 0（圆）"
+    },
+    "errors": [],
+    "playing": false,
+    "bodyText": "CONIC EQUATION LAB\n解析几何\n圆锥曲线方程实验室 / CONIC LAB\n标准位置 · 中心在原点\n方程速查\n01\n曲线与参数\n\n选择曲线 · 调整方程\n\n椭圆\nELLIPSE\n双曲线\nHYPERBOLA\n抛物线\nPARABOLA\n统一视角\nUNIFIED\n方程参数\na² = b² + c²\n长半轴\na\n4.00\n决定椭圆大小\n2 — 5\n离心率\ne\n0.00\n越小越接近圆\n0 — 0.85\n焦点轴\n焦点在 x 轴\n焦点在 y 轴\n准线\n标签\n播放动点\n重置\n空格暂停动点 · 1–4 切换曲线 · R 重置参数 · G 打开方程速查\n当前曲线 / LIVE CURVE\n圆\ne = 0.00\n播放动点\n=\n定义验证 · 到圆心的距离\n|PO| = a\nPO = 4.00 = a = 4.00\nPOINT P\nP (2.49, 3.13)\n原点 = 中心 O · P 由参数方程生成\n02\n方程档案\n\n标准方程 · 关键几何量\n\n圆\n标准方程 / STANDARD FORM\n圆心在原点\nx² + y² = a²\nx² + y² = 16.00\nr = a\ne = 0（圆）\na\n4.00\nb\n4.00\nc\n0.00\ne\n0.00\n几何要素\n实时\n焦点\nF₁ = F₂ = O(0, 0)\n准线\n圆没有准线\n半径\nr = a = 4.00\n离心率\ne = 0\ni\n观察提示\n\ne = 0 时，两个焦点重合为圆心，椭圆退化为圆；圆的离心率规定为 0。\n\n这个标准方程从哪里来？\n看推导 →\n03\n曲线图鉴\n\n四种方程视角 · 点击卡片切换\n\n统一定义：|PF| / d(P, ℓ) = e\n01\n椭圆\nELLIPSE\nx²/a² + y²/b² = 1\n|PF₁| + |PF₂| = 2a\n02\n双曲线\nHYPERBOLA\nx²/a² − y²/b² = 1\n| |PF₁| − |PF₂| | = 2a\n03\n抛物线\nPARABOLA\ny² = 2px\n|PF| = d(P, ℓ)\n04\n统一视角\nUNIFIED\nPF / d(P, ℓ) = e\ne < 1 · e = 1 · e > 1"
+   }
+  },
+  {
+   "id": "url-paused",
+   "url": "file:///D:/workspace/%E6%95%B0%E5%AD%A6%E6%BC%94%E7%A4%BA/%E5%9C%86%E9%94%A5%E6%9B%B2%E7%BA%BF/index.html?mode=ellipse&paused=1",
+   "expect": {
+    "mode": "ellipse",
+    "playing": false
+   },
+   "got": {
+    "state": {
+     "mode": "ellipse",
+     "orientation": "x",
+     "params": {
+      "ellipse": {
+       "a": 4,
+       "e": 0.55
+      },
+      "hyperbola": {
+       "a": 2.2,
+       "e": 1.45
+      },
+      "parabola": {
+       "p": 3
+      },
+      "unified": {
+       "e": 0.65,
+       "l": 2.5
+      }
+     },
+     "phase": 0.9,
+     "playing": false
+    },
+    "diag": {
+     "mode": "ellipse",
+     "name": "椭圆",
+     "derived": {
+      "a": 4,
+      "b": 3.340658617698013,
+      "c": 2.2,
+      "e": 0.55
+     },
+     "curves": [
+      {
+       "closed": true,
+       "fill": true,
+       "dim": false,
+       "points": 221
+      }
+     ],
+     "eRange": "0 ≤ e < 1"
+    },
+    "errors": [],
+    "playing": false,
+    "bodyText": "CONIC EQUATION LAB\n解析几何\n圆锥曲线方程实验室 / CONIC LAB\n标准位置 · 中心在原点\n方程速查\n01\n曲线与参数\n\n选择曲线 · 调整方程\n\n椭圆\nELLIPSE\n双曲线\nHYPERBOLA\n抛物线\nPARABOLA\n统一视角\nUNIFIED\n方程参数\na² = b² + c²\n长半轴\na\n4.00\n决定椭圆大小\n2 — 5\n离心率\ne\n0.55\n越小越接近圆\n0 — 0.85\n焦点轴\n焦点在 x 轴\n焦点在 y 轴\n准线\n标签\n播放动点\n重置\n空格暂停动点 · 1–4 切换曲线 · R 重置参数 · G 打开方程速查\n当前曲线 / LIVE CURVE\n椭圆\ne = 0.55\n播放动点\n=\n定义验证 · 椭圆\n|PF₁| + |PF₂| = 2a\nPF₁ = 5.37 · PF₂ = 2.63 · 和 = 8.00 = 2a = 8.00\nPOINT P\nP (2.49, 2.62)\n原点 = 中心 O · P 由参数方程生成\n02\n方程档案\n\n标准方程 · 关键几何量\n\n椭圆\n标准方程 / STANDARD FORM\n焦点在 x 轴\nx²\na²\n+\ny²\nb²\n=\n1\nx² / 16.00 + y² / 11.16 = 1\na² = b² + c²\n0 ≤ e < 1\na\n4.00\nb\n3.34\nc\n2.20\ne\n0.55\n几何要素\n实时\n焦点\n(−2.20, 0.00) · (2.20, 0.00)\n准线\nx = ±7.27\n通径\n5.58\ni\n观察提示\n\n椭圆中 a 最大，a² = b² + c²；拖动 e 观察 b 与 c 如何此消彼长。\n\n这个标准方程从哪里来？\n看推导 →\n03\n曲线图鉴\n\n四种方程视角 · 点击卡片切换\n\n统一定义：|PF| / d(P, ℓ) = e\n01\n椭圆\nELLIPSE\nx²/a² + y²/b² = 1\n|PF₁| + |PF₂| = 2a\n02\n双曲线\nHYPERBOLA\nx²/a² − y²/b² = 1\n| |PF₁| − |PF₂| | = 2a\n03\n抛物线\nPARABOLA\ny² = 2px\n|PF| = d(P, ℓ)\n04\n统一视角\nUNIFIED\nPF / d(P, ℓ) = e\ne < 1 · e = 1 · e > 1"
+   }
+  },
+  {
+   "id": "url-bad-mode",
+   "url": "file:///D:/workspace/%E6%95%B0%E5%AD%A6%E6%BC%94%E7%A4%BA/%E5%9C%86%E9%94%A5%E6%9B%B2%E7%BA%BF/index.html?mode=bogus",
+   "expect": {
+    "mode": "ellipse",
+    "name": "椭圆"
+   },
+   "got": {
+    "state": {
+     "mode": "ellipse",
+     "orientation": "x",
+     "params": {
+      "ellipse": {
+       "a": 4,
+       "e": 0.55
+      },
+      "hyperbola": {
+       "a": 2.2,
+       "e": 1.45
+      },
+      "parabola": {
+       "p": 3
+      },
+      "unified": {
+       "e": 0.65,
+       "l": 2.5
+      }
+     },
+     "phase": 1.013646,
+     "playing": true
+    },
+    "diag": {
+     "mode": "ellipse",
+     "name": "椭圆",
+     "derived": {
+      "a": 4,
+      "b": 3.340658617698013,
+      "c": 2.2,
+      "e": 0.55
+     },
+     "curves": [
+      {
+       "closed": true,
+       "fill": true,
+       "dim": false,
+       "points": 221
+      }
+     ],
+     "eRange": "0 ≤ e < 1"
+    },
+    "errors": [],
+    "playing": true,
+    "bodyText": "CONIC EQUATION LAB\n解析几何\n圆锥曲线方程实验室 / CONIC LAB\n标准位置 · 中心在原点\n方程速查\n01\n曲线与参数\n\n选择曲线 · 调整方程\n\n椭圆\nELLIPSE\n双曲线\nHYPERBOLA\n抛物线\nPARABOLA\n统一视角\nUNIFIED\n方程参数\na² = b² + c²\n长半轴\na\n4.00\n决定椭圆大小\n2 — 5\n离心率\ne\n0.55\n越小越接近圆\n0 — 0.85\n焦点轴\n焦点在 x 轴\n焦点在 y 轴\n准线\n标签\n暂停动点\n重置\n空格暂停动点 · 1–4 切换曲线 · R 重置参数 · G 打开方程速查\n当前曲线 / LIVE CURVE\n椭圆\ne = 0.55\n暂停动点\n=\n定义验证 · 椭圆\n|PF₁| + |PF₂| = 2a\nPF₁ = 5.16 · PF₂ = 2.84 · 和 = 8.00 = 2a = 8.00\nPOINT P\nP (2.12, 2.84)\n原点 = 中心 O · P 由参数方程生成\n02\n方程档案\n\n标准方程 · 关键几何量\n\n椭圆\n标准方程 / STANDARD FORM\n焦点在 x 轴\nx²\na²\n+\ny²\nb²\n=\n1\nx² / 16.00 + y² / 11.16 = 1\na² = b² + c²\n0 ≤ e < 1\na\n4.00\nb\n3.34\nc\n2.20\ne\n0.55\n几何要素\n实时\n焦点\n(−2.20, 0.00) · (2.20, 0.00)\n准线\nx = ±7.27\n通径\n5.58\ni\n观察提示\n\n椭圆中 a 最大，a² = b² + c²；拖动 e 观察 b 与 c 如何此消彼长。\n\n这个标准方程从哪里来？\n看推导 →\n03\n曲线图鉴\n\n四种方程视角 · 点击卡片切换\n\n统一定义：|PF| / d(P, ℓ) = e\n01\n椭圆\nELLIPSE\nx²/a² + y²/b² = 1\n|PF₁| + |PF₂| = 2a\n02\n双曲线\nHYPERBOLA\nx²/a² − y²/b² = 1\n| |PF₁| − |PF₂| | = 2a\n03\n抛物线\nPARABOLA\ny² = 2px\n|PF| = d(P, ℓ)\n04\n统一视角\nUNIFIED\nPF / d(P, ℓ) = e\ne < 1 · e = 1 · e > 1"
+   }
+  }
+ ],
+ "screenshots": [
+  "qa/screens/01-ellipse-horizontal-1920.png",
+  "qa/screens/02-ellipse-vertical-1920.png",
+  "qa/screens/03-ellipse-circle-e0-1920.png",
+  "qa/screens/04-hyperbola-horizontal-1920.png",
+  "qa/screens/05-hyperbola-vertical-1920.png",
+  "qa/screens/06-parabola-horizontal-1920.png",
+  "qa/screens/07-parabola-vertical-1920.png",
+  "qa/screens/08-unified-e0.6-ellipse-1920.png",
+  "qa/screens/09-unified-e1-parabola-1920.png",
+  "qa/screens/10-unified-e1.6667-two-branches-1920.png",
+  "qa/screens/11-unified-e1.6-two-branches-1920.png",
+  "qa/screens/12-unified-e0.98-clipped-1920.png",
+  "qa/screens/13-unified-e1.05-far-branch-note-1920.png",
+  "qa/screens/14-directrix-offscreen-hint-2x.png"
+ ],
+ "errors": {
+  "pageErrors": [],
+  "diagErrors": [],
+  "runtimeExceptions": 0,
+  "networkRequests": [
+   "file:///D:/workspace/%E6%95%B0%E5%AD%A6%E6%BC%94%E7%A4%BA/%E5%9C%86%E9%94%A5%E6%9B%B2%E7%BA%BF/index.html?mode=ellipse&a=5&e=0.6&axis=x&static=1&t=0.95",
+   "file:///D:/workspace/%E6%95%B0%E5%AD%A6%E6%BC%94%E7%A4%BA/%E5%9C%86%E9%94%A5%E6%9B%B2%E7%BA%BF/index.html?mode=hyperbola&a=2.2&e=1.45&axis=y&static=1&t=1.2",
+   "file:///D:/workspace/%E6%95%B0%E5%AD%A6%E6%BC%94%E7%A4%BA/%E5%9C%86%E9%94%A5%E6%9B%B2%E7%BA%BF/index.html?mode=parabola&p=3&axis=x&static=1&t=1.2",
+   "file:///D:/workspace/%E6%95%B0%E5%AD%A6%E6%BC%94%E7%A4%BA/%E5%9C%86%E9%94%A5%E6%9B%B2%E7%BA%BF/index.html?mode=unified&e=1.6&l=2.5&static=1&t=2.0",
+   "file:///D:/workspace/%E6%95%B0%E5%AD%A6%E6%BC%94%E7%A4%BA/%E5%9C%86%E9%94%A5%E6%9B%B2%E7%BA%BF/index.html?mode=unified&e=0.98&l=2.5&static=1",
+   "file:///D:/workspace/%E6%95%B0%E5%AD%A6%E6%BC%94%E7%A4%BA/%E5%9C%86%E9%94%A5%E6%9B%B2%E7%BA%BF/index.html?mode=ellipse&a=4&e=0&axis=x&static=1",
+   "file:///D:/workspace/%E6%95%B0%E5%AD%A6%E6%BC%94%E7%A4%BA/%E5%9C%86%E9%94%A5%E6%9B%B2%E7%BA%BF/index.html?mode=ellipse&paused=1",
+   "file:///D:/workspace/%E6%95%B0%E5%AD%A6%E6%BC%94%E7%A4%BA/%E5%9C%86%E9%94%A5%E6%9B%B2%E7%BA%BF/index.html?mode=bogus"
+  ],
+  "external": []
+ },
+ "passCount": 275,
+ "failCount": 0
+}

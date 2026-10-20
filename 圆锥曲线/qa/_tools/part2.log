@@ -1,0 +1,112 @@
+EDGE Edg/155.0.4283.62
+PASS tabs.hyperbola.switch {"mode":"hyperbola","tabs":["ellipse:false","hyperbola:true","parabola:false","unified:false"]}
+PASS tabs.hyperbola.rows {"a":true,"e":true,"p":false,"l":false}
+PASS tabs.hyperbola.aux-controls {"axisHidden":false,"quickHidden":true}
+PASS tabs.hyperbola.asym-toggle-visible ["directrix:true:visible","asymptote:true:visible","labels:true:visible"]
+PASS tabs.parabola.switch {"mode":"parabola","tabs":["ellipse:false","hyperbola:false","parabola:true","unified:false"]}
+PASS tabs.parabola.rows {"a":false,"e":false,"p":true,"l":false}
+PASS tabs.parabola.aux-controls {"axisHidden":false,"quickHidden":true}
+PASS tabs.parabola.asym-toggle-hidden ["directrix:true:visible","asymptote:true:hidden","labels:true:visible"]
+PASS tabs.unified.switch {"mode":"unified","tabs":["ellipse:false","hyperbola:false","parabola:false","unified:true"]}
+PASS tabs.unified.rows {"a":false,"e":true,"p":false,"l":true}
+PASS tabs.unified.aux-controls {"axisHidden":true,"quickHidden":false}
+PASS tabs.unified.asym-toggle-hidden ["directrix:true:visible","asymptote:true:hidden","labels:true:visible"]
+PASS tabs.ellipse.switch {"mode":"ellipse","tabs":["ellipse:true","hyperbola:false","parabola:false","unified:false"]}
+PASS tabs.ellipse.rows {"a":true,"e":true,"p":false,"l":false}
+PASS tabs.ellipse.aux-controls {"axisHidden":false,"quickHidden":true}
+PASS tabs.ellipse.asym-toggle-hidden ["directrix:true:visible","asymptote:true:hidden","labels:true:visible"]
+PASS catalog.card-click {"mode":"parabola","cards":["ellipse:false","hyperbola:false","parabola:true","unified:false"]}
+PASS slider.ellipse-a {"derived":{"a":4.2,"b":3.507691548582914,"c":2.3100000000000005,"e":0.55},"domVal":"x² / 17.64 + y² / 12.30 = 1","sigChanged":true}
+PASS slider.ellipse-e {"derived":{"a":4.2,"b":4.066632513517788,"c":1.05,"e":0.25}}
+PASS slider.ellipse-e0-circle {"name":"圆","directrices":[]}
+PASS slider.ellipse-endpoints {"a":5,"b":2.633913438213185,"c":4.25,"e":0.85}
+PASS slider.hyperbola-e {"derived":{"a":2.2,"b":3.345447055327584,"c":4.0040000000000004,"e":1.82}}
+PASS slider.hyperbola-endpoints {"a":1.2,"b":0.384187454245971,"c":1.26,"e":1.05}
+PASS slider.parabola-p {"derived":{"p":4.25,"e":1}}
+PASS slider.parabola-endpoints {"min":{"p":1,"e":1},"max":{"p":5,"e":1}}
+PASS slider.unified-e-098 {"name":"椭圆","curves":[{"closed":false,"fill":false,"dim":false,"points":281}]}
+PASS slider.unified-e-102 {"name":"双曲线","curves":[{"closed":false,"fill":false,"dim":false,"points":281},{"closed":false,"fill":false,"dim":true,"points":281}]}
+PASS slider.unified-e-1 {"name":"抛物线","curves":[{"closed":false,"fill":false,"dim":false,"points":281}]}
+PASS slider.unified-l-endpoints {"min":{"e":1,"l":1.5,"d":1.5},"max":{"e":1,"l":4,"d":4}}
+PASS unified.quick-e {"derived":{"e":1.6,"l":4,"d":2.5},"buttons":4}
+PASS axis.ellipse-y {"derived":{"a":5,"b":4,"c":3,"e":0.6},"eq":"x² / 16.00 + y² / 25.00 = 1","foci":[{"label":"F₁","x":0,"y":-3},{"label":"F₂","x":0,"y":3}],"dir":[{"type":"h","value":8.333333333333334,"label":"y = 8.33"},{"type":"h","value":-8.33333333333333
+PASS axis.hyperbola-y {"derived":{"a":3,"b":4,"c":5,"e":1.6666666666666667},"asym":["y = ±0.75x","y = ±0.75x"],"eq":"y² / 9.00 − x² / 16.00 = 1","label":"实轴竖直","dir":[{"type":"h","value":1.8,"label":"y = 1.80"},{"type":"h","value":-1.8,"label":"y = −1.80"}]}
+PASS axis.parabola-y {"eq":"x² = 6.00y","focus":[{"label":"F","x":0,"y":1.5}],"dir":[{"type":"h","value":-1.5,"label":"y = −1.50"}],"label":"开口向上"}
+PASS axis.unified-hidden true
+PASS toggle.directrix.aria {"before":"true","after":"false"}
+PASS toggle.directrix.canvas-change {"same":false}
+PASS toggle.asymptote.aria {"before":"true","after":"false"}
+PASS toggle.asymptote.canvas-change {"same":false}
+PASS toggle.labels.aria {"before":"true","after":"false"}
+PASS toggle.labels.canvas-change {"same":false}
+PASS toggle.labels.hides-aux-labels {"on":3701547467,"off":4041556702}
+PASS toggle.restore-all-on ["directrix:true:visible","asymptote:true:visible","labels:true:visible"]
+PASS play.start {"state":{"mode":"unified","orientation":"x","params":{"ellipse":{"a":5,"e":0.6},"hyperbola":{"a":3,"e":1.6666666666666667},"parabola":{"p":3},"unified":{"e":1.6,"l":2.5}},"phase":0.9,"playing":true},"dom":{"liveName":"双曲线","liveE":"e = 1.6
+PASS play.phase-advances {"start":0.9,"later":1.1789999999999996,"note":"headless RAF 节流下只要求相位明显推进（>0.05）"}
+PASS play.P-moves {"P1":[-0.3324592263147322,-1.939781339082974],"P_later":[0.4621095549582607,-3.2062450023803066]}
+PASS play.pause {"phase":[1.4165839999999972,1.4165839999999972],"P":[[1.7839859004108627,-5.048440559633828],[1.7839859004108627,-5.048440559633828]]}
+PASS play.stage-button {"on":true,"off":false}
+PASS reset.params-defaults {"mode":"unified","derived":{"e":0.65,"l":2.5,"d":3.846153846153846},"phase":0.9930000000000001,"phaseNote":"reset 后 playing=true，相位从 0.9 继续推进属预期"}
+PASS reset.orientation-and-phase "x"
+PASS reset.toggles-and-play {"toggles":["directrix:true:visible","asymptote:true:hidden","labels:true:visible"],"playingAfterReset":true}
+PASS reset.toast "已重置当前参数"
+PASS keyboard.1-4-modes {"1":"ellipse","2":"hyperbola","3":"parabola","4":"unified"}
+PASS keyboard.space-play {"on":true,"off":false}
+PASS keyboard.r-reset {"orientation":"x","derived":{"a":4,"b":3.340658617698013,"c":2.2,"e":0.55}}
+PASS keyboard.g-open-guide {"open":true,"focused":"modal-close"}
+PASS keyboard.esc-close-guide {"open":false,"focusId":"guideBtn"}
+PASS guide.opens {"open":true,"aria":"false","visibility":"visible","role":"dialog","ariaModal":"true","labelledby":"guideTitle","title":"一个比值，三种曲线","panelScrollTop":0,"panelScrollHeight":1072,"panelClientHeight":959,"focusedClass":"modal-close","focusedIns
+PASS guide.scroll-reset-on-open 
+PASS guide.focus-close "modal-close"
+PASS guide.semantics {"role":"dialog","ariaModal":"true","labelledby":"guideTitle"}
+PASS guide.background-inert true
+PASS guide.focus-trap {"escaped":0,"total":20,"shiftInside":true}
+PASS guide.esc-close-focus-return {"open":false,"aria":"true","bodyClass":false,"appInert":false,"focusId":"guideBtn","focusClass":"ghost-btn"}
+PASS guide.scroll-reset-after-reopen {"scrolledBefore":113,"scrollOnReopen":0}
+PASS guide.close-x 
+PASS guide.close-backdrop 
+PASS guide.jump-button {"mode":"parabola","open":false,"retried":false}
+PASS guide.content-keywords []
+PASS guide.content-no-wrong-branch-claim ["定义(?:只|仅)(?:给出|得到)?(?:双曲线的?)?(?:一|单)(?:支|条)","轨迹(?:只|仅)(?:是|为|有)(?:双曲线的?)?(?:一|单)(?:支|条)"]
+PASS layout.1920.no-page-hoverflow {"docW":1920,"innerW":1920,"overflow":[],"trackScroll":{"rect":{"top":951.2,"bottom":1053,"left":31,"right":1889,"width":1858,"height":101.8},"sw":1858,"cw":1858}}
+PASS layout.1920.columns {"controlsRight":334,"stage":[347,1531],"detailsLeft":1544}
+PASS layout.1920.in-viewport {"stageBottom":888,"catalogBottom":1063,"playBtn":{"top":489.5,"bottom":526.5,"left":34,"right":233,"width":199,"height":37}}
+PASS layout.1920.panels-scroll {"controls":[810,810],"details":[810,810]}
+PASS layout.1920.canvas-size {"css":{"top":77,"bottom":887,"left":348,"right":1530,"width":1182,"height":810},"w":1182,"h":810}
+PASS layout.1920.catalog-cards [{"mode":"ellipse","w":458.8,"left":32,"top":952.2},{"mode":"hyperbola","w":458.8,"left":497.8,"top":952.2},{"mode":"parabola","w":458.8,"left":963.5,"top":952.2},{"mode":"unified","w":458.8,"left":1429.3,"top":952.2}]
+PASS layout.1366.no-page-hoverflow {"docW":1366,"innerW":1366,"overflow":[],"trackScroll":{"rect":{"top":639,"bottom":749,"left":25,"right":1341,"width":1316,"height":110},"sw":1316,"cw":1316}}
+PASS layout.1366.catalog-track-scrollable {"rect":{"top":639,"bottom":749,"left":25,"right":1341,"width":1316,"height":110},"sw":1316,"cw":1316}
+PASS layout.1366.no-page-scroll {"docH":768,"innerH":768}
+PASS layout.1366.play-visible {"top":385.3,"bottom":418.3,"left":27,"right":232,"width":205,"height":33}
+PASS layout.1366.controls-visible {"controls":{"rect":{"top":64,"bottom":592,"left":14,"right":330,"width":316,"height":528},"scrollHeight":526,"clientHeight":526},"modeTabs":{"top":108,"bottom":156,"left":27,"right":317,"width":290,"height":48}}
+PASS layout.1366.details-visible {"details":{"rect":{"top":64,"bottom":592,"left":994,"right":1352,"width":358,"height":528},"scrollHeight":526,"clientHeight":526}}
+PASS layout.1366.catalog-visible {"catalog":{"top":602,"bottom":756,"left":14,"right":1352,"width":1338,"height":154},"cards":4}
+PASS layout.1366.stage-size {"top":64,"bottom":592,"left":340,"right":984,"width":644,"height":528}
+PASS layout.1024.no-page-hoverflow {"docW":1024,"innerW":1024,"overflow":[],"trackScroll":{"rect":{"top":1625.8,"bottom":1755.6,"left":25,"right":999,"width":974,"height":129.8},"sw":1103,"cw":974}}
+PASS layout.1024.catalog-track-scrollable {"rect":{"top":1625.8,"bottom":1755.6,"left":25,"right":999,"width":974,"height":129.8},"sw":1103,"cw":974}
+PASS layout.1024.stack-order [{"sel":".stage-card","rect":{"top":60,"bottom":572,"left":12,"right":1012,"width":1000,"height":512}},{"sel":".panel-controls","rect":{"top":584,"bottom":1071.5,"left":12,"right":1012,"width":1000,"height":487.5}},{"sel":".panel-details","
+PASS layout.1024.stage-fits {"top":60,"bottom":572,"left":12,"right":1012,"width":1000,"height":512}
+PASS layout.1024.widths {"controls":1000,"details":1000,"catalog":1000}
+PASS layout.1024.controls-operable {"modeTabs":{"top":645.3,"bottom":709.3,"left":25,"right":999,"width":974,"height":64},"playBtn":{"top":986.5,"bottom":1023.5,"left":25,"right":914,"width":889,"height":37}}
+PASS layout.390.no-page-hoverflow {"docW":390,"innerW":390,"overflow":[],"trackScroll":{"rect":{"top":1740.8,"bottom":1874.6,"left":25,"right":365,"width":340,"height":133.8},"sw":1023,"cw":340}}
+PASS layout.390.catalog-track-scrollable {"rect":{"top":1740.8,"bottom":1874.6,"left":25,"right":365,"width":340,"height":133.8},"sw":1023,"cw":340}
+PASS layout.390.catalog-track-scrolls-inside {"before":{"before":26,"docW":390,"innerW":390},"after":{"scrollLeft":200,"cardLeft":-174,"docW":390,"innerW":390}}
+PASS layout.390.order [{"sel":".stage-card","rect":{"top":104,"bottom":644,"left":12,"right":378,"width":366,"height":540}},{"sel":".panel-controls","rect":{"top":656,"bottom":1143.5,"left":12,"right":378,"width":366,"height":487.5}},{"sel":".panel-details","rec
+PASS layout.390.header-fits {"header":{"top":0,"bottom":104,"left":0,"right":390,"width":390,"height":104},"h1":{"top":24.2,"bottom":45.8,"left":67,"right":250.6,"width":183.6,"height":21.6}}
+PASS layout.390.stage-fits {"top":104,"bottom":644,"left":12,"right":378,"width":366,"height":540}
+PASS layout.390.controls-width {"top":656,"bottom":1143.5,"left":12,"right":378,"width":366,"height":487.5}
+PASS layout.390.cards [{"mode":"ellipse","w":250,"left":26,"top":1741.8},{"mode":"hyperbola","w":250,"left":283,"top":1741.8},{"mode":"parabola","w":250,"left":540,"top":1741.8},{"mode":"unified","w":250,"left":797,"top":1741.8}]
+PASS layout.390.guide-modal-fits {"left":8,"right":382,"top":25.3125,"bottom":818.671875,"w":374,"h":793.359375,"scrollH":2130,"clientH":791,"open":true,"focusedInside":true}
+PASS a11y.buttons-named []
+PASS a11y.ranges-labeled [{"id":"rangeA","aria":"椭圆长半轴 a","visibleLabel":"长半轴 a"},{"id":"rangeE","aria":"椭圆离心率 e","visibleLabel":"离心率 e"},{"id":"rangeP","aria":"抛物线焦准距参数 p","visibleLabel":"焦准距参数 p"},{"id":"rangeL","aria":"统一视角半通径 ℓ","visibleLabel":"半通径 ℓ"}]
+PASS a11y.range-aria-mode-context {"hyperbola":[],"unified":[],"note":"滑杆 aria-label 固定为椭圆模式文案，切到双曲线/统一视角后仍读作“椭圆…”（可见 label 已更新）"}
+PASS a11y.canvas-label {"aria":"带坐标轴的圆锥曲线动态图","role":null,"fallback":"你的浏览器需要支持 Canvas。","live":"椭圆"}
+PASS a11y.focus-visible {"tag":"BUTTON","id":"fullBtn","cls":"icon-btn","text":"","focusVisible":true,"outlineWidth":"2px","outlineStyle":"solid"}
+PASS a11y.aria-pressed {"tabs":["true","false","false","false"],"toggles":["true","true","true"],"axis":["true","false"],"cards":["true","false","false","false"]}
+PASS a11y.contrast []
+PASS errors.no-runtime-exceptions 
+PASS errors.no-console-errors []
+PASS errors.diag-empty []
+PASS errors.no-external-network []
+PASS errors.no-nan-in-dom 
+==== PART2 DONE pass=110 fail=0 ====

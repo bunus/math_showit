@@ -1,0 +1,3565 @@
+{
+ "part": 2,
+ "startedAt": "2026-10-20T15:34:27.039Z",
+ "target": {
+  "file": "index.html",
+  "size": 131865,
+  "mtime": "2026-10-20T15:32:49.230Z",
+  "sha256": "5A829440E1A699AB2E92946AE0D0646028F26B56513A5702E403C7DED27E6F99"
+ },
+ "checks": [
+  {
+   "id": "tabs.hyperbola.switch",
+   "ok": true,
+   "detail": {
+    "mode": "hyperbola",
+    "tabs": [
+     "ellipse:false",
+     "hyperbola:true",
+     "parabola:false",
+     "unified:false"
+    ]
+   }
+  },
+  {
+   "id": "tabs.hyperbola.rows",
+   "ok": true,
+   "detail": {
+    "a": true,
+    "e": true,
+    "p": false,
+    "l": false
+   }
+  },
+  {
+   "id": "tabs.hyperbola.aux-controls",
+   "ok": true,
+   "detail": {
+    "axisHidden": false,
+    "quickHidden": true
+   }
+  },
+  {
+   "id": "tabs.hyperbola.asym-toggle-visible",
+   "ok": true,
+   "detail": [
+    "directrix:true:visible",
+    "asymptote:true:visible",
+    "labels:true:visible"
+   ]
+  },
+  {
+   "id": "tabs.parabola.switch",
+   "ok": true,
+   "detail": {
+    "mode": "parabola",
+    "tabs": [
+     "ellipse:false",
+     "hyperbola:false",
+     "parabola:true",
+     "unified:false"
+    ]
+   }
+  },
+  {
+   "id": "tabs.parabola.rows",
+   "ok": true,
+   "detail": {
+    "a": false,
+    "e": false,
+    "p": true,
+    "l": false
+   }
+  },
+  {
+   "id": "tabs.parabola.aux-controls",
+   "ok": true,
+   "detail": {
+    "axisHidden": false,
+    "quickHidden": true
+   }
+  },
+  {
+   "id": "tabs.parabola.asym-toggle-hidden",
+   "ok": true,
+   "detail": [
+    "directrix:true:visible",
+    "asymptote:true:hidden",
+    "labels:true:visible"
+   ]
+  },
+  {
+   "id": "tabs.unified.switch",
+   "ok": true,
+   "detail": {
+    "mode": "unified",
+    "tabs": [
+     "ellipse:false",
+     "hyperbola:false",
+     "parabola:false",
+     "unified:true"
+    ]
+   }
+  },
+  {
+   "id": "tabs.unified.rows",
+   "ok": true,
+   "detail": {
+    "a": false,
+    "e": true,
+    "p": false,
+    "l": true
+   }
+  },
+  {
+   "id": "tabs.unified.aux-controls",
+   "ok": true,
+   "detail": {
+    "axisHidden": true,
+    "quickHidden": false
+   }
+  },
+  {
+   "id": "tabs.unified.asym-toggle-hidden",
+   "ok": true,
+   "detail": [
+    "directrix:true:visible",
+    "asymptote:true:hidden",
+    "labels:true:visible"
+   ]
+  },
+  {
+   "id": "tabs.ellipse.switch",
+   "ok": true,
+   "detail": {
+    "mode": "ellipse",
+    "tabs": [
+     "ellipse:true",
+     "hyperbola:false",
+     "parabola:false",
+     "unified:false"
+    ]
+   }
+  },
+  {
+   "id": "tabs.ellipse.rows",
+   "ok": true,
+   "detail": {
+    "a": true,
+    "e": true,
+    "p": false,
+    "l": false
+   }
+  },
+  {
+   "id": "tabs.ellipse.aux-controls",
+   "ok": true,
+   "detail": {
+    "axisHidden": false,
+    "quickHidden": true
+   }
+  },
+  {
+   "id": "tabs.ellipse.asym-toggle-hidden",
+   "ok": true,
+   "detail": [
+    "directrix:true:visible",
+    "asymptote:true:hidden",
+    "labels:true:visible"
+   ]
+  },
+  {
+   "id": "catalog.card-click",
+   "ok": true,
+   "detail": {
+    "mode": "parabola",
+    "cards": [
+     "ellipse:false",
+     "hyperbola:false",
+     "parabola:true",
+     "unified:false"
+    ]
+   }
+  },
+  {
+   "id": "slider.ellipse-a",
+   "ok": true,
+   "detail": {
+    "derived": {
+     "a": 4.2,
+     "b": 3.507691548582914,
+     "c": 2.3100000000000005,
+     "e": 0.55
+    },
+    "domVal": "x² / 17.64 + y² / 12.30 = 1",
+    "sigChanged": true
+   }
+  },
+  {
+   "id": "slider.ellipse-e",
+   "ok": true,
+   "detail": {
+    "derived": {
+     "a": 4.2,
+     "b": 4.066632513517788,
+     "c": 1.05,
+     "e": 0.25
+    }
+   }
+  },
+  {
+   "id": "slider.ellipse-e0-circle",
+   "ok": true,
+   "detail": {
+    "name": "圆",
+    "directrices": []
+   }
+  },
+  {
+   "id": "slider.ellipse-endpoints",
+   "ok": true,
+   "detail": {
+    "a": 5,
+    "b": 2.633913438213185,
+    "c": 4.25,
+    "e": 0.85
+   }
+  },
+  {
+   "id": "slider.hyperbola-e",
+   "ok": true,
+   "detail": {
+    "derived": {
+     "a": 2.2,
+     "b": 3.345447055327584,
+     "c": 4.0040000000000004,
+     "e": 1.82
+    }
+   }
+  },
+  {
+   "id": "slider.hyperbola-endpoints",
+   "ok": true,
+   "detail": {
+    "a": 1.2,
+    "b": 0.384187454245971,
+    "c": 1.26,
+    "e": 1.05
+   }
+  },
+  {
+   "id": "slider.parabola-p",
+   "ok": true,
+   "detail": {
+    "derived": {
+     "p": 4.25,
+     "e": 1
+    }
+   }
+  },
+  {
+   "id": "slider.parabola-endpoints",
+   "ok": true,
+   "detail": {
+    "min": {
+     "p": 1,
+     "e": 1
+    },
+    "max": {
+     "p": 5,
+     "e": 1
+    }
+   }
+  },
+  {
+   "id": "slider.unified-e-098",
+   "ok": true,
+   "detail": {
+    "name": "椭圆",
+    "curves": [
+     {
+      "closed": false,
+      "fill": false,
+      "dim": false,
+      "points": 281
+     }
+    ]
+   }
+  },
+  {
+   "id": "slider.unified-e-102",
+   "ok": true,
+   "detail": {
+    "name": "双曲线",
+    "curves": [
+     {
+      "closed": false,
+      "fill": false,
+      "dim": false,
+      "points": 281
+     },
+     {
+      "closed": false,
+      "fill": false,
+      "dim": true,
+      "points": 281
+     }
+    ]
+   }
+  },
+  {
+   "id": "slider.unified-e-1",
+   "ok": true,
+   "detail": {
+    "name": "抛物线",
+    "curves": [
+     {
+      "closed": false,
+      "fill": false,
+      "dim": false,
+      "points": 281
+     }
+    ]
+   }
+  },
+  {
+   "id": "slider.unified-l-endpoints",
+   "ok": true,
+   "detail": {
+    "min": {
+     "e": 1,
+     "l": 1.5,
+     "d": 1.5
+    },
+    "max": {
+     "e": 1,
+     "l": 4,
+     "d": 4
+    }
+   }
+  },
+  {
+   "id": "unified.quick-e",
+   "ok": true,
+   "detail": {
+    "derived": {
+     "e": 1.6,
+     "l": 4,
+     "d": 2.5
+    },
+    "buttons": 4
+   }
+  },
+  {
+   "id": "axis.ellipse-y",
+   "ok": true,
+   "detail": {
+    "derived": {
+     "a": 5,
+     "b": 4,
+     "c": 3,
+     "e": 0.6
+    },
+    "eq": "x² / 16.00 + y² / 25.00 = 1",
+    "foci": [
+     {
+      "label": "F₁",
+      "x": 0,
+      "y": -3
+     },
+     {
+      "label": "F₂",
+      "x": 0,
+      "y": 3
+     }
+    ],
+    "dir": [
+     {
+      "type": "h",
+      "value": 8.333333333333334,
+      "label": "y = 8.33"
+     },
+     {
+      "type": "h",
+      "value": -8.333333333333334,
+      "label": "y = −8.33"
+     }
+    ],
+    "label": "焦点在 y 轴",
+    "axis": [
+     "false",
+     "true"
+    ]
+   }
+  },
+  {
+   "id": "axis.hyperbola-y",
+   "ok": true,
+   "detail": {
+    "derived": {
+     "a": 3,
+     "b": 4,
+     "c": 5,
+     "e": 1.6666666666666667
+    },
+    "asym": [
+     "y = ±0.75x",
+     "y = ±0.75x"
+    ],
+    "eq": "y² / 9.00 − x² / 16.00 = 1",
+    "label": "实轴竖直",
+    "dir": [
+     {
+      "type": "h",
+      "value": 1.8,
+      "label": "y = 1.80"
+     },
+     {
+      "type": "h",
+      "value": -1.8,
+      "label": "y = −1.80"
+     }
+    ]
+   }
+  },
+  {
+   "id": "axis.parabola-y",
+   "ok": true,
+   "detail": {
+    "eq": "x² = 6.00y",
+    "focus": [
+     {
+      "label": "F",
+      "x": 0,
+      "y": 1.5
+     }
+    ],
+    "dir": [
+     {
+      "type": "h",
+      "value": -1.5,
+      "label": "y = −1.50"
+     }
+    ],
+    "label": "开口向上"
+   }
+  },
+  {
+   "id": "axis.unified-hidden",
+   "ok": true,
+   "detail": true
+  },
+  {
+   "id": "toggle.directrix.aria",
+   "ok": true,
+   "detail": {
+    "before": "true",
+    "after": "false"
+   }
+  },
+  {
+   "id": "toggle.directrix.canvas-change",
+   "ok": true,
+   "detail": {
+    "same": false
+   }
+  },
+  {
+   "id": "toggle.asymptote.aria",
+   "ok": true,
+   "detail": {
+    "before": "true",
+    "after": "false"
+   }
+  },
+  {
+   "id": "toggle.asymptote.canvas-change",
+   "ok": true,
+   "detail": {
+    "same": false
+   }
+  },
+  {
+   "id": "toggle.labels.aria",
+   "ok": true,
+   "detail": {
+    "before": "true",
+    "after": "false"
+   }
+  },
+  {
+   "id": "toggle.labels.canvas-change",
+   "ok": true,
+   "detail": {
+    "same": false
+   }
+  },
+  {
+   "id": "toggle.labels.hides-aux-labels",
+   "ok": true,
+   "detail": {
+    "on": 3701547467,
+    "off": 4041556702
+   }
+  },
+  {
+   "id": "toggle.restore-all-on",
+   "ok": true,
+   "detail": [
+    "directrix:true:visible",
+    "asymptote:true:visible",
+    "labels:true:visible"
+   ]
+  },
+  {
+   "id": "play.start",
+   "ok": true,
+   "detail": {
+    "state": {
+     "mode": "unified",
+     "orientation": "x",
+     "params": {
+      "ellipse": {
+       "a": 5,
+       "e": 0.6
+      },
+      "hyperbola": {
+       "a": 3,
+       "e": 1.6666666666666667
+      },
+      "parabola": {
+       "p": 3
+      },
+      "unified": {
+       "e": 1.6,
+       "l": 2.5
+      }
+     },
+     "phase": 0.9,
+     "playing": true
+    },
+    "dom": {
+     "liveName": "双曲线",
+     "liveE": "e = 1.60",
+     "familyChip": "双曲线",
+     "eqNumeric": "r = 2.50 / (1 − 1.60 cos θ)",
+     "eqSymbolic": "r=ℓ1 − e cos θ",
+     "orientationLabel": "焦点在原点 · 准线在左",
+     "metricGrid": "e1.60ℓ2.50d1.56曲线双曲线",
+     "features": [
+      "焦点F(0, 0)",
+      "准线x = −1.56",
+      "半通径ℓ = 2.50",
+      "中心(−2.56, 0.00)"
+     ],
+     "noteText": "e > 1：轨迹是双曲线。两支上的点到同一焦点 F、同一准线 ℓ 的距离比都等于 e。极坐标取 r > 0 只描出含焦点的一支，图中另一支由中心对称补画。",
+     "stageNote": "原点 = 焦点 F · 准线在焦点左侧 · P 由参数方程生成",
+     "originChip": "焦点在原点 · 准线在左",
+     "defTitle": "定义验证 · 统一视角",
+     "defFormula": "|PF| / d(P, ℓ) = e",
+     "defValues": "PF = 1.97 · PD = 1.23 · PF/PD = 1.6000 · e = 1.6000",
+     "pointReadout": "P (−0.33, −1.94)",
+     "modeTabs": [
+      "ellipse:false",
+      "hyperbola:false",
+      "parabola:false",
+      "unified:true"
+     ],
+     "modeCards": [
+      "ellipse:false",
+      "hyperbola:false",
+      "parabola:false",
+      "unified:true"
+     ],
+     "toggles": [
+      "directrix:true:visible",
+      "asymptote:true:hidden",
+      "labels:true:visible"
+     ],
+     "axis": [
+      "true",
+      "false"
+     ],
+     "rows": {
+      "a": false,
+      "e": true,
+      "p": false,
+      "l": true
+     },
+     "quickHidden": false,
+     "axisHidden": true,
+     "playText": "暂停动点",
+     "stagePlayAria": "暂停动点 P",
+     "stagePlayPressed": "true",
+     "bodyText": "CONIC EQUATION LAB\n解析几何\n圆锥曲线方程实验室 / CONIC LAB\n焦点在原点 · 准线在左\n方程速查\n01\n曲线与参数\n\n选择曲线 · 调整方程\n\n椭圆\nELLIPSE\n双曲线\nHYPERBOLA\n抛物线\nPARABOLA\n统一视角\nUNIFIED\n方程参数\nPF / d(P, ℓ) = e\n离心率\ne\n1.60\n<1 椭圆 · 1 抛物线 · >1 双曲线\n0.35 — 2.2\n半通径\nℓ\n2.50\n控制曲线的“大小”\n1.5 — 4\n椭圆 e=0.6\n抛物线 e=1\n双曲线 e=1.6\n准线\n标签\n暂停动点\n重置\n空格暂停动点 · 1–4 切换曲线 · R 重置参数 · G 打开方程速查\n当前曲线 / LIVE CURVE\n双曲线\ne = 1.60\n暂停动点\n=\n定义验证 · 统一视角\n|PF| / d(P, ℓ) = e\nPF = 1.97 · PD = 1.23 · PF/PD = 1.6000 · e = 1.6000\nPOINT P\nP (−0.33, −1.94)\n原点 = 焦点 F · 准线在焦点左侧 · P 由参数方程生成\n02\n方程档案\n\n标准方程 · 关键几何量\n\n双曲线\n极坐标方程 / POLAR FORM\n焦点在原点 · 准线在左\nr\n=\nℓ\n1 − e cos θ\nr = 2.50 / (1 − 1.60 cos θ)\nPF = e · d(P, ℓ)\ne > 1（双曲线）\ne\n1.60\nℓ\n2.50\nd\n1.56\n曲线\n双曲线\n几何要素\n实时\n焦点\nF(0, 0)\n准线\nx = −1.56\n半通径\nℓ = 2.50\n中心\n(−2.56, 0.00)\ni\n观察提示\n\ne > 1：轨迹是双曲线。两支上的点到同一焦点 F、同一准线 ℓ 的距离比都等于 e。极坐标取 r > 0 只描出含焦点的一支，图中另一支由中心对称补画。\n\n这个标准方程从哪里来？\n看推导 →\n03\n曲线图鉴\n\n四种方程视角 · 点击卡片切换\n\n统一定义：|PF| / d(P, ℓ) = e\n01\n椭圆\nELLIPSE\nx²/a² + y²/b² = 1\n|PF₁| + |PF₂| = 2a\n02\n双曲线\nHYPERBOLA\nx²/a² − y²/b² = 1\n| |PF₁| − |PF₂| | = 2a\n03\n抛物线\nPARABOLA\ny² = 2px\n|PF| = d(P, ℓ)\n04\n统一视角\nUNIFIED\nPF / d(P, ℓ) = e\ne < 1 · e = 1 · e > 1"
+    }
+   }
+  },
+  {
+   "id": "play.phase-advances",
+   "ok": true,
+   "detail": {
+    "start": 0.9,
+    "later": 1.1789999999999996,
+    "note": "headless RAF 节流下只要求相位明显推进（>0.05）"
+   }
+  },
+  {
+   "id": "play.P-moves",
+   "ok": true,
+   "detail": {
+    "P1": [
+     -0.3324592263147322,
+     -1.939781339082974
+    ],
+    "P_later": [
+     0.4621095549582607,
+     -3.2062450023803066
+    ]
+   }
+  },
+  {
+   "id": "play.pause",
+   "ok": true,
+   "detail": {
+    "phase": [
+     1.4165839999999972,
+     1.4165839999999972
+    ],
+    "P": [
+     [
+      1.7839859004108627,
+      -5.048440559633828
+     ],
+     [
+      1.7839859004108627,
+      -5.048440559633828
+     ]
+    ]
+   }
+  },
+  {
+   "id": "play.stage-button",
+   "ok": true,
+   "detail": {
+    "on": true,
+    "off": false
+   }
+  },
+  {
+   "id": "reset.params-defaults",
+   "ok": true,
+   "detail": {
+    "mode": "unified",
+    "derived": {
+     "e": 0.65,
+     "l": 2.5,
+     "d": 3.846153846153846
+    },
+    "phase": 0.9930000000000001,
+    "phaseNote": "reset 后 playing=true，相位从 0.9 继续推进属预期"
+   }
+  },
+  {
+   "id": "reset.orientation-and-phase",
+   "ok": true,
+   "detail": "x"
+  },
+  {
+   "id": "reset.toggles-and-play",
+   "ok": true,
+   "detail": {
+    "toggles": [
+     "directrix:true:visible",
+     "asymptote:true:hidden",
+     "labels:true:visible"
+    ],
+    "playingAfterReset": true
+   }
+  },
+  {
+   "id": "reset.toast",
+   "ok": true,
+   "detail": "已重置当前参数"
+  },
+  {
+   "id": "keyboard.1-4-modes",
+   "ok": true,
+   "detail": {
+    "1": "ellipse",
+    "2": "hyperbola",
+    "3": "parabola",
+    "4": "unified"
+   }
+  },
+  {
+   "id": "keyboard.space-play",
+   "ok": true,
+   "detail": {
+    "on": true,
+    "off": false
+   }
+  },
+  {
+   "id": "keyboard.r-reset",
+   "ok": true,
+   "detail": {
+    "orientation": "x",
+    "derived": {
+     "a": 4,
+     "b": 3.340658617698013,
+     "c": 2.2,
+     "e": 0.55
+    }
+   }
+  },
+  {
+   "id": "keyboard.g-open-guide",
+   "ok": true,
+   "detail": {
+    "open": true,
+    "focused": "modal-close"
+   }
+  },
+  {
+   "id": "keyboard.esc-close-guide",
+   "ok": true,
+   "detail": {
+    "open": false,
+    "focusId": "guideBtn"
+   }
+  },
+  {
+   "id": "guide.opens",
+   "ok": true,
+   "detail": {
+    "open": true,
+    "aria": "false",
+    "visibility": "visible",
+    "role": "dialog",
+    "ariaModal": "true",
+    "labelledby": "guideTitle",
+    "title": "一个比值，三种曲线",
+    "panelScrollTop": 0,
+    "panelScrollHeight": 1072,
+    "panelClientHeight": 959,
+    "focusedClass": "modal-close",
+    "focusedInside": true,
+    "bodyModalOpen": true,
+    "appInert": true
+   }
+  },
+  {
+   "id": "guide.scroll-reset-on-open",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "guide.focus-close",
+   "ok": true,
+   "detail": "modal-close"
+  },
+  {
+   "id": "guide.semantics",
+   "ok": true,
+   "detail": {
+    "role": "dialog",
+    "ariaModal": "true",
+    "labelledby": "guideTitle"
+   }
+  },
+  {
+   "id": "guide.background-inert",
+   "ok": true,
+   "detail": true
+  },
+  {
+   "id": "guide.focus-trap",
+   "ok": true,
+   "detail": {
+    "escaped": 0,
+    "total": 20,
+    "shiftInside": true
+   }
+  },
+  {
+   "id": "guide.esc-close-focus-return",
+   "ok": true,
+   "detail": {
+    "open": false,
+    "aria": "true",
+    "bodyClass": false,
+    "appInert": false,
+    "focusId": "guideBtn",
+    "focusClass": "ghost-btn"
+   }
+  },
+  {
+   "id": "guide.scroll-reset-after-reopen",
+   "ok": true,
+   "detail": {
+    "scrolledBefore": 113,
+    "scrollOnReopen": 0
+   }
+  },
+  {
+   "id": "guide.close-x",
+   "ok": true,
+   "detail": false
+  },
+  {
+   "id": "guide.close-backdrop",
+   "ok": true,
+   "detail": false
+  },
+  {
+   "id": "guide.jump-button",
+   "ok": true,
+   "detail": {
+    "mode": "parabola",
+    "open": false,
+    "retried": false
+   }
+  },
+  {
+   "id": "guide.content-keywords",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "guide.content-no-wrong-branch-claim",
+   "ok": true,
+   "detail": [
+    "定义(?:只|仅)(?:给出|得到)?(?:双曲线的?)?(?:一|单)(?:支|条)",
+    "轨迹(?:只|仅)(?:是|为|有)(?:双曲线的?)?(?:一|单)(?:支|条)"
+   ]
+  },
+  {
+   "id": "layout.1920.no-page-hoverflow",
+   "ok": true,
+   "detail": {
+    "docW": 1920,
+    "innerW": 1920,
+    "overflow": [],
+    "trackScroll": {
+     "rect": {
+      "top": 951.2,
+      "bottom": 1053,
+      "left": 31,
+      "right": 1889,
+      "width": 1858,
+      "height": 101.8
+     },
+     "sw": 1858,
+     "cw": 1858
+    }
+   }
+  },
+  {
+   "id": "layout.1920.columns",
+   "ok": true,
+   "detail": {
+    "controlsRight": 334,
+    "stage": [
+     347,
+     1531
+    ],
+    "detailsLeft": 1544
+   }
+  },
+  {
+   "id": "layout.1920.in-viewport",
+   "ok": true,
+   "detail": {
+    "stageBottom": 888,
+    "catalogBottom": 1063,
+    "playBtn": {
+     "top": 489.5,
+     "bottom": 526.5,
+     "left": 34,
+     "right": 233,
+     "width": 199,
+     "height": 37
+    }
+   }
+  },
+  {
+   "id": "layout.1920.panels-scroll",
+   "ok": true,
+   "detail": {
+    "controls": [
+     810,
+     810
+    ],
+    "details": [
+     810,
+     810
+    ]
+   }
+  },
+  {
+   "id": "layout.1920.canvas-size",
+   "ok": true,
+   "detail": {
+    "css": {
+     "top": 77,
+     "bottom": 887,
+     "left": 348,
+     "right": 1530,
+     "width": 1182,
+     "height": 810
+    },
+    "w": 1182,
+    "h": 810
+   }
+  },
+  {
+   "id": "layout.1920.catalog-cards",
+   "ok": true,
+   "detail": [
+    {
+     "mode": "ellipse",
+     "w": 458.8,
+     "left": 32,
+     "top": 952.2
+    },
+    {
+     "mode": "hyperbola",
+     "w": 458.8,
+     "left": 497.8,
+     "top": 952.2
+    },
+    {
+     "mode": "parabola",
+     "w": 458.8,
+     "left": 963.5,
+     "top": 952.2
+    },
+    {
+     "mode": "unified",
+     "w": 458.8,
+     "left": 1429.3,
+     "top": 952.2
+    }
+   ]
+  },
+  {
+   "id": "layout.1366.no-page-hoverflow",
+   "ok": true,
+   "detail": {
+    "docW": 1366,
+    "innerW": 1366,
+    "overflow": [],
+    "trackScroll": {
+     "rect": {
+      "top": 639,
+      "bottom": 749,
+      "left": 25,
+      "right": 1341,
+      "width": 1316,
+      "height": 110
+     },
+     "sw": 1316,
+     "cw": 1316
+    }
+   }
+  },
+  {
+   "id": "layout.1366.catalog-track-scrollable",
+   "ok": true,
+   "detail": {
+    "rect": {
+     "top": 639,
+     "bottom": 749,
+     "left": 25,
+     "right": 1341,
+     "width": 1316,
+     "height": 110
+    },
+    "sw": 1316,
+    "cw": 1316
+   }
+  },
+  {
+   "id": "layout.1366.no-page-scroll",
+   "ok": true,
+   "detail": {
+    "docH": 768,
+    "innerH": 768
+   }
+  },
+  {
+   "id": "layout.1366.play-visible",
+   "ok": true,
+   "detail": {
+    "top": 385.3,
+    "bottom": 418.3,
+    "left": 27,
+    "right": 232,
+    "width": 205,
+    "height": 33
+   }
+  },
+  {
+   "id": "layout.1366.controls-visible",
+   "ok": true,
+   "detail": {
+    "controls": {
+     "rect": {
+      "top": 64,
+      "bottom": 592,
+      "left": 14,
+      "right": 330,
+      "width": 316,
+      "height": 528
+     },
+     "scrollHeight": 526,
+     "clientHeight": 526
+    },
+    "modeTabs": {
+     "top": 108,
+     "bottom": 156,
+     "left": 27,
+     "right": 317,
+     "width": 290,
+     "height": 48
+    }
+   }
+  },
+  {
+   "id": "layout.1366.details-visible",
+   "ok": true,
+   "detail": {
+    "details": {
+     "rect": {
+      "top": 64,
+      "bottom": 592,
+      "left": 994,
+      "right": 1352,
+      "width": 358,
+      "height": 528
+     },
+     "scrollHeight": 526,
+     "clientHeight": 526
+    }
+   }
+  },
+  {
+   "id": "layout.1366.catalog-visible",
+   "ok": true,
+   "detail": {
+    "catalog": {
+     "top": 602,
+     "bottom": 756,
+     "left": 14,
+     "right": 1352,
+     "width": 1338,
+     "height": 154
+    },
+    "cards": 4
+   }
+  },
+  {
+   "id": "layout.1366.stage-size",
+   "ok": true,
+   "detail": {
+    "top": 64,
+    "bottom": 592,
+    "left": 340,
+    "right": 984,
+    "width": 644,
+    "height": 528
+   }
+  },
+  {
+   "id": "layout.1024.no-page-hoverflow",
+   "ok": true,
+   "detail": {
+    "docW": 1024,
+    "innerW": 1024,
+    "overflow": [],
+    "trackScroll": {
+     "rect": {
+      "top": 1625.8,
+      "bottom": 1755.6,
+      "left": 25,
+      "right": 999,
+      "width": 974,
+      "height": 129.8
+     },
+     "sw": 1103,
+     "cw": 974
+    }
+   }
+  },
+  {
+   "id": "layout.1024.catalog-track-scrollable",
+   "ok": true,
+   "detail": {
+    "rect": {
+     "top": 1625.8,
+     "bottom": 1755.6,
+     "left": 25,
+     "right": 999,
+     "width": 974,
+     "height": 129.8
+    },
+    "sw": 1103,
+    "cw": 974
+   }
+  },
+  {
+   "id": "layout.1024.stack-order",
+   "ok": true,
+   "detail": [
+    {
+     "sel": ".stage-card",
+     "rect": {
+      "top": 60,
+      "bottom": 572,
+      "left": 12,
+      "right": 1012,
+      "width": 1000,
+      "height": 512
+     }
+    },
+    {
+     "sel": ".panel-controls",
+     "rect": {
+      "top": 584,
+      "bottom": 1071.5,
+      "left": 12,
+      "right": 1012,
+      "width": 1000,
+      "height": 487.5
+     }
+    },
+    {
+     "sel": ".panel-details",
+     "rect": {
+      "top": 1083.5,
+      "bottom": 1563.6,
+      "left": 12,
+      "right": 1012,
+      "width": 1000,
+      "height": 480.1
+     }
+    },
+    {
+     "sel": ".catalog",
+     "rect": {
+      "top": 1575.6,
+      "bottom": 1765.6,
+      "left": 12,
+      "right": 1012,
+      "width": 1000,
+      "height": 190
+     }
+    }
+   ]
+  },
+  {
+   "id": "layout.1024.stage-fits",
+   "ok": true,
+   "detail": {
+    "top": 60,
+    "bottom": 572,
+    "left": 12,
+    "right": 1012,
+    "width": 1000,
+    "height": 512
+   }
+  },
+  {
+   "id": "layout.1024.widths",
+   "ok": true,
+   "detail": {
+    "controls": 1000,
+    "details": 1000,
+    "catalog": 1000
+   }
+  },
+  {
+   "id": "layout.1024.controls-operable",
+   "ok": true,
+   "detail": {
+    "modeTabs": {
+     "top": 645.3,
+     "bottom": 709.3,
+     "left": 25,
+     "right": 999,
+     "width": 974,
+     "height": 64
+    },
+    "playBtn": {
+     "top": 986.5,
+     "bottom": 1023.5,
+     "left": 25,
+     "right": 914,
+     "width": 889,
+     "height": 37
+    }
+   }
+  },
+  {
+   "id": "layout.390.no-page-hoverflow",
+   "ok": true,
+   "detail": {
+    "docW": 390,
+    "innerW": 390,
+    "overflow": [],
+    "trackScroll": {
+     "rect": {
+      "top": 1740.8,
+      "bottom": 1874.6,
+      "left": 25,
+      "right": 365,
+      "width": 340,
+      "height": 133.8
+     },
+     "sw": 1023,
+     "cw": 340
+    }
+   }
+  },
+  {
+   "id": "layout.390.catalog-track-scrollable",
+   "ok": true,
+   "detail": {
+    "rect": {
+     "top": 1740.8,
+     "bottom": 1874.6,
+     "left": 25,
+     "right": 365,
+     "width": 340,
+     "height": 133.8
+    },
+    "sw": 1023,
+    "cw": 340
+   }
+  },
+  {
+   "id": "layout.390.catalog-track-scrolls-inside",
+   "ok": true,
+   "detail": {
+    "before": {
+     "before": 26,
+     "docW": 390,
+     "innerW": 390
+    },
+    "after": {
+     "scrollLeft": 200,
+     "cardLeft": -174,
+     "docW": 390,
+     "innerW": 390
+    }
+   }
+  },
+  {
+   "id": "layout.390.order",
+   "ok": true,
+   "detail": [
+    {
+     "sel": ".stage-card",
+     "rect": {
+      "top": 104,
+      "bottom": 644,
+      "left": 12,
+      "right": 378,
+      "width": 366,
+      "height": 540
+     }
+    },
+    {
+     "sel": ".panel-controls",
+     "rect": {
+      "top": 656,
+      "bottom": 1143.5,
+      "left": 12,
+      "right": 378,
+      "width": 366,
+      "height": 487.5
+     }
+    },
+    {
+     "sel": ".panel-details",
+     "rect": {
+      "top": 1155.5,
+      "bottom": 1678.6,
+      "left": 12,
+      "right": 378,
+      "width": 366,
+      "height": 523.1
+     }
+    },
+    {
+     "sel": ".catalog",
+     "rect": {
+      "top": 1690.6,
+      "bottom": 1884.6,
+      "left": 12,
+      "right": 378,
+      "width": 366,
+      "height": 194
+     }
+    }
+   ]
+  },
+  {
+   "id": "layout.390.header-fits",
+   "ok": true,
+   "detail": {
+    "header": {
+     "top": 0,
+     "bottom": 104,
+     "left": 0,
+     "right": 390,
+     "width": 390,
+     "height": 104
+    },
+    "h1": {
+     "top": 24.2,
+     "bottom": 45.8,
+     "left": 67,
+     "right": 250.6,
+     "width": 183.6,
+     "height": 21.6
+    }
+   }
+  },
+  {
+   "id": "layout.390.stage-fits",
+   "ok": true,
+   "detail": {
+    "top": 104,
+    "bottom": 644,
+    "left": 12,
+    "right": 378,
+    "width": 366,
+    "height": 540
+   }
+  },
+  {
+   "id": "layout.390.controls-width",
+   "ok": true,
+   "detail": {
+    "top": 656,
+    "bottom": 1143.5,
+    "left": 12,
+    "right": 378,
+    "width": 366,
+    "height": 487.5
+   }
+  },
+  {
+   "id": "layout.390.cards",
+   "ok": true,
+   "detail": [
+    {
+     "mode": "ellipse",
+     "w": 250,
+     "left": 26,
+     "top": 1741.8
+    },
+    {
+     "mode": "hyperbola",
+     "w": 250,
+     "left": 283,
+     "top": 1741.8
+    },
+    {
+     "mode": "parabola",
+     "w": 250,
+     "left": 540,
+     "top": 1741.8
+    },
+    {
+     "mode": "unified",
+     "w": 250,
+     "left": 797,
+     "top": 1741.8
+    }
+   ]
+  },
+  {
+   "id": "layout.390.guide-modal-fits",
+   "ok": true,
+   "detail": {
+    "left": 8,
+    "right": 382,
+    "top": 25.3125,
+    "bottom": 818.671875,
+    "w": 374,
+    "h": 793.359375,
+    "scrollH": 2130,
+    "clientH": 791,
+    "open": true,
+    "focusedInside": true
+   }
+  },
+  {
+   "id": "a11y.buttons-named",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "a11y.ranges-labeled",
+   "ok": true,
+   "detail": [
+    {
+     "id": "rangeA",
+     "aria": "椭圆长半轴 a",
+     "visibleLabel": "长半轴 a"
+    },
+    {
+     "id": "rangeE",
+     "aria": "椭圆离心率 e",
+     "visibleLabel": "离心率 e"
+    },
+    {
+     "id": "rangeP",
+     "aria": "抛物线焦准距参数 p",
+     "visibleLabel": "焦准距参数 p"
+    },
+    {
+     "id": "rangeL",
+     "aria": "统一视角半通径 ℓ",
+     "visibleLabel": "半通径 ℓ"
+    }
+   ]
+  },
+  {
+   "id": "a11y.range-aria-mode-context",
+   "ok": true,
+   "detail": {
+    "hyperbola": [],
+    "unified": [],
+    "note": "滑杆 aria-label 固定为椭圆模式文案，切到双曲线/统一视角后仍读作“椭圆…”（可见 label 已更新）"
+   }
+  },
+  {
+   "id": "a11y.canvas-label",
+   "ok": true,
+   "detail": {
+    "aria": "带坐标轴的圆锥曲线动态图",
+    "role": null,
+    "fallback": "你的浏览器需要支持 Canvas。",
+    "live": "椭圆"
+   }
+  },
+  {
+   "id": "a11y.focus-visible",
+   "ok": true,
+   "detail": {
+    "tag": "BUTTON",
+    "id": "fullBtn",
+    "cls": "icon-btn",
+    "text": "",
+    "focusVisible": true,
+    "outlineWidth": "2px",
+    "outlineStyle": "solid"
+   }
+  },
+  {
+   "id": "a11y.aria-pressed",
+   "ok": true,
+   "detail": {
+    "tabs": [
+     "true",
+     "false",
+     "false",
+     "false"
+    ],
+    "toggles": [
+     "true",
+     "true",
+     "true"
+    ],
+    "axis": [
+     "true",
+     "false"
+    ],
+    "cards": [
+     "true",
+     "false",
+     "false",
+     "false"
+    ]
+   }
+  },
+  {
+   "id": "a11y.contrast",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "errors.no-runtime-exceptions",
+   "ok": true,
+   "detail": 0
+  },
+  {
+   "id": "errors.no-console-errors",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "errors.diag-empty",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "errors.no-external-network",
+   "ok": true,
+   "detail": []
+  },
+  {
+   "id": "errors.no-nan-in-dom",
+   "ok": true,
+   "detail": false
+  }
+ ],
+ "interactions": {
+  "tabs": {
+   "hyperbola": {
+    "diag": {
+     "mode": "hyperbola",
+     "name": "双曲线",
+     "curves": [
+      {
+       "closed": false,
+       "fill": false,
+       "dim": false,
+       "points": 131
+      },
+      {
+       "closed": false,
+       "fill": false,
+       "dim": false,
+       "points": 131
+      }
+     ],
+     "derived": {
+      "a": 2.2,
+      "b": 2.3100000000000005,
+      "c": 3.19,
+      "e": 1.45
+     }
+    },
+    "dom": {
+     "liveName": "双曲线",
+     "liveE": "e = 1.45",
+     "familyChip": "双曲线",
+     "eqNumeric": "x² / 4.84 − y² / 5.34 = 1",
+     "eqSymbolic": "x²a²−y²b²=1",
+     "orientationLabel": "实轴水平",
+     "metricGrid": "a2.20b2.31c3.19e1.45",
+     "features": [
+      "焦点(−3.19, 0.00) · (3.19, 0.00)",
+      "准线x = ±1.52",
+      "渐近线y = ±1.05x",
+      "顶点(±2.20, 0)"
+     ],
+     "noteText": "e 越大，c/a 越大，开口越开阔；渐近线斜率为 ±b/a。",
+     "stageNote": "原点 = 中心 O · P 由参数方程生成",
+     "originChip": "标准位置 · 中心在原点",
+     "defTitle": "定义验证 · 双曲线",
+     "defFormula": "| |PF₁| − |PF₂| | = 2a",
+     "defValues": "PF₁ = 6.96 · PF₂ = 2.56 · |差| = 4.40 = 2a = 4.40",
+     "pointReadout": "P (3.28, 2.56)",
+     "modeTabs": [
+      "ellipse:false",
+      "hyperbola:true",
+      "parabola:false",
+      "unified:false"
+     ],
+     "modeCards": [
+      "ellipse:false",
+      "hyperbola:true",
+      "parabola:false",
+      "unified:false"
+     ],
+     "toggles": [
+      "directrix:true:visible",
+      "asymptote:true:visible",
+      "labels:true:visible"
+     ],
+     "axis": [
+      "true",
+      "false"
+     ],
+     "rows": {
+      "a": true,
+      "e": true,
+      "p": false,
+      "l": false
+     },
+     "quickHidden": true,
+     "axisHidden": false,
+     "playText": "播放动点",
+     "stagePlayAria": "播放动点 P",
+     "stagePlayPressed": "false",
+     "bodyText": "CONIC EQUATION LAB\n解析几何\n圆锥曲线方程实验室 / CONIC LAB\n标准位置 · 中心在原点\n方程速查\n01\n曲线与参数\n\n选择曲线 · 调整方程\n\n椭圆\nELLIPSE\n双曲线\nHYPERBOLA\n抛物线\nPARABOLA\n统一视角\nUNIFIED\n方程参数\nc² = a² + b²\n实半轴\na\n2.20\n决定顶点间距离\n1.2 — 3.2\n离心率\ne\n1.45\n越大开口越开阔\n1.05 — 2\n实轴方向\n实轴水平\n实轴竖直\n准线\n渐近线\n标签\n播放动点\n重置\n空格暂停动点 · 1–4 切换曲线 · R 重置参数 · G 打开方程速查\n当前曲线 / LIVE CURVE\n双曲线\ne = 1.45\n播放动点\n=\n定义验证 · 双曲线\n| |PF₁| − |PF₂| | = 2a\nPF₁ = 6.96 · PF₂ = 2.56 · |差| = 4.40 = 2a = 4.40\nPOINT P\nP (3.28, 2.56)\n原点 = 中心 O · P 由参数方程生成\n02\n方程档案\n\n标准方程 · 关键几何量\n\n双曲线\n标准方程 / STANDARD FORM\n实轴水平\nx²\na²\n−\ny²\nb²\n=\n1\nx² / 4.84 − y² / 5.34 = 1\nc² = a² + b²\ne > 1\na\n2.20\nb\n2.31\nc\n3.19\ne\n1.45\n几何要素\n实时\n焦点\n(−3.19, 0.00) · (3.19, 0.00)\n准线\nx = ±1.52\n渐近线\ny = ±1.05x\n顶点\n(±2.20, 0)\ni\n观察提示\n\ne 越大，c/a 越大，开口越开阔；渐近线斜率为 ±b/a。\n\n这个标准方程从哪里来？\n看推导 →\n03\n曲线图鉴\n\n四种方程视角 · 点击卡片切换\n\n统一定义：|PF| / d(P, ℓ) = e\n01\n椭圆\nELLIPSE\nx²/a² + y²/b² = 1\n|PF₁| + |PF₂| = 2a\n02\n双曲线\nHYPERBOLA\nx²/a² − y²/b² = 1\n| |PF₁| − |PF₂| | = 2a\n03\n抛物线\nPARABOLA\ny² = 2px\n|PF| = d(P, ℓ)\n04\n统一视角\nUNIFIED\nPF / d(P, ℓ) = e\ne < 1 · e = 1 · e > 1"
+    }
+   },
+   "parabola": {
+    "diag": {
+     "mode": "parabola",
+     "name": "抛物线",
+     "curves": [
+      {
+       "closed": false,
+       "fill": false,
+       "dim": false,
+       "points": 181
+      }
+     ],
+     "derived": {
+      "p": 3,
+      "e": 1
+     }
+    },
+    "dom": {
+     "liveName": "抛物线",
+     "liveE": "e = 1.00",
+     "familyChip": "抛物线",
+     "eqNumeric": "y² = 6.00x",
+     "eqSymbolic": "y² = 2p x",
+     "orientationLabel": "开口向右",
+     "metricGrid": "p3.00e1.00p/21.50通径6.00",
+     "features": [
+      "焦点(1.50, 0.00)",
+      "准线x = −1.50",
+      "对称轴y = 0（x 轴）",
+      "顶点(0, 0)"
+     ],
+     "noteText": "焦点到准线的距离等于 p；焦点到顶点距离为 p/2，通径长为 2p。p 越大，开口越开阔。",
+     "stageNote": "原点 = 顶点 O · P 由参数方程生成",
+     "originChip": "标准位置 · 顶点在原点",
+     "defTitle": "定义验证 · 抛物线",
+     "defFormula": "|PF| = d(P, ℓ)",
+     "defValues": "PF = 6.06 · d(P, ℓ) = 6.06",
+     "pointReadout": "P (4.56, 5.23)",
+     "modeTabs": [
+      "ellipse:false",
+      "hyperbola:false",
+      "parabola:true",
+      "unified:false"
+     ],
+     "modeCards": [
+      "ellipse:false",
+      "hyperbola:false",
+      "parabola:true",
+      "unified:false"
+     ],
+     "toggles": [
+      "directrix:true:visible",
+      "asymptote:true:hidden",
+      "labels:true:visible"
+     ],
+     "axis": [
+      "true",
+      "false"
+     ],
+     "rows": {
+      "a": false,
+      "e": false,
+      "p": true,
+      "l": false
+     },
+     "quickHidden": true,
+     "axisHidden": false,
+     "playText": "播放动点",
+     "stagePlayAria": "播放动点 P",
+     "stagePlayPressed": "false",
+     "bodyText": "CONIC EQUATION LAB\n解析几何\n圆锥曲线方程实验室 / CONIC LAB\n标准位置 · 顶点在原点\n方程速查\n01\n曲线与参数\n\n选择曲线 · 调整方程\n\n椭圆\nELLIPSE\n双曲线\nHYPERBOLA\n抛物线\nPARABOLA\n统一视角\nUNIFIED\n方程参数\ne = 1\n焦准距参数\np\n3.00\n焦点到准线的距离 = p\n1 — 5\n开口方向\n开口向右\n开口向上\n准线\n标签\n播放动点\n重置\n空格暂停动点 · 1–4 切换曲线 · R 重置参数 · G 打开方程速查\n当前曲线 / LIVE CURVE\n抛物线\ne = 1.00\n播放动点\n=\n定义验证 · 抛物线\n|PF| = d(P, ℓ)\nPF = 6.06 · d(P, ℓ) = 6.06\nPOINT P\nP (4.56, 5.23)\n原点 = 顶点 O · P 由参数方程生成\n02\n方程档案\n\n标准方程 · 关键几何量\n\n抛物线\n标准方程 / STANDARD FORM\n开口向右\ny² = 2p x\ny² = 6.00x\ne = 1（焦点到准线的距离为 p）\ne = 1\np\n3.00\ne\n1.00\np/2\n1.50\n通径\n6.00\n几何要素\n实时\n焦点\n(1.50, 0.00)\n准线\nx = −1.50\n对称轴\ny = 0（x 轴）\n顶点\n(0, 0)\ni\n观察提示\n\n焦点到准线的距离等于 p；焦点到顶点距离为 p/2，通径长为 2p。p 越大，开口越开阔。\n\n这个标准方程从哪里来？\n看推导 →\n03\n曲线图鉴\n\n四种方程视角 · 点击卡片切换\n\n统一定义：|PF| / d(P, ℓ) = e\n01\n椭圆\nELLIPSE\nx²/a² + y²/b² = 1\n|PF₁| + |PF₂| = 2a\n02\n双曲线\nHYPERBOLA\nx²/a² − y²/b² = 1\n| |PF₁| − |PF₂| | = 2a\n03\n抛物线\nPARABOLA\ny² = 2px\n|PF| = d(P, ℓ)\n04\n统一视角\nUNIFIED\nPF / d(P, ℓ) = e\ne < 1 · e = 1 · e > 1"
+    }
+   },
+   "unified": {
+    "diag": {
+     "mode": "unified",
+     "name": "椭圆",
+     "curves": [
+      {
+       "closed": true,
+       "fill": true,
+       "dim": false,
+       "points": 281
+      }
+     ],
+     "derived": {
+      "e": 0.65,
+      "l": 2.5,
+      "d": 3.846153846153846
+     }
+    },
+    "dom": {
+     "liveName": "椭圆",
+     "liveE": "e = 0.65",
+     "familyChip": "椭圆",
+     "eqNumeric": "r = 2.50 / (1 − 0.65 cos θ)",
+     "eqSymbolic": "r=ℓ1 − e cos θ",
+     "orientationLabel": "焦点在原点 · 准线在左",
+     "metricGrid": "e0.65ℓ2.50d3.85曲线椭圆",
+     "features": [
+      "焦点F(0, 0)",
+      "准线x = −3.85",
+      "半通径ℓ = 2.50",
+      "中心(2.81, 0.00)"
+     ],
+     "noteText": "e < 1：轨迹是完整的椭圆。e 越接近 1，椭圆越接近抛物线；e 越接近 0，越接近圆。",
+     "stageNote": "原点 = 焦点 F · 准线在焦点左侧 · P 由参数方程生成",
+     "originChip": "焦点在原点 · 准线在左",
+     "defTitle": "定义验证 · 统一视角",
+     "defFormula": "|PF| / d(P, ℓ) = e",
+     "defValues": "PF = 4.19 · PD = 6.45 · PF/PD = 0.6500 · e = 0.6500",
+     "pointReadout": "P (2.61, 3.29)",
+     "modeTabs": [
+      "ellipse:false",
+      "hyperbola:false",
+      "parabola:false",
+      "unified:true"
+     ],
+     "modeCards": [
+      "ellipse:false",
+      "hyperbola:false",
+      "parabola:false",
+      "unified:true"
+     ],
+     "toggles": [
+      "directrix:true:visible",
+      "asymptote:true:hidden",
+      "labels:true:visible"
+     ],
+     "axis": [
+      "true",
+      "false"
+     ],
+     "rows": {
+      "a": false,
+      "e": true,
+      "p": false,
+      "l": true
+     },
+     "quickHidden": false,
+     "axisHidden": true,
+     "playText": "播放动点",
+     "stagePlayAria": "播放动点 P",
+     "stagePlayPressed": "false",
+     "bodyText": "CONIC EQUATION LAB\n解析几何\n圆锥曲线方程实验室 / CONIC LAB\n焦点在原点 · 准线在左\n方程速查\n01\n曲线与参数\n\n选择曲线 · 调整方程\n\n椭圆\nELLIPSE\n双曲线\nHYPERBOLA\n抛物线\nPARABOLA\n统一视角\nUNIFIED\n方程参数\nPF / d(P, ℓ) = e\n离心率\ne\n0.65\n<1 椭圆 · 1 抛物线 · >1 双曲线\n0.35 — 2.2\n半通径\nℓ\n2.50\n控制曲线的“大小”\n1.5 — 4\n椭圆 e=0.6\n抛物线 e=1\n双曲线 e=1.6\n准线\n标签\n播放动点\n重置\n空格暂停动点 · 1–4 切换曲线 · R 重置参数 · G 打开方程速查\n当前曲线 / LIVE CURVE\n椭圆\ne = 0.65\n播放动点\n=\n定义验证 · 统一视角\n|PF| / d(P, ℓ) = e\nPF = 4.19 · PD = 6.45 · PF/PD = 0.6500 · e = 0.6500\nPOINT P\nP (2.61, 3.29)\n原点 = 焦点 F · 准线在焦点左侧 · P 由参数方程生成\n02\n方程档案\n\n标准方程 · 关键几何量\n\n椭圆\n极坐标方程 / POLAR FORM\n焦点在原点 · 准线在左\nr\n=\nℓ\n1 − e cos θ\nr = 2.50 / (1 − 0.65 cos θ)\nPF = e · d(P, ℓ)\n0 < e < 1（椭圆）\ne\n0.65\nℓ\n2.50\nd\n3.85\n曲线\n椭圆\n几何要素\n实时\n焦点\nF(0, 0)\n准线\nx = −3.85\n半通径\nℓ = 2.50\n中心\n(2.81, 0.00)\ni\n观察提示\n\ne < 1：轨迹是完整的椭圆。e 越接近 1，椭圆越接近抛物线；e 越接近 0，越接近圆。\n\n这个标准方程从哪里来？\n看推导 →\n03\n曲线图鉴\n\n四种方程视角 · 点击卡片切换\n\n统一定义：|PF| / d(P, ℓ) = e\n01\n椭圆\nELLIPSE\nx²/a² + y²/b² = 1\n|PF₁| + |PF₂| = 2a\n02\n双曲线\nHYPERBOLA\nx²/a² − y²/b² = 1\n| |PF₁| − |PF₂| | = 2a\n03\n抛物线\nPARABOLA\ny² = 2px\n|PF| = d(P, ℓ)\n04\n统一视角\nUNIFIED\nPF / d(P, ℓ) = e\ne < 1 · e = 1 · e > 1"
+    }
+   },
+   "ellipse": {
+    "diag": {
+     "mode": "ellipse",
+     "name": "椭圆",
+     "curves": [
+      {
+       "closed": true,
+       "fill": true,
+       "dim": false,
+       "points": 221
+      }
+     ],
+     "derived": {
+      "a": 4,
+      "b": 3.340658617698013,
+      "c": 2.2,
+      "e": 0.55
+     }
+    },
+    "dom": {
+     "liveName": "椭圆",
+     "liveE": "e = 0.55",
+     "familyChip": "椭圆",
+     "eqNumeric": "x² / 16.00 + y² / 11.16 = 1",
+     "eqSymbolic": "x²a²+y²b²=1",
+     "orientationLabel": "焦点在 x 轴",
+     "metricGrid": "a4.00b3.34c2.20e0.55",
+     "features": [
+      "焦点(−2.20, 0.00) · (2.20, 0.00)",
+      "准线x = ±7.27",
+      "通径5.58"
+     ],
+     "noteText": "椭圆中 a 最大，a² = b² + c²；拖动 e 观察 b 与 c 如何此消彼长。",
+     "stageNote": "原点 = 中心 O · P 由参数方程生成",
+     "originChip": "标准位置 · 中心在原点",
+     "defTitle": "定义验证 · 椭圆",
+     "defFormula": "|PF₁| + |PF₂| = 2a",
+     "defValues": "PF₁ = 5.37 · PF₂ = 2.63 · 和 = 8.00 = 2a = 8.00",
+     "pointReadout": "P (2.49, 2.62)",
+     "modeTabs": [
+      "ellipse:true",
+      "hyperbola:false",
+      "parabola:false",
+      "unified:false"
+     ],
+     "modeCards": [
+      "ellipse:true",
+      "hyperbola:false",
+      "parabola:false",
+      "unified:false"
+     ],
+     "toggles": [
+      "directrix:true:visible",
+      "asymptote:true:hidden",
+      "labels:true:visible"
+     ],
+     "axis": [
+      "true",
+      "false"
+     ],
+     "rows": {
+      "a": true,
+      "e": true,
+      "p": false,
+      "l": false
+     },
+     "quickHidden": true,
+     "axisHidden": false,
+     "playText": "播放动点",
+     "stagePlayAria": "播放动点 P",
+     "stagePlayPressed": "false",
+     "bodyText": "CONIC EQUATION LAB\n解析几何\n圆锥曲线方程实验室 / CONIC LAB\n标准位置 · 中心在原点\n方程速查\n01\n曲线与参数\n\n选择曲线 · 调整方程\n\n椭圆\nELLIPSE\n双曲线\nHYPERBOLA\n抛物线\nPARABOLA\n统一视角\nUNIFIED\n方程参数\na² = b² + c²\n长半轴\na\n4.00\n决定椭圆大小\n2 — 5\n离心率\ne\n0.55\n越小越接近圆\n0 — 0.85\n焦点轴\n焦点在 x 轴\n焦点在 y 轴\n准线\n标签\n播放动点\n重置\n空格暂停动点 · 1–4 切换曲线 · R 重置参数 · G 打开方程速查\n当前曲线 / LIVE CURVE\n椭圆\ne = 0.55\n播放动点\n=\n定义验证 · 椭圆\n|PF₁| + |PF₂| = 2a\nPF₁ = 5.37 · PF₂ = 2.63 · 和 = 8.00 = 2a = 8.00\nPOINT P\nP (2.49, 2.62)\n原点 = 中心 O · P 由参数方程生成\n02\n方程档案\n\n标准方程 · 关键几何量\n\n椭圆\n标准方程 / STANDARD FORM\n焦点在 x 轴\nx²\na²\n+\ny²\nb²\n=\n1\nx² / 16.00 + y² / 11.16 = 1\na² = b² + c²\n0 ≤ e < 1\na\n4.00\nb\n3.34\nc\n2.20\ne\n0.55\n几何要素\n实时\n焦点\n(−2.20, 0.00) · (2.20, 0.00)\n准线\nx = ±7.27\n通径\n5.58\ni\n观察提示\n\n椭圆中 a 最大，a² = b² + c²；拖动 e 观察 b 与 c 如何此消彼长。\n\n这个标准方程从哪里来？\n看推导 →\n03\n曲线图鉴\n\n四种方程视角 · 点击卡片切换\n\n统一定义：|PF| / d(P, ℓ) = e\n01\n椭圆\nELLIPSE\nx²/a² + y²/b² = 1\n|PF₁| + |PF₂| = 2a\n02\n双曲线\nHYPERBOLA\nx²/a² − y²/b² = 1\n| |PF₁| − |PF₂| | = 2a\n03\n抛物线\nPARABOLA\ny² = 2px\n|PF| = d(P, ℓ)\n04\n统一视角\nUNIFIED\nPF / d(P, ℓ) = e\ne < 1 · e = 1 · e > 1"
+    }
+   }
+  },
+  "sliders": {
+   "ellipseA": {
+    "derived": {
+     "a": 4.2,
+     "b": 3.507691548582914,
+     "c": 2.3100000000000005,
+     "e": 0.55
+    },
+    "domVal": "x² / 17.64 + y² / 12.30 = 1",
+    "sigChanged": true
+   },
+   "ellipseE": {
+    "derived": {
+     "a": 4.2,
+     "b": 4.066632513517788,
+     "c": 1.05,
+     "e": 0.25
+    }
+   },
+   "hyperbolaE": {
+    "derived": {
+     "a": 2.2,
+     "b": 3.345447055327584,
+     "c": 4.0040000000000004,
+     "e": 1.82
+    }
+   },
+   "parabolaP": {
+    "derived": {
+     "p": 4.25,
+     "e": 1
+    }
+   }
+  },
+  "axis": {
+   "ellipse": {
+    "derived": {
+     "a": 5,
+     "b": 4,
+     "c": 3,
+     "e": 0.6
+    },
+    "eq": "x² / 16.00 + y² / 25.00 = 1",
+    "foci": [
+     {
+      "label": "F₁",
+      "x": 0,
+      "y": -3
+     },
+     {
+      "label": "F₂",
+      "x": 0,
+      "y": 3
+     }
+    ],
+    "dir": [
+     {
+      "type": "h",
+      "value": 8.333333333333334,
+      "label": "y = 8.33"
+     },
+     {
+      "type": "h",
+      "value": -8.333333333333334,
+      "label": "y = −8.33"
+     }
+    ],
+    "label": "焦点在 y 轴",
+    "axis": [
+     "false",
+     "true"
+    ]
+   },
+   "hyperbola": {
+    "derived": {
+     "a": 3,
+     "b": 4,
+     "c": 5,
+     "e": 1.6666666666666667
+    },
+    "asym": [
+     "y = ±0.75x",
+     "y = ±0.75x"
+    ],
+    "eq": "y² / 9.00 − x² / 16.00 = 1",
+    "label": "实轴竖直",
+    "dir": [
+     {
+      "type": "h",
+      "value": 1.8,
+      "label": "y = 1.80"
+     },
+     {
+      "type": "h",
+      "value": -1.8,
+      "label": "y = −1.80"
+     }
+    ]
+   },
+   "parabola": {
+    "eq": "x² = 6.00y",
+    "focus": [
+     {
+      "label": "F",
+      "x": 0,
+      "y": 1.5
+     }
+    ],
+    "dir": [
+     {
+      "type": "h",
+      "value": -1.5,
+      "label": "y = −1.50"
+     }
+    ],
+    "label": "开口向上"
+   }
+  },
+  "toggles": {
+   "directrix": {
+    "before": {
+     "aria": "true",
+     "sig": {
+      "sig": 3701547467,
+      "nz": 239010,
+      "w": 1182,
+      "h": 810
+     }
+    },
+    "after": {
+     "aria": "false",
+     "sig": {
+      "sig": 1800973211,
+      "nz": 239010,
+      "w": 1182,
+      "h": 810
+     }
+    }
+   },
+   "asymptote": {
+    "before": {
+     "aria": "true",
+     "sig": {
+      "sig": 3701547467,
+      "nz": 239010,
+      "w": 1182,
+      "h": 810
+     }
+    },
+    "after": {
+     "aria": "false",
+     "sig": {
+      "sig": 438741506,
+      "nz": 239010,
+      "w": 1182,
+      "h": 810
+     }
+    }
+   },
+   "labels": {
+    "before": {
+     "aria": "true",
+     "sig": {
+      "sig": 3701547467,
+      "nz": 239010,
+      "w": 1182,
+      "h": 810
+     }
+    },
+    "after": {
+     "aria": "false",
+     "sig": {
+      "sig": 4041556702,
+      "nz": 239010,
+      "w": 1182,
+      "h": 810
+     }
+    }
+   }
+  },
+  "play": {
+   "beforePlay": {
+    "mode": "unified",
+    "orientation": "x",
+    "params": {
+     "ellipse": {
+      "a": 5,
+      "e": 0.6
+     },
+     "hyperbola": {
+      "a": 3,
+      "e": 1.6666666666666667
+     },
+     "parabola": {
+      "p": 3
+     },
+     "unified": {
+      "e": 1.6,
+      "l": 2.5
+     }
+    },
+    "phase": 0.9,
+    "playing": false
+   },
+   "P1": [
+    -0.3324592263147322,
+    -1.939781339082974
+   ],
+   "playStart": {
+    "state": {
+     "mode": "unified",
+     "orientation": "x",
+     "params": {
+      "ellipse": {
+       "a": 5,
+       "e": 0.6
+      },
+      "hyperbola": {
+       "a": 3,
+       "e": 1.6666666666666667
+      },
+      "parabola": {
+       "p": 3
+      },
+      "unified": {
+       "e": 1.6,
+       "l": 2.5
+      }
+     },
+     "phase": 0.9,
+     "playing": true
+    },
+    "dom": {
+     "liveName": "双曲线",
+     "liveE": "e = 1.60",
+     "familyChip": "双曲线",
+     "eqNumeric": "r = 2.50 / (1 − 1.60 cos θ)",
+     "eqSymbolic": "r=ℓ1 − e cos θ",
+     "orientationLabel": "焦点在原点 · 准线在左",
+     "metricGrid": "e1.60ℓ2.50d1.56曲线双曲线",
+     "features": [
+      "焦点F(0, 0)",
+      "准线x = −1.56",
+      "半通径ℓ = 2.50",
+      "中心(−2.56, 0.00)"
+     ],
+     "noteText": "e > 1：轨迹是双曲线。两支上的点到同一焦点 F、同一准线 ℓ 的距离比都等于 e。极坐标取 r > 0 只描出含焦点的一支，图中另一支由中心对称补画。",
+     "stageNote": "原点 = 焦点 F · 准线在焦点左侧 · P 由参数方程生成",
+     "originChip": "焦点在原点 · 准线在左",
+     "defTitle": "定义验证 · 统一视角",
+     "defFormula": "|PF| / d(P, ℓ) = e",
+     "defValues": "PF = 1.97 · PD = 1.23 · PF/PD = 1.6000 · e = 1.6000",
+     "pointReadout": "P (−0.33, −1.94)",
+     "modeTabs": [
+      "ellipse:false",
+      "hyperbola:false",
+      "parabola:false",
+      "unified:true"
+     ],
+     "modeCards": [
+      "ellipse:false",
+      "hyperbola:false",
+      "parabola:false",
+      "unified:true"
+     ],
+     "toggles": [
+      "directrix:true:visible",
+      "asymptote:true:hidden",
+      "labels:true:visible"
+     ],
+     "axis": [
+      "true",
+      "false"
+     ],
+     "rows": {
+      "a": false,
+      "e": true,
+      "p": false,
+      "l": true
+     },
+     "quickHidden": false,
+     "axisHidden": true,
+     "playText": "暂停动点",
+     "stagePlayAria": "暂停动点 P",
+     "stagePlayPressed": "true",
+     "bodyText": "CONIC EQUATION LAB\n解析几何\n圆锥曲线方程实验室 / CONIC LAB\n焦点在原点 · 准线在左\n方程速查\n01\n曲线与参数\n\n选择曲线 · 调整方程\n\n椭圆\nELLIPSE\n双曲线\nHYPERBOLA\n抛物线\nPARABOLA\n统一视角\nUNIFIED\n方程参数\nPF / d(P, ℓ) = e\n离心率\ne\n1.60\n<1 椭圆 · 1 抛物线 · >1 双曲线\n0.35 — 2.2\n半通径\nℓ\n2.50\n控制曲线的“大小”\n1.5 — 4\n椭圆 e=0.6\n抛物线 e=1\n双曲线 e=1.6\n准线\n标签\n暂停动点\n重置\n空格暂停动点 · 1–4 切换曲线 · R 重置参数 · G 打开方程速查\n当前曲线 / LIVE CURVE\n双曲线\ne = 1.60\n暂停动点\n=\n定义验证 · 统一视角\n|PF| / d(P, ℓ) = e\nPF = 1.97 · PD = 1.23 · PF/PD = 1.6000 · e = 1.6000\nPOINT P\nP (−0.33, −1.94)\n原点 = 焦点 F · 准线在焦点左侧 · P 由参数方程生成\n02\n方程档案\n\n标准方程 · 关键几何量\n\n双曲线\n极坐标方程 / POLAR FORM\n焦点在原点 · 准线在左\nr\n=\nℓ\n1 − e cos θ\nr = 2.50 / (1 − 1.60 cos θ)\nPF = e · d(P, ℓ)\ne > 1（双曲线）\ne\n1.60\nℓ\n2.50\nd\n1.56\n曲线\n双曲线\n几何要素\n实时\n焦点\nF(0, 0)\n准线\nx = −1.56\n半通径\nℓ = 2.50\n中心\n(−2.56, 0.00)\ni\n观察提示\n\ne > 1：轨迹是双曲线。两支上的点到同一焦点 F、同一准线 ℓ 的距离比都等于 e。极坐标取 r > 0 只描出含焦点的一支，图中另一支由中心对称补画。\n\n这个标准方程从哪里来？\n看推导 →\n03\n曲线图鉴\n\n四种方程视角 · 点击卡片切换\n\n统一定义：|PF| / d(P, ℓ) = e\n01\n椭圆\nELLIPSE\nx²/a² + y²/b² = 1\n|PF₁| + |PF₂| = 2a\n02\n双曲线\nHYPERBOLA\nx²/a² − y²/b² = 1\n| |PF₁| − |PF₂| | = 2a\n03\n抛物线\nPARABOLA\ny² = 2px\n|PF| = d(P, ℓ)\n04\n统一视角\nUNIFIED\nPF / d(P, ℓ) = e\ne < 1 · e = 1 · e > 1"
+    }
+   },
+   "playLater": {
+    "state": {
+     "mode": "unified",
+     "orientation": "x",
+     "params": {
+      "ellipse": {
+       "a": 5,
+       "e": 0.6
+      },
+      "hyperbola": {
+       "a": 3,
+       "e": 1.6666666666666667
+      },
+      "parabola": {
+       "p": 3
+      },
+      "unified": {
+       "e": 1.6,
+       "l": 2.5
+      }
+     },
+     "phase": 1.1789999999999996,
+     "playing": true
+    },
+    "P": [
+     0.4621095549582607,
+     -3.2062450023803066
+    ]
+   },
+   "pauseState": {
+    "mode": "unified",
+    "orientation": "x",
+    "params": {
+     "ellipse": {
+      "a": 5,
+      "e": 0.6
+     },
+     "hyperbola": {
+      "a": 3,
+      "e": 1.6666666666666667
+     },
+     "parabola": {
+      "p": 3
+     },
+     "unified": {
+      "e": 1.6,
+      "l": 2.5
+     }
+    },
+    "phase": 1.4165839999999972,
+    "playing": false
+   },
+   "PauseP": [
+    1.7839859004108627,
+    -5.048440559633828
+   ],
+   "pauseLater": {
+    "mode": "unified",
+    "orientation": "x",
+    "params": {
+     "ellipse": {
+      "a": 5,
+      "e": 0.6
+     },
+     "hyperbola": {
+      "a": 3,
+      "e": 1.6666666666666667
+     },
+     "parabola": {
+      "p": 3
+     },
+     "unified": {
+      "e": 1.6,
+      "l": 2.5
+     }
+    },
+    "phase": 1.4165839999999972,
+    "playing": false
+   },
+   "pauseP2": [
+    1.7839859004108627,
+    -5.048440559633828
+   ]
+  },
+  "reset": {
+   "state": {
+    "mode": "unified",
+    "orientation": "x",
+    "params": {
+     "ellipse": {
+      "a": 5,
+      "e": 0.6
+     },
+     "hyperbola": {
+      "a": 3,
+      "e": 1.6666666666666667
+     },
+     "parabola": {
+      "p": 3
+     },
+     "unified": {
+      "e": 0.65,
+      "l": 2.5
+     }
+    },
+    "phase": 0.9930000000000001,
+    "playing": false
+   },
+   "derived": {
+    "e": 0.65,
+    "l": 2.5,
+    "d": 3.846153846153846
+   },
+   "mode": "unified",
+   "dom": {
+    "playText": "播放动点",
+    "toggles": [
+     "directrix:true:visible",
+     "asymptote:true:hidden",
+     "labels:true:visible"
+    ],
+    "axis": [
+     "true",
+     "false"
+    ]
+   },
+   "toast": "已重置当前参数",
+   "playingAfterReset": true
+  },
+  "keyboard": {
+   "keyModes": {
+    "1": "ellipse",
+    "2": "hyperbola",
+    "3": "parabola",
+    "4": "unified"
+   },
+   "keyPlayOn": true,
+   "keyPlayOff": false,
+   "keyReset": {
+    "orientation": "x",
+    "params": {
+     "a": 4,
+     "b": 3.340658617698013,
+     "c": 2.2,
+     "e": 0.55
+    }
+   },
+   "keyGuide": {
+    "open": true,
+    "aria": "false",
+    "visibility": "visible",
+    "role": "dialog",
+    "ariaModal": "true",
+    "labelledby": "guideTitle",
+    "title": "一个比值，三种曲线",
+    "panelScrollTop": 0,
+    "panelScrollHeight": 1072,
+    "panelClientHeight": 959,
+    "focusedClass": "modal-close",
+    "focusedInside": true,
+    "bodyModalOpen": true,
+    "appInert": true
+   },
+   "keyEsc": {
+    "open": false,
+    "focusId": "guideBtn"
+   }
+  }
+ },
+ "modal": {
+  "open": {
+   "open": true,
+   "aria": "false",
+   "visibility": "visible",
+   "role": "dialog",
+   "ariaModal": "true",
+   "labelledby": "guideTitle",
+   "title": "一个比值，三种曲线",
+   "panelScrollTop": 0,
+   "panelScrollHeight": 1072,
+   "panelClientHeight": 959,
+   "focusedClass": "modal-close",
+   "focusedInside": true,
+   "bodyModalOpen": true,
+   "appInert": true
+  },
+  "text": "×\nEQUATION ATLAS · 方程速查\n一个比值，三种曲线\n\n把“到定点的距离”与“到定直线的距离”作比，比值 e 就是离心率。e 小于、等于、大于 1，分别得到椭圆、抛物线、双曲线。下面把定义、标准方程与推导一次讲清。\n\n设动点 P 到焦点 F 的距离为 r，到一条定直线 ℓ（准线）的距离为 d。若 r / d = e 为常数，则 P 的轨迹是圆锥曲线。\n焦点、准线、离心率三个对象，统一了椭圆、抛物线和双曲线。\n\nPF / d(P, ℓ) = e\n0 < e < 1\n椭圆\nx²/a² + y²/b² = 1\n\na > b > 0，c² = a² − b²，e = c/a。焦点在 x 轴：F(±c, 0)；在 y 轴时交换 x、y。\n\n另一种定义：|PF₁| + |PF₂| = 2a。\n\ne > 1\n双曲线\nx²/a² − y²/b² = 1\n\na,b > 0，c² = a² + b²，e = c/a。焦点在 x 轴：F(±c, 0)；渐近线 y = ±(b/a)x。\n\n另一种定义：| |PF₁| − |PF₂| | = 2a。定义含绝对值，所以轨迹是两支。\n\ne = 1\n抛物线\ny² = 2px\n\np > 0，焦点 F(p/2, 0)，准线 x = −p/2。也有定义 |PF| = d(P, ℓ)。\n\n开口向上时标准方程为 x² = 2py。\n\n椭圆方程的由来\n\n设 F₁(−c,0)、F₂(c,0)，由 |PF₁| + |PF₂| = 2a 移项并平方：\n\n√((x+c)²+y²) + √((x−c)²+y²) = 2a\n\n两次平方后得到 (a²−c²)x² + a²y² = a²(a²−c²)。令 b² = a²−c²，即得 x²/a² + y²/b² = 1。\n\n双曲线方程的由来\n\n把“和”换成“差的绝对值” | |PF₁| − |PF₂| | = 2a，同样移项、平方，整理可得：\n\n(a²−c²)x² + a²y² = a²(a²−c²)，但此时 c > a，所以令 b² = c²−a²，得到 x²/a² − y²/b² = 1。\n\n椭圆中 a 最大；双曲线中 c 最大，这是两个关系式最容易混淆的地方。\n\n抛物线方程的由来\n\n焦点 F(p/2,0)，准线 x = −p/2，由 |PF| = d(P,ℓ)：\n\n√((x−p/2)² + y²) = x + p/2\n\n两边平方并整理，x² 项抵消，得到 y² = 2px。这也是抛物线的焦点到顶点距离为 p/2 的原因。\n\n统一定义的极坐标形式\n\n以焦点为极点、极轴沿对称轴，设半通径为 ℓ，准线在焦点左侧，则轨迹满足：\n\nr = ℓ / (1 − e cos θ)\n\ne < 1 时是椭圆；e = 1 时是抛物线；e > 1 时是双曲线。按定义，两支上的点到同一焦点、同一准线的距离比都等于 e；取 r > 0 作图时只描出含焦点的一支，图中另一支由中心对称补画。\n\n看方程判类型（无 xy 项时）\n\n把方程写成 Ax² + Cy² + Dx + Ey + F = 0：\n\nA、C 同号：椭圆型（A=C 且无平移时为圆）；\nA、C 异号：双曲线型；\nA、C 中恰有一个为 0：抛物线型。\n\n有平移时先配方，化成以 (h,k) 为中心或顶点的标准形式再判断。\n\n五个易错点\n椭圆 a² = b² + c²，a 最大；双曲线 c² = a² + b²，c 最大。\ny² = 2px 的焦点是 (p/2,0)，不是 (p,0)；准线 x = −p/2。\n离心率 e 的范围：椭圆 0 ≤ e < 1（圆 e=0），双曲线 e > 1，抛物线 e=1。\n焦点轴换到 y 轴时，方程与焦点坐标要同时交换 x、y，不能只改方程。\n极坐标 r = ℓ/(1−e cosθ) 在 e > 1 且 r > 0 时只画出双曲线的一支，不能把“定义”说成“只给一支”。\n课堂演示路线\n\n① 先固定椭圆 a，只改变 e：观察 e 越接近 0，椭圆越接近圆。\n\n② 切到双曲线，观察 c² = a² + b² 与渐近线如何同时变化。\n\n③ 切到抛物线，验证 |PF| 与到准线的距离始终相等。\n\n④ 最后进入“统一视角”，让 e 从 0.6 调到 1.6，看三类曲线如何由同一个焦点—准线定义生成。\n\n① 椭圆\n② 双曲线\n③ 抛物线\n④ 统一视角\n操作方式\n\n拖动参数滑杆，曲线与方程实时更新；点击上方或下方卡片切换曲线；空格暂停动点；按 1–4 快速切换模式；R 重置当前模式；G 打开本页。\n\n椭圆、双曲线的标准形式以中心为原点；抛物线以顶点为原点；统一视角以焦点为原点。切换模式时，请注意坐标原点代表的几何对象。\n\n坐标原点：中心 / 顶点 / 焦点（按模式标注）\n图中长度单位与坐标轴一致\n动点 P 由参数方程生成",
+  "jumpRetried": false,
+  "close": {
+   "esc": {
+    "open": false,
+    "aria": "true",
+    "bodyClass": false,
+    "appInert": false,
+    "focusId": "guideBtn",
+    "focusClass": "ghost-btn"
+   },
+   "x": false,
+   "backdrop": false,
+   "jump": {
+    "mode": "parabola",
+    "open": false,
+    "retried": false
+   }
+  }
+ },
+ "layout": {
+  "1920x1080": {
+   "innerW": 1920,
+   "innerH": 1080,
+   "docW": 1920,
+   "docH": 1080,
+   "bodyW": 1920,
+   "bodyOverflow": "hidden",
+   "header": {
+    "top": 0,
+    "bottom": 76,
+    "left": 0,
+    "right": 1920,
+    "width": 1920,
+    "height": 76
+   },
+   "h1": {
+    "top": 29.6,
+    "bottom": 58.4,
+    "left": 81,
+    "right": 391.7,
+    "width": 310.7,
+    "height": 28.8
+   },
+   "stage": {
+    "top": 76,
+    "bottom": 888,
+    "left": 347,
+    "right": 1531,
+    "width": 1184,
+    "height": 812
+   },
+   "scene": {
+    "css": {
+     "top": 77,
+     "bottom": 887,
+     "left": 348,
+     "right": 1530,
+     "width": 1182,
+     "height": 810
+    },
+    "w": 1182,
+    "h": 810
+   },
+   "controls": {
+    "rect": {
+     "top": 76,
+     "bottom": 888,
+     "left": 18,
+     "right": 334,
+     "width": 316,
+     "height": 812
+    },
+    "scrollHeight": 810,
+    "clientHeight": 810
+   },
+   "details": {
+    "rect": {
+     "top": 76,
+     "bottom": 888,
+     "left": 1544,
+     "right": 1902,
+     "width": 358,
+     "height": 812
+    },
+    "scrollHeight": 810,
+    "clientHeight": 810
+   },
+   "catalog": {
+    "top": 901,
+    "bottom": 1063,
+    "left": 18,
+    "right": 1902,
+    "width": 1884,
+    "height": 162
+   },
+   "catalogTrack": {
+    "rect": {
+     "top": 951.2,
+     "bottom": 1053,
+     "left": 31,
+     "right": 1889,
+     "width": 1858,
+     "height": 101.8
+    },
+    "sw": 1858,
+    "cw": 1858
+   },
+   "modeTabs": {
+    "top": 142.3,
+    "bottom": 206.3,
+    "left": 34,
+    "right": 318,
+    "width": 284,
+    "height": 64
+   },
+   "axisSwitch": {
+    "top": 389.5,
+    "bottom": 424.5,
+    "left": 46,
+    "right": 306,
+    "width": 260,
+    "height": 35
+   },
+   "toggleGrid": {
+    "top": 448.5,
+    "bottom": 476.5,
+    "left": 34,
+    "right": 318,
+    "width": 284,
+    "height": 28
+   },
+   "playBtn": {
+    "top": 489.5,
+    "bottom": 526.5,
+    "left": 34,
+    "right": 233,
+    "width": 199,
+    "height": 37
+   },
+   "resetBtn": {
+    "top": 489.5,
+    "bottom": 526.5,
+    "left": 240,
+    "right": 318,
+    "width": 78,
+    "height": 37
+   },
+   "quick": {
+    "top": 0,
+    "bottom": 0,
+    "left": 0,
+    "right": 0,
+    "width": 0,
+    "height": 0
+   },
+   "cards": [
+    {
+     "mode": "ellipse",
+     "w": 458.8,
+     "left": 32,
+     "top": 952.2
+    },
+    {
+     "mode": "hyperbola",
+     "w": 458.8,
+     "left": 497.8,
+     "top": 952.2
+    },
+    {
+     "mode": "parabola",
+     "w": 458.8,
+     "left": 963.5,
+     "top": 952.2
+    },
+    {
+     "mode": "unified",
+     "w": 458.8,
+     "left": 1429.3,
+     "top": 952.2
+    }
+   ],
+   "sections": [
+    {
+     "sel": ".stage-card",
+     "rect": {
+      "top": 76,
+      "bottom": 888,
+      "left": 347,
+      "right": 1531,
+      "width": 1184,
+      "height": 812
+     }
+    },
+    {
+     "sel": ".panel-controls",
+     "rect": {
+      "top": 76,
+      "bottom": 888,
+      "left": 18,
+      "right": 334,
+      "width": 316,
+      "height": 812
+     }
+    },
+    {
+     "sel": ".panel-details",
+     "rect": {
+      "top": 76,
+      "bottom": 888,
+      "left": 1544,
+      "right": 1902,
+      "width": 358,
+      "height": 812
+     }
+    },
+    {
+     "sel": ".catalog",
+     "rect": {
+      "top": 901,
+      "bottom": 1063,
+      "left": 18,
+      "right": 1902,
+      "width": 1884,
+      "height": 162
+     }
+    }
+   ],
+   "overflow": []
+  },
+  "1366x768": {
+   "innerW": 1366,
+   "innerH": 768,
+   "docW": 1366,
+   "docH": 768,
+   "bodyW": 1366,
+   "bodyOverflow": "hidden",
+   "header": {
+    "top": 0,
+    "bottom": 64,
+    "left": 0,
+    "right": 1366,
+    "width": 1366,
+    "height": 64
+   },
+   "h1": {
+    "top": 23.6,
+    "bottom": 52.4,
+    "left": 81,
+    "right": 391.7,
+    "width": 310.7,
+    "height": 28.8
+   },
+   "stage": {
+    "top": 64,
+    "bottom": 592,
+    "left": 340,
+    "right": 984,
+    "width": 644,
+    "height": 528
+   },
+   "scene": {
+    "css": {
+     "top": 65,
+     "bottom": 591,
+     "left": 341,
+     "right": 983,
+     "width": 642,
+     "height": 526
+    },
+    "w": 642,
+    "h": 526
+   },
+   "controls": {
+    "rect": {
+     "top": 64,
+     "bottom": 592,
+     "left": 14,
+     "right": 330,
+     "width": 316,
+     "height": 528
+    },
+    "scrollHeight": 526,
+    "clientHeight": 526
+   },
+   "details": {
+    "rect": {
+     "top": 64,
+     "bottom": 592,
+     "left": 994,
+     "right": 1352,
+     "width": 358,
+     "height": 528
+    },
+    "scrollHeight": 526,
+    "clientHeight": 526
+   },
+   "catalog": {
+    "top": 602,
+    "bottom": 756,
+    "left": 14,
+    "right": 1352,
+    "width": 1338,
+    "height": 154
+   },
+   "catalogTrack": {
+    "rect": {
+     "top": 639,
+     "bottom": 749,
+     "left": 25,
+     "right": 1341,
+     "width": 1316,
+     "height": 110
+    },
+    "sw": 1316,
+    "cw": 1316
+   },
+   "modeTabs": {
+    "top": 108,
+    "bottom": 156,
+    "left": 27,
+    "right": 317,
+    "width": 290,
+    "height": 48
+   },
+   "axisSwitch": {
+    "top": 297.3,
+    "bottom": 330.3,
+    "left": 37,
+    "right": 307,
+    "width": 270,
+    "height": 33
+   },
+   "toggleGrid": {
+    "top": 348.3,
+    "bottom": 376.3,
+    "left": 27,
+    "right": 317,
+    "width": 290,
+    "height": 28
+   },
+   "playBtn": {
+    "top": 385.3,
+    "bottom": 418.3,
+    "left": 27,
+    "right": 232,
+    "width": 205,
+    "height": 33
+   },
+   "resetBtn": {
+    "top": 385.3,
+    "bottom": 418.3,
+    "left": 239,
+    "right": 317,
+    "width": 78,
+    "height": 33
+   },
+   "quick": {
+    "top": 0,
+    "bottom": 0,
+    "left": 0,
+    "right": 0,
+    "width": 0,
+    "height": 0
+   },
+   "cards": [
+    {
+     "mode": "ellipse",
+     "w": 323.3,
+     "left": 26,
+     "top": 640
+    },
+    {
+     "mode": "hyperbola",
+     "w": 323.3,
+     "left": 356.3,
+     "top": 640
+    },
+    {
+     "mode": "parabola",
+     "w": 323.3,
+     "left": 686.5,
+     "top": 640
+    },
+    {
+     "mode": "unified",
+     "w": 323.3,
+     "left": 1016.8,
+     "top": 640
+    }
+   ],
+   "sections": [
+    {
+     "sel": ".stage-card",
+     "rect": {
+      "top": 64,
+      "bottom": 592,
+      "left": 340,
+      "right": 984,
+      "width": 644,
+      "height": 528
+     }
+    },
+    {
+     "sel": ".panel-controls",
+     "rect": {
+      "top": 64,
+      "bottom": 592,
+      "left": 14,
+      "right": 330,
+      "width": 316,
+      "height": 528
+     }
+    },
+    {
+     "sel": ".panel-details",
+     "rect": {
+      "top": 64,
+      "bottom": 592,
+      "left": 994,
+      "right": 1352,
+      "width": 358,
+      "height": 528
+     }
+    },
+    {
+     "sel": ".catalog",
+     "rect": {
+      "top": 602,
+      "bottom": 756,
+      "left": 14,
+      "right": 1352,
+      "width": 1338,
+      "height": 154
+     }
+    }
+   ],
+   "overflow": []
+  },
+  "1024x800": {
+   "innerW": 1024,
+   "innerH": 800,
+   "docW": 1024,
+   "docH": 1786,
+   "bodyW": 1024,
+   "bodyOverflow": "auto",
+   "header": {
+    "top": 0,
+    "bottom": 60,
+    "left": 0,
+    "right": 1024,
+    "width": 1024,
+    "height": 60
+   },
+   "h1": {
+    "top": 23.8,
+    "bottom": 50.2,
+    "left": 71,
+    "right": 362.6,
+    "width": 291.6,
+    "height": 26.4
+   },
+   "stage": {
+    "top": 60,
+    "bottom": 572,
+    "left": 12,
+    "right": 1012,
+    "width": 1000,
+    "height": 512
+   },
+   "scene": {
+    "css": {
+     "top": 61,
+     "bottom": 571,
+     "left": 13,
+     "right": 1011,
+     "width": 998,
+     "height": 510
+    },
+    "w": 998,
+    "h": 510
+   },
+   "controls": {
+    "rect": {
+     "top": 584,
+     "bottom": 1071.5,
+     "left": 12,
+     "right": 1012,
+     "width": 1000,
+     "height": 487.5
+    },
+    "scrollHeight": 485,
+    "clientHeight": 485
+   },
+   "details": {
+    "rect": {
+     "top": 1083.5,
+     "bottom": 1563.6,
+     "left": 12,
+     "right": 1012,
+     "width": 1000,
+     "height": 480.1
+    },
+    "scrollHeight": 478,
+    "clientHeight": 478
+   },
+   "catalog": {
+    "top": 1575.6,
+    "bottom": 1765.6,
+    "left": 12,
+    "right": 1012,
+    "width": 1000,
+    "height": 190
+   },
+   "catalogTrack": {
+    "rect": {
+     "top": 1625.8,
+     "bottom": 1755.6,
+     "left": 25,
+     "right": 999,
+     "width": 974,
+     "height": 129.8
+    },
+    "sw": 1103,
+    "cw": 974
+   },
+   "modeTabs": {
+    "top": 645.3,
+    "bottom": 709.3,
+    "left": 25,
+    "right": 999,
+    "width": 974,
+    "height": 64
+   },
+   "axisSwitch": {
+    "top": 890.5,
+    "bottom": 925.5,
+    "left": 37,
+    "right": 987,
+    "width": 950,
+    "height": 35
+   },
+   "toggleGrid": {
+    "top": 947.5,
+    "bottom": 975.5,
+    "left": 25,
+    "right": 999,
+    "width": 974,
+    "height": 28
+   },
+   "playBtn": {
+    "top": 986.5,
+    "bottom": 1023.5,
+    "left": 25,
+    "right": 914,
+    "width": 889,
+    "height": 37
+   },
+   "resetBtn": {
+    "top": 986.5,
+    "bottom": 1023.5,
+    "left": 921,
+    "right": 999,
+    "width": 78,
+    "height": 37
+   },
+   "quick": {
+    "top": 0,
+    "bottom": 0,
+    "left": 0,
+    "right": 0,
+    "width": 0,
+    "height": 0
+   },
+   "cards": [
+    {
+     "mode": "ellipse",
+     "w": 270,
+     "left": 26,
+     "top": 1626.8
+    },
+    {
+     "mode": "hyperbola",
+     "w": 270,
+     "left": 303,
+     "top": 1626.8
+    },
+    {
+     "mode": "parabola",
+     "w": 270,
+     "left": 580,
+     "top": 1626.8
+    },
+    {
+     "mode": "unified",
+     "w": 270,
+     "left": 857,
+     "top": 1626.8
+    }
+   ],
+   "sections": [
+    {
+     "sel": ".stage-card",
+     "rect": {
+      "top": 60,
+      "bottom": 572,
+      "left": 12,
+      "right": 1012,
+      "width": 1000,
+      "height": 512
+     }
+    },
+    {
+     "sel": ".panel-controls",
+     "rect": {
+      "top": 584,
+      "bottom": 1071.5,
+      "left": 12,
+      "right": 1012,
+      "width": 1000,
+      "height": 487.5
+     }
+    },
+    {
+     "sel": ".panel-details",
+     "rect": {
+      "top": 1083.5,
+      "bottom": 1563.6,
+      "left": 12,
+      "right": 1012,
+      "width": 1000,
+      "height": 480.1
+     }
+    },
+    {
+     "sel": ".catalog",
+     "rect": {
+      "top": 1575.6,
+      "bottom": 1765.6,
+      "left": 12,
+      "right": 1012,
+      "width": 1000,
+      "height": 190
+     }
+    }
+   ],
+   "overflow": []
+  },
+  "390x844": {
+   "innerW": 390,
+   "innerH": 844,
+   "docW": 390,
+   "docH": 1905,
+   "bodyW": 390,
+   "bodyOverflow": "auto",
+   "header": {
+    "top": 0,
+    "bottom": 104,
+    "left": 0,
+    "right": 390,
+    "width": 390,
+    "height": 104
+   },
+   "h1": {
+    "top": 24.2,
+    "bottom": 45.8,
+    "left": 67,
+    "right": 250.6,
+    "width": 183.6,
+    "height": 21.6
+   },
+   "stage": {
+    "top": 104,
+    "bottom": 644,
+    "left": 12,
+    "right": 378,
+    "width": 366,
+    "height": 540
+   },
+   "scene": {
+    "css": {
+     "top": 105,
+     "bottom": 643,
+     "left": 13,
+     "right": 377,
+     "width": 364,
+     "height": 538
+    },
+    "w": 364,
+    "h": 538
+   },
+   "controls": {
+    "rect": {
+     "top": 656,
+     "bottom": 1143.5,
+     "left": 12,
+     "right": 378,
+     "width": 366,
+     "height": 487.5
+    },
+    "scrollHeight": 485,
+    "clientHeight": 485
+   },
+   "details": {
+    "rect": {
+     "top": 1155.5,
+     "bottom": 1678.6,
+     "left": 12,
+     "right": 378,
+     "width": 366,
+     "height": 523.1
+    },
+    "scrollHeight": 521,
+    "clientHeight": 521
+   },
+   "catalog": {
+    "top": 1690.6,
+    "bottom": 1884.6,
+    "left": 12,
+    "right": 378,
+    "width": 366,
+    "height": 194
+   },
+   "catalogTrack": {
+    "rect": {
+     "top": 1740.8,
+     "bottom": 1874.6,
+     "left": 25,
+     "right": 365,
+     "width": 340,
+     "height": 133.8
+    },
+    "sw": 1023,
+    "cw": 340
+   },
+   "modeTabs": {
+    "top": 717.3,
+    "bottom": 781.3,
+    "left": 25,
+    "right": 365,
+    "width": 340,
+    "height": 64
+   },
+   "axisSwitch": {
+    "top": 962.5,
+    "bottom": 997.5,
+    "left": 37,
+    "right": 353,
+    "width": 316,
+    "height": 35
+   },
+   "toggleGrid": {
+    "top": 1019.5,
+    "bottom": 1047.5,
+    "left": 25,
+    "right": 365,
+    "width": 340,
+    "height": 28
+   },
+   "playBtn": {
+    "top": 1058.5,
+    "bottom": 1095.5,
+    "left": 25,
+    "right": 280,
+    "width": 255,
+    "height": 37
+   },
+   "resetBtn": {
+    "top": 1058.5,
+    "bottom": 1095.5,
+    "left": 287,
+    "right": 365,
+    "width": 78,
+    "height": 37
+   },
+   "quick": {
+    "top": 0,
+    "bottom": 0,
+    "left": 0,
+    "right": 0,
+    "width": 0,
+    "height": 0
+   },
+   "cards": [
+    {
+     "mode": "ellipse",
+     "w": 250,
+     "left": 26,
+     "top": 1741.8
+    },
+    {
+     "mode": "hyperbola",
+     "w": 250,
+     "left": 283,
+     "top": 1741.8
+    },
+    {
+     "mode": "parabola",
+     "w": 250,
+     "left": 540,
+     "top": 1741.8
+    },
+    {
+     "mode": "unified",
+     "w": 250,
+     "left": 797,
+     "top": 1741.8
+    }
+   ],
+   "sections": [
+    {
+     "sel": ".stage-card",
+     "rect": {
+      "top": 104,
+      "bottom": 644,
+      "left": 12,
+      "right": 378,
+      "width": 366,
+      "height": 540
+     }
+    },
+    {
+     "sel": ".panel-controls",
+     "rect": {
+      "top": 656,
+      "bottom": 1143.5,
+      "left": 12,
+      "right": 378,
+      "width": 366,
+      "height": 487.5
+     }
+    },
+    {
+     "sel": ".panel-details",
+     "rect": {
+      "top": 1155.5,
+      "bottom": 1678.6,
+      "left": 12,
+      "right": 378,
+      "width": 366,
+      "height": 523.1
+     }
+    },
+    {
+     "sel": ".catalog",
+     "rect": {
+      "top": 1690.6,
+      "bottom": 1884.6,
+      "left": 12,
+      "right": 378,
+      "width": 366,
+      "height": 194
+     }
+    }
+   ],
+   "overflow": []
+  },
+  "catalogTrackScrollTest": {
+   "before": {
+    "before": 26,
+    "docW": 390,
+    "innerW": 390
+   },
+   "after": {
+    "scrollLeft": 200,
+    "cardLeft": -174,
+    "docW": 390,
+    "innerW": 390
+   }
+  },
+  "mobileGuide": {
+   "left": 8,
+   "right": 382,
+   "top": 25.3125,
+   "bottom": 818.671875,
+   "w": 374,
+   "h": 793.359375,
+   "scrollH": 2130,
+   "clientH": 791,
+   "open": true,
+   "focusedInside": true
+  }
+ },
+ "a11y": {
+  "buttons": [
+   {
+    "id": "guideBtn",
+    "cls": "ghost-btn",
+    "name": "方程速查",
+    "ariaPressed": null
+   },
+   {
+    "id": "fullBtn",
+    "cls": "icon-btn",
+    "name": "全屏显示",
+    "ariaPressed": null
+   },
+   {
+    "id": "",
+    "cls": "conic-tab",
+    "name": "椭圆 ELLIPSE",
+    "ariaPressed": "true"
+   },
+   {
+    "id": "",
+    "cls": "conic-tab",
+    "name": "双曲线 HYPERBOLA",
+    "ariaPressed": "false"
+   },
+   {
+    "id": "",
+    "cls": "conic-tab",
+    "name": "抛物线 PARABOLA",
+    "ariaPressed": "false"
+   },
+   {
+    "id": "",
+    "cls": "conic-tab",
+    "name": "统一视角 UNIFIED",
+    "ariaPressed": "false"
+   },
+   {
+    "id": "",
+    "cls": "quick-btn",
+    "name": "椭圆 e=0.6",
+    "ariaPressed": "false"
+   },
+   {
+    "id": "",
+    "cls": "quick-btn",
+    "name": "抛物线 e=1",
+    "ariaPressed": "false"
+   },
+   {
+    "id": "",
+    "cls": "quick-btn",
+    "name": "双曲线 e=1.6",
+    "ariaPressed": "false"
+   },
+   {
+    "id": "axisBtnX",
+    "cls": "",
+    "name": "焦点在 x 轴",
+    "ariaPressed": "true"
+   },
+   {
+    "id": "axisBtnY",
+    "cls": "",
+    "name": "焦点在 y 轴",
+    "ariaPressed": "false"
+   },
+   {
+    "id": "",
+    "cls": "switch",
+    "name": "准线",
+    "ariaPressed": "true"
+   },
+   {
+    "id": "",
+    "cls": "switch",
+    "name": "渐近线",
+    "ariaPressed": "true"
+   },
+   {
+    "id": "",
+    "cls": "switch",
+    "name": "标签",
+    "ariaPressed": "true"
+   },
+   {
+    "id": "playBtn",
+    "cls": "action main",
+    "name": "暂停动点",
+    "ariaPressed": null
+   },
+   {
+    "id": "resetBtn",
+    "cls": "action ghost",
+    "name": "重置",
+    "ariaPressed": null
+   },
+   {
+    "id": "stagePlay",
+    "cls": "mini-toggle",
+    "name": "暂停动点 P",
+    "ariaPressed": "true"
+   },
+   {
+    "id": "whyBtn",
+    "cls": "link-btn",
+    "name": "看推导 →",
+    "ariaPressed": null
+   },
+   {
+    "id": "",
+    "cls": "mode-card active",
+    "name": "01 椭圆 ELLIPSE x²/a² + y²/b² = 1 |PF₁| + |PF₂| = 2a",
+    "ariaPressed": "true"
+   },
+   {
+    "id": "",
+    "cls": "mode-card",
+    "name": "02 双曲线 HYPERBOLA x²/a² − y²/b² = 1 | |PF₁| − |PF₂| | = 2a",
+    "ariaPressed": "false"
+   },
+   {
+    "id": "",
+    "cls": "mode-card",
+    "name": "03 抛物线 PARABOLA y² = 2px |PF| = d(P, ℓ)",
+    "ariaPressed": "false"
+   },
+   {
+    "id": "",
+    "cls": "mode-card",
+    "name": "04 统一视角 UNIFIED PF / d(P, ℓ) = e e < 1 · e = 1 · e > 1",
+    "ariaPressed": "false"
+   },
+   {
+    "id": "",
+    "cls": "modal-close",
+    "name": "关闭方程速查",
+    "ariaPressed": null
+   },
+   {
+    "id": "",
+    "cls": "guide-jump",
+    "name": "跳转到椭圆模式",
+    "ariaPressed": null
+   },
+   {
+    "id": "",
+    "cls": "guide-jump",
+    "name": "跳转到双曲线模式",
+    "ariaPressed": null
+   },
+   {
+    "id": "",
+    "cls": "guide-jump",
+    "name": "跳转到抛物线模式",
+    "ariaPressed": null
+   },
+   {
+    "id": "",
+    "cls": "guide-jump",
+    "name": "跳转到统一视角",
+    "ariaPressed": null
+   }
+  ],
+  "ranges": [
+   {
+    "id": "rangeA",
+    "aria": "椭圆长半轴 a",
+    "visibleLabel": "长半轴 a"
+   },
+   {
+    "id": "rangeE",
+    "aria": "椭圆离心率 e",
+    "visibleLabel": "离心率 e"
+   },
+   {
+    "id": "rangeP",
+    "aria": "抛物线焦准距参数 p",
+    "visibleLabel": "焦准距参数 p"
+   },
+   {
+    "id": "rangeL",
+    "aria": "统一视角半通径 ℓ",
+    "visibleLabel": "半通径 ℓ"
+   }
+  ],
+  "rangesInHyperbola": [
+   {
+    "id": "rangeA",
+    "aria": "双曲线实半轴 a",
+    "visibleLabel": "实半轴 a",
+    "rowVisible": true
+   },
+   {
+    "id": "rangeE",
+    "aria": "双曲线离心率 e",
+    "visibleLabel": "离心率 e",
+    "rowVisible": true
+   },
+   {
+    "id": "rangeP",
+    "aria": "抛物线焦准距参数 p",
+    "visibleLabel": "焦准距参数 p",
+    "rowVisible": false
+   },
+   {
+    "id": "rangeL",
+    "aria": "统一视角半通径 ℓ",
+    "visibleLabel": "半通径 ℓ",
+    "rowVisible": false
+   }
+  ],
+  "rangeLabelObservations": [],
+  "rangesInUnified": [
+   {
+    "id": "rangeA",
+    "aria": "双曲线实半轴 a",
+    "visibleLabel": "实半轴 a",
+    "rowVisible": false
+   },
+   {
+    "id": "rangeE",
+    "aria": "统一视角离心率 e",
+    "visibleLabel": "离心率 e",
+    "rowVisible": true
+   },
+   {
+    "id": "rangeP",
+    "aria": "抛物线焦准距参数 p",
+    "visibleLabel": "焦准距参数 p",
+    "rowVisible": false
+   },
+   {
+    "id": "rangeL",
+    "aria": "统一视角半通径 ℓ",
+    "visibleLabel": "半通径 ℓ",
+    "rowVisible": true
+   }
+  ],
+  "canvas": {
+   "aria": "带坐标轴的圆锥曲线动态图",
+   "role": null,
+   "fallback": "你的浏览器需要支持 Canvas。",
+   "live": "椭圆"
+  },
+  "firstTabFocus": {
+   "tag": "BUTTON",
+   "id": "fullBtn",
+   "cls": "icon-btn",
+   "text": "",
+   "focusVisible": true,
+   "outlineWidth": "2px",
+   "outlineStyle": "solid"
+  },
+  "pressed": {
+   "tabs": [
+    "true",
+    "false",
+    "false",
+    "false"
+   ],
+   "toggles": [
+    "true",
+    "true",
+    "true"
+   ],
+   "axis": [
+    "true",
+    "false"
+   ],
+   "cards": [
+    "true",
+    "false",
+    "false",
+    "false"
+   ]
+  },
+  "contrast": [
+   {
+    "sel": ".note-card p",
+    "color": "rgb(146, 168, 179)",
+    "fontSize": "10.5px",
+    "ratio": 7.99
+   },
+   {
+    "sel": ".feature-row .k",
+    "color": "rgb(146, 168, 179)",
+    "fontSize": "9.5px",
+    "ratio": 7.79
+   },
+   {
+    "sel": ".feature-row .v",
+    "color": "rgb(199, 217, 220)",
+    "fontSize": "9.5px",
+    "ratio": 13.23
+   },
+   {
+    "sel": ".metric span",
+    "color": "rgb(120, 145, 138)",
+    "fontSize": "8px",
+    "ratio": 5.68
+   },
+   {
+    "sel": ".metric strong",
+    "color": "rgb(199, 217, 220)",
+    "fontSize": "10.5px",
+    "ratio": 13.14
+   },
+   {
+    "sel": ".mode-rel",
+    "color": "rgb(146, 168, 179)",
+    "fontSize": "8.5px",
+    "ratio": 7.13
+   },
+   {
+    "sel": ".mode-eq",
+    "color": "rgb(255, 201, 107)",
+    "fontSize": "13px",
+    "ratio": 11.63
+   },
+   {
+    "sel": ".param-foot",
+    "color": "rgb(120, 145, 138)",
+    "fontSize": "8.5px",
+    "ratio": 5.91
+   },
+   {
+    "sel": ".block-label span",
+    "color": "rgb(120, 145, 138)",
+    "fontSize": "7.5px",
+    "ratio": 5.72
+   },
+   {
+    "sel": ".def-values",
+    "color": "rgb(146, 168, 179)",
+    "fontSize": "9.5px",
+    "ratio": 7.94
+   },
+   {
+    "sel": ".live-copy span",
+    "color": "rgb(146, 168, 179)",
+    "fontSize": "8.5px",
+    "ratio": 7.97
+   },
+   {
+    "sel": ".catalog-hint",
+    "color": "rgb(120, 145, 138)",
+    "fontSize": "8px",
+    "ratio": 5.86
+   },
+   {
+    "sel": ".hint span",
+    "color": "rgb(120, 145, 138)",
+    "fontSize": "9px",
+    "ratio": 5.86
+   }
+  ],
+  "lowContrast": []
+ },
+ "screenshots": [
+  "qa/screens/15-hyperbola-labels-on-1920.png",
+  "qa/screens/16-hyperbola-labels-off-1920.png",
+  "qa/screens/17-playing-mid-1920.png",
+  "qa/screens/23-guide-modal-1920.png",
+  "qa/screens/18-layout-1920x1080.png",
+  "qa/screens/19-layout-1366x768.png",
+  "qa/screens/20-layout-1024x800.png",
+  "qa/screens/21-mobile-390x844-top.png",
+  "qa/screens/22-mobile-390x844-params.png",
+  "qa/screens/23-mobile-390x844-catalog.png",
+  "qa/screens/24-mobile-guide-modal.png"
+ ],
+ "errors": {
+  "pageErrors": [],
+  "diagErrors": [],
+  "runtimeExceptions": 0,
+  "external": [],
+  "bodyNaN": false
+ },
+ "passCount": 110,
+ "failCount": 0
+}

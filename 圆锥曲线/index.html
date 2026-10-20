@@ -1,0 +1,2532 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#060b14">
+<meta name="description" content="圆锥曲线方程实验室：用动态坐标图讲解椭圆、双曲线、抛物线的标准方程、焦点、准线与统一焦点—准线定义。">
+<title>圆锥曲线方程实验室 · 从定义到方程</title>
+<style>
+/* ============================================================
+   圆锥曲线方程实验室 · Conic Equation Lab
+   ============================================================ */
+:root{
+  --bg:#060a13;
+  --bg-2:#081120;
+  --panel:rgba(13,21,36,.86);
+  --panel-strong:rgba(15,25,43,.95);
+  --line:rgba(205,226,245,.09);
+  --line-strong:rgba(205,226,245,.17);
+  --text:#f0f7f4;
+  --text-soft:#c7d9dc;
+  --muted:#92a8b3;
+  --muted-2:#78918a;
+  --gold:#ffc96b;
+  --gold-rgb:255,201,107;
+  --rose:#ff8fab;
+  --rose-rgb:255,143,171;
+  --mint:#69e5d0;
+  --mint-rgb:105,229,208;
+  --violet:#a99cff;
+  --violet-rgb:169,156,255;
+  --blue:#7bb8ff;
+  --mode:#ffc96b;
+  --mode-rgb:255,201,107;
+  --mode-soft:rgba(255,201,107,.12);
+  --font:"PingFang SC","Microsoft YaHei","Noto Sans SC","Source Han Sans SC",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --serif:"Cambria Math","STIX Two Math","Times New Roman","Songti SC",serif;
+  --mono:"Cascadia Code","SFMono-Regular","JetBrains Mono",Consolas,monospace;
+  --radius:18px;
+  --shadow:0 24px 70px rgba(0,0,0,.36);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;background:var(--bg);color:var(--text);font-family:var(--font);
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow:hidden;
+}
+body.modal-open{overflow:hidden}
+button,input{font:inherit}
+button{color:inherit}
+button:focus-visible,input:focus-visible,[tabindex]:focus-visible{outline:2px solid rgba(var(--mode-rgb),.9);outline-offset:3px}
+::selection{background:rgba(var(--mode-rgb),.25);color:#fff}
+[hidden]{display:none!important}
+
+/* ---------- atmosphere ---------- */
+.ambient{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;background:
+  radial-gradient(ellipse 85% 65% at 50% -12%,rgba(43,92,122,.23),transparent 63%),
+  radial-gradient(ellipse 55% 50% at 95% 100%,rgba(92,66,135,.16),transparent 68%),
+  radial-gradient(ellipse 50% 50% at 0% 75%,rgba(104,73,45,.12),transparent 70%),
+  linear-gradient(180deg,#07101c 0%,#05090f 100%);}
+.ambient::before{
+  content:"";position:absolute;inset:-2px;
+  background-image:
+    linear-gradient(rgba(190,220,240,.026) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(190,220,240,.026) 1px,transparent 1px);
+  background-size:76px 76px;
+  -webkit-mask-image:radial-gradient(ellipse 78% 72% at 50% 36%,#000 8%,transparent 80%);
+  mask-image:radial-gradient(ellipse 78% 72% at 50% 36%,#000 8%,transparent 80%);
+}
+.ambient::after{
+  content:"";position:absolute;width:58vw;height:58vw;left:52%;top:-24%;transform:translateX(-50%) rotate(-14deg);
+  border-radius:50%;border:1px solid rgba(145,205,235,.05);
+  box-shadow:0 0 0 8vw rgba(145,205,235,.012),0 0 0 17vw rgba(145,205,235,.008);
+}
+.glow{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5}
+.glow-a{width:380px;height:380px;left:0;top:18%;background:rgba(43,121,128,.16)}
+.glow-b{width:360px;height:360px;right:0;bottom:3%;background:rgba(93,66,135,.15)}
+
+/* ---------- shell ---------- */
+.app{position:relative;z-index:1;height:100vh;height:100dvh;min-height:680px;display:flex;flex-direction:column}
+.topbar{flex:0 0 76px;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:0 22px}
+.brand{display:flex;align-items:center;gap:13px;min-width:0}
+.brand-mark{
+  width:46px;height:46px;flex:0 0 auto;border-radius:14px;display:grid;place-items:center;position:relative;
+  border:1px solid rgba(160,225,235,.22);
+  background:linear-gradient(145deg,rgba(105,229,208,.13),rgba(169,156,255,.09) 55%,rgba(255,201,107,.06));
+  box-shadow:0 0 30px rgba(105,229,208,.08),inset 0 1px 0 rgba(255,255,255,.09);
+}
+.brand-mark svg{width:31px;height:31px;overflow:visible}
+.brand-copy{min-width:0}
+.eyebrow{display:flex;align-items:center;gap:8px;color:var(--muted);white-space:nowrap;
+  font-family:var(--mono);font-size:9px;letter-spacing:.17em;text-transform:uppercase}
+.eyebrow i{width:3px;height:3px;border-radius:50%;background:var(--mint);opacity:.75}
+h1{margin:2px 0 0;font-size:24px;font-weight:650;letter-spacing:.025em;line-height:1.2;white-space:nowrap}
+h1 .title-en{color:var(--muted-2);font-family:var(--mono);font-size:10px;font-weight:400;letter-spacing:.11em;vertical-align:2px;margin-left:5px}
+.top-actions{display:flex;align-items:center;gap:9px;flex:0 0 auto}
+.standard-chip{display:flex;align-items:center;gap:7px;white-space:nowrap;font-size:11px;color:var(--text-soft);
+  padding:8px 12px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.025)}
+.standard-chip .dot{width:6px;height:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 12px rgba(var(--gold-rgb),.6)}
+.ghost-btn,.icon-btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  border:1px solid var(--line);background:rgba(255,255,255,.025);color:var(--text-soft);
+  border-radius:11px;padding:9px 13px;font-size:12px;cursor:pointer;transition:background .18s,border-color .18s,color .18s,transform .18s}
+.ghost-btn:hover,.icon-btn:hover{background:rgba(255,255,255,.06);border-color:var(--line-strong);color:#fff}
+.ghost-btn:active,.icon-btn:active{transform:translateY(1px)}
+.ghost-btn svg,.icon-btn svg{width:15px;height:15px;flex:0 0 auto}
+.icon-btn{width:38px;height:38px;padding:0}
+.icon-btn.small{width:34px;height:34px;border-radius:10px}
+
+/* ---------- workspace ---------- */
+.workspace{
+  flex:1;min-height:0;display:grid;gap:13px;
+  grid-template-columns:minmax(284px,316px) minmax(0,1fr) minmax(324px,358px);
+  grid-template-rows:minmax(0,1fr) 162px;
+  grid-template-areas:"controls stage details" "catalog catalog catalog";
+  padding:0 18px 17px;
+}
+.panel,.stage-card,.catalog{
+  border:1px solid var(--line);
+  background:linear-gradient(180deg,rgba(16,27,45,.9),rgba(8,15,27,.9));
+  box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.035);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+}
+.panel{min-height:0;border-radius:var(--radius);overflow:auto;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.12) transparent}
+.panel::-webkit-scrollbar{width:5px}
+.panel::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px}
+.panel-controls{grid-area:controls;padding:16px 15px 14px;display:flex;flex-direction:column;gap:13px}
+.panel-details{grid-area:details;padding:16px 15px 14px;display:flex;flex-direction:column;gap:12px}
+.panel-controls>*,.panel-details>*{flex:0 0 auto}
+.panel-head{display:flex;align-items:flex-start;gap:10px;min-width:0}
+.section-num{font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--mint);
+  border:1px solid rgba(var(--mint-rgb),.25);background:rgba(var(--mint-rgb),.07);
+  border-radius:7px;padding:4px 6px;line-height:1;margin-top:2px;flex:0 0 auto}
+.panel-head h2,.catalog-head h2{margin:0;font-size:15px;font-weight:600;letter-spacing:.04em;line-height:1.35;color:var(--text)}
+.panel-head p,.catalog-head p{margin:2px 0 0;font-size:10.5px;color:var(--muted);letter-spacing:.03em}
+.family-chip{margin-left:auto;flex:0 0 auto;font-size:10.5px;padding:5px 8px;border-radius:999px;
+  color:var(--mode);background:rgba(var(--mode-rgb),.10);border:1px solid rgba(var(--mode-rgb),.20);
+  transition:color .25s,background .25s,border-color .25s}
+
+/* ---------- mode tabs ---------- */
+.conic-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
+.conic-tab{
+  appearance:none;border:1px solid var(--line);background:rgba(255,255,255,.022);border-radius:9px;
+  padding:7px 3px 6px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;
+  color:var(--muted);transition:all .18s;min-width:0;position:relative;overflow:hidden;
+}
+.conic-tab svg{width:24px;height:22px;overflow:visible}
+.conic-tab span{font-size:10.5px;white-space:nowrap}
+.conic-tab small{font-family:var(--mono);font-size:6px;letter-spacing:.05em;color:var(--muted-2);white-space:nowrap}
+.conic-tab:hover{background:rgba(255,255,255,.045);color:var(--text-soft)}
+.conic-tab[aria-pressed="true"]{border-color:rgba(var(--tab-rgb),.46);background:rgba(var(--tab-rgb),.10);color:var(--tab);box-shadow:inset 0 0 0 1px rgba(var(--tab-rgb),.06)}
+.conic-tab[aria-pressed="true"]::after{content:"";position:absolute;left:8px;right:8px;bottom:0;height:1.5px;border-radius:2px 2px 0 0;background:rgba(var(--tab-rgb),.9);box-shadow:0 0 8px rgba(var(--tab-rgb),.5)}
+.conic-tab[data-mode="ellipse"]{--tab:var(--gold);--tab-rgb:var(--gold-rgb)}
+.conic-tab[data-mode="hyperbola"]{--tab:var(--rose);--tab-rgb:var(--rose-rgb)}
+.conic-tab[data-mode="parabola"]{--tab:var(--mint);--tab-rgb:var(--mint-rgb)}
+.conic-tab[data-mode="unified"]{--tab:var(--violet);--tab-rgb:var(--violet-rgb)}
+
+/* ---------- params ---------- */
+.param-card{border:1px solid var(--line);border-radius:13px;padding:11px 11px 10px;
+  background:radial-gradient(ellipse 120% 130% at 0% 0%,rgba(var(--mode-rgb),.06),transparent 55%),rgba(0,0,0,.14)}
+.param-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;
+  font-size:10px;color:var(--muted);letter-spacing:.04em}
+.param-head span:last-child{font-family:var(--mono);font-size:8.5px;color:var(--mode);letter-spacing:.02em}
+.param-row{padding:6px 0 7px;border-top:1px solid rgba(255,255,255,.045)}
+.param-row:first-child{border-top:0;padding-top:0}
+.slider-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:3px}
+.slider-top label{font-size:11.5px;color:var(--text-soft);display:flex;align-items:baseline;gap:4px}
+.slider-top label em{font-family:var(--serif);font-style:italic;color:var(--mode);font-size:13px}
+.slider-top output{font-family:var(--mono);font-size:11px;color:var(--mode);background:rgba(var(--mode-rgb),.07);
+  border:1px solid rgba(var(--mode-rgb),.15);border-radius:6px;padding:2px 7px;line-height:1.15;min-width:52px;text-align:right}
+.param-foot{display:flex;justify-content:space-between;gap:8px;margin-top:1px;font-size:8.5px;color:var(--muted-2)}
+.param-foot span:last-child{font-family:var(--mono);white-space:nowrap}
+input[type="range"]{-webkit-appearance:none;appearance:none;display:block;width:100%;height:16px;margin:0;background:transparent;cursor:pointer;--fill:50%}
+input[type="range"]::-webkit-slider-runnable-track{height:3px;border-radius:99px;
+  background:linear-gradient(to right,var(--mode) 0,var(--mode) var(--fill),rgba(255,255,255,.10) var(--fill),rgba(255,255,255,.10) 100%)}
+input[type="range"]::-moz-range-track{height:3px;border-radius:99px;background:rgba(255,255,255,.10)}
+input[type="range"]::-moz-range-progress{height:3px;border-radius:99px;background:var(--mode)}
+input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:13px;height:13px;border-radius:50%;margin-top:-5px;
+  background:#0a1420;border:2px solid var(--mode);box-shadow:0 0 0 3px rgba(5,10,18,.75),0 0 14px rgba(var(--mode-rgb),.2);transition:transform .15s}
+input[type="range"]:hover::-webkit-slider-thumb{transform:scale(1.13)}
+input[type="range"]::-moz-range-thumb{width:11px;height:11px;border-radius:50%;background:#0a1420;border:2px solid var(--mode)}
+.quick-row{display:flex;gap:5px;margin-top:7px;flex-wrap:wrap}
+.quick-btn{border:1px solid var(--line);background:rgba(255,255,255,.025);color:var(--muted);
+  font-size:9px;border-radius:6px;padding:4px 7px;cursor:pointer;transition:all .16s;white-space:nowrap}
+.quick-btn:hover{color:var(--text);border-color:var(--line-strong)}
+.quick-btn[aria-pressed="true"]{color:var(--mode);border-color:rgba(var(--mode-rgb),.3);background:rgba(var(--mode-rgb),.08)}
+.axis-switch{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:9px;padding-top:8px;border-top:1px solid rgba(255,255,255,.05)}
+.axis-switch>span{font-size:9.5px;color:var(--muted-2);white-space:nowrap}
+.segmented{display:flex;gap:3px;background:rgba(0,0,0,.18);border:1px solid var(--line);border-radius:7px;padding:2px}
+.segmented button{border:0;background:transparent;color:var(--muted);font-size:9px;border-radius:5px;padding:4px 6px;cursor:pointer;white-space:nowrap;transition:all .16s}
+.segmented button[aria-pressed="true"]{color:#09131a;background:var(--mode);font-weight:550}
+
+/* ---------- toggles / actions ---------- */
+.toggle-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}
+.toggle-grid.two{grid-template-columns:repeat(2,1fr)}
+.switch{display:flex;align-items:center;justify-content:center;gap:5px;min-width:0;border:1px solid var(--line);
+  background:rgba(255,255,255,.02);color:var(--muted);border-radius:8px;padding:7px 4px;font-size:9.5px;cursor:pointer;transition:all .18s}
+.switch .led{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.22);flex:0 0 auto;transition:all .18s}
+.switch:hover{background:rgba(255,255,255,.045);color:var(--text-soft)}
+.switch[aria-pressed="true"]{color:var(--text);border-color:rgba(var(--mode-rgb),.22);background:rgba(var(--mode-rgb),.07)}
+.switch[aria-pressed="true"] .led{background:var(--mode);box-shadow:0 0 8px rgba(var(--mode-rgb),.6)}
+.control-buttons{display:flex;gap:7px}
+.action{border:0;border-radius:9px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  padding:10px 11px;font-size:11.5px;font-weight:550;transition:all .18s;white-space:nowrap}
+.action svg{width:14px;height:14px;flex:0 0 auto}
+.action.main{flex:1;background:linear-gradient(135deg,rgba(var(--mode-rgb),1),rgba(var(--mode-rgb),.72));color:#08131a;box-shadow:0 7px 20px rgba(var(--mode-rgb),.14),inset 0 1px 0 rgba(255,255,255,.35)}
+.action.main:hover{filter:brightness(1.06);transform:translateY(-1px)}
+.action.ghost{width:78px;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--text-soft)}
+.action.ghost:hover{background:rgba(255,255,255,.07);color:#fff;border-color:var(--line-strong)}
+.hint{display:flex;align-items:flex-start;gap:6px;border-top:1px solid rgba(255,255,255,.05);padding-top:9px;margin-top:auto;
+  color:var(--muted-2);font-size:9px;line-height:1.55}
+.hint svg{width:12px;height:12px;flex:0 0 auto;margin-top:1px;opacity:.85}
+
+/* ---------- stage ---------- */
+.stage-card{grid-area:stage;position:relative;min-height:0;border-radius:var(--radius);overflow:hidden;isolation:isolate;
+  background:radial-gradient(ellipse 70% 64% at 52% 42%,rgba(var(--mode-rgb),.07),transparent 68%),
+    radial-gradient(ellipse 55% 55% at 60% 108%,rgba(73,60,122,.10),transparent 72%),
+    linear-gradient(180deg,#091321 0%,#060d17 100%);
+  transition:background .35s}
+.stage-card::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background-image:radial-gradient(rgba(190,225,238,.10) .7px,transparent .8px);background-size:26px 26px;
+  -webkit-mask-image:radial-gradient(ellipse 72% 72% at 50% 44%,#000,transparent 76%);
+  mask-image:radial-gradient(ellipse 72% 72% at 50% 44%,#000,transparent 76%);opacity:.32}
+.stage-card::after{content:"";position:absolute;inset:0;z-index:5;pointer-events:none;border-radius:inherit;
+  box-shadow:inset 0 0 90px rgba(0,0,0,.27),inset 0 1px 0 rgba(255,255,255,.04)}
+#scene{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:2}
+.stage-top{position:absolute;z-index:10;top:14px;left:15px;right:15px;display:flex;justify-content:space-between;align-items:flex-start;gap:10px;pointer-events:none}
+.live-badge{display:flex;align-items:center;gap:9px;background:rgba(5,11,20,.68);border:1px solid rgba(201,232,242,.10);
+  border-radius:12px;padding:8px 11px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 10px 30px rgba(0,0,0,.16)}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--mode);box-shadow:0 0 13px rgba(var(--mode-rgb),.8);flex:0 0 auto}
+.live-copy{display:flex;flex-direction:column;gap:1px}
+.live-copy span{font-size:8.5px;color:var(--muted);letter-spacing:.1em}
+.live-copy strong{font-size:14px;font-weight:600;letter-spacing:.04em;white-space:nowrap}
+.live-e{font-family:var(--mono);font-size:9.5px;color:var(--mode);background:rgba(var(--mode-rgb),.09);
+  border:1px solid rgba(var(--mode-rgb),.16);border-radius:999px;padding:3px 7px;white-space:nowrap}
+.stage-tools{display:flex;gap:6px;pointer-events:auto}
+.mini-toggle{display:inline-flex;align-items:center;gap:6px;font-size:10px;color:var(--muted);
+  border:1px solid rgba(201,232,242,.10);background:rgba(5,11,20,.58);border-radius:9px;padding:8px 10px;cursor:pointer;
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:all .18s}
+.mini-toggle:hover{color:var(--text);background:rgba(14,28,44,.8)}
+.mini-toggle svg{width:13px;height:13px}
+.definition-bar{position:absolute;z-index:10;left:15px;right:15px;bottom:14px;display:flex;align-items:center;gap:11px;
+  min-height:56px;padding:8px 12px;border:1px solid rgba(200,232,242,.11);border-radius:13px;
+  background:rgba(5,12,21,.78);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 16px 40px rgba(0,0,0,.2)}
+.definition-mark{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;flex:0 0 auto;
+  color:var(--mode);border:1px solid rgba(var(--mode-rgb),.26);background:rgba(var(--mode-rgb),.08);
+  font-family:var(--serif);font-size:19px;font-style:italic}
+.definition-copy{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.def-title{font-size:8px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+.def-formula{font-family:var(--serif);font-size:14px;color:var(--text);line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.def-formula .m{color:var(--mode);font-style:italic}
+.def-values{font-family:var(--mono);font-size:9.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.point-readout{flex:0 0 auto;text-align:right;font-family:var(--mono);font-size:8.5px;line-height:1.55;color:var(--muted-2);white-space:nowrap}
+.point-readout b{display:block;font-size:9px;color:var(--text-soft);font-weight:500;letter-spacing:.04em}
+.stage-note{position:absolute;z-index:8;left:16px;bottom:82px;font-family:var(--mono);font-size:8px;letter-spacing:.06em;
+  color:rgba(170,200,212,.4);pointer-events:none}
+
+/* ---------- details ---------- */
+.equation-card{border:1px solid rgba(var(--mode-rgb),.20);border-radius:15px;padding:11px 12px 10px;
+  background:radial-gradient(ellipse 100% 120% at 0% 0%,rgba(var(--mode-rgb),.085),transparent 58%),rgba(0,0,0,.17);
+  transition:border-color .3s,background .3s}
+.eq-head{display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:9px;color:var(--muted);letter-spacing:.05em}
+.eq-head span:last-child{font-family:var(--mono);font-size:8.5px;color:var(--mode)}
+.eq-symbolic{display:flex;align-items:center;justify-content:center;gap:5px;min-height:57px;margin:7px 0 2px;
+  color:#f4fbf7;font-family:var(--serif);font-size:27px;line-height:1.1;letter-spacing:.01em}
+.eq-symbolic .frac,.eq-symbolic .frac-sm{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;vertical-align:middle}
+.eq-symbolic .frac .num{padding:0 5px;line-height:1.1}
+.eq-symbolic .frac .den{border-top:1px solid rgba(224,242,237,.42);padding:0 5px;line-height:1.16;margin-top:2px}
+.eq-symbolic .op{color:var(--muted);font-family:var(--mono);font-size:20px;padding:0 2px}
+.eq-symbolic .rhs{color:var(--mode)}
+.eq-symbolic.unified-eq{font-size:21px;gap:3px}
+.eq-symbolic.unified-eq .frac .den{font-size:.68em;letter-spacing:0;white-space:nowrap;padding:0 4px}
+.eq-symbolic.unified-eq .frac .num{font-size:.9em}
+.eq-numeric{text-align:center;font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.eq-meta{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-top:7px;padding-top:7px;border-top:1px solid rgba(255,255,255,.055);
+  font-family:var(--mono);font-size:8.5px;color:var(--muted-2)}
+.eq-meta span:last-child{color:var(--mode)}
+.metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
+.metric{border:1px solid var(--line);border-radius:9px;background:rgba(255,255,255,.018);padding:6px 7px;min-width:0}
+.metric span{display:block;font-size:8px;color:var(--muted-2);letter-spacing:.04em;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.metric strong{font-family:var(--mono);font-size:10.5px;font-weight:500;color:var(--text-soft);white-space:nowrap;display:block;overflow:hidden;text-overflow:ellipsis}
+.feature-card,.note-card{border:1px solid var(--line);border-radius:12px;padding:9px 10px;background:rgba(255,255,255,.014)}
+.block-label{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:9px;color:var(--muted);letter-spacing:.07em;margin-bottom:6px}
+.block-label span{font-family:var(--mono);font-size:7.5px;color:var(--muted-2);border:1px solid var(--line);padding:2px 5px;border-radius:4px;letter-spacing:.04em}
+.feature-row{display:flex;justify-content:space-between;gap:10px;align-items:baseline;padding:4px 0;border-top:1px dashed rgba(255,255,255,.055);font-size:9.5px}
+.feature-row:first-child{border-top:0}
+.feature-row .k{color:var(--muted);white-space:nowrap}
+.feature-row .v{font-family:var(--mono);font-size:9.5px;color:var(--text-soft);text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.note-card{border-color:rgba(var(--mode-rgb),.16);background:linear-gradient(135deg,rgba(var(--mode-rgb),.065),rgba(var(--mode-rgb),.012))}
+.note-head{display:flex;align-items:center;gap:6px;font-size:9px;color:var(--mode);letter-spacing:.05em;margin-bottom:4px}
+.note-icon{width:13px;height:13px;border-radius:50%;border:1px solid rgba(var(--mode-rgb),.4);display:grid;place-items:center;font-family:var(--mono);font-size:8px}
+.note-card p{margin:0;font-size:10.5px;line-height:1.7;color:var(--muted)}
+.mini-conclusion{display:flex;align-items:center;justify-content:space-between;gap:8px;border-top:1px solid rgba(255,255,255,.05);
+  padding:8px 1px 0;font-size:9.5px;color:var(--muted-2)}
+.mini-conclusion strong{font-weight:500;color:var(--muted);letter-spacing:.03em}
+.link-btn{border:0;background:transparent;color:var(--mode);font-size:9.5px;cursor:pointer;padding:0;letter-spacing:.03em}
+.link-btn:hover{text-decoration:underline;text-underline-offset:3px}
+
+/* ---------- catalog ---------- */
+.catalog{grid-area:catalog;min-height:0;border-radius:var(--radius);padding:10px 12px 9px;display:flex;flex-direction:column;gap:7px;overflow:hidden}
+.catalog-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;min-height:30px}
+.catalog-title{display:flex;align-items:flex-start;gap:9px;min-width:0}
+.catalog-title .section-num{align-self:center}
+.catalog-head h2{font-size:13.5px}
+.catalog-head p{font-size:9.5px}
+.catalog-hint{font-family:var(--mono);font-size:8px;color:var(--muted-2);white-space:nowrap;padding-bottom:3px}
+.catalog-track{display:flex;gap:7px;flex:1;min-height:0;overflow-x:auto;overflow-y:hidden;padding:1px 1px 3px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.12) transparent}
+.catalog-track::-webkit-scrollbar{height:4px}
+.catalog-track::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px}
+.mode-card{--card:var(--gold);--card-rgb:var(--gold-rgb);position:relative;flex:1 1 0;min-width:220px;
+  border:1px solid rgba(220,240,246,.08);border-radius:11px;background:linear-gradient(180deg,rgba(255,255,255,.028),rgba(255,255,255,.008));
+  display:flex;align-items:center;gap:10px;padding:8px 10px;cursor:pointer;text-align:left;overflow:hidden;transition:all .18s}
+.mode-card::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 110% 100% at 0% 0%,rgba(var(--card-rgb),.08),transparent 64%);opacity:.6}
+.mode-card:hover{transform:translateY(-2px);border-color:rgba(var(--card-rgb),.28);background:rgba(var(--card-rgb),.05)}
+.mode-card.active{border-color:rgba(var(--card-rgb),.46);background:rgba(var(--card-rgb),.075);box-shadow:inset 0 0 0 1px rgba(var(--card-rgb),.08),0 8px 22px rgba(0,0,0,.14)}
+.mode-card.active::after{content:"";position:absolute;left:9px;right:9px;bottom:0;height:1.5px;border-radius:2px 2px 0 0;background:var(--card);box-shadow:0 0 9px rgba(var(--card-rgb),.6)}
+.mode-art{width:98px;height:96px;flex:0 0 auto;display:grid;place-items:center;border:1px solid rgba(var(--card-rgb),.12);border-radius:9px;background:rgba(0,0,0,.16);overflow:hidden}
+.mode-art svg{width:100%;height:100%}
+.mode-copy{min-width:0;display:flex;flex-direction:column;gap:2px;position:relative;z-index:1}
+.mode-topline{display:flex;align-items:center;gap:6px}
+.mode-index{font-family:var(--mono);font-size:7.5px;color:var(--muted-2);letter-spacing:.06em}
+.mode-card h3{margin:0;font-size:14px;font-weight:600;letter-spacing:.03em;color:var(--text-soft)}
+.mode-en{font-family:var(--mono);font-size:6.5px;letter-spacing:.08em;color:var(--muted-2);text-transform:uppercase}
+.mode-eq{margin-top:3px;font-family:var(--serif);font-size:13px;color:var(--card);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mode-rel{font-size:8.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ---------- toast / modal ---------- */
+.toast{position:fixed;z-index:80;left:50%;bottom:24px;transform:translate(-50%,14px);background:rgba(5,13,22,.94);
+  border:1px solid var(--line-strong);border-radius:10px;padding:8px 14px;font-size:11px;color:var(--text-soft);
+  opacity:0;visibility:hidden;transition:opacity .2s,transform .2s;pointer-events:none;
+  box-shadow:0 10px 30px rgba(0,0,0,.35);max-width:80vw;backdrop-filter:blur(14px)}
+.toast.show{opacity:1;visibility:visible;transform:translate(-50%,0)}
+.modal{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:22px;
+  visibility:hidden;opacity:0}
+.modal.open{visibility:visible;opacity:1}
+.modal-backdrop{position:absolute;inset:0;background:rgba(2,6,11,.78);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.modal-panel{position:relative;z-index:1;width:min(1000px,96vw);max-height:89vh;overflow:auto;border:1px solid rgba(210,238,245,.14);
+  border-radius:22px;padding:26px 29px 24px;background:
+    radial-gradient(ellipse 80% 50% at 15% 0%,rgba(54,124,138,.16),transparent 64%),
+    radial-gradient(ellipse 65% 50% at 100% 28%,rgba(87,66,135,.15),transparent 70%),
+    linear-gradient(160deg,#0c1826 0%,#08111c 100%);
+  box-shadow:0 34px 110px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.06);
+  scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.14) transparent}
+.modal-panel::-webkit-scrollbar{width:6px}
+.modal-panel::-webkit-scrollbar-thumb{background:rgba(255,255,255,.14);border-radius:99px}
+.modal-close{position:sticky;top:0;float:right;margin:-10px -12px 0 12px;z-index:2;width:32px;height:32px;border-radius:9px;
+  border:1px solid var(--line);background:rgba(7,14,24,.82);color:var(--muted);font-size:20px;line-height:1;cursor:pointer;display:grid;place-items:center;transition:color .18s,background .18s,border-color .18s}
+.modal-close:hover{color:#fff;background:rgba(255,255,255,.08)}
+.modal-head{padding-right:26px;border-bottom:1px solid var(--line);padding-bottom:17px;margin-bottom:17px}
+.modal-head .eyebrow{color:var(--mint);margin-bottom:7px;font-size:9px}
+.modal-head h2{margin:0;font-size:28px;font-weight:620;letter-spacing:.03em;line-height:1.3}
+.modal-head p{margin:8px 0 0;max-width:760px;font-size:12px;line-height:1.8;color:var(--muted)}
+.guide-lead{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;border:1px solid rgba(var(--mint-rgb),.15);
+  border-radius:14px;padding:15px 17px;background:linear-gradient(135deg,rgba(var(--mint-rgb),.065),rgba(var(--mint-rgb),.012));margin-bottom:15px}
+.guide-lead p{margin:0;font-size:12px;line-height:1.8;color:var(--text-soft)}
+.guide-lead strong{color:var(--mint);font-weight:600}
+.unified-formula{font-family:var(--serif);font-size:20px;color:var(--mint);white-space:nowrap;border-left:1px solid rgba(var(--mint-rgb),.23);padding-left:17px}
+.guide-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.guide-card{border:1px solid var(--line);border-radius:13px;padding:12px 13px;background:rgba(255,255,255,.018);position:relative;overflow:hidden}
+.guide-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--card-color);opacity:.75}
+.guide-card.c-ellipse{--card-color:var(--gold)}
+.guide-card.c-hyperbola{--card-color:var(--rose)}
+.guide-card.c-parabola{--card-color:var(--mint)}
+.guide-card-head{display:flex;align-items:baseline;gap:8px;margin-bottom:6px}
+.guide-card-head span{font-family:var(--mono);font-size:7.5px;color:var(--card-color);border:1px solid rgba(255,255,255,.12);padding:2px 5px;border-radius:4px;letter-spacing:.05em}
+.guide-card-head h3{margin:0;font-size:14px;font-weight:600}
+.guide-eq{font-family:var(--serif);font-size:18px;color:var(--card-color);margin:5px 0 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.guide-card p{margin:0;font-size:10.5px;line-height:1.7;color:var(--muted)}
+.guide-card p+p{margin-top:4px}
+.guide-columns{display:grid;grid-template-columns:1fr 1fr;gap:15px 24px;margin-top:17px;border-top:1px solid var(--line);padding-top:16px}
+.guide-section h3{margin:0 0 6px;font-size:12px;font-weight:600;color:var(--text-soft);display:flex;align-items:center;gap:7px;letter-spacing:.03em}
+.guide-section h3::before{content:"";width:4px;height:4px;border-radius:50%;background:var(--mint);display:block;flex:0 0 auto}
+.guide-section p{margin:0;font-size:10.5px;line-height:1.8;color:var(--muted)}
+.guide-section p+p{margin-top:5px}
+.guide-section .formula{display:inline-block;font-family:var(--serif);font-size:12px;color:var(--text-soft);background:rgba(0,0,0,.2);
+  border:1px solid var(--line);border-radius:5px;padding:2px 6px;margin:2px 3px 0 0}
+.guide-section ul{margin:4px 0 0;padding-left:16px;color:var(--muted);font-size:10.5px;line-height:1.75}
+.guide-section li+li{margin-top:2px}
+.guide-foot{margin-top:17px;padding-top:11px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:13px;
+  font-family:var(--mono);font-size:8.5px;color:var(--muted-2);letter-spacing:.03em}
+.derivation-list{display:grid;gap:8px}
+.derivation-item{display:grid;grid-template-columns:72px 1fr;gap:9px;border-top:1px dashed rgba(255,255,255,.06);padding-top:8px}
+.derivation-item:first-child{border-top:0;padding-top:0}
+.derivation-item .tag{font-family:var(--mono);font-size:8px;color:var(--mode);letter-spacing:.04em;padding-top:2px}
+.derivation-item p{margin:0;font-size:10.5px;line-height:1.75;color:var(--muted)}
+.derivation-item .formula{font-family:var(--serif);font-size:11.5px;color:var(--text-soft)}
+.guide-jumps{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.guide-jump{border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--text-soft);border-radius:7px;padding:5px 8px;font-size:9.5px;cursor:pointer;transition:all .18s}
+.guide-jump:hover{border-color:rgba(var(--mint-rgb),.3);color:var(--mint);background:rgba(var(--mint-rgb),.06)}
+
+/* ---------- responsive ---------- */
+@media (max-width:1280px){
+  .workspace{grid-template-columns:minmax(268px,292px) minmax(0,1fr) minmax(304px,338px);gap:11px;padding:0 14px 14px}
+  .panel-controls,.panel-details{padding:13px 12px 12px;gap:11px}
+  h1{font-size:22px}
+  .brand-mark{width:42px;height:42px}
+  .mode-art{width:82px;height:82px}
+  .mode-card{min-width:190px}
+}
+@media (max-width:1120px){
+  body{overflow:auto}
+  .app{height:auto;min-height:100vh;min-height:100dvh}
+  .topbar{flex:0 0 auto;flex-wrap:wrap;padding:10px 16px 8px;gap:10px;min-height:0}
+  .workspace{display:flex;flex-direction:column;gap:12px;padding:0 12px 20px;flex:none;width:100%}
+  .stage-card,.panel,.catalog{width:100%;max-width:100%;min-width:0}
+  .stage-card{order:1;height:min(64vh,600px);min-height:420px;flex:0 0 auto}
+  .panel-controls{order:2;flex:0 0 auto;overflow:visible}
+  .panel-details{order:3;flex:0 0 auto;overflow:visible}
+  .catalog{order:4;flex:0 0 auto;height:190px}
+  .catalog-track{overflow-x:auto}
+  .mode-card{flex:0 0 270px}
+  .guide-grid{grid-template-columns:1fr}
+  .guide-columns{grid-template-columns:1fr}
+  .guide-lead{grid-template-columns:1fr}
+  .unified-formula{border-left:0;border-top:1px solid rgba(var(--mint-rgb),.23);padding:9px 0 0}
+  .modal-panel{padding:20px}
+  .modal-head h2{font-size:23px}
+}
+@media (max-width:640px){
+  h1{font-size:18px}
+  h1 .title-en{display:none}
+  .brand-mark{width:38px;height:38px;border-radius:12px}
+  .brand-mark svg{width:26px;height:26px}
+  .standard-chip{display:none}
+  .top-actions{width:100%;justify-content:flex-end}
+  .ghost-btn{padding:8px 10px}
+  .stage-card{height:540px;min-height:470px}
+  .stage-top{top:10px;left:10px;right:10px}
+  .definition-bar{left:10px;right:10px;bottom:10px;min-height:64px}
+  .definition-mark{width:29px;height:29px;font-size:16px}
+  .def-formula{font-size:12px}
+  .point-readout{display:none}
+  .mode-card{flex:0 0 250px}
+  .catalog{height:194px}
+  .catalog-hint{display:none}
+  .metric-grid{grid-template-columns:repeat(2,1fr)}
+  .modal{padding:8px}
+  .modal-panel{max-height:94vh;border-radius:16px;padding:18px 15px}
+  .modal-head h2{font-size:21px}
+}
+@media (min-width:1121px) and (max-height:920px){
+  .topbar{flex-basis:64px}
+  .workspace{grid-template-rows:minmax(0,1fr) 154px;gap:10px;padding:0 14px 12px}
+  .panel-controls,.panel-details{padding:12px 12px 11px;gap:9px}
+  .panel-head p{display:none}
+  .param-row{padding:4px 0 5px}
+  .param-foot{display:none}
+  .conic-tab{padding:5px 2px 5px}
+  .conic-tab svg{width:21px;height:19px}
+  .conic-tab small{display:none}
+  .param-card{padding:8px 9px}
+  .axis-switch{margin-top:6px;padding-top:6px}
+  .control-buttons .action{padding:8px 10px}
+  .hint{display:none}
+  .catalog{padding:7px 10px 6px;gap:5px}
+  .catalog-head{min-height:24px}
+  .catalog-head p{display:none}
+  .mode-card{padding:6px 8px}
+  .mode-art{width:74px;height:74px}
+  .mode-card h3{font-size:13px}
+  .mode-eq{font-size:12px}
+  .mode-rel{display:none}
+  .mode-card{min-width:170px}
+  .panel-details{overflow:auto}
+  .equation-card{padding:8px 10px}
+  .eq-symbolic{font-size:23px;min-height:48px;margin:4px 0 1px}
+  .feature-card,.note-card{padding:7px 9px}
+  .note-card p{font-size:10px;line-height:1.6}
+  .mini-conclusion{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+<div class="ambient" aria-hidden="true"><div class="glow glow-a"></div><div class="glow glow-b"></div></div>
+
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 36 36" fill="none">
+          <path d="M6 26.5C9.5 16 26.5 16 30 26.5" stroke="#69e5d0" stroke-width="1.2" stroke-linecap="round" opacity=".9"/>
+          <path d="M5.5 10.5c5.5 1.5 8 6.5 9.5 14M30.5 10.5c-5.5 1.5-8 6.5-9.5 14" stroke="#ff8fab" stroke-width="1.15" stroke-linecap="round" opacity=".8"/>
+          <path d="M18 5.5v24" stroke="#ffc96b" stroke-width="1.1" stroke-linecap="round" opacity=".75"/>
+          <ellipse cx="18" cy="18" rx="11.2" ry="4.7" stroke="#a99cff" stroke-width="1.1" opacity=".8"/>
+          <circle cx="18" cy="13.3" r="1.65" fill="#ffc96b"/>
+          <circle cx="18" cy="22.7" r="1.65" fill="#a99cff"/>
+        </svg>
+      </div>
+      <div class="brand-copy">
+        <div class="eyebrow"><span>Conic Equation Lab</span><i></i><span>解析几何</span></div>
+        <h1>圆锥曲线方程实验室 <span class="title-en">/ CONIC LAB</span></h1>
+      </div>
+    </div>
+    <div class="top-actions">
+      <div class="standard-chip" id="originChip"><span class="dot"></span>标准位置 · 中心在原点</div>
+      <button class="ghost-btn" id="guideBtn" type="button" aria-haspopup="dialog">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4.5 5.5c2.7-1.2 5.1-1.1 7.5.4v13c-2.4-1.5-4.8-1.6-7.5-.4v-13Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M19.5 5.5c-2.7-1.2-5.1-1.1-7.5.4v13c2.4-1.5 4.8-1.6 7.5-.4v-13Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        方程速查
+      </button>
+      <button class="icon-btn" id="fullBtn" type="button" aria-label="全屏显示" title="全屏显示">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8.5 4H4v4.5M15.5 4H20v4.5M8.5 20H4v-4.5M15.5 20H20v-4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <aside class="panel panel-controls" aria-label="圆锥曲线参数控制">
+      <div class="panel-head">
+        <span class="section-num">01</span>
+        <div><h2>曲线与参数</h2><p>选择曲线 · 调整方程</p></div>
+      </div>
+
+      <div class="conic-tabs" id="modeTabs" role="group" aria-label="选择圆锥曲线类型">
+        <button class="conic-tab" type="button" data-mode="ellipse" aria-pressed="true">
+          <svg viewBox="0 0 24 22" fill="none" aria-hidden="true"><ellipse cx="12" cy="11" rx="8.7" ry="5.8" stroke="currentColor" stroke-width="1.4"/><circle cx="8.2" cy="11" r="1.25" fill="currentColor"/><circle cx="15.8" cy="11" r="1.25" fill="currentColor"/></svg>
+          <span>椭圆</span><small>ELLIPSE</small>
+        </button>
+        <button class="conic-tab" type="button" data-mode="hyperbola" aria-pressed="false">
+          <svg viewBox="0 0 24 22" fill="none" aria-hidden="true"><path d="M3 19c4.5-1.2 6.2-8.4 8.2-16M21 19c-4.5-1.2-6.2-8.4-8.2-16" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="7.1" cy="11" r="1.15" fill="currentColor"/><circle cx="16.9" cy="11" r="1.15" fill="currentColor"/></svg>
+          <span>双曲线</span><small>HYPERBOLA</small>
+        </button>
+        <button class="conic-tab" type="button" data-mode="parabola" aria-pressed="false">
+          <svg viewBox="0 0 24 22" fill="none" aria-hidden="true"><path d="M12 2v18M4 4.5c.5 12 15.5 12 16 0" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" opacity=".55"/><path d="M4 4.5c.5 12 15.5 12 16 0" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" opacity=".2"/><path d="M4.5 4.5h15" stroke="currentColor" stroke-width="1.1" stroke-dasharray="2 3" opacity=".55"/><circle cx="12" cy="14.3" r="1.2" fill="currentColor"/></svg>
+          <span>抛物线</span><small>PARABOLA</small>
+        </button>
+        <button class="conic-tab" type="button" data-mode="unified" aria-pressed="false">
+          <svg viewBox="0 0 24 22" fill="none" aria-hidden="true"><ellipse cx="12" cy="11" rx="8.5" ry="5.7" stroke="currentColor" stroke-width="1.1" opacity=".45"/><path d="M6 18c2.5-6.5 9.5-6.5 12 0" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" opacity=".85"/><path d="M4 5c2 8 6 11 8 14 2-3 6-6 8-14" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" opacity=".55"/><circle cx="12" cy="14.2" r="1.2" fill="currentColor"/></svg>
+          <span>统一视角</span><small>UNIFIED</small>
+        </button>
+      </div>
+
+      <div class="param-card">
+        <div class="param-head"><span>方程参数</span><span id="paramIdentity">a > b > 0</span></div>
+
+        <div class="param-row" id="rowA">
+          <div class="slider-top"><label for="rangeA" id="labelA">长半轴 <em>a</em></label><output id="valA" for="rangeA">4.00</output></div>
+          <input id="rangeA" type="range" min="2" max="5" step="0.02" value="4" aria-label="椭圆长半轴 a">
+          <div class="param-foot"><span id="hintA">决定椭圆大小</span><span id="scaleA">2 — 5</span></div>
+        </div>
+
+        <div class="param-row" id="rowE">
+          <div class="slider-top"><label for="rangeE">离心率 <em>e</em></label><output id="valE" for="rangeE">0.55</output></div>
+          <input id="rangeE" type="range" min="0" max="0.85" step="0.01" value="0.55" aria-label="椭圆离心率 e">
+          <div class="param-foot"><span id="hintE">决定扁平程度</span><span id="scaleE">0 — 0.85</span></div>
+        </div>
+
+        <div class="param-row" id="rowP" hidden>
+          <div class="slider-top"><label for="rangeP">焦准距参数 <em>p</em></label><output id="valP" for="rangeP">3.00</output></div>
+          <input id="rangeP" type="range" min="1" max="5" step="0.05" value="3" aria-label="抛物线参数 p">
+          <div class="param-foot"><span>焦点到准线的距离 = p</span><span id="scaleP">1 — 5</span></div>
+        </div>
+
+        <div class="param-row" id="rowL" hidden>
+          <div class="slider-top"><label for="rangeL">半通径 <em>ℓ</em></label><output id="valL" for="rangeL">2.50</output></div>
+          <input id="rangeL" type="range" min="1.5" max="4" step="0.05" value="2.5" aria-label="统一视角的半通径 ℓ">
+          <div class="param-foot"><span id="hintL">同时控制焦准距 d = ℓ/e</span><span id="scaleL">1.5 — 4</span></div>
+        </div>
+
+        <div class="quick-row" id="unifiedQuick" hidden>
+          <button class="quick-btn" type="button" data-quick-e="0.6">椭圆 e=0.6</button>
+          <button class="quick-btn" type="button" data-quick-e="1">抛物线 e=1</button>
+          <button class="quick-btn" type="button" data-quick-e="1.6">双曲线 e=1.6</button>
+        </div>
+
+        <div class="axis-switch" id="axisSwitch">
+          <span id="axisSwitchLabel">焦点轴</span>
+          <div class="segmented" role="group" aria-label="焦点轴方向" id="axisGroup">
+            <button type="button" data-axis="x" aria-pressed="true" id="axisBtnX">焦点在 x 轴</button>
+            <button type="button" data-axis="y" aria-pressed="false" id="axisBtnY">焦点在 y 轴</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="toggle-grid" aria-label="显示选项">
+        <button class="switch" type="button" data-toggle="directrix" aria-pressed="true"><span class="led"></span>准线</button>
+        <button class="switch" type="button" data-toggle="asymptote" aria-pressed="true"><span class="led"></span>渐近线</button>
+        <button class="switch" type="button" data-toggle="labels" aria-pressed="true"><span class="led"></span>标签</button>
+      </div>
+
+      <div class="control-buttons">
+        <button class="action main" id="playBtn" type="button">
+          <svg class="icon-play" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 5.5v13l10-6.5-10-6.5Z" fill="currentColor"/></svg>
+          <span id="playBtnText">暂停动点</span>
+        </button>
+        <button class="action ghost" id="resetBtn" type="button">重置</button>
+      </div>
+
+      <div class="hint">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 8v5M12 16h.01M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span>空格暂停动点 · 1–4 切换曲线 · R 重置参数 · G 打开方程速查</span>
+      </div>
+    </aside>
+
+    <section class="stage-card" id="stage" aria-label="圆锥曲线动态坐标图">
+      <canvas id="scene" aria-label="带坐标轴的圆锥曲线动态图">你的浏览器需要支持 Canvas。</canvas>
+
+      <div class="stage-top">
+        <div class="live-badge">
+          <span class="live-dot" id="liveDot"></span>
+          <div class="live-copy"><span>当前曲线 / LIVE CURVE</span><strong id="liveName">椭圆</strong></div>
+          <span class="live-e" id="liveE">e = 0.55</span>
+        </div>
+        <div class="stage-tools">
+          <button class="mini-toggle" id="stagePlay" type="button" aria-pressed="true" aria-label="暂停动点 P">
+            <svg class="icon-play" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 5.5v13l10-6.5-10-6.5Z" fill="currentColor"/></svg>
+            <span>动点运动</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="definition-bar">
+        <div class="definition-mark">=</div>
+        <div class="definition-copy">
+          <div class="def-title" id="defTitle">定义验证 · 动点 P</div>
+          <div class="def-formula" id="defFormula"><span class="m">|PF₁| + |PF₂| = 2a</span></div>
+          <div class="def-values" id="defValues">PF₁ = 5.00 · PF₂ = 3.00 · 2a = 8.00</div>
+        </div>
+        <div class="point-readout"><b>POINT P</b><span id="pointReadout">P (4.00, 0.00)</span></div>
+      </div>
+      <div class="stage-note" id="stageNote">原点 = 中心 O · P 由参数方程生成</div>
+    </section>
+
+    <aside class="panel panel-details" aria-label="圆锥曲线方程档案">
+      <div class="panel-head">
+        <span class="section-num">02</span>
+        <div><h2>方程档案</h2><p>标准方程 · 关键几何量</p></div>
+        <span class="family-chip" id="familyChip">椭圆</span>
+      </div>
+
+      <div class="equation-card">
+        <div class="eq-head"><span id="eqCardTitle">标准方程 / STANDARD FORM</span><span id="orientationLabel">焦点在 x 轴</span></div>
+        <div class="eq-symbolic" id="eqSymbolic"></div>
+        <div class="eq-numeric" id="eqNumeric"></div>
+        <div class="eq-meta"><span id="relationText">a² = b² + c²</span><span id="eRangeText">0 ≤ e < 1</span></div>
+      </div>
+
+      <div class="metric-grid" id="metricGrid"></div>
+
+      <div class="feature-card">
+        <div class="block-label">几何要素 <span>实时</span></div>
+        <div id="featureList"></div>
+      </div>
+
+      <div class="note-card">
+        <div class="note-head"><span class="note-icon">i</span><span id="noteTitle">观察提示</span></div>
+        <p id="noteText">焦点、准线与方程参数同步变化；观察离心率 e 如何决定曲线的形状。</p>
+      </div>
+
+      <div class="mini-conclusion">
+        <strong>这个标准方程从哪里来？</strong>
+        <button class="link-btn" id="whyBtn" type="button">看推导 →</button>
+      </div>
+    </aside>
+
+    <section class="catalog" aria-label="圆锥曲线图鉴">
+      <div class="catalog-head">
+        <div class="catalog-title">
+          <span class="section-num">03</span>
+          <div><h2>曲线图鉴</h2><p>四种方程视角 · 点击卡片切换</p></div>
+        </div>
+        <div class="catalog-hint">统一定义：|PF| / d(P, ℓ) = e</div>
+      </div>
+      <div class="catalog-track" id="catalogTrack"></div>
+    </section>
+  </main>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<div class="modal" id="guideModal" aria-hidden="true">
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="guideTitle">
+    <button class="modal-close" type="button" aria-label="关闭方程速查" data-close>×</button>
+    <div class="modal-head">
+      <div class="eyebrow">Equation Atlas · 方程速查</div>
+      <h2 id="guideTitle">一个比值，三种曲线</h2>
+      <p>把“到定点的距离”与“到定直线的距离”作比，比值 e 就是离心率。e 小于、等于、大于 1，分别得到椭圆、抛物线、双曲线。下面把定义、标准方程与推导一次讲清。</p>
+    </div>
+
+    <div class="guide-lead">
+      <p>设动点 P 到焦点 F 的距离为 <strong style="color:var(--mint)">r</strong>，到一条定直线 ℓ（准线）的距离为 <strong style="color:var(--mint)">d</strong>。若 <strong style="color:var(--mint)">r / d = e</strong> 为常数，则 P 的轨迹是圆锥曲线。<br>焦点、准线、离心率三个对象，统一了椭圆、抛物线和双曲线。</p>
+      <div class="unified-formula">PF / d(P, ℓ) = e</div>
+    </div>
+
+    <div class="guide-grid">
+      <article class="guide-card c-ellipse">
+        <div class="guide-card-head"><span>0 &lt; e &lt; 1</span><h3>椭圆</h3></div>
+        <div class="guide-eq">x²/a² + y²/b² = 1</div>
+        <p>a &gt; b &gt; 0，c² = a² − b²，e = c/a。焦点在 x 轴：F(±c, 0)；在 y 轴时交换 x、y。</p>
+        <p>另一种定义：|PF₁| + |PF₂| = 2a。</p>
+      </article>
+      <article class="guide-card c-hyperbola">
+        <div class="guide-card-head"><span>e &gt; 1</span><h3>双曲线</h3></div>
+        <div class="guide-eq">x²/a² − y²/b² = 1</div>
+        <p>a,b &gt; 0，c² = a² + b²，e = c/a。焦点在 x 轴：F(±c, 0)；渐近线 y = ±(b/a)x。</p>
+        <p>另一种定义：| |PF₁| − |PF₂| | = 2a。定义含绝对值，所以轨迹是两支。</p>
+      </article>
+      <article class="guide-card c-parabola">
+        <div class="guide-card-head"><span>e = 1</span><h3>抛物线</h3></div>
+        <div class="guide-eq">y² = 2px</div>
+        <p>p &gt; 0，焦点 F(p/2, 0)，准线 x = −p/2。也有定义 |PF| = d(P, ℓ)。</p>
+        <p>开口向上时标准方程为 x² = 2py。</p>
+      </article>
+    </div>
+
+    <div class="guide-columns">
+      <section class="guide-section">
+        <h3>椭圆方程的由来</h3>
+        <p>设 F₁(−c,0)、F₂(c,0)，由 |PF₁| + |PF₂| = 2a 移项并平方：</p>
+        <p><span class="formula">√((x+c)²+y²) + √((x−c)²+y²) = 2a</span></p>
+        <p>两次平方后得到 <span class="formula">(a²−c²)x² + a²y² = a²(a²−c²)</span>。令 b² = a²−c²，即得 x²/a² + y²/b² = 1。</p>
+      </section>
+      <section class="guide-section">
+        <h3>双曲线方程的由来</h3>
+        <p>把“和”换成“差的绝对值” | |PF₁| − |PF₂| | = 2a，同样移项、平方，整理可得：</p>
+        <p><span class="formula">(a²−c²)x² + a²y² = a²(a²−c²)</span>，但此时 c &gt; a，所以令 b² = c²−a²，得到 x²/a² − y²/b² = 1。</p>
+        <p>椭圆中 a 最大；双曲线中 c 最大，这是两个关系式最容易混淆的地方。</p>
+      </section>
+      <section class="guide-section">
+        <h3>抛物线方程的由来</h3>
+        <p>焦点 F(p/2,0)，准线 x = −p/2，由 |PF| = d(P,ℓ)：</p>
+        <p><span class="formula">√((x−p/2)² + y²) = x + p/2</span></p>
+        <p>两边平方并整理，x² 项抵消，得到 y² = 2px。这也是抛物线的焦点到顶点距离为 p/2 的原因。</p>
+      </section>
+      <section class="guide-section">
+        <h3>统一定义的极坐标形式</h3>
+        <p>以焦点为极点、极轴沿对称轴，设半通径为 ℓ，准线在焦点左侧，则轨迹满足：</p>
+        <p><span class="formula">r = ℓ / (1 − e cos θ)</span></p>
+        <p>e &lt; 1 时是椭圆；e = 1 时是抛物线；e &gt; 1 时是双曲线。按定义，<strong style="color:var(--text-soft)">两支</strong>上的点到同一焦点、同一准线的距离比都等于 e；取 r &gt; 0 作图时只描出含焦点的一支，图中另一支由中心对称补画。</p>
+      </section>
+    </div>
+
+    <div class="guide-columns" style="border-top:0;padding-top:0;margin-top:14px">
+      <section class="guide-section">
+        <h3>看方程判类型（无 xy 项时）</h3>
+        <p>把方程写成 Ax² + Cy² + Dx + Ey + F = 0：</p>
+        <ul>
+          <li>A、C 同号：椭圆型（A=C 且无平移时为圆）；</li>
+          <li>A、C 异号：双曲线型；</li>
+          <li>A、C 中恰有一个为 0：抛物线型。</li>
+        </ul>
+        <p>有平移时先配方，化成以 (h,k) 为中心或顶点的标准形式再判断。</p>
+      </section>
+      <section class="guide-section">
+        <h3>五个易错点</h3>
+        <ul>
+          <li>椭圆 a² = b² + c²，a 最大；双曲线 c² = a² + b²，c 最大。</li>
+          <li>y² = 2px 的焦点是 (p/2,0)，不是 (p,0)；准线 x = −p/2。</li>
+          <li>离心率 e 的范围：椭圆 0 ≤ e &lt; 1（圆 e=0），双曲线 e &gt; 1，抛物线 e=1。</li>
+          <li>焦点轴换到 y 轴时，方程与焦点坐标要同时交换 x、y，不能只改方程。</li>
+          <li>极坐标 r = ℓ/(1−e cosθ) 在 e &gt; 1 且 r &gt; 0 时只画出双曲线的一支，不能把“定义”说成“只给一支”。</li>
+        </ul>
+      </section>
+      <section class="guide-section">
+        <h3>课堂演示路线</h3>
+        <p>① 先固定椭圆 a，只改变 e：观察 e 越接近 0，椭圆越接近圆。</p>
+        <p>② 切到双曲线，观察 c² = a² + b² 与渐近线如何同时变化。</p>
+        <p>③ 切到抛物线，验证 |PF| 与到准线的距离始终相等。</p>
+        <p>④ 最后进入“统一视角”，让 e 从 0.6 调到 1.6，看三类曲线如何由同一个焦点—准线定义生成。</p>
+        <div class="guide-jumps">
+          <button class="guide-jump" type="button" data-jump="ellipse" aria-label="跳转到椭圆模式">① 椭圆</button>
+          <button class="guide-jump" type="button" data-jump="hyperbola" aria-label="跳转到双曲线模式">② 双曲线</button>
+          <button class="guide-jump" type="button" data-jump="parabola" aria-label="跳转到抛物线模式">③ 抛物线</button>
+          <button class="guide-jump" type="button" data-jump="unified" aria-label="跳转到统一视角">④ 统一视角</button>
+        </div>
+      </section>
+      <section class="guide-section">
+        <h3>操作方式</h3>
+        <p>拖动参数滑杆，曲线与方程实时更新；点击上方或下方卡片切换曲线；空格暂停动点；按 1–4 快速切换模式；R 重置当前模式；G 打开本页。</p>
+        <p>椭圆、双曲线的标准形式以中心为原点；抛物线以顶点为原点；统一视角以焦点为原点。切换模式时，请注意坐标原点代表的几何对象。</p>
+      </section>
+    </div>
+    <div class="guide-foot">
+      <span>坐标原点：中心 / 顶点 / 焦点（按模式标注）</span>
+      <span>图中长度单位与坐标轴一致</span>
+      <span>动点 P 由参数方程生成</span>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   圆锥曲线方程实验室 · application logic
+   Self-contained, file:// friendly, no external libraries.
+   ============================================================ */
+(function () {
+  'use strict';
+
+  var TAU = Math.PI * 2;
+  var PREFERS_REDUCED = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var MODE_ORDER = ['ellipse', 'hyperbola', 'parabola', 'unified'];
+  var MODES = {
+    ellipse: {
+      name: '椭圆', en: 'ELLIPSE', color: '#ffc96b', rgb: [255, 201, 107],
+      eqText: 'x²/a² + y²/b² = 1',
+      relation: '|PF₁| + |PF₂| = 2a',
+      tagline: '到两个焦点的距离之和为常数'
+    },
+    hyperbola: {
+      name: '双曲线', en: 'HYPERBOLA', color: '#ff8fab', rgb: [255, 143, 171],
+      eqText: 'x²/a² − y²/b² = 1',
+      relation: '| |PF₁| − |PF₂| | = 2a',
+      tagline: '到两个焦点的距离之差为常数'
+    },
+    parabola: {
+      name: '抛物线', en: 'PARABOLA', color: '#69e5d0', rgb: [105, 229, 208],
+      eqText: 'y² = 2px',
+      relation: '|PF| = d(P, ℓ)',
+      tagline: '到焦点与到准线的距离相等'
+    },
+    unified: {
+      name: '统一视角', en: 'UNIFIED', color: '#a99cff', rgb: [169, 156, 255],
+      eqText: 'PF / d(P, ℓ) = e',
+      relation: 'PF / d(P, ℓ) = e',
+      tagline: '一个焦点、一条准线、一个离心率'
+    }
+  };
+  var DEFAULTS = {
+    ellipse: { a: 4.0, e: 0.55 },
+    hyperbola: { a: 2.2, e: 1.45 },
+    parabola: { p: 3.0 },
+    unified: { e: 0.65, l: 2.5 }
+  };
+
+  var state = {
+    mode: 'ellipse',
+    orientation: 'x',
+    phase: 0.9,
+    playing: !PREFERS_REDUCED,
+    showDirectrix: true,
+    showAsymptote: true,
+    showLabels: true,
+    params: {
+      ellipse: { a: DEFAULTS.ellipse.a, e: DEFAULTS.ellipse.e },
+      hyperbola: { a: DEFAULTS.hyperbola.a, e: DEFAULTS.hyperbola.e },
+      parabola: { p: DEFAULTS.parabola.p },
+      unified: { e: DEFAULTS.unified.e, l: DEFAULTS.unified.l }
+    },
+    dirty: true,
+    errors: [],
+    currentGeo: null,
+    lastStaticSignature: '',
+    reducedMotion: PREFERS_REDUCED
+  };
+  var staticMode = false;
+  var lastFrameTime = 0;
+  var DOM = {};
+  var modalOpen = false;
+  var modalLastFocus = null;
+  var toastTimer = 0;
+  var diagEl = null;
+
+  /* ---------- helpers ---------- */
+  function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+  function lerp(a, b, t) { return a + (b - a) * t; }
+  function dist(a, b) { return Math.hypot(a.x - b.x, a.y - b.y); }
+  function fmt(v, digits) {
+    if (!isFinite(v)) return '—';
+    var d = digits == null ? 2 : digits;
+    var n = Math.abs(v) < 5 * Math.pow(10, -d - 1) ? 0 : v;
+    return n.toFixed(d);
+  }
+  function fmtSigned(v, digits) {
+    var d = digits == null ? 2 : digits;
+    return (v < -Math.pow(10, -d) ? '−' : '') + fmt(Math.abs(v), d);
+  }
+  function fmtInt(v) { return String(Math.round(v)); }
+  function fmtCoordinate(p) { return '(' + fmtSigned(p.x, 2) + ', ' + fmtSigned(p.y, 2) + ')'; }
+  function rgba(rgb, a) { return 'rgba(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ',' + a + ')'; }
+  function rgbCss(rgb) { return 'rgb(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ')'; }
+  function square(v) { return v * v; }
+  function sign(v) { return v < 0 ? '−' : '+'; }
+  function distToLineY(x, y, lineY) { return Math.abs(y - lineY); }
+  function distToLineX(x, y, lineX) { return Math.abs(x - lineX); }
+  function addPoint(list, p) { list.push({ x: p.x, y: p.y }); }
+  function uniquePoints(points) {
+    var out = [];
+    for (var i = 0; i < points.length; i++) {
+      var p = points[i];
+      if (!isFinite(p.x) || !isFinite(p.y)) continue;
+      var duplicate = false;
+      for (var j = 0; j < out.length; j++) {
+        if (Math.abs(out[j].x - p.x) < 1e-7 && Math.abs(out[j].y - p.y) < 1e-7) { duplicate = true; break; }
+      }
+      if (!duplicate) out.push(p);
+    }
+    return out;
+  }
+  function screenAspect() {
+    return DOM.scene ? DOM.scene.clientWidth / Math.max(1, DOM.scene.clientHeight) : 1.5;
+  }
+  function chooseTickStep(scale) {
+    var raw = 66 / Math.max(0.0001, scale);
+    var pow = Math.pow(10, Math.floor(Math.log(raw) / Math.LN10));
+    var n = raw / pow;
+    var f = n <= 1.4 ? 1 : (n <= 3.2 ? 2 : (n <= 6.5 ? 5 : 10));
+    return f * pow;
+  }
+  function tickDigits(step) {
+    if (step >= 1) return 0;
+    if (step >= 0.1) return 1;
+    if (step >= 0.01) return 2;
+    return 3;
+  }
+  function orientPoint(p, orientation) {
+    return orientation === 'y' ? { x: p.y, y: p.x } : { x: p.x, y: p.y };
+  }
+  function orientationWord(mode, axis) {
+    if (mode === 'parabola') return axis === 'x' ? '开口向右' : '开口向上';
+    if (mode === 'hyperbola') return axis === 'x' ? '实轴水平' : '实轴竖直';
+    return axis === 'x' ? '焦点在 x 轴' : '焦点在 y 轴';
+  }
+  function conicFrac(num, den, small) {
+    return '<span class="frac' + (small ? ' frac-sm' : '') + '"><span class="num">' + num + '</span><span class="den">' + den + '</span></span>';
+  }
+  function eqFractionHtml(parts) {
+    // parts: array of {num, den, op} ; op before term, '=' before rhs is separate
+    var html = '';
+    parts.forEach(function (part, index) {
+      if (index > 0 && part.op) html += '<span class="op">' + part.op + '</span>';
+      if (part.num) html += conicFrac(part.num, part.den);
+      if (part.text) html += '<span class="rhs">' + part.text + '</span>';
+    });
+    return html;
+  }
+  function modeRgb() { return MODES[state.mode].rgb; }
+  function modeColor() { return MODES[state.mode].color; }
+  function setModeCss(mode) {
+    var m = MODES[mode];
+    var root = document.documentElement;
+    root.style.setProperty('--mode', m.color);
+    root.style.setProperty('--mode-rgb', m.rgb.join(','));
+  }
+  function setRangeFill(input) {
+    if (!input) return;
+    var min = parseFloat(input.min);
+    var max = parseFloat(input.max);
+    var value = parseFloat(input.value);
+    var pct = ((value - min) / Math.max(1e-9, max - min)) * 100;
+    input.style.setProperty('--fill', pct.toFixed(2) + '%');
+  }
+  function markDirty() { state.dirty = true; }
+  function showToast(text) {
+    if (!DOM.toast) return;
+    DOM.toast.textContent = text;
+    DOM.toast.classList.add('show');
+    window.clearTimeout(toastTimer);
+    toastTimer = window.setTimeout(function () { DOM.toast.classList.remove('show'); }, 2100);
+  }
+
+/* ============================================================
+   Geometry builders: every mode returns the curve, features,
+   equations, live point and measured invariants.
+   ============================================================ */
+  function wrapAngle(t) {
+    var r = t % TAU;
+    return r < 0 ? r + TAU : r;
+  }
+  function pointsBounds(points) {
+    var minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+    points.forEach(function (p) {
+      if (!isFinite(p.x) || !isFinite(p.y)) return;
+      minX = Math.min(minX, p.x); maxX = Math.max(maxX, p.x);
+      minY = Math.min(minY, p.y); maxY = Math.max(maxY, p.y);
+    });
+    return { minX: minX, maxX: maxX, minY: minY, maxY: maxY };
+  }
+  function sampleEllipse(a, b, orientation, n) {
+    var out = [];
+    for (var i = 0; i <= n; i++) {
+      var t = (i / n) * TAU;
+      out.push(orientPoint({ x: a * Math.cos(t), y: b * Math.sin(t) }, orientation));
+    }
+    return out;
+  }
+  function sampleHyperbola(a, b, orientation, uMax, n) {
+    var branches = [];
+    [-1, 1].forEach(function (side) {
+      var pts = [];
+      for (var i = 0; i <= n; i++) {
+        var u = -uMax + (2 * uMax * i) / n;
+        pts.push(orientPoint({ x: side * a * Math.cosh(u), y: b * Math.sinh(u) }, orientation));
+      }
+      branches.push(pts);
+    });
+    return branches;
+  }
+  function sampleParabola(p, orientation, tMax, n) {
+    var out = [];
+    for (var i = 0; i <= n; i++) {
+      var t = -tMax + (2 * tMax * i) / n;
+      out.push(orientPoint({ x: t * t / (2 * p), y: t }, orientation));
+    }
+    return out;
+  }
+  function unifiedDomain(e, l) {
+    // Keep the drawn curve inside a window of radius R = 5l.  For e<1 this
+    // window only clips when e is close to 1; for e>=1 it removes the
+    // asymptotic ends and leaves a clean, finite arc.
+    var rMax = 5 * l;
+    var cosBound = (1 - l / rMax) / e;
+    if (e < 1 - 1e-9 && cosBound >= 1) {
+      return { start: 0, end: TAU, closed: true, clipped: false };
+    }
+    var theta0 = Math.acos(clamp(cosBound, -1, 1));
+    return { start: theta0 + 0.012, end: TAU - theta0 - 0.012, closed: false, clipped: true };
+  }
+  function polarPoint(theta, e, l) {
+    var r = l / (1 - e * Math.cos(theta));
+    return { x: r * Math.cos(theta), y: r * Math.sin(theta), r: r };
+  }
+  function sampleUnified(e, l, n) {
+    var domain = unifiedDomain(e, l);
+    var pts = [];
+    for (var i = 0; i <= n; i++) {
+      var s = i / n;
+      var theta = domain.start + (domain.end - domain.start) * s;
+      var p = polarPoint(theta, e, l);
+      if (isFinite(p.x) && isFinite(p.y)) pts.push({ x: p.x, y: p.y });
+    }
+    return { points: pts, domain: domain };
+  }
+  function directrixDescriptor(orientation, axisMode, value) {
+    // axisMode: 'x' or 'y' means the standard focus axis.
+    return {
+      type: axisMode === 'x' ? 'v' : 'h',
+      value: value,
+      label: axisMode === 'x' ? 'x = ' + fmtSigned(value, 2) : 'y = ' + fmtSigned(value, 2)
+    };
+  }
+  function splitCoordinatesText(points) {
+    return points.map(function (p) { return fmtCoordinate(p); }).join(' · ');
+  }
+  function definitionData(mode, values) {
+    return values;
+  }
+
+  function buildEllipse() {
+    var prm = state.params.ellipse;
+    var a = clamp(prm.a, 2, 5);
+    var e = clamp(prm.e, 0, 0.85);
+    var c = a * e;
+    var b = a * Math.sqrt(Math.max(0, 1 - e * e));
+    var orientation = state.orientation;
+    var T = function (p) { return orientPoint(p, orientation); };
+    var circle = c < 1e-9;
+    var curve = sampleEllipse(a, b, orientation, 220);
+    var fociCanonical = [{ x: -c, y: 0 }, { x: c, y: 0 }];
+    var foci = fociCanonical.map(function (p, i) {
+      return { p: T(p), label: circle ? 'O' : (i === 0 ? 'F₁' : 'F₂') };
+    });
+    var theta = wrapAngle(state.phase);
+    var P = T({ x: a * Math.cos(theta), y: b * Math.sin(theta) });
+    var d1 = dist(P, foci[0].p);
+    var d2 = dist(P, foci[1].p);
+    var sum = d1 + d2;
+    var directrices = [];
+    if (!circle) {
+      var dv = a * a / c;
+      directrices = [
+        directrixDescriptor(orientation, orientation, dv),
+        directrixDescriptor(orientation, orientation, -dv)
+      ];
+    }
+    var symbolic;
+    if (circle) {
+      symbolic = '<span class="rhs">x² + y² = a²</span>';
+    } else {
+      var den1 = orientation === 'x' ? 'a²' : 'b²';
+      var den2 = orientation === 'x' ? 'b²' : 'a²';
+      symbolic = conicFrac('x²', den1) + '<span class="op">+</span>' + conicFrac('y²', den2) + '<span class="op">=</span><span class="rhs">1</span>';
+    }
+    var numeric;
+    if (circle) {
+      numeric = 'x² + y² = ' + fmt(a * a, 2);
+    } else if (orientation === 'x') {
+      numeric = 'x² / ' + fmt(a * a, 2) + ' + y² / ' + fmt(b * b, 2) + ' = 1';
+    } else {
+      numeric = 'x² / ' + fmt(b * b, 2) + ' + y² / ' + fmt(a * a, 2) + ' = 1';
+    }
+    var focusText = circle
+      ? 'F₁ = F₂ = O(0, 0)'
+      : orientation === 'x'
+        ? (fmtCoordinate(foci[0].p) + ' · ' + fmtCoordinate(foci[1].p))
+        : (fmtCoordinate(foci[0].p) + ' · ' + fmtCoordinate(foci[1].p));
+    var directrixText;
+    if (circle) directrixText = '圆没有准线';
+    else if (orientation === 'x') directrixText = 'x = ±' + fmt(a * a / c, 2);
+    else directrixText = 'y = ±' + fmt(a * a / c, 2);
+    var note;
+    if (circle) note = 'e = 0 时，两个焦点重合为圆心，椭圆退化为圆；圆的离心率规定为 0。';
+    else if (e < 0.18) note = 'e 接近 0，椭圆接近圆。保持 a 不变，e 越小，短半轴 b 越大，曲线越圆。';
+    else if (e > 0.72) note = 'e 较大，椭圆更扁平：长轴不变时，焦距 2c 变大而短轴 2b 变短。';
+    else note = '椭圆中 a 最大，a² = b² + c²；拖动 e 观察 b 与 c 如何此消彼长。';
+    var bounds = curve.slice();
+    bounds.push({ x: 0, y: 0 }, foci[0].p, foci[1].p);
+    return {
+      mode: 'ellipse', name: circle ? '圆' : '椭圆', en: circle ? 'CIRCLE · SPECIAL ELLIPSE' : 'ELLIPSE',
+      familyName: circle ? '圆' : '椭圆', accent: MODES.ellipse.color, rgb: MODES.ellipse.rgb,
+      orientation: orientation, a: a, b: b, c: c, e: e,
+      eqSymbolic: symbolic, eqNumeric: numeric, eqRelation: circle ? 'r = a' : 'a² = b² + c²', eRange: circle ? 'e = 0（圆）' : '0 ≤ e < 1',
+      orientationLabel: circle ? '圆心在原点' : orientationWord('ellipse', orientation),
+      metrics: [
+        { k: 'a', v: fmt(a, 2) }, { k: 'b', v: fmt(b, 2) }, { k: 'c', v: fmt(c, 2) }, { k: 'e', v: fmt(e, 2) }
+      ],
+      features: circle ? [
+        { k: '焦点', v: focusText },
+        { k: '准线', v: directrixText },
+        { k: '半径', v: 'r = a = ' + fmt(a, 2) },
+        { k: '离心率', v: 'e = 0' }
+      ] : [
+        { k: '焦点', v: focusText },
+        { k: '准线', v: directrixText },
+        { k: '通径', v: fmt(2 * b * b / a, 2) }
+      ],
+      note: note,
+      curves: [{ points: curve, closed: true, fill: true }],
+      foci: foci, drawFoci: circle ? [{ p: { x: 0, y: 0 }, label: 'F₁=F₂' }] : foci,
+      directrices: directrices,
+      asymptotes: [],
+      P: P, distances: { d1: d1, d2: d2, sum: sum, e: e },
+      defTitle: circle ? '定义验证 · 到圆心的距离' : '定义验证 · 椭圆',
+      defFormulaHtml: circle ? '|PO| = a' : '|PF₁| + |PF₂| = 2a',
+      defValues: circle ? ('PO = ' + fmt(d1, 2) + ' = a = ' + fmt(a, 2)) : ('PF₁ = ' + fmt(d1, 2) + ' · PF₂ = ' + fmt(d2, 2) + ' · 和 = ' + fmt(sum, 2) + ' = 2a = ' + fmt(2 * a, 2)),
+      pointReadout: 'P (' + fmtSigned(P.x, 2) + ', ' + fmtSigned(P.y, 2) + ')',
+      boundsPoints: bounds,
+      originNote: '原点 = 中心 O',
+      stageNote: circle ? 'e = 0：圆是椭圆的特例' : (orientation === 'x' ? '焦点轴：x 轴' : '焦点轴：y 轴')
+    };
+  }
+
+  function buildHyperbola() {
+    var prm = state.params.hyperbola;
+    var a = clamp(prm.a, 1.2, 3.2);
+    var e = clamp(prm.e, 1.05, 2.0);
+    var b = a * Math.sqrt(Math.max(0, e * e - 1));
+    var c = a * e;
+    var orientation = state.orientation;
+    var T = function (p) { return orientPoint(p, orientation); };
+    var uMax = 1.42;
+    var branches = sampleHyperbola(a, b, orientation, uMax, 130);
+    var curve = branches[0].concat(branches[1].slice().reverse());
+    var foci = [{ p: T({ x: -c, y: 0 }), label: 'F₁' }, { p: T({ x: c, y: 0 }), label: 'F₂' }];
+    var u = uMax * Math.sin(state.phase * 0.82);
+    var P = T({ x: a * Math.cosh(u), y: b * Math.sinh(u) });
+    var d1 = dist(P, foci[0].p);
+    var d2 = dist(P, foci[1].p);
+    var diff = Math.abs(d1 - d2);
+    var dv = a * a / c;
+    var directrices = [
+      directrixDescriptor(orientation, orientation, dv),
+      directrixDescriptor(orientation, orientation, -dv)
+    ];
+    var slope = orientation === 'x' ? b / a : a / b;
+    var asymptotes = [
+      { slope: slope, label: 'y = ±' + fmt(slope, 2) + 'x' },
+      { slope: -slope, label: 'y = ±' + fmt(slope, 2) + 'x' }
+    ];
+    var symbolic;
+    if (orientation === 'x') {
+      symbolic = conicFrac('x²', 'a²') + '<span class="op">−</span>' + conicFrac('y²', 'b²') + '<span class="op">=</span><span class="rhs">1</span>';
+    } else {
+      symbolic = conicFrac('y²', 'a²') + '<span class="op">−</span>' + conicFrac('x²', 'b²') + '<span class="op">=</span><span class="rhs">1</span>';
+    }
+    var numeric = orientation === 'x'
+      ? 'x² / ' + fmt(a * a, 2) + ' − y² / ' + fmt(b * b, 2) + ' = 1'
+      : 'y² / ' + fmt(a * a, 2) + ' − x² / ' + fmt(b * b, 2) + ' = 1';
+    var focusText = fmtCoordinate(foci[0].p) + ' · ' + fmtCoordinate(foci[1].p);
+    var directrixText = orientation === 'x' ? 'x = ±' + fmt(dv, 2) : 'y = ±' + fmt(dv, 2);
+    var asymText = 'y = ±' + fmt(slope, 2) + 'x';
+    var note = e < 1.2
+      ? 'e 刚大于 1，双曲线开口较窄，两支贴近实轴；c² = a² + b²，c 是三者中最大的。'
+      : 'e 越大，c/a 越大，开口越开阔；渐近线斜率为 ' + (orientation === 'x' ? '±b/a' : '±a/b') + '。';
+    var bounds = branches[0].slice().concat(branches[1]).slice();
+    bounds.push({ x: 0, y: 0 }, foci[0].p, foci[1].p, T({ x: dv, y: 0 }), T({ x: -dv, y: 0 }));
+    return {
+      mode: 'hyperbola', name: '双曲线', en: 'HYPERBOLA', familyName: '双曲线',
+      accent: MODES.hyperbola.color, rgb: MODES.hyperbola.rgb,
+      orientation: orientation, a: a, b: b, c: c, e: e,
+      eqSymbolic: symbolic, eqNumeric: numeric, eqRelation: 'c² = a² + b²', eRange: 'e > 1',
+      orientationLabel: orientationWord('hyperbola', orientation),
+      metrics: [
+        { k: 'a', v: fmt(a, 2) }, { k: 'b', v: fmt(b, 2) }, { k: 'c', v: fmt(c, 2) }, { k: 'e', v: fmt(e, 2) }
+      ],
+      features: [
+        { k: '焦点', v: focusText },
+        { k: '准线', v: directrixText },
+        { k: '渐近线', v: asymText },
+        { k: '顶点', v: orientation === 'x' ? '(±' + fmt(a, 2) + ', 0)' : '(0, ±' + fmt(a, 2) + ')' }
+      ],
+      note: note,
+      curves: [
+        { points: branches[0], closed: false, fill: false },
+        { points: branches[1], closed: false, fill: false }
+      ],
+      foci: foci, drawFoci: foci,
+      directrices: directrices, asymptotes: asymptotes,
+      P: P, distances: { d1: d1, d2: d2, diff: diff, e: e },
+      defTitle: '定义验证 · 双曲线',
+      defFormulaHtml: '| |PF₁| − |PF₂| | = 2a',
+      defValues: 'PF₁ = ' + fmt(d1, 2) + ' · PF₂ = ' + fmt(d2, 2) + ' · |差| = ' + fmt(diff, 2) + ' = 2a = ' + fmt(2 * a, 2),
+      pointReadout: 'P (' + fmtSigned(P.x, 2) + ', ' + fmtSigned(P.y, 2) + ')',
+      boundsPoints: bounds,
+      originNote: '原点 = 中心 O',
+      stageNote: orientation === 'x' ? '实轴：x 轴 · 两支关于中心对称' : '实轴：y 轴 · 两支关于中心对称'
+    };
+  }
+
+  function buildParabola() {
+    var pVal = clamp(state.params.parabola.p, 1, 5);
+    var orientation = state.orientation;
+    var T = function (p) { return orientPoint(p, orientation); };
+    var tMax = 2.7 * pVal;
+    var curve = sampleParabola(pVal, orientation, tMax, 180);
+    var t = tMax * Math.sin(state.phase * 0.78);
+    var P = T({ x: t * t / (2 * pVal), y: t });
+    var focus = T({ x: pVal / 2, y: 0 });
+    var vertex = { x: 0, y: 0 };
+    var foot = orientation === 'x' ? { x: -pVal / 2, y: P.y } : { x: P.x, y: -pVal / 2 };
+    var dFocus = dist(P, focus);
+    var dDirectrix = dist(P, foot);
+    var directrices = [directrixDescriptor(orientation, orientation, -pVal / 2)];
+    var symbolic = orientation === 'x'
+      ? '<span class="rhs">y² = 2p x</span>'
+      : '<span class="rhs">x² = 2p y</span>';
+    var numeric = orientation === 'x'
+      ? 'y² = ' + fmt(2 * pVal, 2) + 'x'
+      : 'x² = ' + fmt(2 * pVal, 2) + 'y';
+    var focusText = fmtCoordinate(focus);
+    var directrixText = orientation === 'x' ? 'x = −' + fmt(pVal / 2, 2) : 'y = −' + fmt(pVal / 2, 2);
+    var axisText = orientation === 'x' ? 'y = 0（x 轴）' : 'x = 0（y 轴）';
+    var note = '焦点到准线的距离等于 p；焦点到顶点距离为 p/2，通径长为 2p。p 越大，开口越开阔。';
+    var bounds = curve.slice();
+    bounds.push(focus, vertex, T({ x: -pVal / 2, y: 0 }), foot);
+    return {
+      mode: 'parabola', name: '抛物线', en: 'PARABOLA', familyName: '抛物线',
+      accent: MODES.parabola.color, rgb: MODES.parabola.rgb,
+      orientation: orientation, p: pVal, e: 1,
+      eqSymbolic: symbolic, eqNumeric: numeric, eqRelation: 'e = 1（焦点到准线的距离为 p）', eRange: 'e = 1',
+      orientationLabel: orientationWord('parabola', orientation),
+      metrics: [
+        { k: 'p', v: fmt(pVal, 2) }, { k: 'e', v: '1.00' }, { k: 'p/2', v: fmt(pVal / 2, 2) }, { k: '通径', v: fmt(2 * pVal, 2) }
+      ],
+      features: [
+        { k: '焦点', v: focusText },
+        { k: '准线', v: directrixText },
+        { k: '对称轴', v: axisText },
+        { k: '顶点', v: '(0, 0)' }
+      ],
+      note: note,
+      curves: [{ points: curve, closed: false, fill: false }],
+      foci: [{ p: focus, label: 'F' }], drawFoci: [{ p: focus, label: 'F' }],
+      directrices: directrices, asymptotes: [],
+      P: P, foot: foot, distances: { dFocus: dFocus, dDirectrix: dDirectrix },
+      defTitle: '定义验证 · 抛物线',
+      defFormulaHtml: '|PF| = d(P, ℓ)',
+      defValues: 'PF = ' + fmt(dFocus, 2) + ' · d(P, ℓ) = ' + fmt(dDirectrix, 2),
+      pointReadout: 'P (' + fmtSigned(P.x, 2) + ', ' + fmtSigned(P.y, 2) + ')',
+      boundsPoints: bounds,
+      originNote: '原点 = 顶点 O',
+      stageNote: orientation === 'x' ? '开口向右 · 焦点到准线的距离 p' : '开口向上 · 焦点到准线的距离 p'
+    };
+  }
+
+  function buildUnified() {
+    var prm = state.params.unified;
+    var e = clamp(prm.e, 0.35, 2.2);
+    var l = clamp(prm.l, 1.5, 4);
+    var d = l / e;
+    var sample = sampleUnified(e, l, 280);
+    var curve = sample.points;
+    var domain = sample.domain;
+    var theta;
+    if (domain.closed) {
+      theta = wrapAngle(state.phase);
+    } else {
+      var s = 0.5 + 0.5 * Math.sin(state.phase * 0.82);
+      theta = domain.start + s * (domain.end - domain.start);
+    }
+    var pp = polarPoint(theta, e, l);
+    var P = { x: pp.x, y: pp.y };
+    var foot = { x: -d, y: P.y };
+    var dFocus = Math.hypot(P.x, P.y);
+    var dDirectrix = Math.abs(P.x + d);
+    var ratio = dDirectrix > 1e-9 ? dFocus / dDirectrix : null;
+    var isParabola = Math.abs(e - 1) < 1e-9;
+    var typeName = isParabola ? '抛物线' : (e < 1 ? '椭圆' : '双曲线');
+    var shortType = isParabola ? '抛物线' : (e < 1 ? '椭圆' : '双曲线');
+    var symbolic = '<span class="rhs">r</span><span class="op">=</span><span class="frac"><span class="num">ℓ</span><span class="den">1 − e cos θ</span></span>';
+    var numeric = 'r = ' + fmt(l, 2) + ' / (1 − ' + fmt(e, 2) + ' cos θ)';
+    var directrices = [directrixDescriptor('x', 'x', -d)];
+    var curves = [{ points: curve, closed: domain.closed, fill: domain.closed }];
+    var bounds = curve.slice();
+    bounds.push({ x: 0, y: 0 }, foot, { x: -d, y: 0 }, P);
+    var center = null;
+    var secondInView = false;
+    if (e > 1) {
+      // The focus/directrix definition uses an absolute distance, so e>1
+      // defines the whole hyperbola. Positive-r polar sampling draws only the
+      // branch containing the focus; add the other branch by central symmetry.
+      var cH = e * l / (e * e - 1);
+      center = { x: -cH, y: 0 };
+      var second = curve.map(function (p) { return { x: 2 * center.x - p.x, y: -p.y }; });
+      curves.push({ points: second, closed: false, fill: false, dim: true });
+      if (cH <= 5 * l) {
+        bounds = bounds.concat(second);
+        bounds.push(center);
+        secondInView = true;
+      }
+    } else if (e < 1) {
+      center = { x: e * l / (1 - e * e), y: 0 };
+    }
+    var note;
+    if (e < 1 && !domain.closed) {
+      note = 'e 很接近 1，完整椭圆向右延伸得很远。图中仅显示视野内的一段椭圆弧，端点在视野边界处断开；这并不表示椭圆在这里终止。';
+    } else if (e < 1) {
+      note = 'e < 1：轨迹是完整的椭圆。e 越接近 1，椭圆越接近抛物线；e 越接近 0，越接近圆。';
+    } else if (isParabola) {
+      note = 'e = 1：到焦点的距离等于到准线的距离，轨迹是抛物线；曲线两端按视野裁剪。';
+    } else {
+      note = 'e > 1：轨迹是双曲线。两支上的点到同一焦点 F、同一准线 ℓ 的距离比都等于 e。' +
+        (secondInView ? '极坐标取 r > 0 只描出含焦点的一支，图中另一支由中心对称补画。' : 'e 很接近 1，另一支离得很远，当前视野只显示含焦点的一支；「中心」给出它的对称中心。');
+    }
+    var stageNote;
+    if (e < 1 && !domain.closed) stageNote = '统一视角：椭圆在视野外延伸 · 焦点在原点';
+    else if (e < 1) stageNote = '统一视角：e < 1 → 完整椭圆 · 焦点在原点';
+    else if (isParabola) stageNote = '统一视角：e = 1 → 抛物线 · 焦点在原点';
+    else stageNote = secondInView ? '统一视角：e > 1 → 双曲线（两支） · 焦点在原点' : '统一视角：e > 1 → 双曲线（另一支在视野外）';
+    return {
+      mode: 'unified', name: typeName, en: 'UNIFIED FOCUS–DIRECTRIX', familyName: typeName,
+      accent: MODES.unified.color, rgb: MODES.unified.rgb,
+      orientation: 'x', e: e, l: l, d: d,
+      eqSymbolic: symbolic, eqNumeric: numeric,
+      eqRelation: 'PF = e · d(P, ℓ)', eRange: isParabola ? 'e = 1（抛物线）' : (e < 1 ? '0 < e < 1（椭圆）' : 'e > 1（双曲线）'),
+      orientationLabel: '焦点在原点 · 准线在左',
+      metrics: [
+        { k: 'e', v: fmt(e, 2) }, { k: 'ℓ', v: fmt(l, 2) }, { k: 'd', v: fmt(d, 2) }, { k: '曲线', v: shortType }
+      ],
+      features: [
+        { k: '焦点', v: 'F(0, 0)' },
+        { k: '准线', v: 'x = −' + fmt(d, 2) },
+        { k: '半通径', v: 'ℓ = ' + fmt(l, 2) },
+        { k: '中心', v: center ? fmtCoordinate(center) : '—' }
+      ],
+      note: note,
+      curves: curves,
+      foci: [{ p: { x: 0, y: 0 }, label: 'F' }], drawFoci: [{ p: { x: 0, y: 0 }, label: 'F' }],
+      directrices: directrices, asymptotes: [],
+      P: P, foot: foot, distances: { dFocus: dFocus, dDirectrix: dDirectrix, ratio: ratio },
+      defTitle: '定义验证 · 统一视角',
+      defFormulaHtml: '|PF| / d(P, ℓ) = e',
+      defValues: 'PF = ' + fmt(dFocus, 2) + ' · PD = ' + fmt(dDirectrix, 2) + ' · PF/PD = ' + (ratio == null ? '—' : fmt(ratio, 4)) + ' · e = ' + fmt(e, 4),
+      pointReadout: 'P (' + fmtSigned(P.x, 2) + ', ' + fmtSigned(P.y, 2) + ')',
+      boundsPoints: bounds,
+      originNote: '原点 = 焦点 F · 准线在焦点左侧',
+      stageNote: stageNote
+    };
+  }
+  function buildGeometry() {
+    if (state.mode === 'hyperbola') return buildHyperbola();
+    if (state.mode === 'parabola') return buildParabola();
+    if (state.mode === 'unified') return buildUnified();
+    return buildEllipse();
+  }
+
+/* ============================================================
+   Canvas rendering: coordinate grid, conic curve, focus,
+   directrix, moving point P and its defining distances.
+   ============================================================ */
+  var ICON_PLAY = '<path d="M8 5.5v13l10-6.5-10-6.5Z" fill="currentColor"/>';
+  var ICON_PAUSE = '<path d="M7 5h3.4v14H7zM13.6 5H17v14h-3.4z" fill="currentColor"/>';
+
+  function prepareCanvas(canvas) {
+    var rect = canvas.getBoundingClientRect();
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var w = Math.max(1, Math.round(rect.width * dpr));
+    var h = Math.max(1, Math.round(rect.height * dpr));
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width = w;
+      canvas.height = h;
+    }
+    var ctx = canvas.getContext('2d');
+    if (!ctx) return null;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    return { ctx: ctx, w: rect.width, h: rect.height, dpr: dpr };
+  }
+
+  function computeView(geo, w, h) {
+    var mobile = w < 560;
+    var pad = mobile
+      ? { left: 27, right: 27, top: 68, bottom: 88 }
+      : { left: 45, right: 40, top: 75, bottom: 91 };
+    var plotW = Math.max(50, w - pad.left - pad.right);
+    var plotH = Math.max(50, h - pad.top - pad.bottom);
+    var b = pointsBounds(geo.boundsPoints);
+    var spanX = Math.max(1, b.maxX - b.minX);
+    var spanY = Math.max(1, b.maxY - b.minY);
+    var scale = Math.min(plotW / spanX, plotH / spanY) * 0.9;
+    var cx = (b.minX + b.maxX) / 2;
+    var cy = (b.minY + b.maxY) / 2;
+    var screenCx = pad.left + plotW / 2;
+    var screenCy = pad.top + plotH / 2;
+    return {
+      cx: cx, cy: cy, scale: scale,
+      plot: { left: pad.left, top: pad.top, width: plotW, height: plotH, right: pad.left + plotW, bottom: pad.top + plotH },
+      screenCx: screenCx, screenCy: screenCy,
+      x2s: function (x) { return screenCx + (x - cx) * scale; },
+      y2s: function (y) { return screenCy - (y - cy) * scale; },
+      s2x: function (sx) { return cx + (sx - screenCx) / scale; },
+      s2y: function (sy) { return cy - (sy - screenCy) / scale; }
+    };
+  }
+
+  function pathFromPoints(ctx, points, closed, view) {
+    if (!points || points.length < 2) return false;
+    ctx.beginPath();
+    ctx.moveTo(view.x2s(points[0].x), view.y2s(points[0].y));
+    for (var i = 1; i < points.length; i++) ctx.lineTo(view.x2s(points[i].x), view.y2s(points[i].y));
+    if (closed) ctx.closePath();
+    return true;
+  }
+
+  function drawStageBackground(ctx, w, h) {
+    var g = ctx.createRadialGradient(w * 0.52, h * 0.42, 10, w * 0.52, h * 0.42, Math.max(w, h) * 0.64);
+    g.addColorStop(0, 'rgba(48,98,114,.10)');
+    g.addColorStop(0.55, 'rgba(19,43,58,.035)');
+    g.addColorStop(1, 'rgba(3,7,12,0)');
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, w, h);
+  }
+
+  function drawGrid(ctx, view, geo) {
+    var p = view.plot;
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(p.left, p.top, p.width, p.height);
+    ctx.clip();
+    var step = chooseTickStep(view.scale);
+    var minorStep = step / 5;
+    var xMin = view.s2x(p.left), xMax = view.s2x(p.right);
+    var yMin = view.s2y(p.bottom), yMax = view.s2y(p.top);
+    var x0 = Math.ceil(xMin / minorStep) * minorStep;
+    var y0 = Math.ceil(yMin / minorStep) * minorStep;
+    ctx.lineWidth = 0.6;
+    ctx.strokeStyle = 'rgba(180,216,228,.035)';
+    if (minorStep * view.scale > 10) {
+      for (var x = x0; x <= xMax; x += minorStep) {
+        var sx = view.x2s(x);
+        ctx.beginPath(); ctx.moveTo(sx, p.top); ctx.lineTo(sx, p.bottom); ctx.stroke();
+      }
+      for (var y = y0; y <= yMax; y += minorStep) {
+        var sy = view.y2s(y);
+        ctx.beginPath(); ctx.moveTo(p.left, sy); ctx.lineTo(p.right, sy); ctx.stroke();
+      }
+    }
+    var gx0 = Math.ceil(xMin / step) * step;
+    var gy0 = Math.ceil(yMin / step) * step;
+    ctx.lineWidth = 0.8;
+    ctx.strokeStyle = 'rgba(185,219,231,.075)';
+    for (var gx = gx0; gx <= xMax; gx += step) {
+      var gsx = view.x2s(gx);
+      ctx.beginPath(); ctx.moveTo(gsx, p.top); ctx.lineTo(gsx, p.bottom); ctx.stroke();
+    }
+    for (var gy = gy0; gy <= yMax; gy += step) {
+      var gsy = view.y2s(gy);
+      ctx.beginPath(); ctx.moveTo(p.left, gsy); ctx.lineTo(p.right, gsy); ctx.stroke();
+    }
+    ctx.restore();
+
+    var ax = view.x2s(0);
+    var ay = view.y2s(0);
+    var axisColor = 'rgba(200,229,238,.42)';
+    ctx.save();
+    ctx.strokeStyle = axisColor;
+    ctx.fillStyle = axisColor;
+    ctx.lineWidth = 1;
+    if (ay >= p.top && ay <= p.bottom) {
+      ctx.beginPath(); ctx.moveTo(p.left + 3, ay); ctx.lineTo(p.right - 1, ay); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(p.right - 8, ay - 3.4); ctx.lineTo(p.right - 1, ay); ctx.lineTo(p.right - 8, ay + 3.4); ctx.stroke();
+    }
+    if (ax >= p.left && ax <= p.right) {
+      ctx.beginPath(); ctx.moveTo(ax, p.bottom - 3); ctx.lineTo(ax, p.top + 1); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(ax - 3.4, p.top + 8); ctx.lineTo(ax, p.top + 1); ctx.lineTo(ax + 3.4, p.top + 8); ctx.stroke();
+    }
+    ctx.restore();
+
+    var digits = tickDigits(step);
+    ctx.font = '8.5px "Cascadia Code", Consolas, monospace';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'top';
+    ctx.fillStyle = 'rgba(174,203,214,.56)';
+    var labelY = ay + 7;
+    var labelBelow = labelY < p.bottom - 10;
+    if (!labelBelow) labelY = ay - 16;
+    for (var tx = Math.ceil(xMin / step) * step; tx <= xMax; tx += step) {
+      if (Math.abs(tx) < step * 0.01) continue;
+      var tsx = view.x2s(tx);
+      if (tsx < p.left - 1 || tsx > p.right + 1) continue;
+      ctx.fillText(tx.toFixed(digits), tsx, labelBelow ? labelY : labelY);
+    }
+    ctx.textAlign = 'right';
+    ctx.textBaseline = 'middle';
+    var labelX = ax - 7;
+    if (labelX < p.left + 16) labelX = ax + 8;
+    var rightAlign = labelX < ax;
+    ctx.textAlign = rightAlign ? 'right' : 'left';
+    for (var ty = Math.ceil(yMin / step) * step; ty <= yMax; ty += step) {
+      if (Math.abs(ty) < step * 0.01) continue;
+      var tsy = view.y2s(ty);
+      if (tsy < p.top - 1 || tsy > p.bottom + 1) continue;
+      ctx.fillText(ty.toFixed(digits), labelX, tsy);
+    }
+    ctx.save();
+    ctx.font = 'italic 10px "Cambria Math", serif';
+    ctx.fillStyle = 'rgba(204,232,238,.58)';
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'alphabetic';
+    if (ay >= p.top && ay <= p.bottom) ctx.fillText('x', p.right - 14, ay - 8);
+    if (ax >= p.left && ax <= p.right) ctx.fillText('y', ax + 8, p.top + 15);
+    ctx.restore();
+    if (ax >= p.left && ax <= p.right && ay >= p.top && ay <= p.bottom) {
+      ctx.save();
+      ctx.font = 'italic 9px "Cambria Math", serif';
+      ctx.fillStyle = 'rgba(190,217,226,.55)';
+      if (geo.mode !== 'unified') ctx.fillText('O', ax + 5, ay + 12);
+      ctx.restore();
+    }
+  }
+
+  function drawDirectrices(ctx, view, geo) {
+    if (!state.showDirectrix || !geo.directrices.length) return;
+    var p = view.plot;
+    var offscreen = 0;
+    ctx.save();
+    ctx.beginPath(); ctx.rect(p.left, p.top, p.width, p.height); ctx.clip();
+    ctx.setLineDash([6, 6]);
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'rgba(143,190,203,.42)';
+    geo.directrices.forEach(function (d) {
+      if (d.type === 'v') {
+        var sx = view.x2s(d.value);
+        if (sx < p.left - 2 || sx > p.right + 2) { offscreen++; return; }
+        ctx.beginPath(); ctx.moveTo(sx, p.top); ctx.lineTo(sx, p.bottom); ctx.stroke();
+      } else {
+        var sy = view.y2s(d.value);
+        if (sy < p.top - 2 || sy > p.bottom + 2) { offscreen++; return; }
+        ctx.beginPath(); ctx.moveTo(p.left, sy); ctx.lineTo(p.right, sy); ctx.stroke();
+      }
+    });
+    ctx.restore();
+
+    if (!state.showLabels) return;
+    ctx.save();
+    ctx.font = '9px "Cascadia Code", Consolas, monospace';
+    geo.directrices.forEach(function (d, index) {
+      var sx = d.type === 'v' ? view.x2s(d.value) : p.right - 60;
+      var sy = d.type === 'v' ? p.top + 17 + index * 17 : view.y2s(d.value) - 13;
+      if (d.type === 'v' && (sx < p.left + 20 || sx > p.right - 20)) return;
+      if (d.type === 'h' && (sy < p.top + 12 || sy > p.bottom - 8)) return;
+      var text = d.label;
+      var tw = ctx.measureText(text).width;
+      var boxX = clamp(sx + 5, p.left + 3, p.right - tw - 13);
+      var boxY = clamp(sy - 8, p.top + 3, p.bottom - 17);
+      ctx.fillStyle = 'rgba(5,12,20,.78)';
+      ctx.strokeStyle = 'rgba(164,202,211,.18)';
+      ctx.lineWidth = 0.7;
+      roundRect(ctx, boxX, boxY, tw + 9, 14, 4);
+      ctx.fill(); ctx.stroke();
+      ctx.fillStyle = 'rgba(185,218,226,.78)';
+      ctx.fillText(text, boxX + 4, boxY + 10.4);
+    });
+    ctx.restore();
+
+    if (offscreen > 0) {
+      ctx.save();
+      ctx.font = '8.5px "Cascadia Code", Consolas, monospace';
+      var note = '准线在视野外';
+      var nw = ctx.measureText(note).width;
+      var nx = p.left + 7;
+      var ny = p.bottom - 27;
+      ctx.fillStyle = 'rgba(5,12,20,.72)';
+      ctx.strokeStyle = 'rgba(164,202,211,.18)';
+      ctx.lineWidth = 0.7;
+      roundRect(ctx, nx, ny, nw + 12, 15, 4);
+      ctx.fill(); ctx.stroke();
+      ctx.fillStyle = 'rgba(185,218,226,.55)';
+      ctx.fillText(note, nx + 6, ny + 10.8);
+      ctx.restore();
+    }
+  }
+  function drawAsymptotes(ctx, view, geo) {
+    if (!state.showAsymptote || geo.mode !== 'hyperbola' || !geo.asymptotes.length) return;
+    var p = view.plot;
+    var xMin = view.s2x(p.left), xMax = view.s2x(p.right);
+    ctx.save();
+    ctx.beginPath(); ctx.rect(p.left, p.top, p.width, p.height); ctx.clip();
+    ctx.setLineDash([5, 6]);
+    ctx.lineWidth = 0.9;
+    ctx.strokeStyle = 'rgba(255,143,171,.25)';
+    geo.asymptotes.forEach(function (line) {
+      var yA = line.slope * xMin;
+      var yB = line.slope * xMax;
+      ctx.beginPath();
+      ctx.moveTo(view.x2s(xMin), view.y2s(yA));
+      ctx.lineTo(view.x2s(xMax), view.y2s(yB));
+      ctx.stroke();
+    });
+    ctx.restore();
+    if (state.showLabels) {
+      ctx.save();
+      ctx.font = '8px "Cascadia Code", Consolas, monospace';
+      ctx.fillStyle = 'rgba(255,174,194,.52)';
+      ctx.fillText('渐近线', p.right - 49, p.bottom - 11);
+      ctx.restore();
+    }
+  }
+
+  function drawCurve(ctx, view, geo) {
+    var p = view.plot;
+    ctx.save();
+    ctx.beginPath(); ctx.rect(p.left, p.top, p.width, p.height); ctx.clip();
+    var accent = geo.accent;
+    geo.curves.forEach(function (curve) {
+      if (!curve.points || curve.points.length < 2) return;
+      ctx.save();
+      if (curve.dim) ctx.globalAlpha = 0.42;
+      pathFromPoints(ctx, curve.points, curve.closed, view);
+      if (curve.fill) {
+        var grad = ctx.createLinearGradient(p.left, p.top, p.right, p.bottom);
+        grad.addColorStop(0, rgba(geo.rgb, 0.14));
+        grad.addColorStop(0.6, rgba(geo.rgb, 0.045));
+        grad.addColorStop(1, rgba(geo.rgb, 0.09));
+        ctx.fillStyle = grad;
+        ctx.fill();
+      }
+      ctx.save();
+      ctx.shadowColor = rgba(geo.rgb, 0.6);
+      ctx.shadowBlur = 15;
+      ctx.strokeStyle = rgba(geo.rgb, 0.86);
+      ctx.lineWidth = 2.5;
+      ctx.lineJoin = 'round';
+      ctx.lineCap = 'round';
+      ctx.stroke();
+      ctx.restore();
+      ctx.strokeStyle = rgba(geo.rgb, 1);
+      ctx.lineWidth = 1.55;
+      ctx.stroke();
+      ctx.restore();
+    });
+    ctx.restore();
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    var rr = Math.min(r, w / 2, h / 2);
+    ctx.beginPath();
+    ctx.moveTo(x + rr, y);
+    ctx.arcTo(x + w, y, x + w, y + h, rr);
+    ctx.arcTo(x + w, y + h, x, y + h, rr);
+    ctx.arcTo(x, y + h, x, y, rr);
+    ctx.arcTo(x, y, x + w, y, rr);
+    ctx.closePath();
+  }
+
+  function drawFeatureLabel(ctx, text, sx, sy, color, align, vertical) {
+    if (!state.showLabels) return;
+    ctx.save();
+    ctx.font = '8.5px "Cascadia Code", Consolas, monospace';
+    ctx.textAlign = align || 'left';
+    ctx.textBaseline = vertical || 'middle';
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = 'rgba(4,10,18,.86)';
+    ctx.strokeText(text, sx, sy);
+    ctx.fillStyle = color;
+    ctx.fillText(text, sx, sy);
+    ctx.restore();
+  }
+
+  function drawTag(ctx, text, sx, sy, color, plot) {
+    if (!state.showLabels) return;
+    ctx.save();
+    ctx.font = '9px "Cascadia Code", Consolas, monospace';
+    var tw = ctx.measureText(text).width;
+    var w = tw + 12;
+    var h = 16;
+    var x = sx + 9;
+    var y = sy - 25;
+    if (y < plot.top + 4) y = sy + 9;
+    if (x + w > plot.right - 4) x = sx - 9 - w;
+    if (x < plot.left + 4) x = plot.left + 4;
+    if (y + h > plot.bottom - 4) y = sy - h - 9;
+    ctx.fillStyle = 'rgba(5,12,20,.86)';
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 0.7;
+    roundRect(ctx, x, y, w, h, 5);
+    ctx.fill(); ctx.stroke();
+    ctx.fillStyle = color;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(text, x + w / 2, y + h / 2 + 0.5);
+    ctx.restore();
+  }
+
+  function drawFocusPoint(ctx, view, p, label, geo) {
+    var sx = view.x2s(p.x), sy = view.y2s(p.y);
+    ctx.save();
+    ctx.shadowColor = rgba(geo.rgb, 0.55);
+    ctx.shadowBlur = 8;
+    ctx.beginPath(); ctx.arc(sx, sy, 4.2, 0, TAU);
+    ctx.fillStyle = 'rgba(5,12,20,.96)';
+    ctx.fill();
+    ctx.shadowBlur = 0;
+    ctx.lineWidth = 1.5;
+    ctx.strokeStyle = rgba(geo.rgb, 0.95);
+    ctx.stroke();
+    ctx.beginPath(); ctx.arc(sx, sy, 1.3, 0, TAU);
+    ctx.fillStyle = '#f2fffa';
+    ctx.fill();
+    ctx.restore();
+    drawFeatureLabel(ctx, label, sx + 7, sy - 8, rgba(geo.rgb, 0.95), 'left');
+  }
+
+  function drawVertexDot(ctx, view, p, geo, color) {
+    var sx = view.x2s(p.x), sy = view.y2s(p.y);
+    if (sx < view.plot.left - 2 || sx > view.plot.right + 2 || sy < view.plot.top - 2 || sy > view.plot.bottom + 2) return;
+    ctx.beginPath();
+    ctx.arc(sx, sy, 2.4, 0, TAU);
+    ctx.fillStyle = 'rgba(7,15,23,.9)';
+    ctx.fill();
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = rgba(geo.rgb, 0.7);
+    ctx.stroke();
+  }
+
+  function drawGuides(ctx, view, geo) {
+    var p = view.plot;
+    var P = geo.P;
+    var sxP = view.x2s(P.x), syP = view.y2s(P.y);
+    var segments = [];
+    if (geo.mode === 'ellipse' || geo.mode === 'hyperbola') {
+      segments.push({ a: P, b: geo.foci[0].p, color: 'rgba(255,143,171,.8)', dash: [4, 4] });
+      segments.push({ a: P, b: geo.foci[1].p, color: 'rgba(123,184,255,.8)', dash: [4, 4] });
+    } else {
+      var focus = geo.foci[0].p;
+      segments.push({ a: P, b: focus, color: rgba(geo.rgb, 0.88), dash: [] });
+      if (geo.foot) segments.push({ a: P, b: geo.foot, color: 'rgba(255,201,107,.82)', dash: [4, 4] });
+    }
+    ctx.save();
+    ctx.beginPath(); ctx.rect(p.left, p.top, p.width, p.height); ctx.clip();
+    segments.forEach(function (seg) {
+      var ax = view.x2s(seg.a.x), ay = view.y2s(seg.a.y);
+      var bx = view.x2s(seg.b.x), by = view.y2s(seg.b.y);
+      ctx.setLineDash(seg.dash || []);
+      ctx.strokeStyle = seg.color;
+      ctx.lineWidth = 1.1;
+      ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(bx, by); ctx.stroke();
+    });
+    ctx.restore();
+
+    if (geo.foot) {
+      var qx = view.x2s(geo.foot.x), qy = view.y2s(geo.foot.y);
+      ctx.beginPath(); ctx.arc(qx, qy, 2.8, 0, TAU);
+      ctx.fillStyle = '#ffc96b'; ctx.fill();
+      drawTag(ctx, 'Q', qx, qy, 'rgba(255,210,130,.95)', p);
+    }
+
+    (geo.drawFoci || geo.foci).forEach(function (f) { drawFocusPoint(ctx, view, f.p, f.label, geo); });
+    if (geo.mode === 'ellipse') {
+      var verts = geo.orientation === 'x'
+        ? [{ x: geo.a, y: 0 }, { x: -geo.a, y: 0 }, { x: 0, y: geo.b }, { x: 0, y: -geo.b }]
+        : [{ x: 0, y: geo.a }, { x: 0, y: -geo.a }, { x: geo.b, y: 0 }, { x: -geo.b, y: 0 }];
+      verts.forEach(function (v) { drawVertexDot(ctx, view, v, geo); });
+    }
+    if (geo.mode === 'hyperbola') {
+      var hv = geo.orientation === 'x'
+        ? [{ x: geo.a, y: 0 }, { x: -geo.a, y: 0 }]
+        : [{ x: 0, y: geo.a }, { x: 0, y: -geo.a }];
+      hv.forEach(function (v) { drawVertexDot(ctx, view, v, geo); });
+    }
+    if (geo.mode === 'parabola') {
+      drawVertexDot(ctx, view, { x: 0, y: 0 }, geo);
+      if (state.showLabels) drawFeatureLabel(ctx, '顶点', view.x2s(0) + 6, view.y2s(0) - 8, 'rgba(184,214,220,.65)', 'left');
+    }
+    // moving point
+    ctx.save();
+    ctx.shadowColor = rgba(geo.rgb, 0.85);
+    ctx.shadowBlur = 16;
+    ctx.beginPath(); ctx.arc(sxP, syP, 5.5, 0, TAU);
+    ctx.fillStyle = 'rgba(8,16,24,.95)'; ctx.fill();
+    ctx.shadowBlur = 0;
+    ctx.lineWidth = 2; ctx.strokeStyle = rgba(geo.rgb, 1); ctx.stroke();
+    ctx.beginPath(); ctx.arc(sxP, syP, 2.1, 0, TAU);
+    ctx.fillStyle = '#ffffff'; ctx.fill();
+    ctx.restore();
+    drawTag(ctx, 'P', sxP, syP, rgba(geo.rgb, 1), p);
+  }
+
+  function drawStage(ctx, w, h, geo) {
+    drawStageBackground(ctx, w, h);
+    var view = computeView(geo, w, h);
+    drawGrid(ctx, view, geo);
+    drawDirectrices(ctx, view, geo);
+    drawAsymptotes(ctx, view, geo);
+    drawCurve(ctx, view, geo);
+    drawGuides(ctx, view, geo);
+    return view;
+  }
+
+  function renderGraph() {
+    if (!DOM.scene) return;
+    var cv = prepareCanvas(DOM.scene);
+    if (!cv) return;
+    var geo = state.currentGeo || buildGeometry();
+    state.currentGeo = geo;
+    cv.ctx.clearRect(0, 0, cv.w, cv.h);
+    drawStage(cv.ctx, cv.w, cv.h, geo);
+  }
+
+  function resizeCanvasOnDemand() {
+    if (!DOM.scene) return;
+    var cv = prepareCanvas(DOM.scene);
+    if (!cv) return;
+    state.dirty = true;
+  }
+
+/* ============================================================
+   Interface, controls, gallery, guide and animation loop
+   ============================================================ */
+  function cacheDom() {
+    var ids = [
+      'scene', 'stage', 'modeTabs', 'guideBtn', 'fullBtn', 'liveDot', 'liveName', 'liveE',
+      'playBtn', 'playBtnText', 'stagePlay', 'defTitle', 'defFormula', 'defValues', 'pointReadout',
+      'familyChip', 'eqSymbolic', 'eqNumeric', 'orientationLabel', 'relationText', 'eRangeText',
+      'metricGrid', 'featureList', 'noteText', 'noteTitle', 'whyBtn', 'catalogTrack', 'guideModal',
+      'toast', 'resetBtn', 'axisSwitch', 'axisSwitchLabel', 'axisBtnX', 'axisBtnY', 'paramIdentity',
+      'originChip', 'stageNote', 'eqCardTitle', 'axisGroup',
+      'rowA', 'rowE', 'rowP', 'rowL', 'rangeA', 'rangeE', 'rangeP', 'rangeL',
+      'valA', 'valE', 'valP', 'valL', 'hintA', 'hintE', 'scaleA', 'scaleE', 'scaleP', 'scaleL', 'hintL',
+      'labelA', 'unifiedQuick'
+    ];
+    ids.forEach(function (id) { DOM[id] = document.getElementById(id); });
+    DOM.toggles = Array.prototype.slice.call(document.querySelectorAll('.switch[data-toggle]'));
+    DOM.asymToggle = document.querySelector('.switch[data-toggle="asymptote"]');
+    DOM.toggleGrid = document.querySelector('.toggle-grid');
+    DOM.modeTabButtons = Array.prototype.slice.call(document.querySelectorAll('.conic-tab'));
+    DOM.quickButtons = Array.prototype.slice.call(document.querySelectorAll('[data-quick-e]'));
+    DOM.axisButtons = [DOM.axisBtnX, DOM.axisBtnY];
+    DOM.modalPanel = DOM.guideModal ? DOM.guideModal.querySelector('.modal-panel') : null;
+    DOM.modalClose = DOM.guideModal ? DOM.guideModal.querySelector('.modal-close') : null;
+    DOM.app = document.querySelector('.app');
+    diagEl = document.createElement('div');
+    diagEl.id = 'diagData';
+    diagEl.hidden = true;
+    diagEl.setAttribute('aria-hidden', 'true');
+    diagEl.style.display = 'none';
+    diagEl.textContent = '{}';
+    document.body.appendChild(diagEl);
+  }
+
+  /* ---------- gallery miniature artwork ---------- */
+  function fitMiniGroups(groups) {
+    var all = [];
+    groups.forEach(function (g) { g.points.forEach(function (p) { if (isFinite(p.x) && isFinite(p.y)) all.push(p); }); });
+    var b = pointsBounds(all);
+    var spanX = Math.max(0.3, b.maxX - b.minX);
+    var spanY = Math.max(0.3, b.maxY - b.minY);
+    var box = { x: 10, y: 7, w: 80, h: 78 };
+    var scale = Math.min(box.w / spanX, box.h / spanY);
+    var cx = (b.minX + b.maxX) / 2;
+    var cy = (b.minY + b.maxY) / 2;
+    var mx = box.x + box.w / 2;
+    var my = box.y + box.h / 2;
+    function sx(x) { return mx + (x - cx) * scale; }
+    function sy(y) { return my - (y - cy) * scale; }
+    return groups.map(function (g) {
+      var d = '';
+      g.points.forEach(function (p, i) {
+        d += (i === 0 ? 'M' : 'L') + sx(p.x).toFixed(1) + ',' + sy(p.y).toFixed(1);
+      });
+      if (g.closed) d += 'Z';
+      return { d: d, color: g.color, fill: g.fill ? g.fill : 'none', width: g.width || 1.35 };
+    });
+  }
+  function miniSvg(mode) {
+    var groups = [];
+    if (mode === 'ellipse') {
+      groups.push({ points: sampleEllipse(1.4, 0.98, 'x', 90), color: '#ffc96b', fill: 'rgba(255,201,107,.09)', closed: true });
+    } else if (mode === 'hyperbola') {
+      var hb = sampleHyperbola(0.9, 0.72, 'x', 1.3, 55);
+      groups.push({ points: hb[0], color: '#ff8fab', closed: false });
+      groups.push({ points: hb[1], color: '#ff8fab', closed: false });
+    } else if (mode === 'parabola') {
+      groups.push({ points: sampleParabola(1.25, 'x', 2.75, 80), color: '#69e5d0', closed: false });
+    } else {
+      groups.push({ points: sampleUnified(0.58, 1.2, 90).points, color: '#ffc96b', closed: true, width: 1.1 });
+      groups.push({ points: sampleUnified(1.0, 1.05, 90).points, color: '#69e5d0', closed: false, width: 1.15 });
+      groups.push({ points: sampleUnified(1.6, 1.15, 90).points, color: '#ff8fab', closed: false, width: 1.1 });
+    }
+    var paths = fitMiniGroups(groups).map(function (p) {
+      return '<path d="' + p.d + '" fill="' + p.fill + '" stroke="' + p.color + '" stroke-width="' + p.width + '" stroke-linejoin="round" stroke-linecap="round" opacity=".92"/>';
+    }).join('');
+    return '<svg viewBox="0 0 100 92" preserveAspectRatio="xMidYMid meet" aria-hidden="true">' + paths + '</svg>';
+  }
+
+  function buildCatalog() {
+    if (!DOM.catalogTrack) return;
+    var cards = [
+      { mode: 'ellipse', index: '01', eq: 'x²/a² + y²/b² = 1', rel: '|PF₁| + |PF₂| = 2a' },
+      { mode: 'hyperbola', index: '02', eq: 'x²/a² − y²/b² = 1', rel: '| |PF₁| − |PF₂| | = 2a' },
+      { mode: 'parabola', index: '03', eq: 'y² = 2px', rel: '|PF| = d(P, ℓ)' },
+      { mode: 'unified', index: '04', eq: 'PF / d(P, ℓ) = e', rel: 'e < 1 · e = 1 · e > 1' }
+    ];
+    var html = '';
+    cards.forEach(function (card) {
+      var m = MODES[card.mode];
+      html += '<button class="mode-card" type="button" data-mode="' + card.mode + '" aria-pressed="false" style="--card:' + m.color + ';--card-rgb:' + m.rgb.join(',') + '">' +
+        '<span class="mode-art">' + miniSvg(card.mode) + '</span>' +
+        '<span class="mode-copy"><span class="mode-topline"><span class="mode-index">' + card.index + '</span><h3>' + m.name + '</h3></span>' +
+        '<span class="mode-en">' + m.en + '</span>' +
+        '<span class="mode-eq">' + card.eq + '</span>' +
+        '<span class="mode-rel">' + card.rel + '</span></span>' +
+        '</button>';
+    });
+    DOM.catalogTrack.innerHTML = html;
+    DOM.modeCards = Array.prototype.slice.call(DOM.catalogTrack.querySelectorAll('.mode-card'));
+    DOM.modeCards.forEach(function (card) {
+      var m = MODES[card.getAttribute('data-mode')];
+      card.title = m.name + ' · ' + m.tagline;
+    });
+  }
+
+  function updateModeUI() {
+    var mode = state.mode;
+    setModeCss(mode);
+    DOM.modeTabButtons.forEach(function (b) {
+      b.setAttribute('aria-pressed', b.getAttribute('data-mode') === mode ? 'true' : 'false');
+    });
+    if (DOM.modeCards) {
+      DOM.modeCards.forEach(function (card) {
+        var active = card.getAttribute('data-mode') === mode;
+        card.classList.toggle('active', active);
+        card.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+    }
+    document.documentElement.dataset.conicMode = mode;
+  }
+
+  /* ---------- parameter controls ---------- */
+  function setSlider(el, min, max, step, value) {
+    if (!el) return;
+    el.min = String(min);
+    el.max = String(max);
+    el.step = String(step);
+    el.value = String(clamp(value, min, max));
+    setRangeFill(el);
+  }
+  function axisText(mode, axis) {
+    if (mode === 'parabola') return axis === 'x' ? '开口向右' : '开口向上';
+    if (mode === 'hyperbola') return axis === 'x' ? '实轴水平' : '实轴竖直';
+    return axis === 'x' ? '焦点在 x 轴' : '焦点在 y 轴';
+  }
+  function refreshControls() {
+    var mode = state.mode;
+    var p = state.params[mode];
+    var isEll = mode === 'ellipse';
+    var isHyp = mode === 'hyperbola';
+    var isPar = mode === 'parabola';
+    var isUni = mode === 'unified';
+
+    DOM.rowA.hidden = !(isEll || isHyp);
+    DOM.rowE.hidden = isPar;
+    DOM.rowP.hidden = !isPar;
+    DOM.rowL.hidden = !isUni;
+    DOM.unifiedQuick.hidden = !isUni;
+    DOM.axisSwitch.hidden = isUni;
+    DOM.asymToggle.hidden = !isHyp;
+    DOM.toggleGrid.classList.toggle('two', !isHyp);
+
+    if (isEll) {
+      setSlider(DOM.rangeA, 2, 5, 0.02, p.a);
+      setSlider(DOM.rangeE, 0, 0.85, 0.01, p.e);
+      DOM.labelA.innerHTML = '长半轴 <em>a</em>';
+      DOM.hintA.textContent = '决定椭圆大小';
+      DOM.scaleA.textContent = '2 — 5';
+      DOM.hintE.textContent = '越小越接近圆';
+      DOM.scaleE.textContent = '0 — 0.85';
+      DOM.rangeA.setAttribute('aria-label', '椭圆长半轴 a');
+      DOM.rangeE.setAttribute('aria-label', '椭圆离心率 e');
+      DOM.paramIdentity.textContent = 'a² = b² + c²';
+    } else if (isHyp) {
+      setSlider(DOM.rangeA, 1.2, 3.2, 0.02, p.a);
+      setSlider(DOM.rangeE, 1.05, 2.0, 0.01, p.e);
+      DOM.labelA.innerHTML = '实半轴 <em>a</em>';
+      DOM.hintA.textContent = '决定顶点间距离';
+      DOM.scaleA.textContent = '1.2 — 3.2';
+      DOM.hintE.textContent = '越大开口越开阔';
+      DOM.scaleE.textContent = '1.05 — 2';
+      DOM.rangeA.setAttribute('aria-label', '双曲线实半轴 a');
+      DOM.rangeE.setAttribute('aria-label', '双曲线离心率 e');
+      DOM.paramIdentity.textContent = 'c² = a² + b²';
+    } else if (isPar) {
+      setSlider(DOM.rangeP, 1, 5, 0.05, p.p);
+      DOM.rangeP.setAttribute('aria-label', '抛物线焦准距参数 p');
+      DOM.paramIdentity.textContent = 'e = 1';
+    } else {
+      setSlider(DOM.rangeE, 0.35, 2.2, 0.01, p.e);
+      setSlider(DOM.rangeL, 1.5, 4, 0.05, p.l);
+      DOM.hintE.textContent = '<1 椭圆 · 1 抛物线 · >1 双曲线';
+      DOM.scaleE.textContent = '0.35 — 2.2';
+      DOM.hintL.textContent = '控制曲线的“大小”';
+      DOM.scaleL.textContent = '1.5 — 4';
+      DOM.rangeE.setAttribute('aria-label', '统一视角离心率 e');
+      DOM.rangeL.setAttribute('aria-label', '统一视角半通径 ℓ');
+      DOM.paramIdentity.textContent = 'PF / d(P, ℓ) = e';
+    }
+
+    DOM.valA.textContent = fmt(isHyp ? p.a : p.a, 2);
+    DOM.valE.textContent = fmt(p.e, 2);
+    DOM.valP.textContent = fmt(p.p, 2);
+    DOM.valL.textContent = fmt(p.l, 2);
+    setRangeFill(DOM.rangeA);
+    setRangeFill(DOM.rangeE);
+    setRangeFill(DOM.rangeP);
+    setRangeFill(DOM.rangeL);
+
+    DOM.axisSwitchLabel.textContent = mode === 'parabola' ? '开口方向' : (mode === 'hyperbola' ? '实轴方向' : '焦点轴');
+    DOM.axisBtnX.textContent = axisText(mode, 'x');
+    DOM.axisBtnY.textContent = axisText(mode, 'y');
+    if (DOM.axisGroup) DOM.axisGroup.setAttribute('aria-label', mode === 'parabola' ? '开口方向' : (mode === 'hyperbola' ? '实轴方向' : '焦点轴方向'));
+    DOM.axisButtons.forEach(function (b) {
+      b.setAttribute('aria-pressed', b.getAttribute('data-axis') === state.orientation ? 'true' : 'false');
+    });
+    if (isUni) {
+      DOM.quickButtons.forEach(function (b) {
+        var target = parseFloat(b.getAttribute('data-quick-e'));
+        b.setAttribute('aria-pressed', Math.abs(p.e - target) < 1e-9 ? 'true' : 'false');
+      });
+    }
+  }
+
+  function syncSwitchUI() {
+    DOM.toggles.forEach(function (btn) {
+      var key = btn.getAttribute('data-toggle');
+      var on = key === 'directrix' ? state.showDirectrix : (key === 'asymptote' ? state.showAsymptote : state.showLabels);
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+  }
+
+  /* ---------- play UI ---------- */
+  function setPlayIcon(svg, playing) {
+    if (svg) svg.innerHTML = playing ? ICON_PAUSE : ICON_PLAY;
+  }
+  function syncPlayUI() {
+    var playing = state.playing;
+    var leftSvg = DOM.playBtn ? DOM.playBtn.querySelector('svg') : null;
+    var stageSvg = DOM.stagePlay ? DOM.stagePlay.querySelector('svg') : null;
+    setPlayIcon(leftSvg, playing);
+    setPlayIcon(stageSvg, playing);
+    if (DOM.playBtnText) DOM.playBtnText.textContent = playing ? '暂停动点' : '播放动点';
+    if (DOM.stagePlay) {
+      DOM.stagePlay.setAttribute('aria-pressed', playing ? 'true' : 'false');
+      DOM.stagePlay.setAttribute('aria-label', playing ? '暂停动点 P' : '播放动点 P');
+      var span = DOM.stagePlay.querySelector('span');
+      if (span) span.textContent = playing ? '暂停动点' : '播放动点';
+    }
+  }
+
+  /* ---------- static and live detail rendering ---------- */
+  function equationPlain(geo) {
+    if (geo.mode === 'ellipse') {
+      if (geo.name === '圆') return 'x² + y² = a²';
+      return geo.orientation === 'x' ? 'x²/a² + y²/b² = 1' : 'x²/b² + y²/a² = 1';
+    }
+    if (geo.mode === 'hyperbola') return geo.orientation === 'x' ? 'x²/a² − y²/b² = 1' : 'y²/a² − x²/b² = 1';
+    if (geo.mode === 'parabola') return geo.orientation === 'x' ? 'y² = 2px' : 'x² = 2py';
+    return 'r = ℓ/(1 − e cos θ)，焦点在极点，准线 x = −ℓ/e';
+  }
+  function updateStaticUI(geo) {
+    var mode = geo.mode;
+    var originText = mode === 'unified'
+      ? '焦点在原点 · 准线在左'
+      : (mode === 'parabola' ? '标准位置 · 顶点在原点' : '标准位置 · 中心在原点');
+    var originNote = mode === 'unified'
+      ? '原点 = 焦点 F · 准线在焦点左侧'
+      : (mode === 'parabola' ? '原点 = 顶点 O' : '原点 = 中心 O');
+    if (DOM.originChip) DOM.originChip.innerHTML = '<span class="dot"></span>' + originText;
+    if (DOM.stageNote) DOM.stageNote.textContent = originNote + ' · P 由参数方程生成';
+    if (DOM.eqCardTitle) DOM.eqCardTitle.textContent = mode === 'unified' ? '极坐标方程 / POLAR FORM' : '标准方程 / STANDARD FORM';
+    DOM.liveName.textContent = geo.name;
+    DOM.liveE.textContent = 'e = ' + fmt(geo.e == null ? 1 : geo.e, 2);
+    DOM.familyChip.textContent = geo.familyName;
+    DOM.eqSymbolic.className = geo.mode === 'unified' ? 'eq-symbolic unified-eq' : 'eq-symbolic';
+    DOM.eqSymbolic.innerHTML = geo.eqSymbolic;
+    DOM.eqNumeric.textContent = geo.eqNumeric;
+    DOM.orientationLabel.textContent = geo.orientationLabel;
+    DOM.relationText.textContent = geo.eqRelation;
+    DOM.eRangeText.textContent = geo.eRange;
+    DOM.metricGrid.innerHTML = geo.metrics.map(function (m) {
+      return '<div class="metric"><span>' + m.k + '</span><strong>' + m.v + '</strong></div>';
+    }).join('');
+    DOM.featureList.innerHTML = geo.features.map(function (f) {
+      return '<div class="feature-row"><span class="k">' + f.k + '</span><span class="v">' + f.v + '</span></div>';
+    }).join('');
+    DOM.noteText.textContent = geo.note;
+    DOM.defTitle.textContent = geo.defTitle;
+    DOM.defFormula.innerHTML = '<span class="m">' + geo.defFormulaHtml + '</span>';
+    updateDynamicUI(geo);
+    document.documentElement.dataset.conicName = geo.name;
+    if (geo.mode === 'unified') document.documentElement.dataset.unifiedType = geo.name;
+  }
+  function updateDynamicUI(geo) {
+    DOM.defValues.textContent = geo.defValues;
+    DOM.pointReadout.textContent = geo.pointReadout;
+  }
+
+  /* ---------- state transitions ---------- */
+  function queueStatic() {
+    state.staticDirty = true;
+    state.dirty = true;
+  }
+  function queueDirty() { state.dirty = true; }
+
+  function setMode(mode) {
+    if (!MODES[mode] || mode === state.mode) return;
+    state.mode = mode;
+    state.phase = 0.9;
+    queueStatic();
+    refreshAll();
+  }
+  function resetCurrentMode() {
+    var def = DEFAULTS[state.mode];
+    state.params[state.mode] = {
+      a: def.a, e: def.e, p: def.p, l: def.l
+    };
+    // Remove undefined fields for clarity; not necessary for calculations.
+    state.orientation = 'x';
+    state.phase = 0.9;
+    state.playing = !PREFERS_REDUCED;
+    state.showDirectrix = true;
+    state.showAsymptote = true;
+    state.showLabels = true;
+    syncSwitchUI();
+    syncPlayUI();
+    queueStatic();
+    refreshAll();
+    showToast('已重置当前参数');
+  }
+  function setPlaying(playing) {
+    state.playing = !!playing;
+    lastFrameTime = 0;
+    queueDirty();
+    var geo = buildGeometry();
+    state.currentGeo = geo;
+    updateStaticUI(geo);
+    renderGraph();
+    syncPlayUI();
+    updateDiagnostics(true);
+  }
+  function setOrientation(axis) {
+    if (state.mode === 'unified' || (axis !== 'x' && axis !== 'y')) return;
+    if (state.orientation === axis) return;
+    state.orientation = axis;
+    state.phase = 0.9;
+    queueStatic();
+    refreshAll();
+  }
+
+  /* ---------- modal / fullscreen / toast ---------- */
+  function openGuide() {
+    if (!DOM.guideModal) return;
+    modalOpen = true;
+    var opener = document.activeElement;
+    if (!opener || opener === document.body || opener === document.documentElement) opener = DOM.guideBtn;
+    modalLastFocus = opener;
+    DOM.guideModal.classList.add('open');
+    DOM.guideModal.setAttribute('aria-hidden', 'false');
+    if (DOM.modalPanel) DOM.modalPanel.scrollTop = 0;
+    document.body.classList.add('modal-open');
+    if (DOM.app) DOM.app.setAttribute('inert', '');
+    var focusClose = function () {
+      if (modalOpen && DOM.modalClose) {
+        try { DOM.modalClose.focus({ preventScroll: true }); } catch (err) { DOM.modalClose.focus(); }
+      }
+    };
+    focusClose();
+    [30, 110, 250].forEach(function (delay) { window.setTimeout(focusClose, delay); });
+    window.requestAnimationFrame(focusClose);
+  }
+  function closeGuide() {
+    if (!DOM.guideModal) return;
+    modalOpen = false;
+    DOM.guideModal.classList.remove('open');
+    DOM.guideModal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
+    if (DOM.app) DOM.app.removeAttribute('inert');
+    var target = modalLastFocus;
+    if (!target || target === document.body || !target.focus || !document.contains(target)) target = DOM.guideBtn;
+    if (target && target.focus) target.focus({ preventScroll: true });
+  }
+  function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen().catch(function () { showToast('当前浏览器不支持全屏，请使用 F11'); });
+      } else showToast('当前浏览器不支持全屏，请使用 F11');
+    } else if (document.exitFullscreen) {
+      document.exitFullscreen();
+    }
+  }
+
+  /* ---------- diagnostics ---------- */
+  function currentDiagnostics() {
+    var geo = state.currentGeo || buildGeometry();
+    var plain = equationPlain(geo);
+    var derived = {};
+    if (geo.mode === 'ellipse') derived = { a: geo.a, b: geo.b, c: geo.c, e: geo.e };
+    else if (geo.mode === 'hyperbola') derived = { a: geo.a, b: geo.b, c: geo.c, e: geo.e };
+    else if (geo.mode === 'parabola') derived = { p: geo.p, e: 1 };
+    else derived = { e: geo.e, l: geo.l, d: geo.d };
+    var pArr = geo.P ? [geo.P.x, geo.P.y] : null;
+    var focusArr = geo.foci.map(function (f) { return { label: f.label, x: f.p.x, y: f.p.y }; });
+    var directrixArr = geo.directrices.map(function (d) { return { type: d.type, value: d.value, label: d.label }; });
+    var valueResidual = null;
+    if (geo.mode === 'ellipse') valueResidual = Math.abs(geo.distances.sum - 2 * geo.a);
+    else if (geo.mode === 'hyperbola') valueResidual = Math.abs(geo.distances.diff - 2 * geo.a);
+    else if (geo.mode === 'parabola') valueResidual = Math.abs(geo.distances.dFocus - geo.distances.dDirectrix);
+    else valueResidual = geo.distances.ratio == null ? null : Math.abs(geo.distances.ratio - geo.e);
+    return {
+      ready: true, version: '1.0.0', mode: state.mode, name: geo.name,
+      orientation: geo.orientation, params: state.params[state.mode],
+      derived: derived, equation: { plain: plain, numeric: geo.eqNumeric, relation: geo.eqRelation, eRange: geo.eRange },
+      foci: focusArr, directrices: directrixArr,
+      asymptotes: geo.asymptotes.map(function (a) { return a.label; }),
+      P: pArr, distances: geo.distances, definitionResidual: valueResidual,
+      curves: geo.curves.map(function (c) { return { closed: !!c.closed, fill: !!c.fill, dim: !!c.dim, points: c.points.length }; }),
+      origin: geo.originNote || '',
+      phase: state.phase, playing: state.playing,
+      errors: state.errors.slice()
+    };
+  }
+  function updateDiagnostics(force) {
+    if (!diagEl) return;
+    var now = performance.now ? performance.now() : Date.now();
+    if (!force && now - (state.lastDiag || 0) < 160) return;
+    state.lastDiag = now;
+    diagEl.textContent = JSON.stringify(currentDiagnostics());
+  }
+
+  /* ---------- full refresh ---------- */
+  function refreshAll() {
+    state.currentGeo = buildGeometry();
+    setModeCss(state.mode);
+    updateModeUI();
+    refreshControls();
+    syncSwitchUI();
+    updateStaticUI(state.currentGeo);
+    renderGraph();
+    syncPlayUI();
+    updateDiagnostics(true);
+    state.staticDirty = false;
+    state.dirty = false;
+  }
+
+  /* ---------- event bindings ---------- */
+  function onRangeInput() {
+    var mode = state.mode;
+    var p = state.params[mode];
+    if (mode === 'ellipse' || mode === 'hyperbola') {
+      p.a = clamp(parseFloat(DOM.rangeA.value), mode === 'ellipse' ? 2 : 1.2, mode === 'ellipse' ? 5 : 3.2);
+    }
+    if (mode === 'ellipse') p.e = clamp(parseFloat(DOM.rangeE.value), 0, 0.85);
+    else if (mode === 'hyperbola') p.e = clamp(parseFloat(DOM.rangeE.value), 1.05, 2.0);
+    else if (mode === 'unified') p.e = clamp(parseFloat(DOM.rangeE.value), 0.35, 2.2);
+    if (mode === 'parabola') p.p = clamp(parseFloat(DOM.rangeP.value), 1, 5);
+    if (mode === 'unified') p.l = clamp(parseFloat(DOM.rangeL.value), 1.5, 4);
+    queueStatic();
+    refreshAll();
+  }
+  function setQuickE(value) {
+    state.params.unified.e = clamp(value, 0.35, 2.2);
+    queueStatic();
+    refreshAll();
+  }
+  function handleKey(event) {
+    if (modalOpen) {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        closeGuide();
+      } else if (event.key === 'Tab' && DOM.guideModal) {
+        var focusables = Array.prototype.slice.call(DOM.guideModal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])')).filter(function (el) {
+          return el.getClientRects().length > 0 && !el.disabled;
+        });
+        if (focusables.length) {
+          var first = focusables[0];
+          var last = focusables[focusables.length - 1];
+          var idx = focusables.indexOf(document.activeElement);
+          if (idx === -1) {
+            event.preventDefault();
+            (event.shiftKey ? last : first).focus();
+          } else if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault();
+            last.focus();
+          } else if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault();
+            first.focus();
+          }
+        }
+      }
+      return;
+    }
+    var tag = (event.target && event.target.tagName) ? event.target.tagName.toLowerCase() : '';
+    var interactive = tag === 'input' || tag === 'textarea' || tag === 'select' || tag === 'button' || tag === 'a' || (event.target && event.target.isContentEditable);
+    if (interactive) return;
+    if (event.key === ' ' || event.key === 'Spacebar') {
+      event.preventDefault();
+      setPlaying(!state.playing);
+    } else if (event.key === 'Escape') {
+      closeGuide();
+    } else if (event.key.toLowerCase() === 'r') {
+      event.preventDefault();
+      resetCurrentMode();
+    } else if (event.key.toLowerCase() === 'g') {
+      event.preventDefault();
+      openGuide();
+    } else if (['1', '2', '3', '4'].indexOf(event.key) !== -1) {
+      setMode(MODE_ORDER[parseInt(event.key, 10) - 1]);
+    }
+  }
+
+  function bindEvents() {
+    DOM.modeTabs.addEventListener('click', function (event) {
+      var btn = event.target.closest('.conic-tab');
+      if (btn) setMode(btn.getAttribute('data-mode'));
+    });
+    DOM.catalogTrack.addEventListener('click', function (event) {
+      var card = event.target.closest('.mode-card');
+      if (card) setMode(card.getAttribute('data-mode'));
+    });
+    [DOM.rangeA, DOM.rangeE, DOM.rangeP, DOM.rangeL].forEach(function (el) {
+      el.addEventListener('input', onRangeInput);
+    });
+    DOM.quickButtons.forEach(function (b) {
+      b.addEventListener('click', function () { setQuickE(parseFloat(b.getAttribute('data-quick-e'))); });
+    });
+    DOM.axisButtons.forEach(function (b) {
+      b.addEventListener('click', function () { setOrientation(b.getAttribute('data-axis')); });
+    });
+    DOM.toggles.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var key = btn.getAttribute('data-toggle');
+        if (key === 'directrix') state.showDirectrix = !state.showDirectrix;
+        else if (key === 'asymptote') state.showAsymptote = !state.showAsymptote;
+        else state.showLabels = !state.showLabels;
+        syncSwitchUI();
+        queueDirty();
+        refreshAll();
+      });
+    });
+    DOM.playBtn.addEventListener('click', function () { setPlaying(!state.playing); });
+    DOM.stagePlay.addEventListener('click', function () { setPlaying(!state.playing); });
+    DOM.resetBtn.addEventListener('click', resetCurrentMode);
+    DOM.guideBtn.addEventListener('click', openGuide);
+    DOM.whyBtn.addEventListener('click', openGuide);
+    DOM.fullBtn.addEventListener('click', toggleFullscreen);
+    DOM.guideModal.addEventListener('click', function (event) {
+      if (event.target.hasAttribute('data-close')) closeGuide();
+    });
+    Array.prototype.slice.call(DOM.guideModal.querySelectorAll('[data-jump]')).forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var mode = btn.getAttribute('data-jump');
+        closeGuide();
+        setMode(mode);
+      });
+    });
+    document.addEventListener('keydown', handleKey);
+    document.addEventListener('fullscreenchange', function () {
+      DOM.fullBtn.title = document.fullscreenElement ? '退出全屏' : '全屏显示';
+      DOM.fullBtn.setAttribute('aria-label', document.fullscreenElement ? '退出全屏' : '全屏显示');
+    });
+    window.addEventListener('resize', function () { state.lastFrameTime = 0; queueDirty(); });
+    document.addEventListener('visibilitychange', function () { lastFrameTime = 0; queueDirty(); });
+    if (window.ResizeObserver) {
+      var ro = new ResizeObserver(function () { queueDirty(); });
+      ro.observe(DOM.stage);
+      ro.observe(DOM.scene);
+    }
+  }
+
+  /* ---------- URL / startup ---------- */
+  function readNumber(q, key, fallback) {
+    if (!q.has(key)) return fallback;
+    var v = parseFloat(q.get(key));
+    return isFinite(v) ? v : fallback;
+  }
+  function readUrlState() {
+    var q = new URLSearchParams(window.location.search);
+    var mode = q.get('mode');
+    if (MODES[mode]) state.mode = mode;
+    var axis = q.get('axis');
+    if (axis === 'x' || axis === 'y') state.orientation = axis;
+    var eMode = state.mode;
+    if (eMode === 'ellipse') {
+      state.params.ellipse.a = clamp(readNumber(q, 'a', DEFAULTS.ellipse.a), 2, 5);
+      state.params.ellipse.e = clamp(readNumber(q, 'e', DEFAULTS.ellipse.e), 0, 0.85);
+    } else if (eMode === 'hyperbola') {
+      state.params.hyperbola.a = clamp(readNumber(q, 'a', DEFAULTS.hyperbola.a), 1.2, 3.2);
+      state.params.hyperbola.e = clamp(readNumber(q, 'e', DEFAULTS.hyperbola.e), 1.05, 2.0);
+    } else if (eMode === 'parabola') {
+      state.params.parabola.p = clamp(readNumber(q, 'p', DEFAULTS.parabola.p), 1, 5);
+    } else {
+      state.params.unified.e = clamp(readNumber(q, 'e', DEFAULTS.unified.e), 0.35, 2.2);
+      state.params.unified.l = clamp(readNumber(q, 'l', DEFAULTS.unified.l), 1.5, 4);
+    }
+    state.phase = readNumber(q, 't', 0.9);
+    staticMode = q.get('static') === '1' || q.get('paused') === '1';
+    state.playing = !PREFERS_REDUCED && !staticMode;
+  }
+
+  function init() {
+    cacheDom();
+    readUrlState();
+    buildCatalog();
+    bindEvents();
+    syncSwitchUI();
+    syncPlayUI();
+    refreshAll();
+    window.__CONIC_LAB__ = {
+      version: '1.0.0',
+      modes: function () { return MODE_ORDER.map(function (id) { return { id: id, name: MODES[id].name, en: MODES[id].en }; }); },
+      getState: function () { return JSON.parse(JSON.stringify({ mode: state.mode, orientation: state.orientation, params: state.params, phase: state.phase, playing: state.playing })); },
+      getDiagnostics: function () { return currentDiagnostics(); },
+      setMode: function (mode) {
+        if (!MODES[mode]) return currentDiagnostics();
+        state.mode = mode;
+        state.phase = 0.9;
+        refreshAll();
+        return currentDiagnostics();
+      },
+      setParams: function (obj) {
+        if (!obj) return currentDiagnostics();
+        var p = state.params[state.mode];
+        if (state.mode === 'ellipse') {
+          if (isFinite(obj.a)) p.a = clamp(obj.a, 2, 5);
+          if (isFinite(obj.e)) p.e = clamp(obj.e, 0, 0.85);
+        } else if (state.mode === 'hyperbola') {
+          if (isFinite(obj.a)) p.a = clamp(obj.a, 1.2, 3.2);
+          if (isFinite(obj.e)) p.e = clamp(obj.e, 1.05, 2);
+        } else if (state.mode === 'parabola') {
+          if (isFinite(obj.p)) p.p = clamp(obj.p, 1, 5);
+        } else {
+          if (isFinite(obj.e)) p.e = clamp(obj.e, 0.35, 2.2);
+          if (isFinite(obj.l)) p.l = clamp(obj.l, 1.5, 4);
+        }
+        if (isFinite(obj.phase)) state.phase = obj.phase;
+        refreshAll();
+        return currentDiagnostics();
+      },
+      setOrientation: function (axis) {
+        if (axis === 'x' || axis === 'y') { state.orientation = axis; refreshAll(); }
+        return currentDiagnostics();
+      },
+      setPhase: function (phase) {
+        if (isFinite(phase)) {
+          state.phase = phase;
+          var geo = buildGeometry();
+          state.currentGeo = geo;
+          updateDynamicUI(geo);
+          renderGraph();
+          updateDiagnostics(true);
+        }
+        return currentDiagnostics();
+      },
+      setPlaying: function (playing) { setPlaying(!!playing); return currentDiagnostics(); },
+      applyPreset: function (mode, params, orientation, phase) {
+        if (MODES[mode]) state.mode = mode;
+        if (orientation === 'x' || orientation === 'y') state.orientation = orientation;
+        if (params) {
+          var target = state.params[state.mode];
+          ['a', 'e', 'p', 'l'].forEach(function (key) {
+            if (isFinite(params[key])) target[key] = params[key];
+          });
+        }
+        if (isFinite(phase)) state.phase = phase;
+        refreshAll();
+        return currentDiagnostics();
+      },
+      render: function () { refreshAll(); return true; }
+    };
+    window.requestAnimationFrame(frame);
+    document.documentElement.dataset.ready = 'true';
+    document.documentElement.dataset.version = '1.0.0';
+  }
+
+  function frame(ts) {
+    if (!lastFrameTime) lastFrameTime = ts;
+    var dt = Math.min(0.05, Math.max(0, (ts - lastFrameTime) / 1000));
+    lastFrameTime = ts;
+    if (state.playing) {
+      state.phase += dt * 0.62;
+      state.dirty = true;
+    }
+    if (state.staticDirty) {
+      refreshAll();
+    } else if (state.dirty) {
+      var geo = buildGeometry();
+      state.currentGeo = geo;
+      updateDynamicUI(geo);
+      renderGraph();
+      updateDiagnostics(false);
+      state.dirty = false;
+    }
+    window.requestAnimationFrame(frame);
+  }
+
+  window.addEventListener('error', function (event) {
+    state.errors.push(String(event.message || 'Unknown error'));
+    if (diagEl) updateDiagnostics(true);
+  });
+  window.addEventListener('unhandledrejection', function (event) {
+    state.errors.push(String(event.reason || 'Unhandled rejection'));
+    if (diagEl) updateDiagnostics(true);
+  });
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+</body>
+</html>

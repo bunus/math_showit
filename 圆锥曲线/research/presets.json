@@ -1,0 +1,1131 @@
+{
+  "meta": {
+    "title": "圆锥曲线动态教学页：机器可读数值预设（独立核验，供 QA）",
+    "version": "1.0",
+    "date": "2026-10-20",
+    "author": "conic-math",
+    "coordinateSystem": "平面直角坐标系，x 轴向右、y 轴向上；长度单位任意",
+    "canvasNote": "Canvas 屏幕坐标需翻转 y 并保持 x/y 等比例：x_screen = cx + k*x；y_screen = cy - k*y（k>0，kx=ky）",
+    "tolerance": 1e-09,
+    "nMeaning": "n 为案例序号；圆锥曲线预设不涉及平面法向量 n",
+    "verifiedBy": "verify.py：从定义与隐式方程出发的数值复核",
+    "modeNotes": {
+      "ellipse": "中心在原点：x^2/a^2 + y^2/b^2 = 1（水平）或 x^2/b^2 + y^2/a^2 = 1（竖直），a>b>0, 0<=e<1",
+      "hyperbola": "中心在原点：x^2/a^2 - y^2/b^2 = 1（水平）或 y^2/a^2 - x^2/b^2 = 1（竖直），a>0, e>1",
+      "parabola": "顶点在原点：y^2=2px（水平，p>0）或 x^2=2py（竖直，p>0），e=1",
+      "unified": "焦点 F=(0,0)，准线 x=-l/e（l>0, e>0），|PF| = e*dist(P,准线)；极坐标 r=l/(1-e cos theta)，theta 从 +x 轴起算"
+    }
+  },
+  "presets": [
+    {
+      "id": "E1-ellipse-h-a5-e06",
+      "mode": "ellipse",
+      "orientation": "horizontal",
+      "title": "椭圆（长轴水平）a=5, e=0.6",
+      "params": {
+        "a": 5.0,
+        "e": 0.6
+      },
+      "expected": {
+        "kind": "ellipse",
+        "equation": "x^2/25 + y^2/16 = 1",
+        "eccentricity": 0.6,
+        "center": [
+          0.0,
+          0.0
+        ],
+        "foci": [
+          [
+            -3.0,
+            0.0
+          ],
+          [
+            3.0,
+            0.0
+          ]
+        ],
+        "vertices": [
+          [
+            -5.0,
+            0.0
+          ],
+          [
+            5.0,
+            0.0
+          ]
+        ],
+        "coVertices": [
+          [
+            0.0,
+            -4.0
+          ],
+          [
+            0.0,
+            4.0
+          ]
+        ],
+        "directrices": [
+          {
+            "type": "vertical",
+            "value": -8.333333333333334
+          },
+          {
+            "type": "vertical",
+            "value": 8.333333333333334
+          }
+        ],
+        "asymptotes": [],
+        "semiMajorAxis": 5.0,
+        "semiMinorAxis": 4.0,
+        "focalDistance": 3.0,
+        "semiLatusRectum": 3.2,
+        "focalParameter": 5.333333333333334,
+        "definition": "|PF1| + |PF2| = 2a = 10"
+      },
+      "point": {
+        "param": {
+          "name": "t",
+          "unit": "deg",
+          "value": 60.0
+        },
+        "paramFormula": "P = (a cos t, b sin t)",
+        "coords": [
+          2.5000000000000004,
+          3.4641016151377544
+        ],
+        "distToFoci": [
+          6.5,
+          3.4999999999999996
+        ],
+        "distToDirectrices": [
+          10.833333333333334,
+          5.833333333333334
+        ],
+        "ratios": [
+          0.6,
+          0.5999999999999999
+        ],
+        "invariant": {
+          "name": "PF1+PF2",
+          "value": 10.0,
+          "expected": 10.0
+        }
+      },
+      "notes": "焦点轴水平；P 位于第一象限。ratio 用焦点[i]对应对准线[i]。",
+      "n": 1
+    },
+    {
+      "id": "E2-ellipse-v-a5-e06",
+      "mode": "ellipse",
+      "orientation": "vertical",
+      "title": "椭圆（长轴竖直）a=5, e=0.6",
+      "params": {
+        "a": 5.0,
+        "e": 0.6
+      },
+      "expected": {
+        "kind": "ellipse",
+        "equation": "x^2/16 + y^2/25 = 1",
+        "eccentricity": 0.6,
+        "center": [
+          0.0,
+          0.0
+        ],
+        "foci": [
+          [
+            0.0,
+            -3.0
+          ],
+          [
+            0.0,
+            3.0
+          ]
+        ],
+        "vertices": [
+          [
+            0.0,
+            -5.0
+          ],
+          [
+            0.0,
+            5.0
+          ]
+        ],
+        "coVertices": [
+          [
+            -4.0,
+            0.0
+          ],
+          [
+            4.0,
+            0.0
+          ]
+        ],
+        "directrices": [
+          {
+            "type": "horizontal",
+            "value": -8.333333333333334
+          },
+          {
+            "type": "horizontal",
+            "value": 8.333333333333334
+          }
+        ],
+        "asymptotes": [],
+        "semiMajorAxis": 5.0,
+        "semiMinorAxis": 4.0,
+        "focalDistance": 3.0,
+        "semiLatusRectum": 3.2,
+        "focalParameter": 5.333333333333334,
+        "definition": "|PF1| + |PF2| = 2a = 10"
+      },
+      "point": {
+        "param": {
+          "name": "t",
+          "unit": "deg",
+          "value": 60.0
+        },
+        "paramFormula": "P = (b cos t, a sin t)",
+        "coords": [
+          2.0000000000000004,
+          4.330127018922193
+        ],
+        "distToFoci": [
+          7.598076211353316,
+          2.401923788646684
+        ],
+        "distToDirectrices": [
+          12.663460352255527,
+          4.003206314411141
+        ],
+        "ratios": [
+          0.6,
+          0.5999999999999999
+        ],
+        "invariant": {
+          "name": "PF1+PF2",
+          "value": 10.0,
+          "expected": 10.0
+        }
+      },
+      "notes": "长轴竖直，x/y 交换：方程 x^2/b^2 + y^2/a^2 = 1；准线 y=±a^2/c；焦半径 a±e·y。",
+      "n": 2
+    },
+    {
+      "id": "E3-circle-a4-e0",
+      "mode": "ellipse",
+      "orientation": "horizontal",
+      "title": "圆（e=0 边界情形）a=b=4",
+      "params": {
+        "a": 4.0,
+        "e": 0.0
+      },
+      "expected": {
+        "kind": "circle",
+        "equation": "x^2/16 + y^2/16 = 1（圆）",
+        "eccentricity": 0.0,
+        "center": [
+          0.0,
+          0.0
+        ],
+        "foci": [
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "vertices": [
+          [
+            -4.0,
+            0.0
+          ],
+          [
+            4.0,
+            0.0
+          ]
+        ],
+        "coVertices": [
+          [
+            0.0,
+            -4.0
+          ],
+          [
+            0.0,
+            4.0
+          ]
+        ],
+        "directrices": [],
+        "asymptotes": [],
+        "semiMajorAxis": 4.0,
+        "semiMinorAxis": 4.0,
+        "focalDistance": 0.0,
+        "semiLatusRectum": 4.0,
+        "focalParameter": null,
+        "definition": "|PF1| + |PF2| = 2a = 8，两焦点重合"
+      },
+      "point": {
+        "param": {
+          "name": "t",
+          "unit": "deg",
+          "value": 45.0
+        },
+        "paramFormula": "P = (a cos t, a sin t)",
+        "coords": [
+          2.8284271247461903,
+          2.8284271247461903
+        ],
+        "distToFoci": [
+          4.0
+        ],
+        "distToDirectrices": [],
+        "ratios": [],
+        "invariant": {
+          "name": "PF",
+          "value": 4.0,
+          "expected": 4.0
+        }
+      },
+      "notes": "e=0 时 c=0，准线 x=±a^2/c 无定义（准线在无穷远）。页面必须特判：隐藏准线或显示『准线在无穷远』，避免 a^2/c 除零得到 Infinity/NaN。",
+      "n": 3
+    },
+    {
+      "id": "H1-hyperbola-h-a3-e1667",
+      "mode": "hyperbola",
+      "orientation": "horizontal",
+      "title": "双曲线（实轴水平）a=3, e=5/3",
+      "params": {
+        "a": 3.0,
+        "e": 1.6666666666666667
+      },
+      "expected": {
+        "kind": "hyperbola",
+        "equation": "x^2/9 - y^2/16 = 1",
+        "eccentricity": 1.6666666666666667,
+        "center": [
+          0.0,
+          0.0
+        ],
+        "foci": [
+          [
+            -5.0,
+            0.0
+          ],
+          [
+            5.0,
+            0.0
+          ]
+        ],
+        "vertices": [
+          [
+            -3.0,
+            0.0
+          ],
+          [
+            3.0,
+            0.0
+          ]
+        ],
+        "coVertices": [
+          [
+            0.0,
+            -4.0
+          ],
+          [
+            0.0,
+            4.0
+          ]
+        ],
+        "directrices": [
+          {
+            "type": "vertical",
+            "value": -1.8
+          },
+          {
+            "type": "vertical",
+            "value": 1.8
+          }
+        ],
+        "asymptotes": [
+          {
+            "slope": 1.3333333333333333,
+            "intercept": 0.0
+          },
+          {
+            "slope": -1.3333333333333333,
+            "intercept": 0.0
+          }
+        ],
+        "semiMajorAxis": 3.0,
+        "semiMinorAxis": 4.0,
+        "focalDistance": 5.0,
+        "semiLatusRectum": 5.333333333333333,
+        "focalParameter": 3.1999999999999997,
+        "definition": "| |PF1| - |PF2| | = 2a = 6"
+      },
+      "point": {
+        "param": {
+          "name": "u",
+          "unit": "ln2",
+          "value": 0.6931471805599453
+        },
+        "paramFormula": "P = (a cosh u, b sinh u)（右支，u=ln2）",
+        "coords": [
+          3.75,
+          3.0
+        ],
+        "distToFoci": [
+          9.25,
+          3.25
+        ],
+        "distToDirectrices": [
+          5.55,
+          1.9500000000000002
+        ],
+        "ratios": [
+          1.6666666666666667,
+          1.6666666666666665
+        ],
+        "invariant": {
+          "name": "| |PF1|-|PF2| |",
+          "value": 6.0,
+          "expected": 6.0
+        }
+      },
+      "notes": "实轴水平；u=ln2 使 P=(15/4, 3) 为有理点（cosh u=5/4, sinh u=3/4）。",
+      "n": 4
+    },
+    {
+      "id": "H2-hyperbola-v-a3-e1667",
+      "mode": "hyperbola",
+      "orientation": "vertical",
+      "title": "双曲线（实轴竖直）a=3, e=5/3",
+      "params": {
+        "a": 3.0,
+        "e": 1.6666666666666667
+      },
+      "expected": {
+        "kind": "hyperbola",
+        "equation": "y^2/9 - x^2/16 = 1",
+        "eccentricity": 1.6666666666666667,
+        "center": [
+          0.0,
+          0.0
+        ],
+        "foci": [
+          [
+            0.0,
+            -5.0
+          ],
+          [
+            0.0,
+            5.0
+          ]
+        ],
+        "vertices": [
+          [
+            0.0,
+            -3.0
+          ],
+          [
+            0.0,
+            3.0
+          ]
+        ],
+        "coVertices": [
+          [
+            -4.0,
+            0.0
+          ],
+          [
+            4.0,
+            0.0
+          ]
+        ],
+        "directrices": [
+          {
+            "type": "horizontal",
+            "value": -1.8
+          },
+          {
+            "type": "horizontal",
+            "value": 1.8
+          }
+        ],
+        "asymptotes": [
+          {
+            "slope": 0.75,
+            "intercept": 0.0
+          },
+          {
+            "slope": -0.75,
+            "intercept": 0.0
+          }
+        ],
+        "semiMajorAxis": 3.0,
+        "semiMinorAxis": 4.0,
+        "focalDistance": 5.0,
+        "semiLatusRectum": 5.333333333333333,
+        "focalParameter": 3.1999999999999997,
+        "definition": "| |PF1| - |PF2| | = 2a = 6"
+      },
+      "point": {
+        "param": {
+          "name": "u",
+          "unit": "ln2",
+          "value": 0.6931471805599453
+        },
+        "paramFormula": "P = (b sinh u, a cosh u)（上支，u=ln2）",
+        "coords": [
+          3.0,
+          3.75
+        ],
+        "distToFoci": [
+          9.25,
+          3.25
+        ],
+        "distToDirectrices": [
+          5.55,
+          1.9500000000000002
+        ],
+        "ratios": [
+          1.6666666666666667,
+          1.6666666666666665
+        ],
+        "invariant": {
+          "name": "| |PF1|-|PF2| |",
+          "value": 6.0,
+          "expected": 6.0
+        }
+      },
+      "notes": "实轴竖直：方程 y^2/a^2 - x^2/b^2 = 1；注意渐近线斜率为 ±a/b（水平情形是 ±b/a），不要照抄。",
+      "n": 5
+    },
+    {
+      "id": "P1-parabola-h-p4",
+      "mode": "parabola",
+      "orientation": "horizontal",
+      "title": "抛物线（开口向右）y^2=2px, p=4",
+      "params": {
+        "p": 4.0
+      },
+      "expected": {
+        "kind": "parabola",
+        "equation": "y^2 = 8x",
+        "eccentricity": 1.0,
+        "center": null,
+        "vertex": [
+          0.0,
+          0.0
+        ],
+        "foci": [
+          [
+            2.0,
+            0.0
+          ]
+        ],
+        "vertices": [
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "coVertices": [],
+        "directrices": [
+          {
+            "type": "vertical",
+            "value": -2.0
+          }
+        ],
+        "asymptotes": [],
+        "semiLatusRectum": 4.0,
+        "focalParameter": 4.0,
+        "definition": "|PF| = dist(P, 准线)  (e=1)"
+      },
+      "point": {
+        "param": {
+          "name": "t",
+          "unit": "1",
+          "value": 1.0
+        },
+        "paramFormula": "P = (p t^2 / 2, p t)",
+        "coords": [
+          2.0,
+          4.0
+        ],
+        "distToFoci": [
+          4.0
+        ],
+        "distToDirectrices": [
+          4.0
+        ],
+        "ratios": [
+          1.0
+        ],
+        "invariant": {
+          "name": "PF/PD",
+          "value": 1.0,
+          "expected": 1.0
+        }
+      },
+      "notes": "p>0 开口向右；焦点 (p/2,0)；准线 x=-p/2；通径长 2p、半通径 l=p。",
+      "n": 6
+    },
+    {
+      "id": "P2-parabola-v-p3",
+      "mode": "parabola",
+      "orientation": "vertical",
+      "title": "抛物线（开口向上）x^2=2py, p=3",
+      "params": {
+        "p": 3.0
+      },
+      "expected": {
+        "kind": "parabola",
+        "equation": "x^2 = 6y",
+        "eccentricity": 1.0,
+        "center": null,
+        "vertex": [
+          0.0,
+          0.0
+        ],
+        "foci": [
+          [
+            0.0,
+            1.5
+          ]
+        ],
+        "vertices": [
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "coVertices": [],
+        "directrices": [
+          {
+            "type": "horizontal",
+            "value": -1.5
+          }
+        ],
+        "asymptotes": [],
+        "semiLatusRectum": 3.0,
+        "focalParameter": 3.0,
+        "definition": "|PF| = dist(P, 准线)  (e=1)"
+      },
+      "point": {
+        "param": {
+          "name": "t",
+          "unit": "1",
+          "value": 2.0
+        },
+        "paramFormula": "P = (p t, p t^2 / 2)",
+        "coords": [
+          6.0,
+          6.0
+        ],
+        "distToFoci": [
+          7.5
+        ],
+        "distToDirectrices": [
+          7.5
+        ],
+        "ratios": [
+          1.0
+        ],
+        "invariant": {
+          "name": "PF/PD",
+          "value": 1.0,
+          "expected": 1.0
+        }
+      },
+      "notes": "x/y 交换形式 x^2=2py；焦点 (0,p/2)；准线 y=-p/2。",
+      "n": 7
+    },
+    {
+      "id": "U1-unified-ellipse-l32-e06",
+      "mode": "unified",
+      "orientation": "horizontal",
+      "title": "统一视角·椭圆 F=(0,0), 准线 x=-l/e, l=3.2, e=0.6",
+      "params": {
+        "l": 3.2,
+        "e": 0.6
+      },
+      "expected": {
+        "kind": "ellipse",
+        "equation": "(x-3)^2/25 + y^2/16 = 1",
+        "polarEquation": "r = l/(1 - e cos(theta)) = 3.2/(1 - 0.6 cos(theta))",
+        "eccentricity": 0.6,
+        "center": [
+          3.0,
+          0.0
+        ],
+        "foci": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            6.0,
+            0.0
+          ]
+        ],
+        "vertices": [
+          [
+            -2.0,
+            0.0
+          ],
+          [
+            8.0,
+            0.0
+          ]
+        ],
+        "coVertices": [
+          [
+            3.0,
+            -4.0
+          ],
+          [
+            3.0,
+            4.0
+          ]
+        ],
+        "directrices": [
+          {
+            "type": "vertical",
+            "value": -5.333333333333334
+          },
+          {
+            "type": "vertical",
+            "value": 11.333333333333334
+          }
+        ],
+        "asymptotes": [],
+        "secondFocus": [
+          6.0,
+          0.0
+        ],
+        "secondDirectrix": {
+          "type": "vertical",
+          "value": 11.333333333333334
+        },
+        "semiMajorAxis": 5.0,
+        "semiMinorAxis": 4.0,
+        "focalDistance": 3.0,
+        "semiLatusRectum": 3.2,
+        "focalParameter": 5.333333333333334,
+        "tracedBranch": "whole ellipse",
+        "definition": "|PF| = e * dist(P, 准线), 0<e<1 -> 整条椭圆"
+      },
+      "point": {
+        "param": {
+          "name": "theta",
+          "unit": "deg",
+          "value": 36.86989764584402
+        },
+        "paramFormula": "P = (r cos theta, r sin theta), r = l/(1-e cos theta)",
+        "coords": [
+          4.923076923076923,
+          3.6923076923076925
+        ],
+        "polarRadius": 6.153846153846154,
+        "distToFoci": [
+          6.153846153846154,
+          3.8461538461538463
+        ],
+        "distToDirectrices": [
+          10.256410256410257,
+          6.410256410256411
+        ],
+        "ratios": [
+          0.6,
+          0.6
+        ],
+        "invariant": {
+          "name": "PF/PD",
+          "value": 0.6,
+          "expected": 0.6
+        }
+      },
+      "notes": "焦点在原点时是椭圆的左焦点，中心在 (c,0)，曲线整体位于焦点右侧；e<1 时极坐标 r>0 遍历整条椭圆（无额外分支）。",
+      "n": 8
+    },
+    {
+      "id": "U2-unified-parabola-l4-e1",
+      "mode": "unified",
+      "orientation": "horizontal",
+      "title": "统一视角·抛物线 F=(0,0), 准线 x=-l, l=4, e=1",
+      "params": {
+        "l": 4.0,
+        "e": 1.0
+      },
+      "expected": {
+        "kind": "parabola",
+        "equation": "y^2 = 8x + 16 = 8(x+2)",
+        "polarEquation": "r = l/(1 - cos(theta)) = 4/(1 - cos(theta))",
+        "eccentricity": 1.0,
+        "center": null,
+        "vertex": [
+          -2.0,
+          0.0
+        ],
+        "foci": [
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "vertices": [
+          [
+            -2.0,
+            0.0
+          ]
+        ],
+        "coVertices": [],
+        "directrices": [
+          {
+            "type": "vertical",
+            "value": -4.0
+          }
+        ],
+        "asymptotes": [],
+        "secondFocus": null,
+        "secondDirectrix": null,
+        "semiMajorAxis": null,
+        "semiMinorAxis": null,
+        "focalDistance": null,
+        "semiLatusRectum": 4.0,
+        "focalParameter": 4.0,
+        "tracedBranch": "whole parabola",
+        "definition": "|PF| = dist(P, 准线), e=1 -> 整条抛物线"
+      },
+      "point": {
+        "param": {
+          "name": "theta",
+          "unit": "deg",
+          "value": 90.0
+        },
+        "paramFormula": "P = (r cos theta, r sin theta), r = l/(1-cos theta)",
+        "coords": [
+          2.449293598294707e-16,
+          4.000000000000001
+        ],
+        "polarRadius": 4.000000000000001,
+        "distToFoci": [
+          4.000000000000001
+        ],
+        "distToDirectrices": [
+          4.0
+        ],
+        "ratios": [
+          1.0000000000000002
+        ],
+        "invariant": {
+          "name": "PF/PD",
+          "value": 1.0000000000000002,
+          "expected": 1.0
+        }
+      },
+      "notes": "e=1 时 theta=0 处 r 无定义（准线方向）；绘图须裁剪 theta 或在 r 超视口时断开。",
+      "n": 9
+    },
+    {
+      "id": "U3-unified-hyperbola-l1-e2",
+      "mode": "unified",
+      "orientation": "horizontal",
+      "title": "统一视角·双曲线一支 F=(0,0), 准线 x=-1/2, l=1, e=2",
+      "params": {
+        "l": 1.0,
+        "e": 2.0
+      },
+      "expected": {
+        "kind": "hyperbola",
+        "equation": "(x+2/3)^2/(1/9) - y^2/(1/3) = 1",
+        "polarEquation": "r = l/(1 - e cos(theta)) = 1/(1 - 2 cos(theta))",
+        "eccentricity": 2.0,
+        "center": [
+          -0.6666666666666666,
+          0.0
+        ],
+        "foci": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            -1.3333333333333333,
+            0.0
+          ]
+        ],
+        "vertices": [
+          [
+            -1.0,
+            0.0
+          ],
+          [
+            -0.3333333333333333,
+            0.0
+          ]
+        ],
+        "coVertices": [],
+        "directrices": [
+          {
+            "type": "vertical",
+            "value": -0.5
+          },
+          {
+            "type": "vertical",
+            "value": -0.8333333333333333
+          }
+        ],
+        "asymptotes": [
+          {
+            "slope": 1.7320508075688776,
+            "intercept": 1.1547005383792517
+          },
+          {
+            "slope": -1.7320508075688776,
+            "intercept": -1.1547005383792517
+          }
+        ],
+        "secondFocus": [
+          -1.3333333333333333,
+          0.0
+        ],
+        "secondDirectrix": {
+          "type": "vertical",
+          "value": -0.8333333333333333
+        },
+        "semiMajorAxis": 0.3333333333333333,
+        "semiMinorAxis": 0.5773502691896258,
+        "focalDistance": 0.6666666666666666,
+        "semiLatusRectum": 1.0,
+        "focalParameter": 0.5,
+        "tracedBranch": "focus-side (right) branch only",
+        "otherBranch": "以中心 (-c,0) 为中心作点对称得到；或由第二焦点 F' 与第二准线生成",
+        "definition": "|PF| = e * dist(P, 准线), e>1 -> 极坐标 r>0 只得到含焦点一侧的一支"
+      },
+      "point": {
+        "param": {
+          "name": "theta",
+          "unit": "deg",
+          "value": 126.86989764584402
+        },
+        "paramFormula": "P = (r cos theta, r sin theta), r = l/(1-e cos theta)",
+        "coords": [
+          -0.2727272727272727,
+          0.36363636363636376
+        ],
+        "polarRadius": 0.4545454545454546,
+        "distToFoci": [
+          0.45454545454545464,
+          1.121212121212121
+        ],
+        "distToDirectrices": [
+          0.2272727272727273,
+          0.5606060606060606
+        ],
+        "ratios": [
+          2.0000000000000004,
+          2.0
+        ],
+        "invariant": {
+          "name": "PF/PD",
+          "value": 2.0000000000000004,
+          "expected": 2.0
+        }
+      },
+      "notes": "e>1：极坐标 r>0 只画出『与焦点同处准线一侧』的右支；另一支在准线另一侧，需用第二焦点/准线或中心对称补画。注意：作为集合 {P: |PF|=e·dist(P,准线)}，两支上的点都满足同一 (F, 准线)，即定义轨迹是整条双曲线——两种说法要区分。",
+      "n": 10
+    },
+    {
+      "id": "U4-unified-hyperbola-l169-e53",
+      "mode": "unified",
+      "orientation": "horizontal",
+      "title": "统一视角·双曲线 a=1, b=4/3, e=5/3, l=16/9",
+      "params": {
+        "l": 1.7777777777777777,
+        "e": 1.6666666666666667
+      },
+      "expected": {
+        "kind": "hyperbola",
+        "equation": "(x+5/3)^2 - y^2/(16/9) = 1",
+        "polarEquation": "r = (16/9)/(1 - (5/3) cos(theta))",
+        "eccentricity": 1.6666666666666667,
+        "center": [
+          -1.6666666666666663,
+          0.0
+        ],
+        "foci": [
+          [
+            0.0,
+            0.0
+          ],
+          [
+            -3.3333333333333326,
+            0.0
+          ]
+        ],
+        "vertices": [
+          [
+            -2.666666666666666,
+            0.0
+          ],
+          [
+            -0.6666666666666665,
+            0.0
+          ]
+        ],
+        "coVertices": [],
+        "directrices": [
+          {
+            "type": "vertical",
+            "value": -1.0666666666666667
+          },
+          {
+            "type": "vertical",
+            "value": -2.266666666666666
+          }
+        ],
+        "asymptotes": [
+          {
+            "slope": 1.3333333333333333,
+            "intercept": 2.2222222222222214
+          },
+          {
+            "slope": -1.3333333333333333,
+            "intercept": -2.2222222222222214
+          }
+        ],
+        "secondFocus": [
+          -3.3333333333333326,
+          0.0
+        ],
+        "secondDirectrix": {
+          "type": "vertical",
+          "value": -2.266666666666666
+        },
+        "semiMajorAxis": 0.9999999999999998,
+        "semiMinorAxis": 1.333333333333333,
+        "focalDistance": 1.6666666666666663,
+        "semiLatusRectum": 1.7777777777777777,
+        "focalParameter": 1.0666666666666667,
+        "tracedBranch": "focus-side (right) branch only",
+        "otherBranch": "关于中心 (-5/3,0) 点对称",
+        "definition": "|PF| = e * dist(P, 准线)"
+      },
+      "point": {
+        "param": {
+          "name": "theta",
+          "unit": "deg",
+          "value": 126.86989764584402
+        },
+        "paramFormula": "P = (r cos theta, r sin theta), r = l/(1-e cos theta)",
+        "coords": [
+          -0.5333333333333332,
+          0.7111111111111112
+        ],
+        "polarRadius": 0.888888888888889,
+        "distToFoci": [
+          0.888888888888889,
+          2.8888888888888884
+        ],
+        "distToDirectrices": [
+          0.5333333333333334,
+          1.733333333333333
+        ],
+        "ratios": [
+          1.6666666666666665,
+          1.6666666666666667
+        ],
+        "invariant": {
+          "name": "PF/PD",
+          "value": 1.6666666666666665,
+          "expected": 1.6666666666666667
+        }
+      },
+      "notes": "与 U3 同构，参数为有理数便于精确核对；点 P=(-8/15, 32/45)、PF=8/9、PD=8/15。",
+      "n": 11
+    },
+    {
+      "id": "U5-unified-circle-l3-e0",
+      "mode": "unified",
+      "orientation": "horizontal",
+      "title": "统一视角·圆（e=0 边界）l=3",
+      "params": {
+        "l": 3.0,
+        "e": 0.0
+      },
+      "expected": {
+        "kind": "circle",
+        "equation": "x^2 + y^2 = 9",
+        "polarEquation": "r = l = 3（e=0 时与 theta 无关）",
+        "eccentricity": 0.0,
+        "center": [
+          0.0,
+          0.0
+        ],
+        "foci": [
+          [
+            0.0,
+            0.0
+          ]
+        ],
+        "vertices": [
+          [
+            -3.0,
+            0.0
+          ],
+          [
+            3.0,
+            0.0
+          ]
+        ],
+        "coVertices": [
+          [
+            0.0,
+            -3.0
+          ],
+          [
+            0.0,
+            3.0
+          ]
+        ],
+        "directrices": [],
+        "asymptotes": [],
+        "secondFocus": null,
+        "secondDirectrix": null,
+        "semiMajorAxis": 3.0,
+        "semiMinorAxis": 3.0,
+        "focalDistance": 0.0,
+        "semiLatusRectum": 3.0,
+        "focalParameter": null,
+        "tracedBranch": "whole circle",
+        "definition": "e=0 时准线在无穷远，轨迹为圆"
+      },
+      "point": {
+        "param": {
+          "name": "theta",
+          "unit": "deg",
+          "value": 30.0
+        },
+        "paramFormula": "P = (l cos theta, l sin theta)",
+        "coords": [
+          2.598076211353316,
+          1.4999999999999998
+        ],
+        "polarRadius": 3.0,
+        "distToFoci": [
+          3.0
+        ],
+        "distToDirectrices": [],
+        "ratios": [],
+        "invariant": {
+          "name": "PF",
+          "value": 3.0,
+          "expected": 3.0
+        }
+      },
+      "notes": "e=0 边界：准线 x=-l/e 无定义（趋于无穷远），页面必须特判，隐藏准线并提示『准线在无穷远』。",
+      "n": 12
+    }
+  ]
+}

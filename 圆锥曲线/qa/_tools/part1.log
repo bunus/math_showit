@@ -1,0 +1,277 @@
+EDGE Edg/155.0.4283.62
+PASS env.ready {"ready":"true","api":true}
+PASS env.title "圆锥曲线方程实验室 · 从定义到方程"
+PASS env.modes-four [{"id":"ellipse","name":"椭圆","en":"ELLIPSE"},{"id":"hyperbola","name":"双曲线","en":"HYPERBOLA"},{"id":"parabola","name":"抛物线","en":"PARABOLA"},{"id":"unified","name":"统一视角","en":"UNIFIED"}]
+PASS env.diag-errors-empty []
+PASS env.one-canvas 1
+PASS env.no-external-resources []
+PASS scenario.ellipse-h-E1.mode-name {"mode":"ellipse","name":"椭圆"}
+PASS scenario.ellipse-h-E1.no-nonfinite []
+PASS scenario.ellipse-h-E1.origin-annotation {"stageNote":"原点 = 中心 O · P 由参数方程生成","originChip":"标准位置 · 中心在原点"}
+PASS scenario.ellipse-h-E1.orientation-label {"page":"焦点在 x 轴","expected":"焦点在 x 轴"}
+PASS scenario.ellipse-h-E1.def-formula {"page":"|PF₁| + |PF₂| = 2a","expected":"|PF₁| + |PF₂| = 2a"}
+PASS scenario.ellipse-h-E1.point-readout {"text":"P (3.11, 3.13)","P":[3.108049841353322,3.1333076385099337]}
+PASS scenario.ellipse-h-E1.def-values-text "PF₁ = 6.86 · PF₂ = 3.14 · 和 = 10.00 = 2a = 10.00"
+PASS scenario.ellipse-h-E1.derived {"a":5,"b":4,"c":3,"e":0.6}
+PASS scenario.ellipse-h-E1.circle-special {"directrices":[{"type":"v","value":8.333333333333334,"label":"x = 8.33"},{"type":"v","value":-8.333333333333334,"label":"x = −8.33"}],"features":["焦点(−3.00, 0.00) · (3.00, 0.00)","准线x = ±8.33","通径6.40"]}
+PASS scenario.ellipse-h-E1.foci {"page":[[-3,0],[3,0]],"expected":[[-3,0],[3,0]]}
+PASS scenario.ellipse-h-E1.directrices {"page":[{"type":"v","value":8.333333333333334,"label":"x = 8.33"},{"type":"v","value":-8.333333333333334,"label":"x = −8.33"}],"expected":[{"type":"vertical","value":-8.333333333333334},{"type":"vertical","value":8.333333333333334}]}
+PASS scenario.ellipse-h-E1.equation-numeric {"numeric":"x² / 25.00 + y² / 16.00 = 1","want":[25,16]}
+PASS scenario.ellipse-h-E1.P-on-curve {"residual":0,"P":[3.108049841353322,3.1333076385099337]}
+PASS scenario.ellipse-h-E1.definition-residual {"residual":0}
+PASS scenario.ellipse-h-E1.distances-independent {"page":{"d1":6.864829904811994,"d2":3.1351700951880064,"sum":10,"e":0.6},"independent":{"d1":6.864829904811994,"d2":3.1351700951880064,"sum":10,"diff":3.7296598096239872,"dFocus":3.1351700951880064,"dDirectrix":11.441383174686656}}
+PASS scenario.ellipse-h-E1.invariant-sum {"sum":10,"target":10}
+PASS scenario.ellipse-h-E1.feature-focus {"text":"(−3.00, 0.00) · (3.00, 0.00)","expectedTokens":[-3,0,3,0],"tokens":[-3,0,3,0]}
+PASS scenario.ellipse-h-E1.feature-directrix {"text":"x = ±8.33","expected":[{"type":"vertical","value":-8.333333333333334},{"type":"vertical","value":8.333333333333334}]}
+PASS scenario.ellipse-h-E1.feature-latus-rectum {"text":"6.40","expected":6.4}
+PASS preset.E1-ellipse-h-a5-e06.matches-json {"focusMatch":true,"dirMatch":true,"asymMatch":true,"lMatch":true,"lSource":"feature:6.40","pageFoci":[[-3,0],[3,0]],"pageDirectrices":[{"type":"v","value":8.333333333333334,"label":"x = 8.33"},{"type":"v","value":-8.333333333333334,"label"
+PASS scenario.ellipse-v-E2.mode-name {"mode":"ellipse","name":"椭圆"}
+PASS scenario.ellipse-v-E2.no-nonfinite []
+PASS scenario.ellipse-v-E2.origin-annotation {"stageNote":"原点 = 中心 O · P 由参数方程生成","originChip":"标准位置 · 中心在原点"}
+PASS scenario.ellipse-v-E2.orientation-label {"page":"焦点在 y 轴","expected":"焦点在 y 轴"}
+PASS scenario.ellipse-v-E2.def-formula {"page":"|PF₁| + |PF₂| = 2a","expected":"|PF₁| + |PF₂| = 2a"}
+PASS scenario.ellipse-v-E2.point-readout {"text":"P (3.13, 3.11)","P":[3.1333076385099337,3.108049841353322]}
+PASS scenario.ellipse-v-E2.def-values-text "PF₁ = 6.86 · PF₂ = 3.14 · 和 = 10.00 = 2a = 10.00"
+PASS scenario.ellipse-v-E2.derived {"a":5,"b":4,"c":3,"e":0.6}
+PASS scenario.ellipse-v-E2.circle-special {"directrices":[{"type":"h","value":8.333333333333334,"label":"y = 8.33"},{"type":"h","value":-8.333333333333334,"label":"y = −8.33"}],"features":["焦点(0.00, −3.00) · (0.00, 3.00)","准线y = ±8.33","通径6.40"]}
+PASS scenario.ellipse-v-E2.foci {"page":[[0,-3],[0,3]],"expected":[[0,-3],[0,3]]}
+PASS scenario.ellipse-v-E2.directrices {"page":[{"type":"h","value":8.333333333333334,"label":"y = 8.33"},{"type":"h","value":-8.333333333333334,"label":"y = −8.33"}],"expected":[{"type":"horizontal","value":-8.333333333333334},{"type":"horizontal","value":8.333333333333334}]}
+PASS scenario.ellipse-v-E2.equation-numeric {"numeric":"x² / 16.00 + y² / 25.00 = 1","want":[16,25]}
+PASS scenario.ellipse-v-E2.P-on-curve {"residual":0,"P":[3.1333076385099337,3.108049841353322]}
+PASS scenario.ellipse-v-E2.definition-residual {"residual":0}
+PASS scenario.ellipse-v-E2.distances-independent {"page":{"d1":6.864829904811994,"d2":3.1351700951880064,"sum":10,"e":0.6},"independent":{"d1":6.864829904811994,"d2":3.1351700951880064,"sum":10,"diff":3.7296598096239872,"dFocus":3.1351700951880064,"dDirectrix":11.441383174686656}}
+PASS scenario.ellipse-v-E2.invariant-sum {"sum":10,"target":10}
+PASS scenario.ellipse-v-E2.feature-focus {"text":"(0.00, −3.00) · (0.00, 3.00)","expectedTokens":[0,-3,0,3],"tokens":[0,-3,0,3]}
+PASS scenario.ellipse-v-E2.feature-directrix {"text":"y = ±8.33","expected":[{"type":"horizontal","value":-8.333333333333334},{"type":"horizontal","value":8.333333333333334}]}
+PASS scenario.ellipse-v-E2.feature-latus-rectum {"text":"6.40","expected":6.4}
+PASS preset.E2-ellipse-v-a5-e06.matches-json {"focusMatch":true,"dirMatch":true,"asymMatch":true,"lMatch":true,"lSource":"feature:6.40","pageFoci":[[0,-3],[0,3]],"pageDirectrices":[{"type":"h","value":8.333333333333334,"label":"y = 8.33"},{"type":"h","value":-8.333333333333334,"label"
+PASS scenario.circle-E3.mode-name {"mode":"ellipse","name":"圆"}
+PASS scenario.circle-E3.no-nonfinite []
+PASS scenario.circle-E3.origin-annotation {"stageNote":"原点 = 中心 O · P 由参数方程生成","originChip":"标准位置 · 中心在原点"}
+PASS scenario.circle-E3.orientation-label {"page":"圆心在原点","expected":"圆心在原点"}
+PASS scenario.circle-E3.def-formula {"page":"|PO| = a","expected":"|PO| = a"}
+PASS scenario.circle-E3.point-readout {"text":"P (2.49, 3.13)","P":[2.4864398730826576,3.1333076385099337]}
+PASS scenario.circle-E3.def-values-text "PO = 4.00 = a = 4.00"
+PASS scenario.circle-E3.derived {"a":4,"b":4,"c":0,"e":0}
+PASS scenario.circle-E3.circle-special {"directrices":[],"features":["焦点F₁ = F₂ = O(0, 0)","准线圆没有准线","半径r = a = 4.00","离心率e = 0"]}
+PASS scenario.circle-E3.foci {"page":[[0,0],[0,0]],"expected":[[0,0]]}
+PASS scenario.circle-E3.directrices {"page":[],"expected":[]}
+PASS scenario.circle-E3.equation-numeric "x² + y² = 16.00"
+PASS scenario.circle-E3.P-on-curve {"residual":0,"P":[2.4864398730826576,3.1333076385099337]}
+PASS scenario.circle-E3.definition-residual {"residual":8.881784197001252e-16}
+PASS scenario.circle-E3.distances-independent {"page":{"d1":3.9999999999999996,"d2":3.9999999999999996,"sum":7.999999999999999,"e":0},"independent":{"d1":3.9999999999999996,"d2":3.9999999999999996,"sum":7.999999999999999,"diff":0,"dFocus":3.9999999999999996,"dDirectrix":null}}
+PASS scenario.circle-E3.invariant-sum {"sum":7.999999999999999,"target":8}
+PASS scenario.circle-E3.feature-focus {"text":"F₁ = F₂ = O(0, 0)","expectedTokens":[0,0],"tokens":[0,0]}
+PASS scenario.circle-E3.feature-directrix "圆没有准线"
+PASS preset.E3-circle-a4-e0.matches-json {"focusMatch":true,"dirMatch":true,"asymMatch":true,"lMatch":true,"lSource":"derived.a","pageFoci":[[0,0],[0,0]],"pageDirectrices":[],"pageAsym":[]}
+PASS scenario.hyperbola-h-H1.mode-name {"mode":"hyperbola","name":"双曲线"}
+PASS scenario.hyperbola-h-H1.no-nonfinite []
+PASS scenario.hyperbola-h-H1.origin-annotation {"stageNote":"原点 = 中心 O · P 由参数方程生成","originChip":"标准位置 · 中心在原点"}
+PASS scenario.hyperbola-h-H1.orientation-label {"page":"实轴水平","expected":"实轴水平"}
+PASS scenario.hyperbola-h-H1.def-formula {"page":"| |PF₁| − |PF₂| | = 2a","expected":"| |PF₁| − |PF₂| | = 2a"}
+PASS scenario.hyperbola-h-H1.point-readout {"text":"P (4.48, 4.43)","P":[4.476518443085017,4.4300423617298]}
+PASS scenario.hyperbola-h-H1.def-values-text "PF₁ = 10.46 · PF₂ = 4.46 · |差| = 6.00 = 2a = 6.00"
+PASS scenario.hyperbola-h-H1.derived {"a":3,"b":4,"c":5,"e":1.6666666666666667}
+PASS scenario.hyperbola-h-H1.foci {"page":[[-5,0],[5,0]],"expected":[[-5,0],[5,0]]}
+PASS scenario.hyperbola-h-H1.directrices {"page":[{"type":"v","value":1.8,"label":"x = 1.80"},{"type":"v","value":-1.8,"label":"x = −1.80"}],"expected":[{"type":"vertical","value":-1.8},{"type":"vertical","value":1.8}]}
+PASS scenario.hyperbola-h-H1.asymptotes {"labels":["y = ±1.33x","y = ±1.33x"],"parsed":[1.33,1.33],"expectedAbsSlopes":[1.3333333333333333,1.3333333333333333]}
+PASS scenario.hyperbola-h-H1.equation-numeric {"numeric":"x² / 9.00 − y² / 16.00 = 1","want":[9,16]}
+PASS scenario.hyperbola-h-H1.P-on-curve {"residual":2.220446049250313e-16,"P":[4.476518443085017,4.4300423617298]}
+PASS scenario.hyperbola-h-H1.definition-residual {"residual":8.881784197001252e-16}
+PASS scenario.hyperbola-h-H1.distances-independent {"page":{"d1":10.460864071808363,"d2":4.460864071808362,"diff":6.000000000000001,"e":1.6666666666666667},"independent":{"d1":10.460864071808363,"d2":4.460864071808362,"sum":14.921728143616726,"diff":6.000000000000001,"dFocus":4.460864071808
+PASS scenario.hyperbola-h-H1.invariant-diff {"diff":6.000000000000001,"target":6}
+PASS scenario.hyperbola-h-H1.feature-focus {"text":"(−5.00, 0.00) · (5.00, 0.00)","expectedTokens":[-5,0,5,0],"tokens":[-5,0,5,0]}
+PASS scenario.hyperbola-h-H1.feature-directrix {"text":"x = ±1.80","expected":[{"type":"vertical","value":-1.8},{"type":"vertical","value":1.8}]}
+PASS scenario.hyperbola-h-H1.feature-asymptote {"text":"y = ±1.33x","expected":1.3333333333333333}
+PASS preset.H1-hyperbola-h-a3-e1667.matches-json {"focusMatch":true,"dirMatch":true,"asymMatch":true,"lMatch":true,"lSource":"derived b^2/a","pageFoci":[[-5,0],[5,0]],"pageDirectrices":[{"type":"v","value":1.8,"label":"x = 1.80"},{"type":"v","value":-1.8,"label":"x = −1.80"}],"pageAsym":[
+PASS scenario.hyperbola-v-H2.mode-name {"mode":"hyperbola","name":"双曲线"}
+PASS scenario.hyperbola-v-H2.no-nonfinite []
+PASS scenario.hyperbola-v-H2.origin-annotation {"stageNote":"原点 = 中心 O · P 由参数方程生成","originChip":"标准位置 · 中心在原点"}
+PASS scenario.hyperbola-v-H2.orientation-label {"page":"实轴竖直","expected":"实轴竖直"}
+PASS scenario.hyperbola-v-H2.def-formula {"page":"| |PF₁| − |PF₂| | = 2a","expected":"| |PF₁| − |PF₂| | = 2a"}
+PASS scenario.hyperbola-v-H2.point-readout {"text":"P (4.43, 4.48)","P":[4.4300423617298,4.476518443085017]}
+PASS scenario.hyperbola-v-H2.def-values-text "PF₁ = 10.46 · PF₂ = 4.46 · |差| = 6.00 = 2a = 6.00"
+PASS scenario.hyperbola-v-H2.derived {"a":3,"b":4,"c":5,"e":1.6666666666666667}
+PASS scenario.hyperbola-v-H2.foci {"page":[[0,-5],[0,5]],"expected":[[0,-5],[0,5]]}
+PASS scenario.hyperbola-v-H2.directrices {"page":[{"type":"h","value":1.8,"label":"y = 1.80"},{"type":"h","value":-1.8,"label":"y = −1.80"}],"expected":[{"type":"horizontal","value":-1.8},{"type":"horizontal","value":1.8}]}
+PASS scenario.hyperbola-v-H2.asymptotes {"labels":["y = ±0.75x","y = ±0.75x"],"parsed":[0.75,0.75],"expectedAbsSlopes":[0.75,0.75]}
+PASS scenario.hyperbola-v-H2.equation-numeric {"numeric":"y² / 9.00 − x² / 16.00 = 1","want":[9,16]}
+PASS scenario.hyperbola-v-H2.P-on-curve {"residual":2.220446049250313e-16,"P":[4.4300423617298,4.476518443085017]}
+PASS scenario.hyperbola-v-H2.definition-residual {"residual":8.881784197001252e-16}
+PASS scenario.hyperbola-v-H2.distances-independent {"page":{"d1":10.460864071808363,"d2":4.460864071808362,"diff":6.000000000000001,"e":1.6666666666666667},"independent":{"d1":10.460864071808363,"d2":4.460864071808362,"sum":14.921728143616726,"diff":6.000000000000001,"dFocus":4.460864071808
+PASS scenario.hyperbola-v-H2.invariant-diff {"diff":6.000000000000001,"target":6}
+PASS scenario.hyperbola-v-H2.feature-focus {"text":"(0.00, −5.00) · (0.00, 5.00)","expectedTokens":[0,-5,0,5],"tokens":[0,-5,0,5]}
+PASS scenario.hyperbola-v-H2.feature-directrix {"text":"y = ±1.80","expected":[{"type":"horizontal","value":-1.8},{"type":"horizontal","value":1.8}]}
+PASS scenario.hyperbola-v-H2.feature-asymptote {"text":"y = ±0.75x","expected":0.75}
+PASS preset.H2-hyperbola-v-a3-e1667.matches-json {"focusMatch":true,"dirMatch":true,"asymMatch":true,"lMatch":true,"lSource":"derived b^2/a","pageFoci":[[0,-5],[0,5]],"pageDirectrices":[{"type":"h","value":1.8,"label":"y = 1.80"},{"type":"h","value":-1.8,"label":"y = −1.80"}],"pageAsym":[
+PASS scenario.parabola-h-P1.mode-name {"mode":"parabola","name":"抛物线"}
+PASS scenario.parabola-h-P1.no-nonfinite []
+PASS scenario.parabola-h-P1.origin-annotation {"stageNote":"原点 = 顶点 O · P 由参数方程生成","originChip":"标准位置 · 顶点在原点"}
+PASS scenario.parabola-h-P1.orientation-label {"page":"开口向右","expected":"开口向右"}
+PASS scenario.parabola-h-P1.def-formula {"page":"|PF| = d(P, ℓ)","expected":"|PF| = d(P, ℓ)"}
+PASS scenario.parabola-h-P1.point-readout {"text":"P (6.08, 6.97)","P":[6.079685078225757,6.974057687301278]}
+PASS scenario.parabola-h-P1.def-values-text "PF = 8.08 · d(P, ℓ) = 8.08"
+PASS scenario.parabola-h-P1.derived {"p":4,"e":1}
+PASS scenario.parabola-h-P1.foci {"page":[[2,0]],"expected":[[2,0]]}
+PASS scenario.parabola-h-P1.directrices {"page":[{"type":"v","value":-2,"label":"x = −2.00"}],"expected":[{"type":"vertical","value":-2}]}
+PASS scenario.parabola-h-P1.equation-numeric "y² = 8.00x"
+PASS scenario.parabola-h-P1.P-on-curve {"residual":0,"P":[6.079685078225757,6.974057687301278]}
+PASS scenario.parabola-h-P1.definition-residual {"residual":1.7763568394002505e-15}
+PASS scenario.parabola-h-P1.distances-independent {"page":{"dFocus":8.079685078225756,"dDirectrix":8.079685078225758},"independent":{"dFocus":8.079685078225756,"dDirectrix":8.079685078225758,"ratio":0.9999999999999998}}
+PASS scenario.parabola-h-P1.invariant-ratio1 {"dFocus":8.079685078225756,"dDirectrix":8.079685078225758}
+PASS scenario.parabola-h-P1.feature-focus {"text":"(2.00, 0.00)","expectedTokens":[2,0],"tokens":[2,0]}
+PASS scenario.parabola-h-P1.feature-directrix {"text":"x = −2.00","expected":[{"type":"vertical","value":-2}]}
+PASS preset.P1-parabola-h-p4.matches-json {"focusMatch":true,"dirMatch":true,"asymMatch":true,"lMatch":true,"lSource":"metricGrid:p4.00e1.00p/22.00通径8.00","pageFoci":[[2,0]],"pageDirectrices":[{"type":"v","value":-2,"label":"x = −2.00"}],"pageAsym":[]}
+PASS scenario.parabola-v-P2.mode-name {"mode":"parabola","name":"抛物线"}
+PASS scenario.parabola-v-P2.no-nonfinite []
+PASS scenario.parabola-v-P2.origin-annotation {"stageNote":"原点 = 顶点 O · P 由参数方程生成","originChip":"标准位置 · 顶点在原点"}
+PASS scenario.parabola-v-P2.orientation-label {"page":"开口向上","expected":"开口向上"}
+PASS scenario.parabola-v-P2.def-formula {"page":"|PF| = d(P, ℓ)","expected":"|PF| = d(P, ℓ)"}
+PASS scenario.parabola-v-P2.point-readout {"text":"P (5.23, 4.56)","P":[5.230543265475959,4.559763808669319]}
+PASS scenario.parabola-v-P2.def-values-text "PF = 6.06 · d(P, ℓ) = 6.06"
+PASS scenario.parabola-v-P2.derived {"p":3,"e":1}
+PASS scenario.parabola-v-P2.foci {"page":[[0,1.5]],"expected":[[0,1.5]]}
+PASS scenario.parabola-v-P2.directrices {"page":[{"type":"h","value":-1.5,"label":"y = −1.50"}],"expected":[{"type":"horizontal","value":-1.5}]}
+PASS scenario.parabola-v-P2.equation-numeric "x² = 6.00y"
+PASS scenario.parabola-v-P2.P-on-curve {"residual":0,"P":[5.230543265475959,4.559763808669319]}
+PASS scenario.parabola-v-P2.definition-residual {"residual":0}
+PASS scenario.parabola-v-P2.distances-independent {"page":{"dFocus":6.059763808669319,"dDirectrix":6.059763808669319},"independent":{"dFocus":6.059763808669319,"dDirectrix":6.059763808669319,"ratio":1}}
+PASS scenario.parabola-v-P2.invariant-ratio1 {"dFocus":6.059763808669319,"dDirectrix":6.059763808669319}
+PASS scenario.parabola-v-P2.feature-focus {"text":"(0.00, 1.50)","expectedTokens":[0,1.5],"tokens":[0,1.5]}
+PASS scenario.parabola-v-P2.feature-directrix {"text":"y = −1.50","expected":[{"type":"horizontal","value":-1.5}]}
+PASS preset.P2-parabola-v-p3.matches-json {"focusMatch":true,"dirMatch":true,"asymMatch":true,"lMatch":true,"lSource":"metricGrid:p3.00e1.00p/21.50通径6.00","pageFoci":[[0,1.5]],"pageDirectrices":[{"type":"h","value":-1.5,"label":"y = −1.50"}],"pageAsym":[]}
+PASS scenario.unified-e065-U1.mode-name {"mode":"unified","name":"椭圆"}
+PASS scenario.unified-e065-U1.no-nonfinite []
+PASS scenario.unified-e065-U1.origin-annotation {"stageNote":"原点 = 焦点 F · 准线在焦点左侧 · P 由参数方程生成","originChip":"焦点在原点 · 准线在左"}
+PASS scenario.unified-e065-U1.orientation-label {"page":"焦点在原点 · 准线在左","expected":"焦点在原点 · 准线在左"}
+PASS scenario.unified-e065-U1.def-formula {"page":"|PF| / d(P, ℓ) = e","expected":"|PF| / d(P, ℓ) = e"}
+PASS scenario.unified-e065-U1.point-readout {"text":"P (2.56, 3.98)","P":[2.55833049966222,3.9843636823941764]}
+PASS scenario.unified-e065-U1.def-values-text "PF = 4.73 · PD = 7.89 · PF/PD = 0.6000 · e = 0.6000"
+PASS scenario.unified-e065-U1.derived {"e":0.6,"l":3.2,"d":5.333333333333334}
+PASS scenario.unified-e065-U1.foci {"page":[[0,0]],"expected":[[0,0]]}
+PASS scenario.unified-e065-U1.directrices {"page":[{"type":"v","value":-5.333333333333334,"label":"x = −5.33"}],"expected":[{"type":"vertical","value":-5.333333333333334}]}
+PASS scenario.unified-e065-U1.equation-numeric {"numeric":"r = 3.20 / (1 − 0.60 cos θ)","expected":{"l":3.2,"e":0.6}}
+PASS scenario.unified-e065-U1.P-on-curve {"residual":0,"P":[2.55833049966222,3.9843636823941764]}
+PASS scenario.unified-e065-U1.definition-residual {"residual":0}
+PASS scenario.unified-e065-U1.distances-independent {"page":{"dFocus":4.734998299797332,"dDirectrix":7.891663832995554,"ratio":0.6},"independent":{"dFocus":4.734998299797332,"dDirectrix":7.891663832995554,"ratio":0.6}}
+PASS scenario.unified-e065-U1.invariant-ratio-e {"ratio":0.6,"e":0.6}
+PASS scenario.unified-e065-U1.feature-focus "F(0, 0)"
+PASS scenario.unified-e065-U1.feature-directrix {"text":"x = −5.33","expected":-5.333333333333334}
+PASS scenario.unified-e065-U1.feature-semi-latus {"text":"ℓ = 3.20","expected":3.2}
+PASS preset.U1-unified-ellipse-l32-e06.matches-json {"focusMatch":true,"dirMatch":true,"asymMatch":true,"lMatch":true,"lSource":"feature:ℓ = 3.20","pageFoci":[[0,0]],"pageDirectrices":[{"type":"v","value":-5.333333333333334,"label":"x = −5.33"}],"pageAsym":[]}
+PASS scenario.unified-e1-U2.mode-name {"mode":"unified","name":"抛物线"}
+PASS scenario.unified-e1-U2.no-nonfinite []
+PASS scenario.unified-e1-U2.origin-annotation {"stageNote":"原点 = 焦点 F · 准线在焦点左侧 · P 由参数方程生成","originChip":"焦点在原点 · 准线在左"}
+PASS scenario.unified-e1-U2.orientation-label {"page":"焦点在原点 · 准线在左","expected":"焦点在原点 · 准线在左"}
+PASS scenario.unified-e1-U2.def-formula {"page":"|PF| / d(P, ℓ) = e","expected":"|PF| / d(P, ℓ) = e"}
+PASS scenario.unified-e1-U2.point-readout {"text":"P (1.29, −5.13)","P":[1.2937944162966766,-5.133259717798565]}
+PASS scenario.unified-e1-U2.def-values-text "PF = 5.29 · PD = 5.29 · PF/PD = 1.0000 · e = 1.0000"
+PASS scenario.unified-e1-U2.derived {"e":1,"l":4,"d":4}
+PASS scenario.unified-e1-U2.foci {"page":[[0,0]],"expected":[[0,0]]}
+PASS scenario.unified-e1-U2.directrices {"page":[{"type":"v","value":-4,"label":"x = −4.00"}],"expected":[{"type":"vertical","value":-4}]}
+PASS scenario.unified-e1-U2.equation-numeric {"numeric":"r = 4.00 / (1 − 1.00 cos θ)","expected":{"l":4,"e":1}}
+PASS scenario.unified-e1-U2.P-on-curve {"residual":0,"P":[1.2937944162966766,-5.133259717798565]}
+PASS scenario.unified-e1-U2.definition-residual {"residual":0}
+PASS scenario.unified-e1-U2.distances-independent {"page":{"dFocus":5.293794416296676,"dDirectrix":5.293794416296676,"ratio":1},"independent":{"dFocus":5.293794416296676,"dDirectrix":5.293794416296676,"ratio":1}}
+PASS scenario.unified-e1-U2.invariant-ratio-e {"ratio":1,"e":1}
+PASS scenario.unified-e1-U2.feature-focus "F(0, 0)"
+PASS scenario.unified-e1-U2.feature-directrix {"text":"x = −4.00","expected":-4}
+PASS scenario.unified-e1-U2.feature-semi-latus {"text":"ℓ = 4.00","expected":4}
+PASS preset.U2-unified-parabola-l4-e1.matches-json {"focusMatch":true,"dirMatch":true,"asymMatch":true,"lMatch":true,"lSource":"feature:ℓ = 4.00","pageFoci":[[0,0]],"pageDirectrices":[{"type":"v","value":-4,"label":"x = −4.00"}],"pageAsym":[]}
+PASS scenario.unified-e1667-U4.mode-name {"mode":"unified","name":"双曲线"}
+PASS scenario.unified-e1667-U4.no-nonfinite []
+PASS scenario.unified-e1667-U4.origin-annotation {"stageNote":"原点 = 焦点 F · 准线在焦点左侧 · P 由参数方程生成","originChip":"焦点在原点 · 准线在左"}
+PASS scenario.unified-e1667-U4.orientation-label {"page":"焦点在原点 · 准线在左","expected":"焦点在原点 · 准线在左"}
+PASS scenario.unified-e1667-U4.def-formula {"page":"|PF| / d(P, ℓ) = e","expected":"|PF| / d(P, ℓ) = e"}
+PASS scenario.unified-e1667-U4.point-readout {"text":"P (0.34, −2.31)","P":[0.3357614331242304,-2.3131386257472504]}
+PASS scenario.unified-e1667-U4.def-values-text "PF = 2.34 · PD = 1.40 · PF/PD = 1.6667 · e = 1.6667"
+PASS scenario.unified-e1667-U4.derived {"e":1.6666666666666667,"l":1.7777777777777777,"d":1.0666666666666667}
+PASS scenario.unified-e1667-U4.foci {"page":[[0,0]],"expected":[[0,0]]}
+PASS scenario.unified-e1667-U4.directrices {"page":[{"type":"v","value":-1.0666666666666667,"label":"x = −1.07"}],"expected":[{"type":"vertical","value":-1.0666666666666667}]}
+PASS scenario.unified-e1667-U4.equation-numeric {"numeric":"r = 1.78 / (1 − 1.67 cos θ)","expected":{"l":1.7777777777777777,"e":1.6666666666666667}}
+PASS scenario.unified-e1667-U4.P-on-curve {"residual":4.440892098500626e-16,"P":[0.3357614331242304,-2.3131386257472504]}
+PASS scenario.unified-e1667-U4.definition-residual {"residual":4.440892098500626e-16}
+PASS scenario.unified-e1667-U4.distances-independent {"page":{"dFocus":2.3373801663181615,"dDirectrix":1.402428099790897,"ratio":1.6666666666666663},"independent":{"dFocus":2.3373801663181615,"dDirectrix":1.402428099790897,"ratio":1.6666666666666663}}
+PASS scenario.unified-e1667-U4.invariant-ratio-e {"ratio":1.6666666666666663,"e":1.6666666666666667}
+PASS scenario.unified-e1667-U4.feature-focus "F(0, 0)"
+PASS scenario.unified-e1667-U4.feature-directrix {"text":"x = −1.07","expected":-1.0666666666666667}
+PASS scenario.unified-e1667-U4.feature-semi-latus {"text":"ℓ = 1.78","expected":1.7777777777777777}
+PASS preset.U4-unified-hyperbola-l169-e53.matches-json {"focusMatch":true,"dirMatch":true,"asymMatch":true,"lMatch":true,"lSource":"feature:ℓ = 1.78","pageFoci":[[0,0]],"pageDirectrices":[{"type":"v","value":-1.0666666666666667,"label":"x = −1.07"}],"pageAsym":[]}
+PASS scenario.unified-e16.mode-name {"mode":"unified","name":"双曲线"}
+PASS scenario.unified-e16.no-nonfinite []
+PASS scenario.unified-e16.origin-annotation {"stageNote":"原点 = 焦点 F · 准线在焦点左侧 · P 由参数方程生成","originChip":"焦点在原点 · 准线在左"}
+PASS scenario.unified-e16.orientation-label {"page":"焦点在原点 · 准线在左","expected":"焦点在原点 · 准线在左"}
+PASS scenario.unified-e16.def-formula {"page":"|PF| / d(P, ℓ) = e","expected":"|PF| / d(P, ℓ) = e"}
+PASS scenario.unified-e16.point-readout {"text":"P (−0.33, −1.94)","P":[-0.3324592263147322,-1.939781339082974]}
+PASS scenario.unified-e16.def-values-text "PF = 1.97 · PD = 1.23 · PF/PD = 1.6000 · e = 1.6000"
+PASS scenario.unified-e16.derived {"e":1.6,"l":2.5,"d":1.5625}
+PASS scenario.unified-e16.foci {"page":[[0,0]],"expected":[[0,0]]}
+PASS scenario.unified-e16.directrices {"page":[{"type":"v","value":-1.5625,"label":"x = −1.56"}],"expected":[{"type":"vertical","value":-1.5625}]}
+PASS scenario.unified-e16.equation-numeric {"numeric":"r = 2.50 / (1 − 1.60 cos θ)","expected":{"l":2.5,"e":1.6}}
+PASS scenario.unified-e16.P-on-curve {"residual":2.220446049250313e-16,"P":[-0.3324592263147322,-1.939781339082974]}
+PASS scenario.unified-e16.definition-residual {"residual":2.220446049250313e-16}
+PASS scenario.unified-e16.distances-independent {"page":{"dFocus":1.9680652378964285,"dDirectrix":1.2300407736852679,"ratio":1.5999999999999999},"independent":{"dFocus":1.9680652378964285,"dDirectrix":1.2300407736852679,"ratio":1.5999999999999999}}
+PASS scenario.unified-e16.invariant-ratio-e {"ratio":1.5999999999999999,"e":1.6}
+PASS scenario.unified-e16.feature-focus "F(0, 0)"
+PASS scenario.unified-e16.feature-directrix {"text":"x = −1.56","expected":-1.5625}
+PASS scenario.unified-e16.feature-semi-latus {"text":"ℓ = 2.50","expected":2.5}
+PASS scenario.unified-e098-clip.mode-name {"mode":"unified","name":"椭圆"}
+PASS scenario.unified-e098-clip.no-nonfinite []
+PASS scenario.unified-e098-clip.origin-annotation {"stageNote":"原点 = 焦点 F · 准线在焦点左侧 · P 由参数方程生成","originChip":"焦点在原点 · 准线在左"}
+PASS scenario.unified-e098-clip.orientation-label {"page":"焦点在原点 · 准线在左","expected":"焦点在原点 · 准线在左"}
+PASS scenario.unified-e098-clip.def-formula {"page":"|PF| / d(P, ℓ) = e","expected":"|PF| / d(P, ℓ) = e"}
+PASS scenario.unified-e098-clip.point-readout {"text":"P (0.89, −3.25)","P":[0.8903718861664297,-3.2529108292768725]}
+PASS scenario.unified-e098-clip.def-values-text "PF = 3.37 · PD = 3.44 · PF/PD = 0.9800 · e = 0.9800"
+PASS scenario.unified-e098-clip.derived {"e":0.98,"l":2.5,"d":2.5510204081632653}
+PASS scenario.unified-e098-clip.foci {"page":[[0,0]],"expected":[[0,0]]}
+PASS scenario.unified-e098-clip.directrices {"page":[{"type":"v","value":-2.5510204081632653,"label":"x = −2.55"}],"expected":[{"type":"vertical","value":-2.5510204081632653}]}
+PASS scenario.unified-e098-clip.equation-numeric {"numeric":"r = 2.50 / (1 − 0.98 cos θ)","expected":{"l":2.5,"e":0.98}}
+PASS scenario.unified-e098-clip.P-on-curve {"residual":0,"P":[0.8903718861664297,-3.2529108292768725]}
+PASS scenario.unified-e098-clip.definition-residual {"residual":0}
+PASS scenario.unified-e098-clip.distances-independent {"page":{"dFocus":3.372564448443101,"dDirectrix":3.441392294329695,"ratio":0.98},"independent":{"dFocus":3.372564448443101,"dDirectrix":3.441392294329695,"ratio":0.98}}
+PASS scenario.unified-e098-clip.invariant-ratio-e {"ratio":0.98,"e":0.98}
+PASS scenario.unified-e098-clip.feature-focus "F(0, 0)"
+PASS scenario.unified-e098-clip.feature-directrix {"text":"x = −2.55","expected":-2.5510204081632653}
+PASS scenario.unified-e098-clip.feature-semi-latus {"text":"ℓ = 2.50","expected":2.5}
+PASS preset.U3.out-of-ui-range-clamped {"presetL":1,"pageL":1.5,"curves":2}
+PASS preset.U5.out-of-ui-range-clamped {"presetE":0,"pageE":0.35,"name":"椭圆"}
+PASS unified.e16.two-branches [{"closed":false,"fill":false,"dim":false,"points":281},{"closed":false,"fill":false,"dim":true,"points":281}]
+PASS unified.e16.branch-copy-text {"note":"e > 1：轨迹是双曲线。两支上的点到同一焦点 F、同一准线 ℓ 的距离比都等于 e。极坐标取 r > 0 只描出含焦点的一支，图中另一支由中心对称补画。"}
+PASS unified.e16.second-branch-satisfies-definition {"residual":8.881784197001252e-16,"ratio":1.6000000000000003}
+PASS unified.e16.P-focus-side {"P":[-0.3324592263147322,-1.939781339082974],"directrixX":-1.5625}
+PASS unified.e105-far-branch-note {"note":"e > 1：轨迹是双曲线。两支上的点到同一焦点 F、同一准线 ℓ 的距离比都等于 e。e 很接近 1，另一支离得很远，当前视野只显示含焦点的一支；「中心」给出它的对称中心。","curves":[{"closed":false,"fill":false,"dim":false,"points":281},{"closed":false,"fill":false,"dim":true,"points":281}]}
+PASS unified.e098.clipped-open [{"closed":false,"fill":false,"dim":false,"points":281}]
+PASS unified.e098.clip-message "e 很接近 1，完整椭圆向右延伸得很远。图中仅显示视野内的一段椭圆弧，端点在视野边界处断开；这并不表示椭圆在这里终止。"
+PASS unified.e098.no-fill {"closed":false,"fill":false,"dim":false,"points":281}
+PASS unified.e065.closed-ellipse [{"closed":true,"fill":true,"dim":false,"points":281}]
+PASS unified.e1.parabola {"curves":[{"closed":false,"fill":false,"dim":false,"points":281}],"eRange":"e = 1（抛物线）"}
+PASS unified.wording.no-definition-one-branch []
+PASS unified.wording.explains-both-branches {"hasTwoBranches":true,"hasPolarNote":true,"hasSymmetry":true}
+PASS endpoint.ellipse-circle-min {"derived":{"a":2,"b":2,"c":0,"e":0},"residual":0,"onCurve":0,"curves":[{"closed":true,"fill":true,"dim":false,"points":221}]}
+PASS endpoint.ellipse-max {"derived":{"a":5,"b":2.633913438213185,"c":4.25,"e":0.85},"residual":1.7763568394002505e-15,"onCurve":0,"curves":[{"closed":true,"fill":true,"dim":false,"points":221}]}
+PASS endpoint.ellipse-min-flat {"derived":{"a":2,"b":1.053565375285274,"c":1.7,"e":0.85},"residual":0,"onCurve":0,"curves":[{"closed":true,"fill":true,"dim":false,"points":221}]}
+PASS endpoint.hyperbola-min {"derived":{"a":1.2,"b":0.384187454245971,"c":1.26,"e":1.05},"residual":4.440892098500626e-16,"onCurve":0,"curves":[{"closed":false,"fill":false,"dim":false,"points":131},{"closed":false,"fill":false,"dim":false,"points":131}]}
+PASS endpoint.hyperbola-max {"derived":{"a":3.2,"b":5.542562584220407,"c":6.4,"e":2},"residual":8.881784197001252e-16,"onCurve":0,"curves":[{"closed":false,"fill":false,"dim":false,"points":131},{"closed":false,"fill":false,"dim":false,"points":131}]}
+PASS endpoint.hyperbola-max-v {"derived":{"a":3.2,"b":5.542562584220407,"c":6.4,"e":2},"residual":8.881784197001252e-16,"onCurve":0,"curves":[{"closed":false,"fill":false,"dim":false,"points":131},{"closed":false,"fill":false,"dim":false,"points":131}]}
+PASS endpoint.parabola-min {"derived":{"p":1,"e":1},"residual":0,"onCurve":0,"curves":[{"closed":false,"fill":false,"dim":false,"points":181}]}
+PASS endpoint.parabola-max {"derived":{"p":5,"e":1},"residual":1.7763568394002505e-15,"onCurve":0,"curves":[{"closed":false,"fill":false,"dim":false,"points":181}]}
+PASS endpoint.parabola-max-v {"derived":{"p":5,"e":1},"residual":1.7763568394002505e-15,"onCurve":0,"curves":[{"closed":false,"fill":false,"dim":false,"points":181}]}
+PASS endpoint.unified-min {"derived":{"e":0.35,"l":1.5,"d":4.285714285714286},"residual":1.1102230246251565e-16,"onCurve":4.440892098500626e-16,"curves":[{"closed":true,"fill":true,"dim":false,"points":281}]}
+PASS endpoint.unified-min-e-max-l {"derived":{"e":0.35,"l":4,"d":11.428571428571429},"residual":0,"onCurve":0,"curves":[{"closed":true,"fill":true,"dim":false,"points":281}]}
+PASS endpoint.unified-max {"derived":{"e":2.2,"l":1.5,"d":0.6818181818181818},"residual":8.881784197001252e-16,"onCurve":2.220446049250313e-16,"curves":[{"closed":false,"fill":false,"dim":false,"points":281},{"closed":false,"fill":false,"dim":true,"points":281}]}
+PASS endpoint.unified-max-both {"derived":{"e":2.2,"l":4,"d":1.8181818181818181},"residual":8.881784197001252e-16,"onCurve":6.661338147750939e-16,"curves":[{"closed":false,"fill":false,"dim":false,"points":281},{"closed":false,"fill":false,"dim":true,"points":281}]}
+PASS endpoint.unified-parabola-min-l {"derived":{"e":1,"l":1.5,"d":1.5},"residual":0,"onCurve":0,"curves":[{"closed":false,"fill":false,"dim":false,"points":281}]}
+PASS endpoint.unified-parabola-max-l {"derived":{"e":1,"l":4,"d":4},"residual":0,"onCurve":0,"curves":[{"closed":false,"fill":false,"dim":false,"points":281}]}
+PASS url.url-ellipse {"okParts":{"mode":true,"playing":true,"name":true,"orientation":true,"phase":true,"a":true},"state":{"mode":"ellipse","orientation":"x","params":{"ellipse":{"a":5,"e":0.6},"hyperbola":{"a":2.2,"e":1.45},"parabola":{"p":3},"unified":{"e":0.
+PASS url.url-hyperbola-v {"okParts":{"mode":true,"playing":true,"name":true,"orientation":true,"phase":true,"a":true},"state":{"mode":"hyperbola","orientation":"y","params":{"ellipse":{"a":4,"e":0.55},"hyperbola":{"a":2.2,"e":1.45},"parabola":{"p":3},"unified":{"e"
+PASS url.url-parabola {"okParts":{"mode":true,"playing":true,"name":true,"orientation":true,"phase":true},"state":{"mode":"parabola","orientation":"x","params":{"ellipse":{"a":4,"e":0.55},"hyperbola":{"a":2.2,"e":1.45},"parabola":{"p":3},"unified":{"e":0.65,"l":
+PASS url.url-unified-e16 {"okParts":{"mode":true,"playing":true,"name":true,"phase":true},"state":{"mode":"unified","orientation":"x","params":{"ellipse":{"a":4,"e":0.55},"hyperbola":{"a":2.2,"e":1.45},"parabola":{"p":3},"unified":{"e":1.6,"l":2.5}},"phase":2,"play
+PASS url.url-unified-e098 {"okParts":{"mode":true,"playing":true,"name":true},"state":{"mode":"unified","orientation":"x","params":{"ellipse":{"a":4,"e":0.55},"hyperbola":{"a":2.2,"e":1.45},"parabola":{"p":3},"unified":{"e":0.98,"l":2.5}},"phase":0.9,"playing":false
+PASS url.url-circle {"okParts":{"mode":true,"playing":true,"name":true,"a":true},"state":{"mode":"ellipse","orientation":"x","params":{"ellipse":{"a":4,"e":0},"hyperbola":{"a":2.2,"e":1.45},"parabola":{"p":3},"unified":{"e":0.65,"l":2.5}},"phase":0.9,"playing"
+PASS url.url-paused {"okParts":{"mode":true,"playing":true},"state":{"mode":"ellipse","orientation":"x","params":{"ellipse":{"a":4,"e":0.55},"hyperbola":{"a":2.2,"e":1.45},"parabola":{"p":3},"unified":{"e":0.65,"l":2.5}},"phase":0.9,"playing":false},"name":"椭圆
+PASS url.url-bad-mode {"okParts":{"mode":true,"playing":true,"name":true},"state":{"mode":"ellipse","orientation":"x","params":{"ellipse":{"a":4,"e":0.55},"hyperbola":{"a":2.2,"e":1.45},"parabola":{"p":3},"unified":{"e":0.65,"l":2.5}},"phase":1.013646,"playing":
+PASS errors.no-runtime-exceptions 
+PASS errors.no-console-or-log-errors []
+PASS errors.diag-empty []
+PASS errors.no-external-network []
+==== PART1 DONE pass=275 fail=0 ====
