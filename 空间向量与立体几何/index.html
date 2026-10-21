@@ -1,0 +1,2188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#060a12">
+<meta name="description" content="空间向量与立体几何：用可旋转的三维图形讲解空间向量的线性运算、基本定理、坐标表示、数量积、法向量、平行垂直证明、空间角与空间距离。">
+<title>空间向量与立体几何 · 三维解析几何实验室</title>
+<style>
+
+/* ============================================================
+   直线与圆的方程 · Line & Circle Lab
+   ============================================================ */
+:root{
+  --bg:#060a12;
+  --text:#eef7f6;
+  --text-soft:#c3d5dc;
+  --muted:#8ba1ac;
+  --muted-2:#6f858f;
+  --line:rgba(165,200,220,.11);
+  --line-strong:rgba(165,200,220,.2);
+  --accent:#ffc267;
+  --accent-rgb:255,194,103;
+  --sans:"PingFang SC","Microsoft YaHei","Noto Sans SC","Source Han Sans SC",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --serif:"Cambria Math","STIX Two Math","Latin Modern Math","Times New Roman","Songti SC",serif;
+  --mono:"Cascadia Code","SFMono-Regular","JetBrains Mono",Consolas,monospace;
+  --radius:18px;
+  --shadow:0 24px 60px rgba(0,0,0,.3);
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{
+  background:var(--bg);color:var(--text);font-family:var(--sans);
+  overflow:hidden;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+body.modal-open{overflow:hidden}
+button{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible{outline:2px solid rgba(var(--accent-rgb),.9);outline-offset:3px}
+::selection{background:rgba(var(--accent-rgb),.24);color:#fff}
+[hidden]{display:none!important}
+
+/* ---------- atmosphere ---------- */
+.ambient{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;background:
+  radial-gradient(ellipse 70% 60% at 50% -12%,rgba(43,92,122,.2),transparent 64%),
+  linear-gradient(180deg,#08101c 0%,#05090f 100%);}
+.ambient::after{
+  content:"";position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(180,215,235,.028) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(180,215,235,.028) 1px,transparent 1px);
+  background-size:70px 70px;
+  -webkit-mask-image:radial-gradient(ellipse 78% 68% at 46% 34%,#000 8%,transparent 78%);
+  mask-image:radial-gradient(ellipse 78% 68% at 46% 34%,#000 8%,transparent 78%);
+}
+.glow{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none}
+.glow-a{width:540px;height:540px;left:-140px;top:-220px;background:rgba(var(--accent-rgb),.1)}
+.glow-b{width:640px;height:640px;right:-220px;bottom:-300px;background:rgba(104,86,210,.08)}
+
+/* ---------- app ---------- */
+.app{position:relative;z-index:1;height:100vh;height:100dvh;min-height:660px;display:flex;flex-direction:column}
+
+/* ---------- topbar ---------- */
+.topbar{flex:0 0 74px;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:0 20px}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.brand-mark{
+  width:42px;height:42px;border-radius:12px;flex:none;display:grid;place-items:center;
+  border:1px solid rgba(var(--accent-rgb),.3);
+  background:linear-gradient(140deg,rgba(var(--accent-rgb),.18),rgba(var(--accent-rgb),.02));
+  box-shadow:0 0 28px rgba(var(--accent-rgb),.14),inset 0 0 18px rgba(var(--accent-rgb),.05);
+  transition:border-color .4s,box-shadow .4s;
+}
+.brand-mark svg{width:30px;height:30px;display:block}
+.brand-copy{min-width:0}
+.eyebrow{display:flex;align-items:center;gap:7px;font-size:8px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;white-space:nowrap}
+.eyebrow i{width:13px;height:1px;background:rgba(255,255,255,.18);flex:none}
+.brand h1{margin:3px 0 0;font-size:15px;font-weight:600;letter-spacing:.06em;white-space:nowrap}
+.title-en{font-size:.64em;color:var(--muted);font-weight:400;letter-spacing:.14em}
+.top-actions{display:flex;align-items:center;gap:8px;flex:none}
+.status-chip{
+  display:flex;align-items:center;gap:7px;padding:7px 11px;border-radius:999px;
+  border:1px solid var(--line);background:rgba(255,255,255,.03);
+  font-size:10px;color:var(--text-soft);white-space:nowrap;letter-spacing:.04em;
+}
+.chip-dot{width:5px;height:5px;border-radius:50%;background:var(--accent);box-shadow:0 0 9px var(--accent);flex:none}
+.ghost-btn,.icon-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  border:1px solid var(--line);background:rgba(255,255,255,.025);color:var(--text-soft);
+  border-radius:10px;padding:8px 12px;font-size:11px;cursor:pointer;
+  transition:background .18s,border-color .18s,color .18s,transform .18s;white-space:nowrap;
+}
+.ghost-btn:hover,.icon-btn:hover{background:rgba(255,255,255,.06);border-color:var(--line-strong);color:#fff}
+.ghost-btn:active,.icon-btn:active{transform:translateY(1px)}
+.ghost-btn svg{width:14px;height:14px}
+.icon-btn{width:36px;height:36px;padding:0}
+.icon-btn svg{width:16px;height:16px}
+
+/* ---------- workspace ---------- */
+.workspace{
+  flex:1;min-height:0;display:grid;gap:11px;padding:0 16px 15px;
+  grid-template-columns:minmax(248px,276px) minmax(0,1fr) minmax(298px,326px);
+  grid-template-rows:minmax(0,1fr) 146px;
+  grid-template-areas:"controls stage details" "catalog catalog catalog";
+}
+.panel,.stage-card,.catalog{
+  border:1px solid var(--line);
+  background:linear-gradient(180deg,rgba(16,27,45,.9),rgba(8,15,27,.93));
+  box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.04);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+}
+.panel{min-height:0;border-radius:var(--radius);overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.12) transparent}
+.panel::-webkit-scrollbar{width:5px}
+.panel::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px}
+.panel-controls{grid-area:controls;padding:15px 14px 14px;display:flex;flex-direction:column;gap:11px}
+.panel-details{grid-area:details;padding:15px 14px 14px;display:flex;flex-direction:column;gap:10px}
+.panel-controls>*,.panel-details>*{flex:0 0 auto}
+.panel-head{display:flex;align-items:flex-start;gap:9px;min-width:0}
+.section-num{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.04em;color:var(--accent);
+  border:1px solid rgba(var(--accent-rgb),.25);background:rgba(var(--accent-rgb),.07);
+  border-radius:7px;padding:4px 6px;line-height:1;margin-top:2px;flex:none;
+}
+.panel-head h2{margin:0;font-size:14.5px;font-weight:600;letter-spacing:.04em;line-height:1.35}
+.panel-head p{margin:2px 0 0;font-size:9.5px;color:var(--muted);letter-spacing:.03em}
+
+/* ---------- chapter nav ---------- */
+.chapter-list{display:flex;flex-direction:column;gap:2px}
+.chapter-item{
+  display:flex;align-items:center;gap:9px;padding:6px 9px;border-radius:9px;
+  border:1px solid transparent;background:transparent;color:var(--muted);
+  cursor:pointer;text-align:left;transition:background .16s,color .16s,border-color .16s;
+}
+.chapter-item:hover{background:rgba(255,255,255,.045);color:var(--text-soft)}
+.chapter-item.on{color:var(--tc);background:rgba(var(--tc-rgb),.09);border-color:rgba(var(--tc-rgb),.22)}
+.ci-num{font-family:var(--mono);font-size:9px;opacity:.65;width:17px;flex:none}
+.ci-name{font-size:12px;letter-spacing:.02em;white-space:nowrap}
+.ci-en{margin-left:auto;font-size:7px;letter-spacing:.13em;opacity:.4;white-space:nowrap}
+.chapter-item.on .ci-en{opacity:.65}
+
+.block-label{
+  display:flex;align-items:baseline;justify-content:space-between;gap:8px;
+  padding-top:10px;border-top:1px solid var(--line);
+  font-size:8.5px;letter-spacing:.13em;color:var(--muted);text-transform:uppercase;
+}
+.block-label span:last-child{font-size:8px;letter-spacing:.04em;color:var(--muted-2);text-transform:none}
+
+/* ---------- controls ---------- */
+.controls{display:flex;flex-direction:column;gap:9px}
+.ctrl{display:flex;flex-direction:column;gap:6px}
+.ctrl-top{display:flex;align-items:baseline;justify-content:space-between;gap:10px;font-size:10.5px;color:var(--muted);letter-spacing:.02em}
+.ctrl-top b{font-family:var(--mono);font-size:10.5px;font-weight:500;color:var(--accent)}
+input[type=range]{
+  -webkit-appearance:none;appearance:none;width:100%;height:3px;border-radius:99px;margin:5px 0;
+  background:linear-gradient(90deg,rgba(var(--accent-rgb),.72),rgba(var(--accent-rgb),.12));
+  outline:none;cursor:pointer;
+}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:13px;height:13px;border-radius:50%;
+  background:#0b1220;border:2px solid var(--accent);cursor:grab;
+  box-shadow:0 0 12px rgba(var(--accent-rgb),.55);
+}
+input[type=range]::-moz-range-thumb{
+  width:11px;height:11px;border-radius:50%;background:#0b1220;border:2px solid var(--accent);
+  box-shadow:0 0 12px rgba(var(--accent-rgb),.55);
+}
+.switch{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:5px 0;font-size:11px;color:var(--text-soft);cursor:pointer;position:relative}
+.switch > span{flex:1;line-height:1.45}
+.switch input{position:absolute;opacity:0;width:0;height:0;pointer-events:none}
+.switch i{width:32px;height:18px;border-radius:99px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.07);position:relative;flex:none;transition:.2s}
+.switch i::after{content:"";position:absolute;top:2px;left:2px;width:12px;height:12px;border-radius:50%;background:#93a8b2;transition:.2s}
+.switch input:checked + i{background:rgba(var(--accent-rgb),.3);border-color:rgba(var(--accent-rgb),.35)}
+.switch input:checked + i::after{transform:translateX(14px);background:var(--accent);box-shadow:0 0 8px rgba(var(--accent-rgb),.7)}
+.switch input:focus-visible + i{outline:2px solid rgba(var(--accent-rgb),.8);outline-offset:3px}
+.row{display:flex;gap:6px;flex-wrap:wrap}
+.row.three .btn{min-width:0;flex:1;padding:7px 4px;font-size:9.8px}
+.btn{
+  flex:1;min-width:84px;padding:8px 9px;border-radius:8px;cursor:pointer;
+  border:1px solid rgba(var(--accent-rgb),.28);background:rgba(var(--accent-rgb),.08);
+  color:var(--accent);font-size:10.5px;letter-spacing:.02em;transition:.18s;
+}
+.btn:hover{background:rgba(var(--accent-rgb),.16);border-color:rgba(var(--accent-rgb),.45)}
+.btn:active{transform:translateY(1px)}
+.btn.ghost{border-color:var(--line);background:rgba(255,255,255,.03);color:var(--muted)}
+.btn.ghost:hover{color:var(--text-soft);border-color:var(--line-strong);background:rgba(255,255,255,.06)}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;padding:3px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid var(--line)}
+.seg.five{grid-template-columns:repeat(5,1fr)}
+.seg.two{grid-template-columns:repeat(2,1fr)}
+.seg button{padding:6px 2px;border-radius:7px;border:1px solid transparent;background:transparent;color:var(--muted);font-size:9.5px;cursor:pointer;transition:.18s;white-space:nowrap}
+.seg.five button{font-size:8.8px}
+.seg button:hover{color:var(--text-soft)}
+.seg button.on{background:rgba(var(--accent-rgb),.14);border-color:rgba(var(--accent-rgb),.26);color:var(--accent)}
+
+/* ---------- stage ---------- */
+.stage-card{
+  grid-area:stage;position:relative;min-height:0;border-radius:var(--radius);overflow:hidden;isolation:isolate;
+  background:
+    radial-gradient(ellipse 70% 64% at 52% 42%,rgba(var(--accent-rgb),.06),transparent 68%),
+    radial-gradient(ellipse 55% 55% at 60% 108%,rgba(73,60,122,.1),transparent 72%),
+    linear-gradient(180deg,#091321 0%,#060d17 100%);
+}
+.stage-card::before{
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background-image:radial-gradient(rgba(190,225,238,.1) .7px,transparent .8px);
+  background-size:26px 26px;opacity:.28;
+  -webkit-mask-image:radial-gradient(ellipse 72% 72% at 50% 44%,#000,transparent 76%);
+  mask-image:radial-gradient(ellipse 72% 72% at 50% 44%,#000,transparent 76%);
+}
+.stage-card::after{
+  content:"";position:absolute;inset:0;z-index:5;pointer-events:none;border-radius:inherit;
+  box-shadow:inset 0 0 90px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.04);
+}
+#cv{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:2;touch-action:none;cursor:default}
+
+.stage-top{position:absolute;z-index:7;top:13px;left:14px;right:14px;display:flex;justify-content:space-between;align-items:flex-start;gap:10px;pointer-events:none}
+.live-badge{
+  display:flex;align-items:center;gap:9px;padding:7px 10px;border-radius:11px;
+  background:rgba(5,11,20,.7);border:1px solid rgba(201,232,242,.1);
+  backdrop-filter:blur(14px);box-shadow:0 10px 30px rgba(0,0,0,.16);
+}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 13px rgba(var(--accent-rgb),.8);flex:none}
+.live-copy{display:flex;flex-direction:column;gap:3px}
+.live-copy strong{line-height:1.15}
+.live-copy span{font-size:7.5px;color:var(--muted);letter-spacing:.12em}
+.live-copy strong{font-size:12.5px;font-weight:600;letter-spacing:.04em;white-space:nowrap}
+.live-idx{
+  font-family:var(--mono);font-size:8.5px;color:var(--accent);
+  background:rgba(var(--accent-rgb),.09);border:1px solid rgba(var(--accent-rgb),.18);
+  border-radius:999px;padding:3px 6px;white-space:nowrap;
+}
+.stage-tools{display:flex;gap:6px;pointer-events:auto}
+.mini-btn{
+  display:inline-flex;align-items:center;gap:5px;padding:7px 10px;border-radius:9px;
+  font-size:10px;color:var(--text-soft);cursor:pointer;
+  border:1px solid rgba(201,236,228,.12);background:rgba(5,11,20,.62);
+  backdrop-filter:blur(12px);transition:.18s;
+}
+.mini-btn:hover{background:rgba(14,28,44,.85);border-color:rgba(var(--accent-rgb),.3);color:#fff}
+.stage-note{
+  position:absolute;z-index:6;left:16px;bottom:86px;max-width:70%;
+  font-family:var(--mono);font-size:8px;letter-spacing:.05em;
+  color:rgba(170,200,212,.5);pointer-events:none;
+}
+.definition-bar{
+  position:absolute;z-index:7;left:13px;right:13px;bottom:13px;
+  display:flex;align-items:center;gap:11px;min-height:58px;padding:8px 11px;
+  border:1px solid rgba(200,232,242,.11);border-radius:13px;
+  background:rgba(5,12,21,.8);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  box-shadow:0 16px 40px rgba(0,0,0,.2);
+}
+.definition-mark{
+  width:34px;height:34px;border-radius:9px;display:grid;place-items:center;flex:none;
+  color:var(--accent);border:1px solid rgba(var(--accent-rgb),.26);background:rgba(var(--accent-rgb),.08);
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.02em;
+}
+.definition-copy{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.def-title{font-size:7px;letter-spacing:.14em;color:var(--muted)}
+.def-formula{font-family:var(--serif);font-size:14px;line-height:1.35;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.def-values{font-family:var(--mono);font-size:8.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ---------- details ---------- */
+.concept h3{margin:0;font-size:15.5px;line-height:1.45;font-weight:600;letter-spacing:.01em}
+.concept .desc{margin:5px 0 0;font-size:11px;line-height:1.72;color:var(--text-soft)}
+.desc b,.note-card b{color:#fff;font-weight:500}
+.equation-card{
+  border:1px solid rgba(var(--accent-rgb),.2);border-radius:13px;padding:9px 11px 7px;
+  background:radial-gradient(ellipse 100% 120% at 0% 0%,rgba(var(--accent-rgb),.08),transparent 58%),rgba(0,0,0,.16);
+}
+.eq-head{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:8px;letter-spacing:.08em;color:var(--muted)}
+.eq-head span:last-child{font-family:var(--mono);font-size:8px;color:var(--accent)}
+.formula{
+  font-family:var(--serif);font-size:17px;line-height:1.45;text-align:center;color:#fff;
+  padding:7px 2px 6px;letter-spacing:.01em;text-shadow:0 0 20px rgba(var(--accent-rgb),.24);
+  overflow-wrap:anywhere;
+}
+.formula sub,.formula sup{font-size:.6em}
+.formula .small{font-size:.72em;color:var(--text-soft)}
+.eq-num{
+  margin-top:1px;padding-top:6px;border-top:1px dashed var(--line);
+  font-family:var(--mono);font-size:8.3px;line-height:1.55;color:var(--muted);
+  text-align:center;overflow-wrap:anywhere;
+}
+.eq-num:empty{display:none}
+.metric-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.hud-item{
+  display:flex;flex-direction:column;gap:2px;min-width:0;
+  padding:7px 9px;border-radius:9px;border:1px solid var(--line);
+  background:rgba(255,255,255,.025);
+}
+.hud-item span{font-size:8px;color:var(--muted);letter-spacing:.05em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hud-item b{font-family:var(--mono);font-size:11px;font-weight:500;color:var(--text-soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hud-item.hi{border-color:rgba(var(--accent-rgb),.26);background:rgba(var(--accent-rgb),.07)}
+.hud-item.hi b{color:var(--accent)}
+.note-card{
+  margin-top:auto;
+  border:1px solid var(--line);border-radius:12px;padding:9px 11px;
+  background:rgba(255,255,255,.025);
+}
+.tip-card{
+  margin-top:auto;border:1px solid var(--line);border-radius:11px;padding:9px 11px;
+  background:rgba(255,255,255,.02);
+}
+.tip-card span{display:block;font-size:7.5px;letter-spacing:.13em;color:var(--muted-2);text-transform:uppercase;margin-bottom:3px}
+.tip-card p{margin:0;font-size:9.5px;line-height:1.7;color:var(--muted)}
+.metric-grid .hud-item:last-child:nth-child(odd){grid-column:1/-1}
+.note-head{display:flex;align-items:center;gap:6px;font-size:8px;letter-spacing:.1em;color:var(--text-soft);text-transform:uppercase;margin-bottom:3px}
+.note-icon{
+  width:15px;height:15px;border-radius:50%;display:grid;place-items:center;
+  border:1px solid rgba(var(--accent-rgb),.3);color:var(--accent);
+  font-family:var(--serif);font-size:9px;line-height:1;
+}
+.note-card p{margin:0;font-size:10px;line-height:1.7;color:var(--muted)}
+.note-card i{font-family:var(--serif);font-style:italic;color:var(--text-soft)}
+.nw{white-space:nowrap}
+
+/* ---------- catalog ---------- */
+.catalog{
+  grid-area:catalog;min-width:0;border-radius:var(--radius);
+  padding:11px 15px 9px;display:flex;flex-direction:column;gap:7px;
+}
+.catalog-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.catalog-title{display:flex;align-items:flex-start;gap:9px;min-width:0}
+.catalog-head h2{margin:0;font-size:13.5px;font-weight:600;letter-spacing:.04em;line-height:1.35}
+.catalog-head p{margin:1px 0 0;font-size:9px;color:var(--muted);letter-spacing:.03em}
+.catalog-hint{font-size:8px;letter-spacing:.05em;color:var(--muted-2);white-space:nowrap;font-family:var(--mono)}
+.catalog-track{
+  display:flex;gap:6px;min-height:0;overflow-x:auto;overflow-y:hidden;
+  padding-bottom:2px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.12) transparent;
+}
+.catalog-track::-webkit-scrollbar{height:4px}
+.catalog-track::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px}
+.catalog-card{
+  flex:1 1 0;min-width:120px;display:flex;flex-direction:column;gap:1px;
+  padding:7px 9px 6px;border-radius:10px;border:1px solid var(--line);
+  background:rgba(255,255,255,.025);color:var(--text-soft);cursor:pointer;text-align:left;
+  transition:background .16s,border-color .16s,box-shadow .16s;
+}
+.catalog-card:hover{background:rgba(255,255,255,.055);border-color:rgba(255,255,255,.17)}
+.catalog-card.on{border-color:rgba(var(--tc-rgb),.35);background:rgba(var(--tc-rgb),.08);box-shadow:inset 0 0 20px rgba(var(--tc-rgb),.05)}
+.cc-top{display:flex;justify-content:space-between;align-items:baseline;gap:6px;font-family:var(--mono);font-size:7px;letter-spacing:.1em;color:var(--muted-2)}
+.cc-top b{font-weight:500;color:inherit}
+.catalog-card.on .cc-top{color:var(--tc)}
+.catalog-card strong{font-size:10.5px;font-weight:600;line-height:1.5;color:var(--text-soft);white-space:nowrap}
+.catalog-card.on strong{color:var(--tc)}
+.catalog-card small{font-size:8px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ---------- modal ---------- */
+.modal{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:22px;
+  visibility:hidden;opacity:0;transition:opacity .2s,visibility .2s}
+.modal.open{visibility:visible;opacity:1}
+.modal-backdrop{position:absolute;inset:0;background:rgba(2,6,11,.78);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.modal-panel{
+  position:relative;z-index:1;width:min(1040px,96vw);max-height:90vh;overflow:auto;
+  border:1px solid rgba(210,238,245,.14);border-radius:22px;padding:26px 29px 24px;
+  background:
+    radial-gradient(ellipse 80% 50% at 15% 0%,rgba(54,124,138,.16),transparent 64%),
+    radial-gradient(ellipse 65% 50% at 100% 28%,rgba(87,66,135,.15),transparent 70%),
+    linear-gradient(160deg,#0c1826 0%,#08111c 100%);
+  box-shadow:0 34px 110px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.06);
+  scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.14) transparent;
+}
+.modal-panel::-webkit-scrollbar{width:6px}
+.modal-panel::-webkit-scrollbar-thumb{background:rgba(255,255,255,.14);border-radius:99px}
+.modal-close{position:sticky;top:0;float:right;margin:-10px -12px 0 12px;z-index:2;width:32px;height:32px;border-radius:9px;
+  border:1px solid var(--line);background:rgba(7,14,24,.82);color:var(--muted);font-size:20px;line-height:1;cursor:pointer;
+  display:grid;place-items:center;transition:color .18s,background .18s,border-color .18s}
+.modal-close:hover{color:#fff;background:rgba(255,255,255,.08)}
+.modal-head{padding-right:26px;border-bottom:1px solid var(--line);padding-bottom:17px;margin-bottom:17px}
+.modal-head .eyebrow{color:var(--accent);margin-bottom:7px;font-size:9px}
+.modal-head h2{margin:0;font-size:28px;font-weight:620;letter-spacing:.03em;line-height:1.3}
+.modal-head p{margin:8px 0 0;max-width:780px;font-size:12px;line-height:1.8;color:var(--muted)}
+.guide-lead{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;
+  border:1px solid rgba(var(--accent-rgb),.15);border-radius:14px;padding:15px 17px;
+  background:linear-gradient(135deg,rgba(var(--accent-rgb),.065),rgba(var(--accent-rgb),.012));margin-bottom:15px}
+.guide-lead p{margin:0;font-size:12px;line-height:1.8;color:var(--text-soft)}
+.guide-lead strong{color:var(--accent);font-weight:600}
+.guide-lead .unified-formula{font-family:var(--serif);font-size:19px;color:var(--accent);white-space:nowrap;
+  border-left:1px solid rgba(var(--accent-rgb),.23);padding-left:17px}
+.guide-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.guide-card{border:1px solid var(--line);border-radius:13px;padding:11px 12px;background:rgba(255,255,255,.018);position:relative;overflow:hidden}
+.guide-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--gc);opacity:.8}
+.guide-card-head{display:flex;align-items:baseline;gap:7px;margin-bottom:5px}
+.guide-card-head span{font-family:var(--mono);font-size:7px;color:var(--gc);border:1px solid rgba(255,255,255,.12);padding:2px 4px;border-radius:4px}
+.guide-card h3{margin:0;font-size:12.5px;font-weight:600;color:var(--text)}
+.guide-card .g-eq{font-family:var(--serif);font-size:12.5px;color:var(--gc);line-height:1.5;margin:4px 0 4px;overflow-wrap:anywhere}
+.guide-card p{margin:0;font-size:10px;line-height:1.65;color:var(--muted)}
+.guide-columns{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+.guide-section h3{margin:0 0 7px;font-size:12.5px;font-weight:600;color:var(--text-soft);letter-spacing:.03em}
+.guide-section p{margin:0 0 7px;font-size:10.5px;line-height:1.75;color:var(--muted)}
+.guide-section ol,.guide-section ul{margin:0;padding-left:17px;display:flex;flex-direction:column;gap:5px}
+.guide-section li{font-size:10.5px;line-height:1.7;color:var(--muted)}
+.guide-section li b{color:var(--text-soft);font-weight:500}
+.guide-section .f{font-family:var(--serif);color:var(--text-soft)}
+.guide-warn{border:1px solid rgba(255,145,176,.18);background:rgba(255,145,176,.045);border-radius:11px;padding:9px 11px;font-size:10px;line-height:1.7;color:var(--muted)}
+.guide-warn b{color:#ffb3c8;font-weight:500}
+
+/* ---------- responsive ---------- */
+@media(max-width:1240px){
+  .workspace{grid-template-columns:minmax(228px,246px) minmax(0,1fr) minmax(272px,296px);gap:10px}
+  .panel-controls,.panel-details{padding:13px 12px}
+  .brand h1{font-size:14px}
+  .catalog-card{min-width:112px}
+}
+@media(max-width:1020px){
+  body{overflow:auto}
+  .app{height:auto;min-height:100vh;min-height:100dvh}
+  .topbar{flex:0 0 auto;flex-wrap:wrap;gap:10px;padding:10px 14px}
+  .brand{flex:1 1 100%}
+  .top-actions{width:100%;justify-content:flex-end}
+  .workspace{flex:none;display:flex;flex-direction:column;gap:10px;padding:0 12px 16px}
+  .stage-card{order:1;height:min(62vh,560px);min-height:400px;flex:none}
+  .panel-controls{order:2;flex:none;overflow:visible}
+  .panel-details{order:3;flex:none;overflow:visible}
+  .catalog{order:4;flex:none;height:auto}
+  .chapter-list{display:grid;grid-template-columns:1fr 1fr;gap:3px}
+  .metric-grid{grid-template-columns:repeat(3,1fr)}
+  .catalog-track{flex-wrap:nowrap}
+  .catalog-card{flex:0 0 140px}
+  .guide-grid{grid-template-columns:1fr 1fr}
+  .guide-columns{grid-template-columns:1fr}
+  .guide-lead{grid-template-columns:1fr}
+  .guide-lead .unified-formula{border-left:0;border-top:1px solid rgba(var(--accent-rgb),.23);padding:9px 0 0}
+}
+@media(max-width:620px){
+  .eyebrow,.title-en{display:none}
+  .status-chip{display:none}
+  .brand h1{font-size:14px}
+  .workspace{padding:0 9px 12px}
+  .stage-card{height:52vh;min-height:340px}
+  .stage-card .stage-note{display:none}
+  .definition-bar{left:10px;right:10px;bottom:10px;min-height:52px;padding:7px 9px}
+  .def-formula{font-size:12.5px}
+  .def-values{font-size:8px}
+  .definition-mark{width:29px;height:29px;font-size:8.5px}
+  .panel-controls,.panel-details{padding:12px 11px}
+  .metric-grid{grid-template-columns:1fr 1fr}
+  .catalog{padding:10px 11px 8px}
+  .catalog-hint{display:none}
+  .catalog-card{flex:0 0 132px}
+  .live-copy strong{font-size:11.5px}
+  .modal{padding:8px}
+  .modal-panel{max-height:94vh;border-radius:16px;padding:18px 15px}
+  .modal-head h2{font-size:21px}
+  .guide-grid{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+}
+
+:root{--accent:#69e5d0;--accent-rgb:105,229,208}
+#cv{cursor:grab}
+</style>
+</head>
+<body>
+<div class="ambient" aria-hidden="true"><div class="glow glow-a"></div><div class="glow glow-b"></div></div>
+
+<div class="app" id="app">
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 36 36" fill="none">
+          <path d="M18 5.5 30 11.5v11L18 29 6 23V12L18 5.5Z" stroke="#69e5d0" stroke-width="1.3" stroke-linejoin="round" opacity=".9"/>
+          <path d="M6 12l12 6 12-6M18 18v11" stroke="#69e5d0" stroke-width="1" stroke-linejoin="round" opacity=".55"/>
+          <path d="M18 22.5V9.5" stroke="#ffc96b" stroke-width="1.3" stroke-linecap="round"/>
+          <path d="M15.2 12.3 18 9.2l2.8 3.1" stroke="#ffc96b" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M18 22.5 27.5 16" stroke="#ff8fab" stroke-width="1.1" stroke-linecap="round" opacity=".8"/>
+          <circle cx="18" cy="22.5" r="1.6" fill="#69e5d0"/>
+        </svg>
+      </div>
+      <div class="brand-copy">
+        <div class="eyebrow"><span>Spatial Vector Lab</span><i></i><span>立体几何</span></div>
+        <h1>空间向量与立体几何 <span class="title-en">/ SPATIAL VECTOR LAB</span></h1>
+      </div>
+    </div>
+    <div class="top-actions">
+      <div class="status-chip" id="topChip"><span class="chip-dot"></span>第 1 / 8 节</div>
+      <button class="ghost-btn" id="guideBtn" type="button" aria-haspopup="dialog">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4.5 5.5c2.7-1.2 5.1-1.1 7.5.4v13c-2.4-1.5-4.8-1.6-7.5-.4v-13Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M19.5 5.5c-2.7-1.2-5.1-1.1-7.5.4v13c2.4-1.5 4.8-1.6 7.5-.4v-13Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        本章速查
+      </button>
+      <button class="ghost-btn" id="resetBtn" type="button" title="恢复本节初始状态">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3M4.5 4.5V9H9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        重置本节
+      </button>
+      <button class="icon-btn" id="fullBtn" type="button" aria-label="全屏显示" title="全屏显示">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8.5 4H4v4.5M15.5 4H20v4.5M8.5 20H4v-4.5M15.5 20H20v-4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <aside class="panel panel-controls" aria-label="章节与参数控制">
+      <div class="panel-head">
+        <span class="section-num">01</span>
+        <div><h2>章节与参数</h2><p>选择章节 · 调整变量</p></div>
+      </div>
+      <nav class="chapter-list" id="chapterList" aria-label="章节列表"></nav>
+      <div class="block-label"><span>本节控制 / Controls</span><span>拖动或调节</span></div>
+      <div class="controls" id="controls"></div>
+      <div class="tip-card">
+        <span>操作提示 / Tips</span>
+        <p>拖动画布旋转视角 · 滚轮缩放 · 双击复位 · ← → 切换章节 · 空格播放 · G 速查</p>
+      </div>
+    </aside>
+
+    <section class="stage-card" aria-label="空间向量三维演示">
+      <canvas id="cv">你的浏览器需要支持 Canvas。</canvas>
+      <div class="stage-top">
+        <div class="live-badge">
+          <span class="live-dot"></span>
+          <div class="live-copy"><span>当前章节 / Chapter</span><strong id="liveName">空间向量的线性运算</strong></div>
+          <span class="live-idx" id="liveIndex">01</span>
+        </div>
+        <div class="stage-tools">
+          <button class="mini-btn" id="viewBtn" type="button" title="恢复默认视角">⟲ 视角</button>
+          <button class="mini-btn" id="playBtn" type="button" hidden>▶ 播放</button>
+        </div>
+      </div>
+      <div class="stage-note" id="hint"></div>
+      <div class="definition-bar">
+        <div class="definition-mark" id="defMark">01</div>
+        <div class="definition-copy">
+          <div class="def-title">核心公式 / Key Formula</div>
+          <div class="def-formula" id="stageFormula"></div>
+          <div class="def-values" id="stageValues"></div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="panel panel-details" aria-label="本节要点与实时数据">
+      <div class="panel-head">
+        <span class="section-num">02</span>
+        <div><h2>本节要点</h2><p>概念 · 公式 · 实时数据</p></div>
+      </div>
+      <div class="concept">
+        <h3 id="title"></h3>
+        <p class="desc" id="desc"></p>
+      </div>
+      <div class="equation-card">
+        <div class="eq-head"><span>公式 / Formula</span><span id="eqTag">01</span></div>
+        <div class="formula" id="formula"></div>
+        <div class="eq-num" id="eqNum"></div>
+      </div>
+      <div class="metric-grid" id="hud"></div>
+      <div class="note-card">
+        <div class="note-head"><span class="note-icon">i</span>观察提示</div>
+        <p id="note"></p>
+      </div>
+    </aside>
+
+    <section class="catalog" aria-label="章节图鉴">
+      <div class="catalog-head">
+        <div class="catalog-title">
+          <span class="section-num">03</span>
+          <div><h2>章节图鉴</h2><p>八节内容 · 点击切换</p></div>
+        </div>
+        <div class="catalog-hint">三维坐标 · 向量运算 · 位置关系</div>
+      </div>
+      <div class="catalog-track" id="catalogTrack"></div>
+    </section>
+  </main>
+</div>
+
+<div class="modal" id="guideModal" aria-hidden="true">
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="guideTitle">
+    <button class="modal-close" type="button" aria-label="关闭本章速查" data-close>×</button>
+    <div class="modal-head">
+      <div class="eyebrow">Chapter Atlas · 本章速查</div>
+      <h2 id="guideTitle">用空间向量解决立体几何问题</h2>
+      <p>把几何对象放进空间直角坐标系，用向量表示直线的方向和平面的法向，再用线性运算、数量积与坐标运算判断位置关系、计算角度和距离。</p>
+    </div>
+
+    <div class="guide-lead">
+      <p>空间向量把“作辅助线”变成“算坐标”。判断平行与垂直看<strong>共线与数量积</strong>；求角度看<strong>方向向量与法向量</strong>；求距离看<strong>投影与叉积</strong>。</p>
+      <div class="unified-formula">a · b = a₁b₁ + a₂b₂ + a₃b₃</div>
+    </div>
+
+    <div class="guide-grid">
+      <article class="guide-card" style="--gc:#69e5d0">
+        <div class="guide-card-head"><span>01</span><h3>线性运算</h3></div>
+        <div class="g-eq">AB + BC = AC</div>
+        <p>三角形法则首尾相接；平行四边形法则共起点作对角线。加法满足交换律、结合律，数乘满足分配律。</p>
+      </article>
+      <article class="guide-card" style="--gc:#ffc267">
+        <div class="guide-card-head"><span>02</span><h3>基本定理</h3></div>
+        <div class="g-eq">v = x e₁ + y e₂ + z e₃</div>
+        <p>若 e₁、e₂、e₃ 不共面，则空间中任意向量 v 都能唯一表示成它们的线性组合。</p>
+      </article>
+      <article class="guide-card" style="--gc:#7cc0ff">
+        <div class="guide-card-head"><span>03</span><h3>坐标表示</h3></div>
+        <div class="g-eq">AB = (x₂−x₁, y₂−y₁, z₂−z₁)</div>
+        <p>向量坐标等于终点坐标减起点坐标；模长 |a| = √(a₁²+a₂²+a₃²)。</p>
+      </article>
+      <article class="guide-card" style="--gc:#ff91b0">
+        <div class="guide-card-head"><span>04</span><h3>数量积</h3></div>
+        <div class="g-eq">a · b = |a||b|cos θ</div>
+        <p>a·b = 0 ⇔ a ⊥ b（非零向量）；cos θ = a·b/(|a||b|)，θ ∈ [0°, 180°]。</p>
+      </article>
+      <article class="guide-card" style="--gc:#ada0ff">
+        <div class="guide-card-head"><span>05</span><h3>方向与法向</h3></div>
+        <div class="g-eq">n · d = 0 ⇔ l ∥ α</div>
+        <p>直线的方向向量 d 与平面的法向量 n：平行于平面看 n·d=0，垂直于平面看 d∥n。</p>
+      </article>
+      <article class="guide-card" style="--gc:#8ee6a0">
+        <div class="guide-card-head"><span>06</span><h3>平行与垂直</h3></div>
+        <div class="g-eq">a × b = 0 ⇔ a ∥ b</div>
+        <p>线线：方向向量共线或数量积为 0；线面：n·d=0 或 d∥n；面面：法向量共线或数量积为 0。</p>
+      </article>
+      <article class="guide-card" style="--gc:#f78fb3">
+        <div class="guide-card-head"><span>07</span><h3>空间角</h3></div>
+        <div class="g-eq">sin θ = |d · n|/(|d||n|)</div>
+        <p>异面直线角用 |cos|；线面角用 sin；二面角可转化为两平面法向量的夹角或其补角。</p>
+      </article>
+      <article class="guide-card" style="--gc:#ff9f7a">
+        <div class="guide-card-head"><span>08</span><h3>空间距离</h3></div>
+        <div class="g-eq">d = |n · AP| / |n|</div>
+        <p>点面距用投影；点线距用 |AP × d|/|d|；两平行平面距可转化为点面距。</p>
+      </article>
+    </div>
+
+    <div class="guide-columns">
+      <section class="guide-section">
+        <h3>常见易错点</h3>
+        <ul>
+          <li><b>线线角取锐角。</b>用 |a·b|/(|a||b|) 求异面直线所成角，结果在 [0°,90°]。</li>
+          <li><b>线面角用 sin。</b>sin θ = |d·n|/(|d||n|)，θ ∈ [0°,90°]，不要与向量夹角混淆。</li>
+          <li><b>二面角可能是钝角。</b>用法向量求出的角要与实际图形对照，必要时取补角。</li>
+          <li><b>法向量不唯一。</b>一个平面的法向量可以相差非零倍数，通常取最简整数比。</li>
+          <li><b>平行不一定重合。</b>线面平行要求直线不在平面内，需另取点验证。</li>
+          <li><b>向量夹角范围是 [0°,180°]</b>，与直线所成角、线面角的范围不同。</li>
+        </ul>
+      </section>
+      <section class="guide-section">
+        <h3>课堂演示路线</h3>
+        <ol>
+          <li><b>01</b> 播放 a+b+c 的合成，观察三条棱向量如何得到体对角线。</li>
+          <li><b>02</b> 调 x、y、z，看斜基底下的平行六面体与唯一分解。</li>
+          <li><b>03</b> 拖动 P 的坐标，比较 OP 的坐标与模长。</li>
+          <li><b>04</b> 调节 b 的方向，观察数量积、夹角与投影的联动。</li>
+          <li><b>05</b> 切换线 AC 与 BD₁，比较 n·d 的符号与线面位置关系。</li>
+          <li><b>06</b> 逐个切换四条结论，先看几何，再看向量运算。</li>
+          <li><b>07</b> 切换异面直线、线面角、二面角，比较三种角的公式。</li>
+          <li><b>08</b> 对比点面距与点线距，理解投影与叉积的几何意义。</li>
+        </ol>
+      </section>
+    </div>
+
+    <div class="guide-columns" style="border-top:0;padding-top:0;margin-top:10px">
+      <section class="guide-section">
+        <h3>空间直角坐标系</h3>
+        <p>以正方体的顶点 A 为原点，三条棱 AB、AD、AA₁ 所在直线分别为 x、y、z 轴，建立右手直角坐标系。则 A(0,0,0)、B(1,0,0)、D(0,1,0)、A₁(0,0,1)、C₁(1,1,1)。</p>
+        <p>空间中两点 P₁(x₁,y₁,z₁)、P₂(x₂,y₂,z₂) 的距离为 √((x₂−x₁)²+(y₂−y₁)²+(z₂−z₁)²)。</p>
+      </section>
+      <section class="guide-section">
+        <h3>角与距离的统一思路</h3>
+        <p>线线角、线面角、二面角都可以转化为两个向量的夹角：线线看方向向量，线面看法向量与方向向量，二面角看两个法向量。</p>
+        <p>距离则统一为“斜向量在法向量方向上的投影”：点面距 |n·AP|/|n|，点线距 |AP×d|/|d|，两平行平面距 |n·AP|/|n|。</p>
+      </section>
+    </div>
+  </div>
+</div>
+
+<script>
+'use strict';
+/* ============================================================
+   基础工具
+   ============================================================ */
+const $ = s => document.querySelector(s);
+const root = document.documentElement;
+const cv = $('#cv');
+const ctx = cv.getContext('2d');
+const hudEl = $('#hud');
+const controlsEl = $('#controls');
+const SERIF = '"Cambria Math","STIX Two Math","Times New Roman",serif';
+const SANS = '"PingFang SC","Microsoft YaHei","Noto Sans SC",system-ui,sans-serif';
+const TAU = Math.PI * 2;
+
+let W = 800, H = 600, DPR = 1;
+const clamp = (v, a, b) => v < a ? a : v > b ? b : v;
+const lerp = (a, b, t) => a + (b - a) * t;
+const fmt = (n, d = 2) => {
+  if (!isFinite(n)) return '—';
+  const v = Math.abs(n) < 5e-4 ? 0 : n;
+  return v.toFixed(d).replace('-', '−');
+};
+const fmtDeg = r => Math.round(r * 180 / Math.PI) + '°';
+const rad = d => d * Math.PI / 180;
+const deg = r => r * 180 / Math.PI;
+const tuple3 = a => '(' + a.map(x => fmt(x)).join(', ') + ')';
+
+const add3 = (a, b) => [a[0] + b[0], a[1] + b[1], a[2] + b[2]];
+const sub3 = (a, b) => [a[0] - b[0], a[1] - b[1], a[2] - b[2]];
+const mul3 = (a, k) => [a[0] * k, a[1] * k, a[2] * k];
+const dot3 = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+const cross3 = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
+const len3 = a => Math.hypot(a[0], a[1], a[2]);
+const norm3 = a => { const L = len3(a) || 1; return [a[0] / L, a[1] / L, a[2] / L]; };
+const lerp3 = (a, b, t) => [lerp(a[0], b[0], t), lerp(a[1], b[1], t), lerp(a[2], b[2], t)];
+const mid3 = (a, b) => lerp3(a, b, .5);
+
+const CV = [
+  [0, 0, 0], [1, 0, 0], [1, 1, 0], [0, 1, 0],
+  [0, 0, 1], [1, 0, 1], [1, 1, 1], [0, 1, 1]
+];
+const CUBE_NAMES = ['A', 'B', 'C', 'D', 'A₁', 'B₁', 'C₁', 'D₁'];
+const CUBE_FACES = [
+  {v: [0, 1, 2, 3], n: [0, 0, -1]},
+  {v: [4, 5, 6, 7], n: [0, 0, 1]},
+  {v: [0, 1, 5, 4], n: [0, -1, 0]},
+  {v: [2, 3, 7, 6], n: [0, 1, 0]},
+  {v: [0, 3, 7, 4], n: [-1, 0, 0]},
+  {v: [1, 2, 6, 5], n: [1, 0, 0]}
+];
+const CUBE_EDGES = [
+  [0, 1], [1, 2], [2, 3], [3, 0],
+  [4, 5], [5, 6], [6, 7], [7, 4],
+  [0, 4], [1, 5], [2, 6], [3, 7]
+];
+const FACE_EDGES = [
+  [[0, 1], [1, 2], [2, 3], [3, 0]],
+  [[4, 5], [5, 6], [6, 7], [7, 4]],
+  [[0, 1], [1, 5], [5, 4], [4, 0]],
+  [[2, 3], [3, 7], [7, 6], [6, 2]],
+  [[0, 3], [3, 7], [7, 4], [4, 0]],
+  [[1, 2], [2, 6], [6, 5], [5, 1]]
+];
+
+/* ---------- 画布基础 ---------- */
+const tscale = () => clamp(Math.min(W, H) / 760, .82, 1.08);
+function math(txt, x, y, color, size = 17, align = 'center', baseline = 'middle') {
+  size = Math.max(9, size * tscale());
+  ctx.save();
+  ctx.font = 'italic ' + size + 'px ' + SERIF;
+  ctx.fillStyle = color;
+  ctx.textAlign = align;
+  ctx.textBaseline = baseline;
+  ctx.lineJoin = 'round';
+  ctx.lineWidth = Math.max(2, size * .24);
+  ctx.strokeStyle = 'rgba(5,10,18,.8)';
+  ctx.strokeText(txt, x, y);
+  ctx.fillText(txt, x, y);
+  ctx.restore();
+}
+function sans(txt, x, y, color, size = 11.5, align = 'center', baseline = 'middle') {
+  size = Math.max(7.5, size * tscale());
+  ctx.save();
+  ctx.font = size + 'px ' + SANS;
+  ctx.fillStyle = color;
+  ctx.textAlign = align;
+  ctx.textBaseline = baseline;
+  ctx.lineJoin = 'round';
+  ctx.lineWidth = Math.max(2, size * .24);
+  ctx.strokeStyle = 'rgba(5,10,18,.8)';
+  ctx.strokeText(txt, x, y);
+  ctx.fillText(txt, x, y);
+  ctx.restore();
+}
+function line2(x1, y1, x2, y2, color, opt) {
+  opt = opt || {};
+  ctx.save();
+  ctx.globalAlpha = opt.alpha == null ? 1 : opt.alpha;
+  ctx.strokeStyle = color;
+  ctx.lineWidth = opt.w || 1.4;
+  ctx.lineCap = 'round';
+  if (opt.dash) ctx.setLineDash(opt.dash);
+  if (opt.glow) { ctx.shadowColor = color; ctx.shadowBlur = opt.glow; }
+  ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+  ctx.restore();
+}
+function arrow2(x1, y1, x2, y2, color, opt) {
+  opt = opt || {};
+  const dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy);
+  if (L < 1) return;
+  const ux = dx / L, uy = dy / L;
+  const head = Math.min(opt.head || 10, L * .55);
+  const hw = head * .52;
+  const bx = x2 - ux * head * .88, by = y2 - uy * head * .88;
+  ctx.save();
+  ctx.globalAlpha = opt.alpha == null ? 1 : opt.alpha;
+  ctx.strokeStyle = color;
+  ctx.lineWidth = opt.w || 2.4;
+  ctx.lineCap = 'round';
+  if (opt.dash) ctx.setLineDash(opt.dash);
+  if (opt.glow) { ctx.shadowColor = color; ctx.shadowBlur = opt.glow; }
+  ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(bx, by); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  ctx.moveTo(x2, y2);
+  ctx.lineTo(bx - uy * hw, by + ux * hw);
+  ctx.lineTo(bx + uy * hw, by - ux * hw);
+  ctx.closePath(); ctx.fill();
+  ctx.restore();
+}
+function rgbaC(hex, a) {
+  const h = hex.replace('#', '');
+  const n = parseInt(h, 16);
+  return 'rgba(' + ((n >> 16) & 255) + ',' + ((n >> 8) & 255) + ',' + (n & 255) + ',' + a + ')';
+}
+
+/* ---------- 相机与三维投影 ---------- */
+const CAM_START = {yaw: .45, pitch: .33, dist: 3.5, target: [.5, .5, .5]};
+let CAM = {yaw: CAM_START.yaw, pitch: CAM_START.pitch, dist: CAM_START.dist, target: [...CAM_START.target]};
+let camDrag = null;
+
+function resetCam() {
+  const c = (cur && cur.cam) || CAM_START;
+  CAM = {yaw: c.yaw, pitch: c.pitch, dist: c.dist, target: [...(c.target || CAM_START.target)]};
+}
+function makeScene() {
+  const t = CAM.target;
+  const cp = Math.cos(CAM.pitch), sp = Math.sin(CAM.pitch);
+  const eye = [
+    t[0] + CAM.dist * cp * Math.cos(CAM.yaw),
+    t[1] + CAM.dist * cp * Math.sin(CAM.yaw),
+    t[2] + CAM.dist * sp
+  ];
+  const forward = norm3(sub3(t, eye));
+  let right = cross3(forward, [0, 0, 1]);
+  if (len3(right) < 1e-7) right = [1, 0, 0];
+  else right = norm3(right);
+  const up = norm3(cross3(right, forward));
+  const f = Math.min(W, H) * 1.3;
+  const cx = W * .5, cy = H * .47;
+  function project(p) {
+    const v = sub3(p, eye);
+    const depth = dot3(v, forward);
+    if (depth <= .08) return null;
+    return {
+      x: cx + dot3(v, right) * f / depth,
+      y: cy - dot3(v, up) * f / depth,
+      depth
+    };
+  }
+  return {eye, forward, right, up, f, cx, cy, project};
+}
+
+/* ---------- 三维绘图 ---------- */
+function seg3(sc, a, b, color, opt) {
+  opt = opt || {};
+  const p = sc.project(a), q = sc.project(b);
+  if (!p || !q) return;
+  line2(p.x, p.y, q.x, q.y, color, opt);
+}
+function arrow3(sc, a, b, color, opt) {
+  opt = opt || {};
+  const p = sc.project(a), q = sc.project(b);
+  if (!p || !q) return;
+  arrow2(p.x, p.y, q.x, q.y, color, opt);
+}
+function point3(sc, p, color, r, label, colorLabel, dx, dy, size) {
+  const q = sc.project(p);
+  if (!q) return;
+  ctx.save();
+  ctx.fillStyle = color;
+  ctx.shadowColor = color;
+  ctx.shadowBlur = 9;
+  ctx.beginPath(); ctx.arc(q.x, q.y, r || 3.8, 0, TAU); ctx.fill();
+  ctx.restore();
+  if (label) sans(label, q.x + (dx || 12), q.y + (dy == null ? -12 : dy), colorLabel || color, size || 11.5);
+}
+function label3(sc, p, text, color, dx, dy, size) {
+  const q = sc.project(p);
+  if (!q) return;
+  sans(text, q.x + (dx || 0), q.y + (dy || 0), color, size || 11);
+}
+function vecLabel3(sc, a, b, text, color, frac, dx, dy, size) {
+  const p = sc.project(lerp3(a, b, frac == null ? .5 : frac));
+  if (!p) return;
+  sans(text, p.x + (dx || 0), p.y + (dy == null ? -12 : dy), color, size || 11.5);
+}
+function plane3(sc, pts, color, opt) {
+  opt = opt || {};
+  const ps = pts.map(p => sc.project(p));
+  if (ps.some(p => !p)) return;
+  ctx.save();
+  ctx.globalAlpha = opt.alpha == null ? 1 : opt.alpha;
+  ctx.beginPath();
+  ctx.moveTo(ps[0].x, ps[0].y);
+  for (let i = 1; i < ps.length; i++) ctx.lineTo(ps[i].x, ps[i].y);
+  ctx.closePath();
+  ctx.fillStyle = rgbaC(color, opt.fill == null ? .09 : opt.fill);
+  ctx.fill();
+  ctx.strokeStyle = rgbaC(color, opt.edge == null ? .45 : opt.edge);
+  ctx.lineWidth = opt.w || 1.3;
+  if (opt.dash) ctx.setLineDash(opt.dash);
+  ctx.stroke();
+  ctx.restore();
+}
+function drawGrid(sc) {
+  ctx.save();
+  for (let i = -0.5; i <= 1.501; i += .25) {
+    const major = Math.abs(i) < 1e-9;
+    const a = major ? .12 : .038;
+    seg3(sc, [i, -.5, 0], [i, 1.5, 0], 'rgba(190,225,235,' + a + ')', {w: 1});
+    seg3(sc, [-.5, i, 0], [1.5, i, 0], 'rgba(190,225,235,' + a + ')', {w: 1});
+  }
+  ctx.restore();
+}
+function drawAxes(sc) {
+  const O = [0, 0, 0];
+  arrow3(sc, O, [1.5, 0, 0], 'rgba(255,145,176,.5)', {w: 1.3, head: 8});
+  arrow3(sc, O, [0, 1.5, 0], 'rgba(255,194,103,.5)', {w: 1.3, head: 8});
+  arrow3(sc, O, [0, 0, 1.5], 'rgba(124,192,255,.55)', {w: 1.3, head: 8});
+  label3(sc, [1.5, 0, 0], 'x', 'rgba(255,170,195,.85)', 12, -10, 10.5);
+  label3(sc, [0, 1.5, 0], 'y', 'rgba(255,218,150,.85)', 12, -9, 10.5);
+  label3(sc, [0, 0, 1.5], 'z', 'rgba(150,205,255,.9)', 11, -11, 10.5);
+}
+function drawCube(sc, opt) {
+  opt = opt || {};
+  const alpha = opt.alpha == null ? 1 : opt.alpha;
+  const faces = CUBE_FACES.map(f => {
+    const center = mul3(f.v.reduce((s, i) => add3(s, CV[i]), [0, 0, 0]), 1 / f.v.length);
+    const visible = dot3(f.n, sub3(sc.eye, center)) > 0;
+    let depth = 0;
+    const pts = f.v.map(i => sc.project(CV[i]));
+    pts.forEach(p => { if (p) depth += p.depth; });
+    return {f, visible, depth: depth / pts.length, pts};
+  }).sort((a, b) => b.depth - a.depth);
+
+  ctx.save();
+  faces.forEach(F => {
+    if (!F.visible || F.pts.some(p => !p)) return;
+    ctx.beginPath();
+    ctx.moveTo(F.pts[0].x, F.pts[0].y);
+    for (let i = 1; i < F.pts.length; i++) ctx.lineTo(F.pts[i].x, F.pts[i].y);
+    ctx.closePath();
+    ctx.fillStyle = 'rgba(205,235,245,' + (.022 * alpha) + ')';
+    ctx.fill();
+  });
+  ctx.restore();
+
+  // 被遮挡的棱：虚线
+  ctx.save();
+  ctx.setLineDash([3.5, 5]);
+  ctx.strokeStyle = 'rgba(180,212,225,' + (.13 * alpha) + ')';
+  ctx.lineWidth = 1;
+  CUBE_EDGES.forEach(e => {
+    const p = sc.project(CV[e[0]]), q = sc.project(CV[e[1]]);
+    if (!p || !q) return;
+    ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y); ctx.stroke();
+  });
+  ctx.restore();
+
+  // 可见面所在的棱：实线
+  const drawn = new Set();
+  faces.forEach(F => {
+    if (!F.visible) return;
+    FACE_EDGES[CUBE_FACES.indexOf(F.f)].forEach(e => {
+      const key = Math.min(e[0], e[1]) + '-' + Math.max(e[0], e[1]);
+      if (drawn.has(key)) return;
+      drawn.add(key);
+      const p = sc.project(CV[e[0]]), q = sc.project(CV[e[1]]);
+      if (!p || !q) return;
+      ctx.save();
+      ctx.strokeStyle = 'rgba(205,235,245,' + (.34 * alpha) + ')';
+      ctx.lineWidth = 1.25;
+      ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y); ctx.stroke();
+      ctx.restore();
+    });
+  });
+
+  if (opt.labels !== false) {
+    const center = sc.project([.5, .5, .5]);
+    if (center) {
+      CV.forEach((p, i) => {
+        const q = sc.project(p);
+        if (!q) return;
+        let dx = q.x - center.x, dy = q.y - center.y;
+        const L = Math.hypot(dx, dy) || 1;
+        dx = dx / L * 17; dy = dy / L * 17;
+        sans(CUBE_NAMES[i], q.x + dx, q.y + dy, 'rgba(205,228,238,.85)', 10.5);
+      });
+    }
+  }
+}
+function angleArc3(sc, vertex, u, v, r, color, label, size) {
+  const a = norm3(u), b = norm3(v);
+  const c = clamp(dot3(a, b), -1, 1);
+  const th = Math.acos(c);
+  if (th < .03 || th > Math.PI - .03) return;
+  let w = sub3(b, mul3(a, c));
+  if (len3(w) < 1e-8) return;
+  w = norm3(w);
+  const pts = [];
+  const N = 26;
+  for (let i = 0; i <= N; i++) {
+    const t = th * i / N;
+    const p = add3(vertex, add3(mul3(a, r * Math.cos(t)), mul3(w, r * Math.sin(t))));
+    const q = sc.project(p);
+    if (!q) return;
+    pts.push(q);
+  }
+  ctx.save();
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 1.7;
+  ctx.beginPath();
+  ctx.moveTo(pts[0].x, pts[0].y);
+  for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i].x, pts[i].y);
+  ctx.stroke();
+  ctx.restore();
+  if (label) {
+    const t = th / 2;
+    const p = add3(vertex, add3(mul3(a, r * Math.cos(t)), mul3(w, r * Math.sin(t))));
+    const q = sc.project(p);
+    if (q) sans(label, q.x + 10, q.y - 12, color, size || 10.5);
+  }
+}
+function right3(sc, vertex, u, v, s, color) {
+  const a = norm3(u);
+  let b = sub3(v, mul3(a, dot3(a, v)));
+  if (len3(b) < 1e-8) return;
+  b = norm3(b);
+  const p1 = add3(vertex, mul3(a, s));
+  const p2 = add3(vertex, add3(mul3(a, s), mul3(b, s)));
+  const p3 = add3(vertex, mul3(b, s));
+  const q1 = sc.project(p1), q2 = sc.project(p2), q3 = sc.project(p3);
+  if (!q1 || !q2 || !q3) return;
+  ctx.save();
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 1.2;
+  ctx.setLineDash([]);
+  ctx.beginPath();
+  ctx.moveTo(q1.x, q1.y); ctx.lineTo(q2.x, q2.y); ctx.lineTo(q3.x, q3.y);
+  ctx.stroke();
+  ctx.restore();
+}
+
+const MODULES = [];
+
+/* ============================================================
+   控件构造
+   ============================================================ */
+function addSlider(parent, label, min, max, step, value, format, onInput) {
+  const w = document.createElement('label');
+  w.className = 'ctrl';
+  const top = document.createElement('div');
+  top.className = 'ctrl-top';
+  const l = document.createElement('span');
+  l.textContent = label;
+  const b = document.createElement('b');
+  b.textContent = format(value);
+  top.append(l, b);
+  const inp = document.createElement('input');
+  inp.type = 'range';
+  inp.min = min; inp.max = max; inp.step = step; inp.value = value;
+  inp.addEventListener('input', () => {
+    const v = parseFloat(inp.value);
+    b.textContent = format(v);
+    onInput(v);
+  });
+  w.append(top, inp);
+  parent.appendChild(w);
+  return {
+    input: inp,
+    set(v, fire) {
+      inp.value = v;
+      b.textContent = format(v);
+      if (fire) onInput(v);
+    }
+  };
+}
+function addToggle(parent, label, value, onChange) {
+  const w = document.createElement('label');
+  w.className = 'switch';
+  const s = document.createElement('span');
+  s.textContent = label;
+  const inp = document.createElement('input');
+  inp.type = 'checkbox';
+  inp.checked = !!value;
+  const i = document.createElement('i');
+  inp.addEventListener('change', () => onChange(inp.checked));
+  w.append(s, inp, i);
+  parent.appendChild(w);
+  return {input: inp};
+}
+function addBtn(parent, label, fn, cls) {
+  const b = document.createElement('button');
+  b.type = 'button';
+  b.className = 'btn ' + (cls || '');
+  b.textContent = label;
+  b.addEventListener('click', fn);
+  parent.appendChild(b);
+  return b;
+}
+function row(parent) {
+  const r = document.createElement('div');
+  r.className = 'row';
+  parent.appendChild(r);
+  return r;
+}
+
+/* ============================================================
+   通用：平行六面体线框
+   ============================================================ */
+function drawBoxEdges(sc, o, dx, dy, dz, color, opt) {
+  const p000 = o;
+  const p100 = add3(o, dx), p010 = add3(o, dy), p001 = add3(o, dz);
+  const p110 = add3(p100, dy), p101 = add3(p100, dz), p011 = add3(p010, dz);
+  const p111 = add3(p110, dz);
+  const es = [
+    [p000, p100], [p000, p010], [p000, p001],
+    [p100, p110], [p100, p101], [p010, p110], [p010, p011], [p001, p101], [p001, p011],
+    [p110, p111], [p101, p111], [p011, p111]
+  ];
+  es.forEach(([a, b]) => seg3(sc, a, b, color, opt));
+}
+
+/* ============================================================
+   01 空间向量的线性运算
+   ============================================================ */
+MODULES.push({
+  key: 'linear', tab: '01', name: '线性运算', accent: '#69e5d0', rgb: '105,229,208',
+  playIdle: '▶ 播放合成',
+  hint: '拖动旋转视角，观察 a、b、c 如何首尾相接得到体对角线',
+  cam: {yaw: .45, pitch: .33, dist: 3.5, target: [.5, .5, .5]},
+  state: {showSum: true, showCube: true, t: 1, playing: false},
+  reset() {
+    this.state.showSum = true;
+    this.state.showCube = true;
+    this.state.t = 1;
+    this.state.playing = false;
+  },
+  meta() {
+    return {
+      title: '空间向量的线性运算',
+      desc: '三条棱向量 <b>a=AB</b>、<b>b=AD</b>、<b>c=AA₁</b> 首尾相接，和向量就是从 A 指向 C₁ 的体对角线。拖动旋转视角，观察三维中的三角形法则与平行四边形法则。',
+      formula: 'AB + AD + AA₁ = AC₁',
+      note: '空间向量的加法与数乘满足交换律、结合律与分配律。求多个向量之和时，可以把它们首尾相接；共起点的两个向量也可以用平行四边形法则。'
+    };
+  },
+  togglePlay() {
+    const s = this.state;
+    if (s.playing) {
+      s.playing = false;
+      setPlayLabel(this.playIdle);
+    } else {
+      s.t = 0;
+      s.playing = true;
+      setPlayLabel('❚❚ 暂停合成');
+    }
+  },
+  draw(dt) {
+    const s = this.state;
+    if (s.playing) {
+      s.t += dt / 1.4;
+      if (s.t >= 1) { s.t = 1; s.playing = false; setPlayLabel(this.playIdle); }
+    }
+    const sc = makeScene();
+    drawGrid(sc);
+    drawAxes(sc);
+    if (s.showCube) drawCube(sc);
+
+    const A = CV[0], B = CV[1], D = CV[3], A1 = CV[4], C = CV[2], C1 = CV[6];
+    const a = sub3(B, A), b = sub3(D, A), c = sub3(A1, A);
+    const ac = add3(a, b), sum = add3(ac, c);
+
+    // 原向量
+    arrow3(sc, A, B, '#69e5d0', {w: 3.2, head: 11, glow: 10});
+    arrow3(sc, A, D, '#ffc267', {w: 2.8, head: 10, glow: 8});
+    arrow3(sc, A, A1, '#ada0ff', {w: 2.8, head: 10, glow: 8});
+    vecLabel3(sc, A, B, 'a', '#b8fff3', .5, 0, -13, 15);
+    vecLabel3(sc, A, D, 'b', '#ffe0ae', .5, 10, -11, 15);
+    vecLabel3(sc, A, A1, 'c', '#d8d2ff', .5, 12, -9, 15);
+
+    if (s.showSum) {
+      const t = s.t;
+      const b0 = lerp3(A, B, t);
+      const c0 = lerp3(A, C, t);
+      arrow3(sc, b0, add3(b0, b), '#ffc267', {w: 2.6, head: 9, dash: t < .99 ? [6, 5] : null, alpha: .85});
+      arrow3(sc, c0, add3(c0, c), '#ada0ff', {w: 2.6, head: 9, dash: t < .99 ? [6, 5] : null, alpha: .85});
+      if (t > .05) {
+        seg3(sc, A, C, 'rgba(105,229,208,.45)', {w: 1.5, dash: [5, 5]});
+        vecLabel3(sc, A, C, 'a+b', 'rgba(150,245,230,.9)', .45, 0, -12, 10.5);
+      }
+      arrow3(sc, A, C1, '#ffffff', {w: 2.2, head: 10, alpha: .25 + .55 * t, glow: 8});
+      if (t > .15) vecLabel3(sc, A, C1, 'a+b+c', '#ffffff', .58, 8, -14, 11.5);
+    }
+
+    point3(sc, C1, '#ffffff', 3.8, null);
+    point3(sc, A, '#69e5d0', 3.4, null);
+  },
+  hud() {
+    return [
+      {k: '|a|', v: '1.00'},
+      {k: '|b|', v: '1.00'},
+      {k: '|c|', v: '1.00'},
+      {k: '|a+b+c|', v: fmt(Math.sqrt(3)), hi: true}
+    ];
+  },
+  numeric() {
+    return 'a=(1,0,0)，b=(0,1,0)，c=(0,0,1)，a+b+c=(1,1,1)';
+  },
+  panel(el) {
+    const s = this.state;
+    addToggle(el, '显示和向量与平移副本', s.showSum, v => s.showSum = v);
+    addToggle(el, '显示正方体', s.showCube, v => s.showCube = v);
+    const r = row(el);
+    addBtn(r, '重播合成', () => {
+      s.t = 0;
+      s.playing = true;
+      setPlayLabel('❚❚ 暂停合成');
+    });
+    addBtn(r, '直接看结果', () => {
+      s.t = 1;
+      s.playing = false;
+      setPlayLabel(this.playIdle);
+    }, 'ghost');
+  }
+});
+
+/* ============================================================
+   02 空间向量基本定理
+   ============================================================ */
+MODULES.push({
+  key: 'basis', tab: '02', name: '基本定理', accent: '#ffc267', rgb: '255,194,103',
+  hint: '调节 x、y、z，观察斜基底 e₁、e₂、e₃ 如何唯一表示 v',
+  cam: {yaw: .85, pitch: .32, dist: 3.0, target: [.42, .42, .42]},
+  state: {x: .55, y: .65, z: .7, showBox: true, showComp: true},
+  reset() {
+    this.state.x = .55;
+    this.state.y = .65;
+    this.state.z = .7;
+    this.state.showBox = true;
+    this.state.showComp = true;
+  },
+  basis() {
+    return [[1, 0, 0], [.7, .7, 0], [0, 0, 1]];
+  },
+  vec() {
+    const s = this.state, e = this.basis();
+    return add3(add3(mul3(e[0], s.x), mul3(e[1], s.y)), mul3(e[2], s.z));
+  },
+  meta() {
+    return {
+      title: '空间向量基本定理',
+      desc: '若 <b>e₁、e₂、e₃</b> 不共面，则空间中任意向量 <b>v</b> 都存在唯一一组实数 (x, y, z)，使 <b>v = x e₁ + y e₂ + z e₃</b>。这里三个基底向量不两两垂直，分解仍然唯一。',
+      formula: 'v = x e₁ + y e₂ + z e₃',
+      note: '基本定理把“几何作图”转化为“代数分解”。三个基底向量只要不共面即可，不要求两两垂直；当它们两两垂直且长度为 1 时，就是空间直角坐标系的坐标向量。'
+    };
+  },
+  draw() {
+    const s = this.state, e = this.basis(), v = this.vec();
+    const sc = makeScene();
+    drawGrid(sc);
+    drawAxes(sc);
+
+    const O = [0, 0, 0];
+    const P1 = mul3(e[0], s.x);
+    const P2 = mul3(e[1], s.y);
+    const P3 = mul3(e[2], s.z);
+    const P12 = add3(P1, P2);
+    const P13 = add3(P1, P3);
+    const P23 = add3(P2, P3);
+
+    // 基底
+    arrow3(sc, O, e[0], 'rgba(105,229,208,.72)', {w: 2.2, head: 9});
+    arrow3(sc, O, e[1], 'rgba(255,194,103,.72)', {w: 2.2, head: 9});
+    arrow3(sc, O, e[2], 'rgba(173,160,255,.8)', {w: 2.2, head: 9});
+    vecLabel3(sc, O, e[0], 'e₁', 'rgba(160,250,235,.9)', .92, 12, -10, 13);
+    vecLabel3(sc, O, e[1], 'e₂', 'rgba(255,224,174,.95)', .92, 12, -8, 13);
+    vecLabel3(sc, O, e[2], 'e₃', 'rgba(216,210,255,.95)', .92, 12, -8, 13);
+
+    if (s.showBox) {
+      drawBoxEdges(sc, O, P1, P2, P3, 'rgba(200,225,238,.19)', {w: 1, dash: [4, 5]});
+    }
+    if (s.showComp) {
+      seg3(sc, O, P1, 'rgba(105,229,208,.85)', {w: 2, dash: [6, 5]});
+      seg3(sc, P1, P12, 'rgba(255,194,103,.85)', {w: 2, dash: [6, 5]});
+      seg3(sc, P12, v, 'rgba(173,160,255,.9)', {w: 2, dash: [6, 5]});
+      vecLabel3(sc, O, P1, 'x e₁', 'rgba(160,250,235,.9)', .55, 8, -12, 10);
+      vecLabel3(sc, P1, P12, 'y e₂', 'rgba(255,224,174,.9)', .55, -10, -12, 10);
+      vecLabel3(sc, P12, v, 'z e₃', 'rgba(216,210,255,.9)', .55, 10, -10, 10);
+    }
+
+    arrow3(sc, O, v, '#ffffff', {w: 3.2, head: 11, glow: 9});
+    vecLabel3(sc, O, v, 'v', '#ffffff', .62, 10, -13, 16);
+    point3(sc, v, '#ffffff', 3.8, null);
+    point3(sc, O, '#69e5d0', 3.4, 'O', 'rgba(200,235,240,.9)', -16, 16, 11);
+    point3(sc, P12, 'rgba(255,255,255,.7)', 2.6, null);
+  },
+  hud() {
+    const s = this.state, v = this.vec();
+    return [
+      {k: 'x', v: fmt(s.x)},
+      {k: 'y', v: fmt(s.y)},
+      {k: 'z', v: fmt(s.z)},
+      {k: '|v|', v: fmt(len3(v)), hi: true},
+      {k: 'v 的坐标', v: '(' + fmt(v[0]) + ', ' + fmt(v[1]) + ', ' + fmt(v[2]) + ')'}
+    ];
+  },
+  numeric() {
+    const s = this.state, v = this.vec();
+    return 'v = ' + fmt(s.x) + 'e₁ + ' + fmt(s.y) + 'e₂ + ' + fmt(s.z) + 'e₃ = (' + fmt(v[0]) + ', ' + fmt(v[1]) + ', ' + fmt(v[2]) + ')';
+  },
+  panel(el) {
+    const s = this.state;
+    addSlider(el, '系数 x', -.8, 1.2, .05, s.x, v => fmt(v), v => s.x = v);
+    addSlider(el, '系数 y', -.8, 1.2, .05, s.y, v => fmt(v), v => s.y = v);
+    addSlider(el, '系数 z', -.8, 1.2, .05, s.z, v => fmt(v), v => s.z = v);
+    addToggle(el, '显示平行六面体', s.showBox, v => s.showBox = v);
+    addToggle(el, '显示分解路径', s.showComp, v => s.showComp = v);
+    const r = row(el);
+    addBtn(r, '取 x = y = z = 0.6', () => {
+      s.x = s.y = s.z = .6;
+      buildPanel();
+    });
+  }
+});
+
+/* ============================================================
+   03 空间向量的坐标表示
+   ============================================================ */
+MODULES.push({
+  key: 'coordinates', tab: '03', name: '坐标表示', accent: '#7cc0ff', rgb: '124,192,255',
+  hint: '调节 P 的三个坐标，观察 OP 在三条坐标轴上的投影',
+  cam: {yaw: .45, pitch: .33, dist: 3.5, target: [.52, .5, .52]},
+  state: {P: {x: .8, y: .6, z: .9}, showProj: true, showBox: true},
+  reset() {
+    this.state.P = {x: .8, y: .6, z: .9};
+    this.state.showProj = true;
+    this.state.showBox = true;
+  },
+  meta() {
+    return {
+      title: '空间向量的坐标表示',
+      desc: '以 A 为原点建立空间直角坐标系，点 <b>P(x, y, z)</b> 的坐标就是向量 <b>OP</b> 的坐标。图中虚线是 P 到坐标轴、坐标平面的投影，用来读出三个分量。',
+      formula: '|OP| = √(x² + y² + z²)',
+      note: '向量的坐标等于终点坐标减去起点坐标：若 P₁(x₁,y₁,z₁)、P₂(x₂,y₂,z₂)，则 P₁P₂=(x₂−x₁, y₂−y₁, z₂−z₁)。'
+    };
+  },
+  draw() {
+    const s = this.state, P = [s.P.x, s.P.y, s.P.z];
+    const sc = makeScene();
+    drawGrid(sc);
+    drawAxes(sc);
+    drawCube(sc);
+
+    const O = [0, 0, 0];
+    const P0 = [P[0], P[1], 0];
+    const Px = [P[0], 0, 0], Py = [0, P[1], 0], Pz = [0, 0, P[2]];
+
+    if (s.showBox) {
+      drawBoxEdges(sc, O, [P[0], 0, 0], [0, P[1], 0], [0, 0, P[2]], 'rgba(124,192,255,.18)', {w: 1, dash: [4, 5]});
+    }
+    if (s.showProj) {
+      seg3(sc, P, P0, 'rgba(173,160,255,.8)', {w: 1.6, dash: [5, 4]});
+      seg3(sc, P0, Px, 'rgba(255,145,176,.65)', {w: 1.3, dash: [4, 4]});
+      seg3(sc, P0, Py, 'rgba(255,194,103,.65)', {w: 1.3, dash: [4, 4]});
+      seg3(sc, Pz, P, 'rgba(124,192,255,.55)', {w: 1.2, dash: [4, 4]});
+      point3(sc, Px, '#ff8fab', 3.2, 'x', 'rgba(255,170,195,.9)', 10, 14, 9.5);
+      point3(sc, Py, '#ffc267', 3.2, 'y', 'rgba(255,224,174,.9)', 10, 14, 9.5);
+      point3(sc, Pz, '#7cc0ff', 3.2, 'z', 'rgba(150,205,255,.9)', 10, -10, 9.5);
+      point3(sc, P0, 'rgba(255,255,255,.75)', 3, null);
+      label3(sc, P0, 'P₀', 'rgba(210,225,235,.75)', 11, 15, 9.5);
+    }
+
+    arrow3(sc, O, P, '#7cc0ff', {w: 3.2, head: 11, glow: 10});
+    point3(sc, P, '#ffffff', 4, 'P', '#ffffff', 13, -13, 11.5);
+    label3(sc, P, '(' + fmt(P[0]) + ', ' + fmt(P[1]) + ', ' + fmt(P[2]) + ')', 'rgba(205,228,238,.8)', 13, 15, 8.5);
+    vecLabel3(sc, O, P, 'OP', '#a9d4ff', .5, 0, -14, 11.5);
+    point3(sc, O, '#7cc0ff', 3.4, null);
+  },
+  hud() {
+    const s = this.state, P = s.P;
+    return [
+      {k: 'x', v: fmt(P.x)},
+      {k: 'y', v: fmt(P.y)},
+      {k: 'z', v: fmt(P.z)},
+      {k: '|OP|', v: fmt(Math.hypot(P.x, P.y, P.z)), hi: true}
+    ];
+  },
+  numeric() {
+    const P = this.state.P;
+    return '|OP| = √(' + fmt(P.x) + '² + ' + fmt(P.y) + '² + ' + fmt(P.z) + '²) = ' + fmt(Math.hypot(P.x, P.y, P.z));
+  },
+  panel(el) {
+    const s = this.state;
+    addSlider(el, 'x 坐标', 0, 1, .02, s.P.x, v => fmt(v), v => s.P.x = v);
+    addSlider(el, 'y 坐标', 0, 1, .02, s.P.y, v => fmt(v), v => s.P.y = v);
+    addSlider(el, 'z 坐标', 0, 1, .02, s.P.z, v => fmt(v), v => s.P.z = v);
+    addToggle(el, '显示坐标轴投影', s.showProj, v => s.showProj = v);
+    addToggle(el, '显示坐标盒', s.showBox, v => s.showBox = v);
+  }
+});
+
+/* ============================================================
+   04 数量积与夹角
+   ============================================================ */
+MODULES.push({
+  key: 'dot', tab: '04', name: '数量积', accent: '#ff91b0', rgb: '255,145,176',
+  hint: '调节 b 的三个分量，观察 a·b、夹角与投影的联动',
+  cam: {yaw: .5, pitch: .31, dist: 3.5, target: [.5, .5, .45]},
+  state: {b: {x: .35, y: .95, z: .55}, showProj: true},
+  reset() {
+    this.state.b = {x: .35, y: .95, z: .55};
+    this.state.showProj = true;
+  },
+  a() { return [.95, .35, .7]; },
+  bv() { const b = this.state.b; return [b.x, b.y, b.z]; },
+  meta() {
+    return {
+      title: '数量积与空间夹角',
+      desc: '两个空间向量的数量积 <b>a·b = |a||b|cos θ</b>，坐标形式为对应分量乘积之和。拖动滑块改变 <b>b</b>，观察夹角、数量积与 b 在 a 上投影的变化。',
+      formula: 'a · b = a₁b₁ + a₂b₂ + a₃b₃ = |a||b|cos θ',
+      note: '当 a、b 都是非零向量时，a·b = 0 ⇔ a ⊥ b。数量积的符号由夹角决定：锐角为正，直角为 0，钝角为负。'
+    };
+  },
+  draw() {
+    const s = this.state, a = this.a(), b = this.bv();
+    const sc = makeScene();
+    drawGrid(sc);
+    drawAxes(sc);
+    drawCube(sc, {labels: false, alpha: .55});
+
+    const O = [0, 0, 0];
+    const aa = dot3(a, a) || 1;
+    const proj = dot3(a, b) / aa;
+    const H = mul3(a, proj);
+
+    if (s.showProj) {
+      seg3(sc, b, H, 'rgba(255,145,176,.8)', {w: 1.6, dash: [6, 4]});
+      seg3(sc, O, H, 'rgba(255,255,255,.22)', {w: 1.2, dash: [4, 4]});
+      point3(sc, H, 'rgba(255,200,215,.9)', 2.8, null);
+      sans('投影', sc.project(H) ? sc.project(H).x + 12 : 0, sc.project(H) ? sc.project(H).y + 15 : 0, 'rgba(255,190,210,.8)', 9);
+    }
+
+    arrow3(sc, O, a, '#69e5d0', {w: 3.4, head: 11, glow: 10});
+    arrow3(sc, O, b, '#ffc267', {w: 3.4, head: 11, glow: 10});
+    vecLabel3(sc, O, a, 'a', '#b8fff3', .55, 8, -13, 15);
+    vecLabel3(sc, O, b, 'b', '#ffe0ae', .55, 10, -12, 15);
+
+    const ang = Math.acos(clamp(dot3(a, b) / (len3(a) * len3(b)), -1, 1));
+    angleArc3(sc, O, a, b, .42, 'rgba(255,255,255,.8)', 'θ = ' + fmtDeg(ang), 10.5);
+    point3(sc, O, '#ffffff', 3.2, 'O', 'rgba(220,235,240,.85)', -16, 15, 10);
+  },
+  hud() {
+    const a = this.a(), b = this.bv();
+    const ab = dot3(a, b), la = len3(a), lb = len3(b);
+    const ang = Math.acos(clamp(ab / (la * lb), -1, 1));
+    return [
+      {k: 'a · b', v: fmt(ab), hi: true},
+      {k: '|a|', v: fmt(la)},
+      {k: '|b|', v: fmt(lb)},
+      {k: 'cos θ', v: fmt(ab / (la * lb))},
+      {k: '夹角 θ', v: fmtDeg(ang), hi: true}
+    ];
+  },
+  numeric() {
+    const a = this.a(), b = this.bv();
+    return 'a·b = ' + fmt(a[0]) + '·' + fmt(b[0]) + ' + ' + fmt(a[1]) + '·' + fmt(b[1]) + ' + ' + fmt(a[2]) + '·' + fmt(b[2]) + ' = ' + fmt(dot3(a, b));
+  },
+  panel(el) {
+    const s = this.state;
+    addSlider(el, 'b₁', -1.2, 1.2, .05, s.b.x, v => fmt(v), v => s.b.x = v);
+    addSlider(el, 'b₂', -1.2, 1.2, .05, s.b.y, v => fmt(v), v => s.b.y = v);
+    addSlider(el, 'b₃', -1.2, 1.2, .05, s.b.z, v => fmt(v), v => s.b.z = v);
+    addToggle(el, '显示 b 在 a 上的投影', s.showProj, v => s.showProj = v);
+    const r = row(el);
+    addBtn(r, '使 a ⊥ b', () => {
+      const a = this.a();
+      let d = cross3(a, [0, 1, 0]);
+      if (len3(d) < 1e-6) d = cross3(a, [1, 0, 0]);
+      d = mul3(norm3(d), .9);
+      s.b = {x: d[0], y: d[1], z: d[2]};
+      buildPanel();
+    });
+    addBtn(r, '使 b ∥ a', () => {
+      const d = mul3(norm3(this.a()), .8);
+      s.b = {x: d[0], y: d[1], z: d[2]};
+      buildPanel();
+    }, 'ghost');
+  }
+});
+
+
+/* ============================================================
+   05 方向向量与法向量
+   ============================================================ */
+MODULES.push({
+  key: 'normal', tab: '05', name: '方向与法向', accent: '#ada0ff', rgb: '173,160,255',
+  hint: '切换直线，比较方向向量 d 与平面法向量 n 的数量积',
+  cam: {yaw: .45, pitch: .33, dist: 3.5, target: [.5, .5, .5]},
+  state: {line: 'AC', showNormal: true, showPlane: true},
+  reset() {
+    this.state.line = 'AC';
+    this.state.showNormal = true;
+    this.state.showPlane = true;
+  },
+  normal() { return [1, -1, 1]; },
+  lineData() {
+    if (this.state.line === 'BD1') return {a: CV[1], b: CV[7], d: sub3(CV[7], CV[1]), name: 'BD₁', color: '#ffc267'};
+    return {a: CV[0], b: CV[2], d: sub3(CV[2], CV[0]), name: 'AC', color: '#69e5d0'};
+  },
+  meta() {
+    return {
+      title: '方向向量与法向量',
+      desc: '直线 <b>AC</b> 在平面 <b>ACD₁</b> 内，方向向量 <b>d=(1,1,0)</b> 与法向量 <b>n=(1,−1,1)</b> 的数量积为 0；直线 <b>BD₁</b> 与平面相交于 D₁，n·d ≠ 0。',
+      formula: 'n · d = 0 ⇔ l ∥ α（或 l ⊂ α）',
+      note: '法向量 n 垂直于平面内的任意向量。判断线面平行时，除了 n·d=0，还要确认直线不在平面内；判断线面垂直时，方向向量应与法向量共线。'
+    };
+  },
+  draw() {
+    const s = this.state, n = this.normal(), L = this.lineData();
+    const sc = makeScene();
+    drawGrid(sc);
+    drawAxes(sc);
+    drawCube(sc);
+
+    const plane = [CV[0], CV[2], CV[7]];
+    if (s.showPlane) plane3(sc, plane, '#ada0ff', {fill: .11, edge: .55});
+    const G = mul3(add3(add3(plane[0], plane[1]), plane[2]), 1 / 3);
+    if (s.showNormal) {
+      const tip = add3(G, mul3(norm3(n), .62));
+      arrow3(sc, G, tip, '#ff91b0', {w: 2.4, head: 9, glow: 8});
+      vecLabel3(sc, G, tip, 'n', 'rgba(255,190,210,.95)', .75, 12, -10, 14);
+      point3(sc, G, '#ffb3c8', 3, null);
+    }
+
+    arrow3(sc, L.a, L.b, L.color, {w: 3.2, head: 11, glow: 9});
+    vecLabel3(sc, L.a, L.b, 'd', L.color === '#69e5d0' ? '#b8fff3' : '#ffe0ae', .55, 10, -12, 14);
+
+    const nd = dot3(n, L.d);
+    label3(sc, G, nd > 1e-6 ? 'n·d > 0' : nd < -1e-6 ? 'n·d < 0' : 'n·d = 0',
+      nd === 0 ? 'rgba(150,255,225,.9)' : 'rgba(255,180,200,.9)', -18, 34, 9.5);
+  },
+  hud() {
+    const n = this.normal(), L = this.lineData(), nd = dot3(n, L.d);
+    return [
+      {k: 'n', v: tuple3(n)},
+      {k: 'd', v: tuple3(L.d)},
+      {k: 'n · d', v: fmt(nd), hi: true},
+      {k: '结论', v: Math.abs(nd) < 1e-9 ? '平行 / 在平面内' : '相交', hi: Math.abs(nd) < 1e-9}
+    ];
+  },
+  numeric() {
+    const n = this.normal(), L = this.lineData();
+    return 'n·d = ' + tuple3(n) + ' · ' + tuple3(L.d) + ' = ' + fmt(dot3(n, L.d));
+  },
+  panel(el) {
+    const s = this.state;
+    const seg = document.createElement('div');
+    seg.className = 'seg two';
+    [['AC', '直线 AC'], ['BD1', '直线 BD₁']].forEach(([k, name]) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = name;
+      btn.className = s.line === k ? 'on' : '';
+      btn.addEventListener('click', () => { s.line = k; buildPanel(); });
+      seg.appendChild(btn);
+    });
+    el.appendChild(seg);
+    addToggle(el, '显示法向量 n', s.showNormal, v => s.showNormal = v);
+    addToggle(el, '显示平面 ACD₁', s.showPlane, v => s.showPlane = v);
+  }
+});
+
+/* ============================================================
+   06 用向量证明平行与垂直
+   ============================================================ */
+const PROOFS = [
+  {
+    key: 'ac1bd', label: 'AC₁ ⊥ BD', segs: [
+      {a: 0, b: 6, color: '#69e5d0', name: 'AC₁'},
+      {a: 1, b: 3, color: '#ffc267', name: 'BD'}
+    ],
+    type: 'dot', conclusion: 'AC₁ ⊥ BD',
+    formula: 'a · b = 0 ⇔ a ⊥ b',
+    note: '取 AC₁=(1,1,1)、BD=(−1,1,0)，数量积为 0，所以两条直线垂直。它们不相交，是异面垂直。'
+  },
+  {
+    key: 'ab1dc1', label: 'AB₁ ∥ DC₁', segs: [
+      {a: 0, b: 5, color: '#69e5d0', name: 'AB₁'},
+      {a: 3, b: 6, color: '#ffc267', name: 'DC₁'}
+    ],
+    type: 'cross', conclusion: 'AB₁ ∥ DC₁',
+    formula: 'a × b = 0 ⇔ a ∥ b',
+    note: 'AB₁=(1,0,1)，DC₁=(1,0,1)，两个方向向量相等，所以两直线平行。它们分别在平面 y=0 与 y=1 内。'
+  },
+  {
+    key: 'a1b1plane', label: 'A₁B₁ ∥ 面ABCD', segs: [
+      {a: 4, b: 5, color: '#69e5d0', name: 'A₁B₁'}
+    ],
+    plane: [0, 1, 2, 3], planeName: '平面 ABCD',
+    type: 'planeParallel', conclusion: 'A₁B₁ ∥ 平面 ABCD',
+    formula: 'n · d = 0 ⇔ 直线平行于平面',
+    note: '平面 ABCD 的法向量 n=(0,0,1)，A₁B₁ 的方向向量 d=(1,0,0)，n·d=0；且 A₁ 不在平面内，所以 A₁B₁ 与平面平行。'
+  },
+  {
+    key: 'ac1plane', label: 'AC₁ ⊥ 面A₁BD', segs: [
+      {a: 0, b: 6, color: '#69e5d0', name: 'AC₁'}
+    ],
+    plane: [4, 1, 3], planeName: '平面 A₁BD',
+    type: 'planeNormal', conclusion: 'AC₁ ⊥ 平面 A₁BD',
+    formula: 'd ∥ n ⇔ 直线垂直于平面',
+    note: '平面 A₁BD 内取 A₁B=(1,0,−1)、A₁D=(0,1,−1)，法向量 n=(1,1,1)，与 AC₁ 的方向向量相同，所以 AC₁ 垂直于该平面。'
+  }
+];
+MODULES.push({
+  key: 'proof', tab: '06', name: '平行与垂直', accent: '#8ee6a0', rgb: '142,230,160',
+  hint: '切换四条结论，先看几何关系，再看向量运算结果',
+  cam: {yaw: .45, pitch: .33, dist: 3.5, target: [.5, .5, .5]},
+  state: {key: 'ac1bd'},
+  reset() { this.state.key = 'ac1bd'; },
+  proof() { return PROOFS.find(p => p.key === this.state.key) || PROOFS[0]; },
+  meta() {
+    const p = this.proof();
+    return {
+      title: '用向量证明平行与垂直',
+      desc: '在正方体中建立坐标系，把线段写成向量，用数量积判断垂直，用共线条件判断平行，用法向量判断线面关系。',
+      formula: p.formula,
+      note: p.note
+    };
+  },
+  draw() {
+    const p = this.proof();
+    const sc = makeScene();
+    drawGrid(sc);
+    drawAxes(sc);
+    drawCube(sc);
+
+    if (p.plane) {
+      plane3(sc, p.plane.map(i => CV[i]), '#ada0ff', {fill: .1, edge: .55});
+      const G = mul3(p.plane.reduce((s, i) => add3(s, CV[i]), [0, 0, 0]), 1 / p.plane.length);
+      label3(sc, G, p.planeName, 'rgba(216,210,255,.85)', 0, 18, 9.5);
+    }
+    p.segs.forEach(sg => {
+      arrow3(sc, CV[sg.a], CV[sg.b], sg.color, {w: 3.4, head: 11, glow: 9});
+      vecLabel3(sc, CV[sg.a], CV[sg.b], sg.name, sg.color === '#69e5d0' ? '#b8fff3' : '#ffe0ae', .55, 10, -13, 11.5);
+    });
+    const v1 = sub3(CV[p.segs[0].b], CV[p.segs[0].a]);
+    const v2 = p.segs[1] ? sub3(CV[p.segs[1].b], CV[p.segs[1].a]) : null;
+    if (v2) label3(sc, mid3(CV[p.segs[1].a], CV[p.segs[1].b]), p.type === 'dot' ? 'a·b = 0' : 'a × b = 0',
+      p.type === 'dot' ? 'rgba(255,200,215,.9)' : 'rgba(150,255,225,.9)', 0, 20, 9.5);
+  },
+  hud() {
+    const p = this.proof();
+    const v1 = sub3(CV[p.segs[0].b], CV[p.segs[0].a]);
+    const v2 = p.segs[1] ? sub3(CV[p.segs[1].b], CV[p.segs[1].a]) : null;
+    if (p.type === 'dot') {
+      return [
+        {k: 'a', v: tuple3(v1)},
+        {k: 'b', v: tuple3(v2)},
+        {k: 'a · b', v: fmt(dot3(v1, v2)), hi: true},
+        {k: '结论', v: p.conclusion, hi: true}
+      ];
+    }
+    if (p.type === 'cross') {
+      const cr = cross3(v1, v2);
+      return [
+        {k: 'a', v: tuple3(v1)},
+        {k: 'b', v: tuple3(v2)},
+        {k: 'a × b', v: tuple3(cr), hi: true},
+        {k: '结论', v: p.conclusion, hi: true}
+      ];
+    }
+    if (p.type === 'planeParallel') {
+      return [
+        {k: 'd', v: tuple3(v1)},
+        {k: 'n', v: '(0, 0, 1)'},
+        {k: 'n · d', v: '0.00', hi: true},
+        {k: '结论', v: p.conclusion, hi: true}
+      ];
+    }
+    return [
+      {k: 'd', v: tuple3(v1)},
+      {k: 'n', v: '(1, 1, 1)'},
+      {k: 'd × n', v: '(0, 0, 0)', hi: true},
+      {k: '结论', v: p.conclusion, hi: true}
+    ];
+  },
+  numeric() {
+    const p = this.proof();
+    const v1 = sub3(CV[p.segs[0].b], CV[p.segs[0].a]);
+    if (p.type === 'dot') {
+      const v2 = sub3(CV[p.segs[1].b], CV[p.segs[1].a]);
+      return 'a·b = ' + tuple3(v1) + ' · ' + tuple3(v2) + ' = ' + fmt(dot3(v1, v2));
+    }
+    if (p.type === 'cross') {
+      const v2 = sub3(CV[p.segs[1].b], CV[p.segs[1].a]);
+      return 'a = ' + tuple3(v1) + '，b = ' + tuple3(v2) + '，两向量共线';
+    }
+    if (p.type === 'planeParallel') return 'n·d = (0, 0, 1) · ' + tuple3(v1) + ' = 0，且 A₁ ∉ 平面 ABCD';
+    return 'd = ' + tuple3(v1) + ' 与法向量 n = (1, 1, 1) 共线';
+  },
+  panel(el) {
+    const s = this.state;
+    const r1 = row(el);
+    r1.classList.add('two');
+    PROOFS.slice(0, 2).forEach(p => {
+      addBtn(r1, p.label, () => { s.key = p.key; buildPanel(); }, s.key === p.key ? '' : 'ghost');
+    });
+    const r2 = row(el);
+    r2.classList.add('two');
+    PROOFS.slice(2).forEach(p => {
+      addBtn(r2, p.label, () => { s.key = p.key; buildPanel(); }, s.key === p.key ? '' : 'ghost');
+    });
+  }
+});
+
+/* ============================================================
+   07 空间角
+   ============================================================ */
+MODULES.push({
+  key: 'angles', tab: '07', name: '空间角', accent: '#f78fb3', rgb: '247,143,179',
+  hint: '切换异面直线角、线面角与二面角，比较三种角的计算方法',
+  cam: {yaw: .45, pitch: .33, dist: 3.6, target: [.5, .5, .5]},
+  state: {sub: 'skew', showAux: true},
+  reset() { this.state.sub = 'skew'; this.state.showAux = true; },
+  meta() {
+    const s = this.state.sub;
+    if (s === 'linePlane') {
+      return {
+        title: '直线与平面所成角',
+        desc: '直线 A₁B 与平面 ABCD 交于 B。A₁A 是平面的垂线，AB 是 A₁B 在平面内的投影，所以 ∠A₁BA 就是直线与平面所成的角。',
+        formula: 'sin θ = |d · n| / (|d||n|)',
+        note: '线面角的范围是 [0°,90°]。它等于方向向量与法向量夹角的余角，因此用 sin 而不是 cos；图中 ∠A₁BA = 45°。'
+      };
+    }
+    if (s === 'dihedral') {
+      return {
+        title: '二面角',
+        desc: '平面 ACD₁ 与平面 ABCD 交于 AC。在平面 ACD₁ 内作 D₁H⊥AC，在平面 ABCD 内作 DH⊥AC，则 ∠D₁HD 就是二面角的平面角。',
+        formula: 'cos θ = |n₁ · n₂| / (|n₁||n₂|)',
+        note: '用法向量求二面角时，要先判断实际二面角是锐角还是钝角，再决定取法向量夹角还是它的补角。本图展示的是锐角 54.7°。'
+      };
+    }
+    return {
+      title: '异面直线所成角',
+      desc: '异面直线 A₁B 与 B₁C 不平行也不相交。把 B₁C 的方向平移到 B，与 A₁B 的方向组成一个角，这个角就是两条异面直线所成的角。',
+      formula: 'cos θ = |a · b| / (|a||b|)',
+      note: '异面直线所成角的范围是 (0°,90°]。方向向量的夹角可能是钝角，因此要取绝对值，得到它的锐角或直角补角。'
+    };
+  },
+  draw() {
+    const s = this.state;
+    const sc = makeScene();
+    drawGrid(sc);
+    drawAxes(sc);
+    drawCube(sc);
+
+    if (s.sub === 'skew') {
+      const A1 = CV[4], B = CV[1], B1 = CV[5], C = CV[2];
+      const u = norm3(sub3(B, A1)), v = norm3(sub3(C, B1));
+      arrow3(sc, A1, B, '#69e5d0', {w: 3.2, head: 11, glow: 9});
+      arrow3(sc, B1, C, '#ffc267', {w: 3.2, head: 11, glow: 9});
+      vecLabel3(sc, A1, B, 'A₁B', '#b8fff3', .5, 10, -12, 10.5);
+      vecLabel3(sc, B1, C, 'B₁C', '#ffe0ae', .5, 10, -12, 10.5);
+      if (s.showAux) {
+        seg3(sc, B, add3(B, mul3(u, .75)), 'rgba(105,229,208,.75)', {w: 1.8, dash: [6, 4]});
+        seg3(sc, B, add3(B, mul3(v, .75)), 'rgba(255,194,103,.8)', {w: 1.8, dash: [6, 4]});
+        angleArc3(sc, B, u, v, .32, 'rgba(255,255,255,.85)', 'θ = 60°', 10);
+      }
+      point3(sc, B, '#ffffff', 3.2, 'B', 'rgba(230,240,245,.9)', 13, -12, 10.5);
+    } else if (s.sub === 'linePlane') {
+      const A = CV[0], A1 = CV[4], B = CV[1];
+      plane3(sc, [CV[0], CV[1], CV[2], CV[3]], '#69e5d0', {fill: .09, edge: .4});
+      arrow3(sc, A1, B, '#ffc267', {w: 3.2, head: 11, glow: 9});
+      seg3(sc, A1, A, 'rgba(173,160,255,.8)', {w: 1.6, dash: [5, 4]});
+      seg3(sc, A, B, 'rgba(105,229,208,.8)', {w: 1.8, dash: [5, 4]});
+      vecLabel3(sc, A1, B, 'A₁B', '#ffe0ae', .55, 10, -12, 10.5);
+      sans('投影 AB', sc.project(mid3(A, B)) ? sc.project(mid3(A, B)).x : 0, sc.project(mid3(A, B)) ? sc.project(mid3(A, B)).y + 18 : 0, 'rgba(150,245,230,.85)', 9);
+      if (s.showAux) {
+        const G = [.5, .5, 0];
+        arrow3(sc, G, add3(G, [0, 0, .55]), 'rgba(255,145,176,.75)', {w: 1.8, head: 8});
+        label3(sc, add3(G, [0, 0, .55]), 'n', 'rgba(255,190,210,.9)', 10, -8, 11);
+      }
+      angleArc3(sc, B, sub3(A, B), sub3(A1, B), .28, 'rgba(255,255,255,.85)', 'θ = 45°', 10);
+      point3(sc, B, '#ffffff', 3.2, 'B', 'rgba(230,240,245,.9)', 13, 16, 10.5);
+    } else {
+      const A = CV[0], C = CV[2], D = CV[3], D1 = CV[7];
+      plane3(sc, [CV[0], CV[1], CV[2], CV[3]], '#69e5d0', {fill: .07, edge: .35});
+      plane3(sc, [A, C, D1], '#ada0ff', {fill: .12, edge: .55});
+      arrow3(sc, A, C, '#ffc267', {w: 2.4, head: 9});
+      const H = [.5, .5, 0];
+      seg3(sc, H, D, 'rgba(105,229,208,.85)', {w: 1.6, dash: [6, 4]});
+      seg3(sc, H, D1, 'rgba(173,160,255,.9)', {w: 1.6, dash: [6, 4]});
+      point3(sc, H, '#ffffff', 3, 'H', 'rgba(230,240,245,.9)', 12, 16, 10);
+      if (s.showAux) {
+        const G1 = [.5, .5, 0], G2 = mul3(add3(add3(A, C), D1), 1 / 3);
+        arrow3(sc, G1, add3(G1, [0, 0, .5]), 'rgba(105,229,208,.65)', {w: 1.5, head: 7});
+        arrow3(sc, G2, add3(G2, mul3(norm3([1, -1, 1]), .5)), 'rgba(173,160,255,.75)', {w: 1.5, head: 7});
+        label3(sc, add3(G1, [0, 0, .5]), 'n₁', 'rgba(160,250,235,.9)', 10, -8, 10);
+        label3(sc, add3(G2, mul3(norm3([1, -1, 1]), .5)), 'n₂', 'rgba(216,210,255,.9)', 10, -8, 10);
+      }
+      angleArc3(sc, H, sub3(D, H), sub3(D1, H), .3, 'rgba(255,255,255,.85)', 'θ ≈ 54.7°', 9.5);
+    }
+  },
+  hud() {
+    const sub = this.state.sub;
+    if (sub === 'linePlane') {
+      return [
+        {k: '方向 d', v: '(1, 0, −1)'},
+        {k: '法向 n', v: '(0, 0, 1)'},
+        {k: '|d·n|', v: '1.00'},
+        {k: '线面角 θ', v: '45°', hi: true}
+      ];
+    }
+    if (sub === 'dihedral') {
+      return [
+        {k: 'n₁', v: '(0, 0, 1)'},
+        {k: 'n₂', v: '(1, −1, 1)'},
+        {k: 'cos θ', v: fmt(1 / Math.sqrt(3))},
+        {k: '二面角 θ', v: '54.7°', hi: true}
+      ];
+    }
+    return [
+      {k: 'a · b', v: '1.00'},
+      {k: '|a| = |b|', v: fmt(Math.sqrt(2))},
+      {k: 'cos θ', v: '0.50'},
+      {k: '异面直线角 θ', v: '60°', hi: true}
+    ];
+  },
+  numeric() {
+    const sub = this.state.sub;
+    if (sub === 'linePlane') return 'sin θ = |(1,0,−1)·(0,0,1)| / (√2·1) = 1/√2，θ = 45°';
+    if (sub === 'dihedral') return 'cos θ = |(0,0,1)·(1,−1,1)| / (1·√3) = 1/√3，θ ≈ 54.7°';
+    return 'cos θ = |1| / (√2·√2) = 1/2，θ = 60°';
+  },
+  panel(el) {
+    const s = this.state;
+    const seg = document.createElement('div');
+    seg.className = 'seg';
+    [['skew', '异面直线'], ['linePlane', '线面角'], ['dihedral', '二面角']].forEach(([k, name]) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = name;
+      btn.className = s.sub === k ? 'on' : '';
+      btn.addEventListener('click', () => { s.sub = k; buildPanel(); });
+      seg.appendChild(btn);
+    });
+    el.appendChild(seg);
+    addToggle(el, '显示辅助线与法向量', s.showAux, v => s.showAux = v);
+  }
+});
+
+/* ============================================================
+   08 空间距离
+   ============================================================ */
+MODULES.push({
+  key: 'distance', tab: '08', name: '空间距离', accent: '#ff9f7a', rgb: '255,159,122',
+  hint: '切换点面距与点线距，比较投影与叉积两种算法',
+  cam: {yaw: .45, pitch: .33, dist: 3.55, target: [.5, .5, .5]},
+  state: {sub: 'plane', showFoot: true},
+  reset() { this.state.sub = 'plane'; this.state.showFoot = true; },
+  meta() {
+    if (this.state.sub === 'line') {
+      return {
+        title: '点到直线的距离',
+        desc: '点 B₁ 到直线 AC 的距离，等于以 AB₁ 和方向向量 d 为邻边的平行四边形的高：<b>d = |AP × d| / |d|</b>。图中 H 是垂足。',
+        formula: 'd = |AP × d| / |d|',
+        note: '叉积的模等于平行四边形面积，除以底边长度 |d| 就得到高。点线距也常用“投影 + 勾股”计算：先求 AH，再求 PH。'
+      };
+    }
+    return {
+      title: '点到平面的距离',
+      desc: '点 B₁ 到平面 ACD₁ 的距离，等于斜向量 AB₁ 在法向量 n 方向上投影的绝对值：<b>d = |n · AP| / |n|</b>。图中 H 是垂足。',
+      formula: 'd = |n · AP| / |n|',
+      note: '点到平面的距离是“斜线段在法向量方向上的投影”。求两平行平面的距离时，也可以在一个平面上任取一点，转化为点面距。'
+    };
+  },
+  draw() {
+    const s = this.state;
+    const sc = makeScene();
+    drawGrid(sc);
+    drawAxes(sc);
+    drawCube(sc);
+
+    if (s.sub === 'plane') {
+      const A = CV[0], C = CV[2], D1 = CV[7], P = CV[5];
+      const n = [1, -1, 1];
+      const H = [1 / 3, 2 / 3, 1 / 3];
+      plane3(sc, [A, C, D1], '#ff9f7a', {fill: .11, edge: .55});
+      arrow3(sc, P, H, '#ff91b0', {w: 2.2, head: 9, dash: [6, 4], glow: 7});
+      point3(sc, P, '#ffffff', 4, 'B₁', '#ffffff', 13, -13, 11.5);
+      point3(sc, H, '#ffd4c2', 3.4, 'H', '#ffd4c2', 12, 16, 10.5);
+      if (s.showFoot) {
+        right3(sc, H, n, sub3(C, A), .11, 'rgba(255,210,190,.8)');
+        arrow3(sc, mul3(add3(add3(A, C), D1), 1 / 3), add3(mul3(add3(add3(A, C), D1), 1 / 3), mul3(norm3(n), .5)),
+          'rgba(255,145,176,.75)', {w: 1.8, head: 8});
+        label3(sc, add3(mul3(add3(add3(A, C), D1), 1 / 3), mul3(norm3(n), .5)), 'n', 'rgba(255,190,210,.9)', 10, -8, 10.5);
+      }
+      sans('d = ' + fmt(2 / Math.sqrt(3)), sc.project(mid3(P, H)) ? sc.project(mid3(P, H)).x + 14 : 0,
+        sc.project(mid3(P, H)) ? sc.project(mid3(P, H)).y + 4 : 0, '#ffe0d3', 10);
+    } else {
+      const A = CV[0], C = CV[2], P = CV[5];
+      const H = [.5, .5, 0];
+      arrow3(sc, A, C, '#69e5d0', {w: 2.8, head: 10});
+      arrow3(sc, P, H, '#ff91b0', {w: 2.2, head: 9, dash: [6, 4], glow: 7});
+      point3(sc, P, '#ffffff', 4, 'B₁', '#ffffff', 13, -13, 11.5);
+      point3(sc, H, '#ffd4c2', 3.4, 'H', '#ffd4c2', 12, 16, 10.5);
+      if (s.showFoot) right3(sc, H, sub3(P, H), sub3(C, A), .12, 'rgba(255,210,190,.8)');
+      sans('d = ' + fmt(Math.sqrt(1.5)), sc.project(mid3(P, H)) ? sc.project(mid3(P, H)).x + 14 : 0,
+        sc.project(mid3(P, H)) ? sc.project(mid3(P, H)).y + 4 : 0, '#ffe0d3', 10);
+    }
+  },
+  hud() {
+    if (this.state.sub === 'plane') {
+      return [
+        {k: '|n|', v: fmt(Math.sqrt(3))},
+        {k: 'n · AP', v: '2.00'},
+        {k: '距离 d', v: fmt(2 / Math.sqrt(3)), hi: true},
+        {k: '垂足 H', v: '(0.33, 0.67, 0.33)'}
+      ];
+    }
+    return [
+      {k: '|AP × d|', v: fmt(Math.sqrt(3))},
+      {k: '|d|', v: fmt(Math.sqrt(2))},
+      {k: '距离 d', v: fmt(Math.sqrt(1.5)), hi: true},
+      {k: '垂足 H', v: '(0.50, 0.50, 0.00)'}
+    ];
+  },
+  numeric() {
+    if (this.state.sub === 'plane') return 'd = |(1,−1,1)·(1,0,1)| / √3 = 2/√3 ≈ ' + fmt(2 / Math.sqrt(3));
+    return 'd = |(1,0,1)×(1,1,0)| / √2 = √3/√2 ≈ ' + fmt(Math.sqrt(1.5));
+  },
+  panel(el) {
+    const s = this.state;
+    const seg = document.createElement('div');
+    seg.className = 'seg two';
+    [['plane', '点到平面'], ['line', '点到直线']].forEach(([k, name]) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = name;
+      btn.className = s.sub === k ? 'on' : '';
+      btn.addEventListener('click', () => { s.sub = k; buildPanel(); });
+      seg.appendChild(btn);
+    });
+    el.appendChild(seg);
+    addToggle(el, '显示垂足与直角标记', s.showFoot, v => s.showFoot = v);
+  }
+});
+
+
+/* ============================================================
+   引擎
+   ============================================================ */
+const chapterListEl = $('#chapterList');
+const catalogEl = $('#catalogTrack');
+const EXTRA = {
+  linear: ['LINEAR', '线性运算'],
+  basis: ['BASIS', '斜基底分解'],
+  coordinates: ['COORDS', '坐标与模长'],
+  dot: ['DOT', '数量积与夹角'],
+  normal: ['NORMAL', '方向与法向'],
+  proof: ['PROOF', '平行与垂直'],
+  angles: ['ANGLES', '三类空间角'],
+  distance: ['DISTANCE', '点面与点线']
+};
+let curIdx = 0, cur = null;
+
+MODULES.forEach((m, i) => {
+  const extra = EXTRA[m.key] || ['', ''];
+  m.en = extra[0];
+  m.blurb = extra[1];
+
+  const b = document.createElement('button');
+  b.type = 'button';
+  b.className = 'chapter-item';
+  b.style.setProperty('--tc', m.accent);
+  b.style.setProperty('--tc-rgb', m.rgb);
+  b.innerHTML = '<span class="ci-num">' + m.tab + '</span>' +
+    '<span class="ci-name">' + m.name + '</span>' +
+    '<span class="ci-en">' + m.en + '</span>';
+  b.addEventListener('click', () => activate(i));
+  chapterListEl.appendChild(b);
+
+  const c = document.createElement('button');
+  c.type = 'button';
+  c.className = 'catalog-card';
+  c.style.setProperty('--tc', m.accent);
+  c.style.setProperty('--tc-rgb', m.rgb);
+  c.innerHTML = '<span class="cc-top"><b>' + m.tab + '</b><span>' + m.en + '</span></span>' +
+    '<strong>' + m.name + '</strong><small>' + m.blurb + '</small>';
+  c.addEventListener('click', () => activate(i));
+  catalogEl.appendChild(c);
+});
+
+function plainFormula(html) {
+  return html.replace(/<br\s*\/?>/gi, ' ').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+}
+function buildPanel() {
+  const m = cur.meta();
+  $('#title').textContent = m.title;
+  $('#desc').innerHTML = m.desc;
+  $('#formula').innerHTML = m.formula;
+  $('#note').innerHTML = m.note;
+  $('#stageFormula').textContent = plainFormula(m.formula);
+  $('#liveName').textContent = m.title;
+  $('#eqTag').textContent = cur.tab;
+  $('#eqNum').textContent = cur.numeric ? cur.numeric() : '';
+  controlsEl.innerHTML = '';
+  cur.panel(controlsEl);
+}
+function renderHud() {
+  if (!cur) return;
+  const rows = cur.hud();
+  hudEl.innerHTML = rows.map(r =>
+    '<div class="hud-item' + (r.hi ? ' hi' : '') + '"><span>' + r.k + '</span><b>' + r.v + '</b></div>'
+  ).join('');
+  $('#stageValues').textContent = rows.slice(0, 3).map(r => r.k + ' ' + r.v).join('   ·   ');
+  if (cur.numeric) $('#eqNum').textContent = cur.numeric();
+}
+function setPlayLabel(txt) {
+  const p = $('#playBtn');
+  if (p) p.textContent = txt;
+}
+function activate(i) {
+  curIdx = i;
+  cur = MODULES[i];
+  root.style.setProperty('--accent', cur.accent);
+  root.style.setProperty('--accent-rgb', cur.rgb);
+  for (let j = 0; j < chapterListEl.children.length; j++) {
+    chapterListEl.children[j].classList.toggle('on', j === i);
+    catalogEl.children[j].classList.toggle('on', j === i);
+  }
+  cur.reset();
+  resetCam();
+  camDrag = null;
+  cv.style.cursor = 'grab';
+  buildPanel();
+  const m = cur.meta();
+  $('#liveName').textContent = m.title;
+  $('#liveIndex').textContent = cur.tab;
+  $('#defMark').textContent = cur.tab;
+  $('#topChip').innerHTML = '<span class="chip-dot"></span>第 ' + (i + 1) + ' / ' + MODULES.length + ' 节';
+  $('#hint').textContent = cur.hint + ' · 拖动旋转 · 滚轮缩放';
+  const play = $('#playBtn');
+  play.hidden = !cur.togglePlay;
+  play.textContent = cur.playIdle || '▶ 播放';
+  renderHud();
+}
+
+function resize() {
+  const r = $('.stage-card').getBoundingClientRect();
+  if (r.width < 2 || r.height < 2) return;
+  W = r.width;
+  H = r.height;
+  DPR = Math.min(2, window.devicePixelRatio || 1);
+  cv.width = Math.round(W * DPR);
+  cv.height = Math.round(H * DPR);
+  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+}
+
+let last = performance.now(), lastHud = 0;
+function loop(now) {
+  const dt = Math.min(.05, (now - last) / 1000 || 0);
+  last = now;
+  if (cur && W > 0) {
+    ctx.clearRect(0, 0, W, H);
+    cur.draw(dt);
+    if (now - lastHud > 120) {
+      lastHud = now;
+      renderHud();
+    }
+  }
+  requestAnimationFrame(loop);
+}
+
+/* ---------- 相机交互 ---------- */
+cv.addEventListener('pointerdown', e => {
+  camDrag = {x: e.clientX, y: e.clientY};
+  cv.setPointerCapture(e.pointerId);
+  cv.style.cursor = 'grabbing';
+  e.preventDefault();
+});
+cv.addEventListener('pointermove', e => {
+  if (!camDrag) { cv.style.cursor = 'grab'; return; }
+  const dx = e.clientX - camDrag.x;
+  const dy = e.clientY - camDrag.y;
+  CAM.yaw -= dx * .008;
+  CAM.pitch = clamp(CAM.pitch - dy * .006, -.12, 1.35);
+  camDrag = {x: e.clientX, y: e.clientY};
+});
+function endCamDrag() {
+  camDrag = null;
+  cv.style.cursor = 'grab';
+}
+cv.addEventListener('pointerup', endCamDrag);
+cv.addEventListener('pointercancel', endCamDrag);
+cv.addEventListener('pointerleave', () => { if (!camDrag) cv.style.cursor = 'grab'; });
+cv.addEventListener('wheel', e => {
+  e.preventDefault();
+  CAM.dist = clamp(CAM.dist * (1 + Math.sign(e.deltaY) * .08), 2.0, 7.5);
+}, {passive: false});
+cv.addEventListener('dblclick', () => resetCam());
+
+/* ---------- 顶部操作 ---------- */
+$('#resetBtn').addEventListener('click', () => {
+  if (!cur) return;
+  cur.reset();
+  resetCam();
+  buildPanel();
+  renderHud();
+  if (cur.togglePlay) setPlayLabel(cur.playIdle || '▶ 播放');
+});
+$('#viewBtn').addEventListener('click', resetCam);
+$('#playBtn').addEventListener('click', () => { if (cur && cur.togglePlay) cur.togglePlay(); });
+$('#fullBtn').addEventListener('click', () => {
+  if (!document.fullscreenElement) {
+    if (root.requestFullscreen) root.requestFullscreen();
+  } else if (document.exitFullscreen) {
+    document.exitFullscreen();
+  }
+});
+
+/* ---------- 速查弹窗 ---------- */
+const modal = $('#guideModal');
+let modalOpen = false, lastFocus = null;
+function openGuide() {
+  if (!modal) return;
+  modalOpen = true;
+  lastFocus = document.activeElement;
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('modal-open');
+  const close = modal.querySelector('.modal-close');
+  if (close) requestAnimationFrame(() => close.focus());
+}
+function closeGuide() {
+  if (!modal) return;
+  modalOpen = false;
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('modal-open');
+  if (lastFocus && lastFocus.focus) lastFocus.focus();
+}
+$('#guideBtn').addEventListener('click', openGuide);
+modal.addEventListener('click', e => {
+  if (e.target.hasAttribute('data-close')) closeGuide();
+});
+document.addEventListener('keydown', e => {
+  if (e.target && /INPUT|TEXTAREA|SELECT/.test(e.target.tagName)) return;
+  if (modalOpen) {
+    if (e.key === 'Escape') { e.preventDefault(); closeGuide(); }
+    return;
+  }
+  if (e.key === 'ArrowRight') {
+    e.preventDefault();
+    activate((curIdx + 1) % MODULES.length);
+  } else if (e.key === 'ArrowLeft') {
+    e.preventDefault();
+    activate((curIdx - 1 + MODULES.length) % MODULES.length);
+  } else if (e.code === 'Space') {
+    e.preventDefault();
+    if (cur && cur.togglePlay) cur.togglePlay();
+  } else if (e.key === 'r' || e.key === 'R') {
+    e.preventDefault();
+    if (cur) {
+      cur.reset();
+      resetCam();
+      buildPanel();
+      renderHud();
+      if (cur.togglePlay) setPlayLabel(cur.playIdle || '▶ 播放');
+    }
+  } else if (e.key === 'g' || e.key === 'G') {
+    e.preventDefault();
+    openGuide();
+  }
+});
+document.addEventListener('fullscreenchange', () => {
+  const b = $('#fullBtn');
+  b.title = document.fullscreenElement ? '退出全屏' : '全屏显示';
+  b.setAttribute('aria-label', document.fullscreenElement ? '退出全屏' : '全屏显示');
+});
+
+if (window.ResizeObserver) new ResizeObserver(resize).observe($('.stage-card'));
+window.addEventListener('resize', resize);
+
+function initWithUrl() {
+  const q = new URLSearchParams(location.search);
+  let idx = 0;
+  const sec = q.get('section') || q.get('sec');
+  if (sec) {
+    const n = parseInt(sec, 10);
+    if (n >= 1 && n <= MODULES.length) idx = n - 1;
+    else {
+      const k = MODULES.findIndex(m => m.key === sec);
+      if (k >= 0) idx = k;
+    }
+  }
+  resize();
+  activate(idx);
+  requestAnimationFrame(loop);
+}
+initWithUrl();
+</script>
+</body>
+</html>
