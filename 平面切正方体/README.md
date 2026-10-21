@@ -99,8 +99,6 @@ index.html?preset=regular-hexagon&static=1
 - 兼容支持 Canvas 2D、CSS 自定义属性和 ES2015+ 的现代浏览器。
 - 单个 HTML 文件，不需要服务器；三维渲染与截面计算均为原生 Canvas 2D / 向量运算，没有外部库或网络请求。
 
-自动验收报告见 [qa/report.md](qa/report.md)。
-
 ---
 
 ## 文件结构
@@ -113,7 +111,6 @@ research/
   presets.json              预设、精确构造与验证数据
   verify_presets.py         独立数值验证脚本
   verification.txt          验证输出
-qa/                         独立验收报告与截图（由 QA 生成）
 ```
 
 ---
