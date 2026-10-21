@@ -1,0 +1,2491 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#060a12">
+<meta name="description" content="直线与圆的方程：用可拖拽的动态图形讲解倾斜角与斜率、直线方程、位置关系、距离公式、圆的方程、直线与圆及圆与圆的位置关系。">
+<title>直线与圆的方程 · 解析几何实验室</title>
+<style>
+/* ============================================================
+   直线与圆的方程 · Line & Circle Lab
+   ============================================================ */
+:root{
+  --bg:#060a12;
+  --text:#eef7f6;
+  --text-soft:#c3d5dc;
+  --muted:#8ba1ac;
+  --muted-2:#6f858f;
+  --line:rgba(165,200,220,.11);
+  --line-strong:rgba(165,200,220,.2);
+  --accent:#ffc267;
+  --accent-rgb:255,194,103;
+  --sans:"PingFang SC","Microsoft YaHei","Noto Sans SC","Source Han Sans SC",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --serif:"Cambria Math","STIX Two Math","Latin Modern Math","Times New Roman","Songti SC",serif;
+  --mono:"Cascadia Code","SFMono-Regular","JetBrains Mono",Consolas,monospace;
+  --radius:18px;
+  --shadow:0 24px 60px rgba(0,0,0,.3);
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{
+  background:var(--bg);color:var(--text);font-family:var(--sans);
+  overflow:hidden;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+body.modal-open{overflow:hidden}
+button{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible{outline:2px solid rgba(var(--accent-rgb),.9);outline-offset:3px}
+::selection{background:rgba(var(--accent-rgb),.24);color:#fff}
+[hidden]{display:none!important}
+
+/* ---------- atmosphere ---------- */
+.ambient{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;background:
+  radial-gradient(ellipse 70% 60% at 50% -12%,rgba(43,92,122,.2),transparent 64%),
+  linear-gradient(180deg,#08101c 0%,#05090f 100%);}
+.ambient::after{
+  content:"";position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(180,215,235,.028) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(180,215,235,.028) 1px,transparent 1px);
+  background-size:70px 70px;
+  -webkit-mask-image:radial-gradient(ellipse 78% 68% at 46% 34%,#000 8%,transparent 78%);
+  mask-image:radial-gradient(ellipse 78% 68% at 46% 34%,#000 8%,transparent 78%);
+}
+.glow{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none}
+.glow-a{width:540px;height:540px;left:-140px;top:-220px;background:rgba(var(--accent-rgb),.1)}
+.glow-b{width:640px;height:640px;right:-220px;bottom:-300px;background:rgba(104,86,210,.08)}
+
+/* ---------- app ---------- */
+.app{position:relative;z-index:1;height:100vh;height:100dvh;min-height:660px;display:flex;flex-direction:column}
+
+/* ---------- topbar ---------- */
+.topbar{flex:0 0 74px;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:0 20px}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.brand-mark{
+  width:42px;height:42px;border-radius:12px;flex:none;display:grid;place-items:center;
+  border:1px solid rgba(var(--accent-rgb),.3);
+  background:linear-gradient(140deg,rgba(var(--accent-rgb),.18),rgba(var(--accent-rgb),.02));
+  box-shadow:0 0 28px rgba(var(--accent-rgb),.14),inset 0 0 18px rgba(var(--accent-rgb),.05);
+  transition:border-color .4s,box-shadow .4s;
+}
+.brand-mark svg{width:30px;height:30px;display:block}
+.brand-copy{min-width:0}
+.eyebrow{display:flex;align-items:center;gap:7px;font-size:8px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;white-space:nowrap}
+.eyebrow i{width:13px;height:1px;background:rgba(255,255,255,.18);flex:none}
+.brand h1{margin:3px 0 0;font-size:15px;font-weight:600;letter-spacing:.06em;white-space:nowrap}
+.title-en{font-size:.64em;color:var(--muted);font-weight:400;letter-spacing:.14em}
+.top-actions{display:flex;align-items:center;gap:8px;flex:none}
+.status-chip{
+  display:flex;align-items:center;gap:7px;padding:7px 11px;border-radius:999px;
+  border:1px solid var(--line);background:rgba(255,255,255,.03);
+  font-size:10px;color:var(--text-soft);white-space:nowrap;letter-spacing:.04em;
+}
+.chip-dot{width:5px;height:5px;border-radius:50%;background:var(--accent);box-shadow:0 0 9px var(--accent);flex:none}
+.ghost-btn,.icon-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  border:1px solid var(--line);background:rgba(255,255,255,.025);color:var(--text-soft);
+  border-radius:10px;padding:8px 12px;font-size:11px;cursor:pointer;
+  transition:background .18s,border-color .18s,color .18s,transform .18s;white-space:nowrap;
+}
+.ghost-btn:hover,.icon-btn:hover{background:rgba(255,255,255,.06);border-color:var(--line-strong);color:#fff}
+.ghost-btn:active,.icon-btn:active{transform:translateY(1px)}
+.ghost-btn svg{width:14px;height:14px}
+.icon-btn{width:36px;height:36px;padding:0}
+.icon-btn svg{width:16px;height:16px}
+
+/* ---------- workspace ---------- */
+.workspace{
+  flex:1;min-height:0;display:grid;gap:11px;padding:0 16px 15px;
+  grid-template-columns:minmax(248px,276px) minmax(0,1fr) minmax(298px,326px);
+  grid-template-rows:minmax(0,1fr) 146px;
+  grid-template-areas:"controls stage details" "catalog catalog catalog";
+}
+.panel,.stage-card,.catalog{
+  border:1px solid var(--line);
+  background:linear-gradient(180deg,rgba(16,27,45,.9),rgba(8,15,27,.93));
+  box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.04);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+}
+.panel{min-height:0;border-radius:var(--radius);overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.12) transparent}
+.panel::-webkit-scrollbar{width:5px}
+.panel::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px}
+.panel-controls{grid-area:controls;padding:15px 14px 14px;display:flex;flex-direction:column;gap:11px}
+.panel-details{grid-area:details;padding:15px 14px 14px;display:flex;flex-direction:column;gap:10px}
+.panel-controls>*,.panel-details>*{flex:0 0 auto}
+.panel-head{display:flex;align-items:flex-start;gap:9px;min-width:0}
+.section-num{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.04em;color:var(--accent);
+  border:1px solid rgba(var(--accent-rgb),.25);background:rgba(var(--accent-rgb),.07);
+  border-radius:7px;padding:4px 6px;line-height:1;margin-top:2px;flex:none;
+}
+.panel-head h2{margin:0;font-size:14.5px;font-weight:600;letter-spacing:.04em;line-height:1.35}
+.panel-head p{margin:2px 0 0;font-size:9.5px;color:var(--muted);letter-spacing:.03em}
+
+/* ---------- chapter nav ---------- */
+.chapter-list{display:flex;flex-direction:column;gap:2px}
+.chapter-item{
+  display:flex;align-items:center;gap:9px;padding:6px 9px;border-radius:9px;
+  border:1px solid transparent;background:transparent;color:var(--muted);
+  cursor:pointer;text-align:left;transition:background .16s,color .16s,border-color .16s;
+}
+.chapter-item:hover{background:rgba(255,255,255,.045);color:var(--text-soft)}
+.chapter-item.on{color:var(--tc);background:rgba(var(--tc-rgb),.09);border-color:rgba(var(--tc-rgb),.22)}
+.ci-num{font-family:var(--mono);font-size:9px;opacity:.65;width:17px;flex:none}
+.ci-name{font-size:12px;letter-spacing:.02em;white-space:nowrap}
+.ci-en{margin-left:auto;font-size:7px;letter-spacing:.13em;opacity:.4;white-space:nowrap}
+.chapter-item.on .ci-en{opacity:.65}
+
+.block-label{
+  display:flex;align-items:baseline;justify-content:space-between;gap:8px;
+  padding-top:10px;border-top:1px solid var(--line);
+  font-size:8.5px;letter-spacing:.13em;color:var(--muted);text-transform:uppercase;
+}
+.block-label span:last-child{font-size:8px;letter-spacing:.04em;color:var(--muted-2);text-transform:none}
+
+/* ---------- controls ---------- */
+.controls{display:flex;flex-direction:column;gap:9px}
+.ctrl{display:flex;flex-direction:column;gap:6px}
+.ctrl-top{display:flex;align-items:baseline;justify-content:space-between;gap:10px;font-size:10.5px;color:var(--muted);letter-spacing:.02em}
+.ctrl-top b{font-family:var(--mono);font-size:10.5px;font-weight:500;color:var(--accent)}
+input[type=range]{
+  -webkit-appearance:none;appearance:none;width:100%;height:3px;border-radius:99px;margin:5px 0;
+  background:linear-gradient(90deg,rgba(var(--accent-rgb),.72),rgba(var(--accent-rgb),.12));
+  outline:none;cursor:pointer;
+}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:13px;height:13px;border-radius:50%;
+  background:#0b1220;border:2px solid var(--accent);cursor:grab;
+  box-shadow:0 0 12px rgba(var(--accent-rgb),.55);
+}
+input[type=range]::-moz-range-thumb{
+  width:11px;height:11px;border-radius:50%;background:#0b1220;border:2px solid var(--accent);
+  box-shadow:0 0 12px rgba(var(--accent-rgb),.55);
+}
+.switch{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:5px 0;font-size:11px;color:var(--text-soft);cursor:pointer;position:relative}
+.switch > span{flex:1;line-height:1.45}
+.switch input{position:absolute;opacity:0;width:0;height:0;pointer-events:none}
+.switch i{width:32px;height:18px;border-radius:99px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.07);position:relative;flex:none;transition:.2s}
+.switch i::after{content:"";position:absolute;top:2px;left:2px;width:12px;height:12px;border-radius:50%;background:#93a8b2;transition:.2s}
+.switch input:checked + i{background:rgba(var(--accent-rgb),.3);border-color:rgba(var(--accent-rgb),.35)}
+.switch input:checked + i::after{transform:translateX(14px);background:var(--accent);box-shadow:0 0 8px rgba(var(--accent-rgb),.7)}
+.switch input:focus-visible + i{outline:2px solid rgba(var(--accent-rgb),.8);outline-offset:3px}
+.row{display:flex;gap:6px;flex-wrap:wrap}
+.row.three .btn{min-width:0;flex:1;padding:7px 4px;font-size:9.8px}
+.btn{
+  flex:1;min-width:84px;padding:8px 9px;border-radius:8px;cursor:pointer;
+  border:1px solid rgba(var(--accent-rgb),.28);background:rgba(var(--accent-rgb),.08);
+  color:var(--accent);font-size:10.5px;letter-spacing:.02em;transition:.18s;
+}
+.btn:hover{background:rgba(var(--accent-rgb),.16);border-color:rgba(var(--accent-rgb),.45)}
+.btn:active{transform:translateY(1px)}
+.btn.ghost{border-color:var(--line);background:rgba(255,255,255,.03);color:var(--muted)}
+.btn.ghost:hover{color:var(--text-soft);border-color:var(--line-strong);background:rgba(255,255,255,.06)}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;padding:3px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid var(--line)}
+.seg.five{grid-template-columns:repeat(5,1fr)}
+.seg.two{grid-template-columns:repeat(2,1fr)}
+.seg button{padding:6px 2px;border-radius:7px;border:1px solid transparent;background:transparent;color:var(--muted);font-size:9.5px;cursor:pointer;transition:.18s;white-space:nowrap}
+.seg.five button{font-size:8.8px}
+.seg button:hover{color:var(--text-soft)}
+.seg button.on{background:rgba(var(--accent-rgb),.14);border-color:rgba(var(--accent-rgb),.26);color:var(--accent)}
+
+/* ---------- stage ---------- */
+.stage-card{
+  grid-area:stage;position:relative;min-height:0;border-radius:var(--radius);overflow:hidden;isolation:isolate;
+  background:
+    radial-gradient(ellipse 70% 64% at 52% 42%,rgba(var(--accent-rgb),.06),transparent 68%),
+    radial-gradient(ellipse 55% 55% at 60% 108%,rgba(73,60,122,.1),transparent 72%),
+    linear-gradient(180deg,#091321 0%,#060d17 100%);
+}
+.stage-card::before{
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background-image:radial-gradient(rgba(190,225,238,.1) .7px,transparent .8px);
+  background-size:26px 26px;opacity:.28;
+  -webkit-mask-image:radial-gradient(ellipse 72% 72% at 50% 44%,#000,transparent 76%);
+  mask-image:radial-gradient(ellipse 72% 72% at 50% 44%,#000,transparent 76%);
+}
+.stage-card::after{
+  content:"";position:absolute;inset:0;z-index:5;pointer-events:none;border-radius:inherit;
+  box-shadow:inset 0 0 90px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.04);
+}
+#cv{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:2;touch-action:none;cursor:default}
+
+.stage-top{position:absolute;z-index:7;top:13px;left:14px;right:14px;display:flex;justify-content:space-between;align-items:flex-start;gap:10px;pointer-events:none}
+.live-badge{
+  display:flex;align-items:center;gap:9px;padding:7px 10px;border-radius:11px;
+  background:rgba(5,11,20,.7);border:1px solid rgba(201,232,242,.1);
+  backdrop-filter:blur(14px);box-shadow:0 10px 30px rgba(0,0,0,.16);
+}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 13px rgba(var(--accent-rgb),.8);flex:none}
+.live-copy{display:flex;flex-direction:column;gap:3px}
+.live-copy strong{line-height:1.15}
+.live-copy span{font-size:7.5px;color:var(--muted);letter-spacing:.12em}
+.live-copy strong{font-size:12.5px;font-weight:600;letter-spacing:.04em;white-space:nowrap}
+.live-idx{
+  font-family:var(--mono);font-size:8.5px;color:var(--accent);
+  background:rgba(var(--accent-rgb),.09);border:1px solid rgba(var(--accent-rgb),.18);
+  border-radius:999px;padding:3px 6px;white-space:nowrap;
+}
+.stage-tools{display:flex;gap:6px;pointer-events:auto}
+.mini-btn{
+  display:inline-flex;align-items:center;gap:5px;padding:7px 10px;border-radius:9px;
+  font-size:10px;color:var(--text-soft);cursor:pointer;
+  border:1px solid rgba(201,236,228,.12);background:rgba(5,11,20,.62);
+  backdrop-filter:blur(12px);transition:.18s;
+}
+.mini-btn:hover{background:rgba(14,28,44,.85);border-color:rgba(var(--accent-rgb),.3);color:#fff}
+.stage-note{
+  position:absolute;z-index:6;left:16px;bottom:86px;max-width:70%;
+  font-family:var(--mono);font-size:8px;letter-spacing:.05em;
+  color:rgba(170,200,212,.5);pointer-events:none;
+}
+.definition-bar{
+  position:absolute;z-index:7;left:13px;right:13px;bottom:13px;
+  display:flex;align-items:center;gap:11px;min-height:58px;padding:8px 11px;
+  border:1px solid rgba(200,232,242,.11);border-radius:13px;
+  background:rgba(5,12,21,.8);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  box-shadow:0 16px 40px rgba(0,0,0,.2);
+}
+.definition-mark{
+  width:34px;height:34px;border-radius:9px;display:grid;place-items:center;flex:none;
+  color:var(--accent);border:1px solid rgba(var(--accent-rgb),.26);background:rgba(var(--accent-rgb),.08);
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.02em;
+}
+.definition-copy{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.def-title{font-size:7px;letter-spacing:.14em;color:var(--muted)}
+.def-formula{font-family:var(--serif);font-size:14px;line-height:1.35;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.def-values{font-family:var(--mono);font-size:8.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ---------- details ---------- */
+.concept h3{margin:0;font-size:15.5px;line-height:1.45;font-weight:600;letter-spacing:.01em}
+.concept .desc{margin:5px 0 0;font-size:11px;line-height:1.72;color:var(--text-soft)}
+.desc b,.note-card b{color:#fff;font-weight:500}
+.equation-card{
+  border:1px solid rgba(var(--accent-rgb),.2);border-radius:13px;padding:9px 11px 7px;
+  background:radial-gradient(ellipse 100% 120% at 0% 0%,rgba(var(--accent-rgb),.08),transparent 58%),rgba(0,0,0,.16);
+}
+.eq-head{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:8px;letter-spacing:.08em;color:var(--muted)}
+.eq-head span:last-child{font-family:var(--mono);font-size:8px;color:var(--accent)}
+.formula{
+  font-family:var(--serif);font-size:17px;line-height:1.45;text-align:center;color:#fff;
+  padding:7px 2px 6px;letter-spacing:.01em;text-shadow:0 0 20px rgba(var(--accent-rgb),.24);
+  overflow-wrap:anywhere;
+}
+.formula sub,.formula sup{font-size:.6em}
+.formula .small{font-size:.72em;color:var(--text-soft)}
+.eq-num{
+  margin-top:1px;padding-top:6px;border-top:1px dashed var(--line);
+  font-family:var(--mono);font-size:8.3px;line-height:1.55;color:var(--muted);
+  text-align:center;overflow-wrap:anywhere;
+}
+.eq-num:empty{display:none}
+.metric-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.hud-item{
+  display:flex;flex-direction:column;gap:2px;min-width:0;
+  padding:7px 9px;border-radius:9px;border:1px solid var(--line);
+  background:rgba(255,255,255,.025);
+}
+.hud-item span{font-size:8px;color:var(--muted);letter-spacing:.05em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hud-item b{font-family:var(--mono);font-size:11px;font-weight:500;color:var(--text-soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hud-item.hi{border-color:rgba(var(--accent-rgb),.26);background:rgba(var(--accent-rgb),.07)}
+.hud-item.hi b{color:var(--accent)}
+.note-card{
+  margin-top:auto;
+  border:1px solid var(--line);border-radius:12px;padding:9px 11px;
+  background:rgba(255,255,255,.025);
+}
+.tip-card{
+  margin-top:auto;border:1px solid var(--line);border-radius:11px;padding:9px 11px;
+  background:rgba(255,255,255,.02);
+}
+.tip-card span{display:block;font-size:7.5px;letter-spacing:.13em;color:var(--muted-2);text-transform:uppercase;margin-bottom:3px}
+.tip-card p{margin:0;font-size:9.5px;line-height:1.7;color:var(--muted)}
+.metric-grid .hud-item:last-child:nth-child(odd){grid-column:1/-1}
+.note-head{display:flex;align-items:center;gap:6px;font-size:8px;letter-spacing:.1em;color:var(--text-soft);text-transform:uppercase;margin-bottom:3px}
+.note-icon{
+  width:15px;height:15px;border-radius:50%;display:grid;place-items:center;
+  border:1px solid rgba(var(--accent-rgb),.3);color:var(--accent);
+  font-family:var(--serif);font-size:9px;line-height:1;
+}
+.note-card p{margin:0;font-size:10px;line-height:1.7;color:var(--muted)}
+.note-card i{font-family:var(--serif);font-style:italic;color:var(--text-soft)}
+.nw{white-space:nowrap}
+
+/* ---------- catalog ---------- */
+.catalog{
+  grid-area:catalog;min-width:0;border-radius:var(--radius);
+  padding:11px 15px 9px;display:flex;flex-direction:column;gap:7px;
+}
+.catalog-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.catalog-title{display:flex;align-items:flex-start;gap:9px;min-width:0}
+.catalog-head h2{margin:0;font-size:13.5px;font-weight:600;letter-spacing:.04em;line-height:1.35}
+.catalog-head p{margin:1px 0 0;font-size:9px;color:var(--muted);letter-spacing:.03em}
+.catalog-hint{font-size:8px;letter-spacing:.05em;color:var(--muted-2);white-space:nowrap;font-family:var(--mono)}
+.catalog-track{
+  display:flex;gap:6px;min-height:0;overflow-x:auto;overflow-y:hidden;
+  padding-bottom:2px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.12) transparent;
+}
+.catalog-track::-webkit-scrollbar{height:4px}
+.catalog-track::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px}
+.catalog-card{
+  flex:1 1 0;min-width:120px;display:flex;flex-direction:column;gap:1px;
+  padding:7px 9px 6px;border-radius:10px;border:1px solid var(--line);
+  background:rgba(255,255,255,.025);color:var(--text-soft);cursor:pointer;text-align:left;
+  transition:background .16s,border-color .16s,box-shadow .16s;
+}
+.catalog-card:hover{background:rgba(255,255,255,.055);border-color:rgba(255,255,255,.17)}
+.catalog-card.on{border-color:rgba(var(--tc-rgb),.35);background:rgba(var(--tc-rgb),.08);box-shadow:inset 0 0 20px rgba(var(--tc-rgb),.05)}
+.cc-top{display:flex;justify-content:space-between;align-items:baseline;gap:6px;font-family:var(--mono);font-size:7px;letter-spacing:.1em;color:var(--muted-2)}
+.cc-top b{font-weight:500;color:inherit}
+.catalog-card.on .cc-top{color:var(--tc)}
+.catalog-card strong{font-size:10.5px;font-weight:600;line-height:1.5;color:var(--text-soft);white-space:nowrap}
+.catalog-card.on strong{color:var(--tc)}
+.catalog-card small{font-size:8px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ---------- modal ---------- */
+.modal{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:22px;
+  visibility:hidden;opacity:0;transition:opacity .2s,visibility .2s}
+.modal.open{visibility:visible;opacity:1}
+.modal-backdrop{position:absolute;inset:0;background:rgba(2,6,11,.78);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.modal-panel{
+  position:relative;z-index:1;width:min(1040px,96vw);max-height:90vh;overflow:auto;
+  border:1px solid rgba(210,238,245,.14);border-radius:22px;padding:26px 29px 24px;
+  background:
+    radial-gradient(ellipse 80% 50% at 15% 0%,rgba(54,124,138,.16),transparent 64%),
+    radial-gradient(ellipse 65% 50% at 100% 28%,rgba(87,66,135,.15),transparent 70%),
+    linear-gradient(160deg,#0c1826 0%,#08111c 100%);
+  box-shadow:0 34px 110px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.06);
+  scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.14) transparent;
+}
+.modal-panel::-webkit-scrollbar{width:6px}
+.modal-panel::-webkit-scrollbar-thumb{background:rgba(255,255,255,.14);border-radius:99px}
+.modal-close{position:sticky;top:0;float:right;margin:-10px -12px 0 12px;z-index:2;width:32px;height:32px;border-radius:9px;
+  border:1px solid var(--line);background:rgba(7,14,24,.82);color:var(--muted);font-size:20px;line-height:1;cursor:pointer;
+  display:grid;place-items:center;transition:color .18s,background .18s,border-color .18s}
+.modal-close:hover{color:#fff;background:rgba(255,255,255,.08)}
+.modal-head{padding-right:26px;border-bottom:1px solid var(--line);padding-bottom:17px;margin-bottom:17px}
+.modal-head .eyebrow{color:var(--accent);margin-bottom:7px;font-size:9px}
+.modal-head h2{margin:0;font-size:28px;font-weight:620;letter-spacing:.03em;line-height:1.3}
+.modal-head p{margin:8px 0 0;max-width:780px;font-size:12px;line-height:1.8;color:var(--muted)}
+.guide-lead{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;
+  border:1px solid rgba(var(--accent-rgb),.15);border-radius:14px;padding:15px 17px;
+  background:linear-gradient(135deg,rgba(var(--accent-rgb),.065),rgba(var(--accent-rgb),.012));margin-bottom:15px}
+.guide-lead p{margin:0;font-size:12px;line-height:1.8;color:var(--text-soft)}
+.guide-lead strong{color:var(--accent);font-weight:600}
+.guide-lead .unified-formula{font-family:var(--serif);font-size:19px;color:var(--accent);white-space:nowrap;
+  border-left:1px solid rgba(var(--accent-rgb),.23);padding-left:17px}
+.guide-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.guide-card{border:1px solid var(--line);border-radius:13px;padding:11px 12px;background:rgba(255,255,255,.018);position:relative;overflow:hidden}
+.guide-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--gc);opacity:.8}
+.guide-card-head{display:flex;align-items:baseline;gap:7px;margin-bottom:5px}
+.guide-card-head span{font-family:var(--mono);font-size:7px;color:var(--gc);border:1px solid rgba(255,255,255,.12);padding:2px 4px;border-radius:4px}
+.guide-card h3{margin:0;font-size:12.5px;font-weight:600;color:var(--text)}
+.guide-card .g-eq{font-family:var(--serif);font-size:12.5px;color:var(--gc);line-height:1.5;margin:4px 0 4px;overflow-wrap:anywhere}
+.guide-card p{margin:0;font-size:10px;line-height:1.65;color:var(--muted)}
+.guide-columns{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+.guide-section h3{margin:0 0 7px;font-size:12.5px;font-weight:600;color:var(--text-soft);letter-spacing:.03em}
+.guide-section p{margin:0 0 7px;font-size:10.5px;line-height:1.75;color:var(--muted)}
+.guide-section ol,.guide-section ul{margin:0;padding-left:17px;display:flex;flex-direction:column;gap:5px}
+.guide-section li{font-size:10.5px;line-height:1.7;color:var(--muted)}
+.guide-section li b{color:var(--text-soft);font-weight:500}
+.guide-section .f{font-family:var(--serif);color:var(--text-soft)}
+.guide-warn{border:1px solid rgba(255,145,176,.18);background:rgba(255,145,176,.045);border-radius:11px;padding:9px 11px;font-size:10px;line-height:1.7;color:var(--muted)}
+.guide-warn b{color:#ffb3c8;font-weight:500}
+
+/* ---------- responsive ---------- */
+@media(max-width:1240px){
+  .workspace{grid-template-columns:minmax(228px,246px) minmax(0,1fr) minmax(272px,296px);gap:10px}
+  .panel-controls,.panel-details{padding:13px 12px}
+  .brand h1{font-size:14px}
+  .catalog-card{min-width:112px}
+}
+@media(max-width:1020px){
+  body{overflow:auto}
+  .app{height:auto;min-height:100vh;min-height:100dvh}
+  .topbar{flex:0 0 auto;flex-wrap:wrap;gap:10px;padding:10px 14px}
+  .brand{flex:1 1 100%}
+  .top-actions{width:100%;justify-content:flex-end}
+  .workspace{flex:none;display:flex;flex-direction:column;gap:10px;padding:0 12px 16px}
+  .stage-card{order:1;height:min(62vh,560px);min-height:400px;flex:none}
+  .panel-controls{order:2;flex:none;overflow:visible}
+  .panel-details{order:3;flex:none;overflow:visible}
+  .catalog{order:4;flex:none;height:auto}
+  .chapter-list{display:grid;grid-template-columns:1fr 1fr;gap:3px}
+  .metric-grid{grid-template-columns:repeat(3,1fr)}
+  .catalog-track{flex-wrap:nowrap}
+  .catalog-card{flex:0 0 140px}
+  .guide-grid{grid-template-columns:1fr 1fr}
+  .guide-columns{grid-template-columns:1fr}
+  .guide-lead{grid-template-columns:1fr}
+  .guide-lead .unified-formula{border-left:0;border-top:1px solid rgba(var(--accent-rgb),.23);padding:9px 0 0}
+}
+@media(max-width:620px){
+  .eyebrow,.title-en{display:none}
+  .status-chip{display:none}
+  .brand h1{font-size:14px}
+  .workspace{padding:0 9px 12px}
+  .stage-card{height:52vh;min-height:340px}
+  .stage-card .stage-note{display:none}
+  .definition-bar{left:10px;right:10px;bottom:10px;min-height:52px;padding:7px 9px}
+  .def-formula{font-size:12.5px}
+  .def-values{font-size:8px}
+  .definition-mark{width:29px;height:29px;font-size:8.5px}
+  .panel-controls,.panel-details{padding:12px 11px}
+  .metric-grid{grid-template-columns:1fr 1fr}
+  .catalog{padding:10px 11px 8px}
+  .catalog-hint{display:none}
+  .catalog-card{flex:0 0 132px}
+  .live-copy strong{font-size:11.5px}
+  .modal{padding:8px}
+  .modal-panel{max-height:94vh;border-radius:16px;padding:18px 15px}
+  .modal-head h2{font-size:21px}
+  .guide-grid{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+<div class="ambient" aria-hidden="true"><div class="glow glow-a"></div><div class="glow glow-b"></div></div>
+
+<div class="app" id="app">
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 36 36" fill="none">
+          <path d="M6.5 30h24M6.5 30V5.5" stroke="#ffc267" stroke-width="1.05" opacity=".45" stroke-linecap="round"/>
+          <circle cx="18.5" cy="17.5" r="7.6" stroke="#ada0ff" stroke-width="1.35" opacity=".95"/>
+          <path d="M4.5 26.5 31.5 8.5" stroke="#67e3cf" stroke-width="1.4" stroke-linecap="round"/>
+          <circle cx="13.2" cy="21.1" r="1.5" fill="#ffc267"/>
+          <circle cx="24.2" cy="13.7" r="1.5" fill="#ffc267"/>
+          <path d="M8 30v-3M12 30v-2M21 30v-3M27 30v-2" stroke="#7cc0ff" stroke-width="1" opacity=".45"/>
+        </svg>
+      </div>
+      <div class="brand-copy">
+        <div class="eyebrow"><span>Line &amp; Circle Lab</span><i></i><span>解析几何</span></div>
+        <h1>直线与圆的方程 <span class="title-en">/ LINE &amp; CIRCLE LAB</span></h1>
+      </div>
+    </div>
+    <div class="top-actions">
+      <div class="status-chip" id="topChip"><span class="chip-dot"></span>第 1 / 8 节</div>
+      <button class="ghost-btn" id="guideBtn" type="button" aria-haspopup="dialog">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4.5 5.5c2.7-1.2 5.1-1.1 7.5.4v13c-2.4-1.5-4.8-1.6-7.5-.4v-13Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M19.5 5.5c-2.7-1.2-5.1-1.1-7.5.4v13c2.4-1.5 4.8-1.6 7.5-.4v-13Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        本章速查
+      </button>
+      <button class="ghost-btn" id="resetBtn" type="button" title="恢复本节初始状态">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3M4.5 4.5V9H9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        重置本节
+      </button>
+      <button class="icon-btn" id="fullBtn" type="button" aria-label="全屏显示" title="全屏显示">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8.5 4H4v4.5M15.5 4H20v4.5M8.5 20H4v-4.5M15.5 20H20v-4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <aside class="panel panel-controls" aria-label="章节与参数控制">
+      <div class="panel-head">
+        <span class="section-num">01</span>
+        <div><h2>章节与参数</h2><p>选择章节 · 调整变量</p></div>
+      </div>
+      <nav class="chapter-list" id="chapterList" aria-label="章节列表"></nav>
+      <div class="block-label"><span>本节控制 / Controls</span><span>拖动或调节</span></div>
+      <div class="controls" id="controls"></div>
+      <div class="tip-card">
+        <span>操作提示 / Tips</span>
+        <p>拖动画布彩色端点 · 调节滑块与开关 · ← → 切换章节 · 空格播放 · G 速查</p>
+      </div>
+    </aside>
+
+    <section class="stage-card" aria-label="直线与圆的动态图">
+      <canvas id="cv">你的浏览器需要支持 Canvas。</canvas>
+      <div class="stage-top">
+        <div class="live-badge">
+          <span class="live-dot"></span>
+          <div class="live-copy"><span>当前章节 / Chapter</span><strong id="liveName">倾斜角与斜率</strong></div>
+          <span class="live-idx" id="liveIndex">01</span>
+        </div>
+        <div class="stage-tools">
+          <button class="mini-btn" id="playBtn" type="button" hidden>▶ 播放</button>
+        </div>
+      </div>
+      <div class="stage-note" id="hint"></div>
+      <div class="definition-bar">
+        <div class="definition-mark" id="defMark">01</div>
+        <div class="definition-copy">
+          <div class="def-title">核心公式 / Key Formula</div>
+          <div class="def-formula" id="stageFormula"></div>
+          <div class="def-values" id="stageValues"></div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="panel panel-details" aria-label="本节要点与实时数据">
+      <div class="panel-head">
+        <span class="section-num">02</span>
+        <div><h2>本节要点</h2><p>概念 · 公式 · 实时数据</p></div>
+      </div>
+      <div class="concept">
+        <h3 id="title"></h3>
+        <p class="desc" id="desc"></p>
+      </div>
+      <div class="equation-card">
+        <div class="eq-head"><span>公式 / Formula</span><span id="eqTag">01</span></div>
+        <div class="formula" id="formula"></div>
+        <div class="eq-num" id="eqNum"></div>
+      </div>
+      <div class="metric-grid" id="hud"></div>
+      <div class="note-card">
+        <div class="note-head"><span class="note-icon">i</span>观察提示</div>
+        <p id="note"></p>
+      </div>
+    </aside>
+
+    <section class="catalog" aria-label="章节图鉴">
+      <div class="catalog-head">
+        <div class="catalog-title">
+          <span class="section-num">03</span>
+          <div><h2>章节图鉴</h2><p>八节内容 · 点击切换</p></div>
+        </div>
+        <div class="catalog-hint">形 → 数 → 形 · 用方程研究图形</div>
+      </div>
+      <div class="catalog-track" id="catalogTrack"></div>
+    </section>
+  </main>
+</div>
+
+<div class="modal" id="guideModal" aria-hidden="true">
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="guideTitle">
+    <button class="modal-close" type="button" aria-label="关闭本章速查" data-close>×</button>
+    <div class="modal-head">
+      <div class="eyebrow">Chapter Atlas · 本章速查</div>
+      <h2 id="guideTitle">用方程研究直线与圆</h2>
+      <p>解析几何的基本思路是：把几何对象放进坐标系，用方程表示，再通过代数运算得到几何结论。下面按八节内容整理公式、判定方法与常见易错点。</p>
+    </div>
+
+    <div class="guide-lead">
+      <p>直线由<strong>方向与一个点</strong>确定，圆由<strong>圆心与半径</strong>确定。位置关系、距离、弦长，最终都归结为<strong>方向向量、法向量与点到直线的距离</strong>。</p>
+      <div class="unified-formula">d = |Ax₀ + By₀ + C| / √(A² + B²)</div>
+    </div>
+
+    <div class="guide-grid">
+      <article class="guide-card" style="--gc:#ffc267">
+        <div class="guide-card-head"><span>01</span><h3>倾斜角与斜率</h3></div>
+        <div class="g-eq">k = tan α</div>
+        <p>α ∈ [0°, 180°)；α = 90° 时斜率不存在。过两点 P₁、P₂ 的斜率 k = (y₂−y₁)/(x₂−x₁)（x₁≠x₂）。</p>
+      </article>
+      <article class="guide-card" style="--gc:#67e3cf">
+        <div class="guide-card-head"><span>02</span><h3>直线方程</h3></div>
+        <div class="g-eq">y − y₀ = k(x − x₀)</div>
+        <p>点斜式、斜截式、两点式、截距式、一般式。前四种都有限制，一般式 Ax+By+C=0（A、B 不同时为 0）可表示所有直线。</p>
+      </article>
+      <article class="guide-card" style="--gc:#7cc0ff">
+        <div class="guide-card-head"><span>03</span><h3>位置关系</h3></div>
+        <div class="g-eq">A₁A₂ + B₁B₂ = 0</div>
+        <p>一般式下：平行 ⇔ A₁B₂−A₂B₁=0 且不重合；垂直 ⇔ A₁A₂+B₁B₂=0。斜率式结论只在两条直线斜率都存在时适用。</p>
+      </article>
+      <article class="guide-card" style="--gc:#ff9f7a">
+        <div class="guide-card-head"><span>04</span><h3>距离公式</h3></div>
+        <div class="g-eq">d = |C₁−C₂| / √(A²+B²)</div>
+        <p>点到直线用一般式代入；两平行线必须先把 x、y 的系数化成相同，再代入截距差。</p>
+      </article>
+      <article class="guide-card" style="--gc:#ada0ff">
+        <div class="guide-card-head"><span>05</span><h3>圆的方程</h3></div>
+        <div class="g-eq">(x−a)² + (y−b)² = r²</div>
+        <p>一般式 x²+y²+Dx+Ey+F=0，当 D²+E²−4F&gt;0 时表示圆，圆心 (−D/2, −E/2)，半径 ½√(D²+E²−4F)。</p>
+      </article>
+      <article class="guide-card" style="--gc:#5ad7e8">
+        <div class="guide-card-head"><span>06</span><h3>直线与圆</h3></div>
+        <div class="g-eq">l = 2√(r² − d²)</div>
+        <p>比较圆心到直线的距离 d 与半径 r：d&lt;r 相交，d=r 相切，d&gt;r 相离。相交时弦长由垂径定理得到。</p>
+      </article>
+      <article class="guide-card" style="--gc:#f78fb3">
+        <div class="guide-card-head"><span>07</span><h3>圆与圆</h3></div>
+        <div class="g-eq">|r₁−r₂| ≤ d ≤ r₁+r₂</div>
+        <p>用圆心距 d 与 r₁+r₂、|r₁−r₂| 比较，得到外离、外切、相交、内切、内含五种位置关系。</p>
+      </article>
+      <article class="guide-card" style="--gc:#8ee6a0">
+        <div class="guide-card-head"><span>08</span><h3>圆的切线</h3></div>
+        <div class="g-eq">|PT| = √(|PC|² − r²)</div>
+        <p>过圆外一点有两条切线，切线长相等，且 PT ⊥ CT。切点弦可由圆与以 PC 为直径的圆相交得到。</p>
+      </article>
+    </div>
+
+    <div class="guide-columns">
+      <section class="guide-section">
+        <h3>常见易错点</h3>
+        <ul>
+          <li><b>倾斜角不是 arctan k。</b>α 的范围是 [0°, 180°)，α = 90° 时斜率不存在，不能用 k 表示。</li>
+          <li><b>截距不是距离。</b>横截距、纵截距都是坐标，可以为负；截距式要求两个截距都不为 0。</li>
+          <li><b>斜率判定有前提。</b>k₁=k₂ ⇒ 平行（或重合）只适用于斜率都存在的情形；一般式判定更通用。</li>
+          <li><b>距离公式先化一般式。</b>使用 d = |Ax₀+By₀+C|/√(A²+B²) 前，要保证 A、B 不同时为 0。</li>
+          <li><b>圆的一般方程要验判别式。</b>D²+E²−4F&gt;0 才是圆，等于 0 是一个点，小于 0 不表示图形。</li>
+          <li><b>两圆方程相减得到的是公共弦所在直线</b>（或根轴），不是公共弦的长度。</li>
+        </ul>
+      </section>
+      <section class="guide-section">
+        <h3>课堂演示路线</h3>
+        <ol>
+          <li><b>01</b> 拖动 A、B，观察 α 从 0° 到 180° 时 k 的符号与大小；停在 90° 说明斜率不存在。</li>
+          <li><b>02</b> 切换五种方程形式，同一条直线换一种写法，强调各自成立的条件。</li>
+          <li><b>03</b> 依次摆出平行、垂直、相交、重合，比较方向向量与法向量。</li>
+          <li><b>04</b> 拖动 P 看距离变化，再切换两平行线，验证“系数相同再作差”。</li>
+          <li><b>05</b> 由标准方程展开到一般方程，再把判别式调成 0 与负数。</li>
+          <li><b>06</b> 扫描直线，连续观察相交 → 相切 → 相离与弦长变化。</li>
+          <li><b>07</b> 移动圆心，依次经过五种位置关系，观察公共弦的出现与消失。</li>
+          <li><b>08</b> 拖动 P，验证两条切线长相等、PT ⊥ CT，并打开辅助圆看切点弦。</li>
+        </ol>
+      </section>
+    </div>
+
+    <div class="guide-columns" style="border-top:0;padding-top:0;margin-top:10px">
+      <section class="guide-section">
+        <h3>点到直线距离的由来</h3>
+        <p>设直线 l: Ax+By+C=0，P(x₀,y₀)。取 l 的法向量 <span class="f">n=(A,B)</span>，在 l 上任取一点 Q，则 P 到 l 的距离等于向量 <span class="f">QP</span> 在 n 方向上投影的绝对值：</p>
+        <p class="f">d = |n·QP| / |n| = |A(x₀−x_Q)+B(y₀−y_Q)| / √(A²+B²) = |Ax₀+By₀+C| / √(A²+B²)</p>
+      </section>
+      <section class="guide-section">
+        <h3>圆的切线与切点弦</h3>
+        <p>圆 C: (x−a)²+(y−b)²=r²，圆外一点 P。切线长 <span class="f">|PT|=√(|PC|²−r²)</span>；两个切点 T₁、T₂ 满足 CT₁⊥PT₁、CT₂⊥PT₂。</p>
+        <p>以 PC 为直径的圆与圆 C 的两个交点正是 T₁、T₂；两圆方程相减，即得切点弦 T₁T₂ 所在直线。</p>
+      </section>
+    </div>
+  </div>
+</div>
+
+<script>
+'use strict';
+/* ============================================================
+   基础工具
+   ============================================================ */
+const $ = s => document.querySelector(s);
+const root = document.documentElement;
+const cv = $('#cv');
+const ctx = cv.getContext('2d');
+const hudEl = $('#hud');
+const controlsEl = $('#controls');
+const SERIF = '"Cambria Math","STIX Two Math","Times New Roman",serif';
+const SANS = '"PingFang SC","Microsoft YaHei","Noto Sans SC",system-ui,sans-serif';
+const TAU = Math.PI * 2;
+
+let W = 800, H = 600, DPR = 1;
+const V = {ox: 400, oy: 300, k: 60};
+const clamp = (v, a, b) => v < a ? a : v > b ? b : v;
+const lerp = (a, b, t) => a + (b - a) * t;
+const X = x => V.ox + x * V.k;
+const Y = y => V.oy - y * V.k;
+const fmt = (n, d = 2) => {
+  if (!isFinite(n)) return '—';
+  const v = Math.abs(n) < 5e-4 ? 0 : n;
+  return v.toFixed(d).replace('-', '−');
+};
+const parenNum = n => n < 0 ? '(' + fmt(n) + ')' : fmt(n);
+const fmtDeg = r => Math.round(r * 180 / Math.PI) + '°';
+const rad = d => d * Math.PI / 180;
+const deg = r => r * 180 / Math.PI;
+const len2 = (x, y) => Math.hypot(x, y);
+const norm = v => { const L = Math.hypot(v.x, v.y) || 1; return {x: v.x / L, y: v.y / L}; };
+const perp = v => ({x: -v.y, y: v.x});
+const vdot = (a, b) => a.x * b.x + a.y * b.y;
+const cross = (a, b) => a.x * b.y - a.y * b.x;
+const sub = (a, b) => ({x: a.x - b.x, y: a.y - b.y});
+const add = (a, b) => ({x: a.x + b.x, y: a.y + b.y});
+const mul = (a, k) => ({x: a.x * k, y: a.y * k});
+
+function setFrame(cx, cy, span) {
+  V.k = Math.min(W / span, H / (span * .62));
+  V.ox = W * cx;
+  V.oy = H * cy;
+}
+function limits() {
+  return {
+    x0: -V.ox / V.k + .25,
+    x1: (W - V.ox) / V.k - .25,
+    y0: -(H - V.oy) / V.k + .25,
+    y1: V.oy / V.k - .25
+  };
+}
+function viewRect() {
+  return {
+    x0: -V.ox / V.k,
+    x1: (W - V.ox) / V.k,
+    y0: -(H - V.oy) / V.k,
+    y1: V.oy / V.k
+  };
+}
+function clampPt(p) {
+  const L = limits();
+  return {x: clamp(p.x, L.x0, L.x1), y: clamp(p.y, L.y0, L.y1)};
+}
+function inView(p, pad) {
+  pad = pad || 0;
+  const L = viewRect();
+  return p.x >= L.x0 - pad && p.x <= L.x1 + pad && p.y >= L.y0 - pad && p.y <= L.y1 + pad;
+}
+
+/* ---------- 画布基础 ---------- */
+function base() {
+  const L = viewRect();
+  ctx.save();
+  ctx.lineWidth = 1;
+  for (let i = Math.ceil(L.x0); i <= Math.floor(L.x1); i++) {
+    const major = i % 5 === 0;
+    ctx.strokeStyle = i === 0 ? 'rgba(170,205,220,.19)' : major ? 'rgba(170,205,220,.075)' : 'rgba(170,205,220,.04)';
+    ctx.beginPath(); ctx.moveTo(X(i), 0); ctx.lineTo(X(i), H); ctx.stroke();
+  }
+  for (let j = Math.ceil(L.y0); j <= Math.floor(L.y1); j++) {
+    const major = j % 5 === 0;
+    ctx.strokeStyle = j === 0 ? 'rgba(170,205,220,.19)' : major ? 'rgba(170,205,220,.075)' : 'rgba(170,205,220,.04)';
+    ctx.beginPath(); ctx.moveTo(0, Y(j)); ctx.lineTo(W, Y(j)); ctx.stroke();
+  }
+  // 坐标轴与刻度
+  const axy = Y(0), axx = X(0);
+  if (axy > 12 && axy < H - 26) {
+    ctx.strokeStyle = 'rgba(185,215,228,.3)'; ctx.lineWidth = 1.2;
+    ctx.beginPath(); ctx.moveTo(0, axy); ctx.lineTo(W, axy); ctx.stroke();
+    const step = V.k > 90 ? 1 : V.k > 42 ? 2 : 4;
+    for (let i = Math.ceil(L.x0 / step) * step; i <= L.x1; i += step) {
+      if (Math.abs(i) < 1e-6) continue;
+      sans(String(i), X(i), axy + 11, 'rgba(160,188,200,.5)', 7.6);
+    }
+    sans('x', W - 15, axy - 12, 'rgba(190,216,226,.65)', 11);
+    ctx.fillStyle = 'rgba(185,215,228,.45)';
+    ctx.beginPath(); ctx.moveTo(W - 2, axy); ctx.lineTo(W - 10, axy - 4); ctx.lineTo(W - 10, axy + 4); ctx.closePath(); ctx.fill();
+  }
+  if (axx > 18 && axx < W - 18) {
+    ctx.strokeStyle = 'rgba(185,215,228,.3)'; ctx.lineWidth = 1.2;
+    ctx.beginPath(); ctx.moveTo(axx, 0); ctx.lineTo(axx, H); ctx.stroke();
+    const step = V.k > 90 ? 1 : V.k > 42 ? 2 : 4;
+    for (let j = Math.ceil(L.y0 / step) * step; j <= L.y1; j += step) {
+      if (Math.abs(j) < 1e-6) continue;
+      sans(String(j), axx - 10, Y(j), 'rgba(160,188,200,.5)', 7.6, 'right');
+    }
+    sans('y', axx + 12, 14, 'rgba(190,216,226,.65)', 11);
+    ctx.fillStyle = 'rgba(185,215,228,.45)';
+    ctx.beginPath(); ctx.moveTo(axx, 2); ctx.lineTo(axx - 4, 10); ctx.lineTo(axx + 4, 10); ctx.closePath(); ctx.fill();
+  }
+  if (axy > 12 && axy < H - 26 && axx > 18 && axx < W - 18) {
+    sans('O', axx - 11, axy + 13, 'rgba(190,216,226,.65)', 10);
+  }
+  ctx.restore();
+}
+function tscale() { return clamp(V.k / 62, .84, 1.06); }
+function math(txt, x, y, color, size = 17, align = 'center', baseline = 'middle') {
+  size = Math.max(9, size * tscale());
+  ctx.save();
+  ctx.font = 'italic ' + size + 'px ' + SERIF;
+  ctx.fillStyle = color;
+  ctx.textAlign = align;
+  ctx.textBaseline = baseline;
+  ctx.lineJoin = 'round';
+  ctx.lineWidth = Math.max(2, size * .24);
+  ctx.strokeStyle = 'rgba(5,10,18,.78)';
+  ctx.strokeText(txt, x, y);
+  ctx.fillText(txt, x, y);
+  ctx.restore();
+}
+function sans(txt, x, y, color, size = 11.5, align = 'center', baseline = 'middle') {
+  size = Math.max(7.5, size * tscale());
+  ctx.save();
+  ctx.font = size + 'px ' + SANS;
+  ctx.fillStyle = color;
+  ctx.textAlign = align;
+  ctx.textBaseline = baseline;
+  ctx.lineJoin = 'round';
+  ctx.lineWidth = Math.max(2, size * .24);
+  ctx.strokeStyle = 'rgba(5,10,18,.78)';
+  ctx.strokeText(txt, x, y);
+  ctx.fillText(txt, x, y);
+  ctx.restore();
+}
+function line(a, b, color, opt) {
+  opt = opt || {};
+  ctx.save();
+  ctx.globalAlpha = opt.alpha == null ? 1 : opt.alpha;
+  ctx.strokeStyle = color;
+  ctx.lineWidth = opt.w || 1.4;
+  ctx.lineCap = 'round';
+  if (opt.dash) ctx.setLineDash(opt.dash);
+  if (opt.glow) { ctx.shadowColor = color; ctx.shadowBlur = opt.glow; }
+  ctx.beginPath(); ctx.moveTo(X(a.x), Y(a.y)); ctx.lineTo(X(b.x), Y(b.y)); ctx.stroke();
+  ctx.restore();
+}
+function clipLine(p, d) {
+  const L = viewRect();
+  let t0 = -1e9, t1 = 1e9;
+  const C = [
+    {p: -d.x, q: p.x - L.x0},
+    {p: d.x, q: L.x1 - p.x},
+    {p: -d.y, q: p.y - L.y0},
+    {p: d.y, q: L.y1 - p.y}
+  ];
+  for (const c of C) {
+    if (Math.abs(c.p) < 1e-9) {
+      if (c.q < 0) return null;
+    } else {
+      const t = c.q / c.p;
+      if (c.p < 0) { if (t > t0) t0 = t; }
+      else { if (t < t1) t1 = t; }
+    }
+  }
+  if (t0 > t1) return null;
+  return [{x: p.x + t0 * d.x, y: p.y + t0 * d.y}, {x: p.x + t1 * d.x, y: p.y + t1 * d.y}];
+}
+function infLine(p, d, color, opt) {
+  const seg = clipLine(p, d);
+  if (seg) line(seg[0], seg[1], color, opt);
+}
+function lineAB(a, b, color, opt) { line(a, b, color, opt); }
+function slopeLine(k, b, color, opt) { infLine({x: 0, y: b}, {x: 1, y: k}, color, opt); }
+function generalLine(A, B, C, color, opt) {
+  const p = Math.abs(B) > Math.abs(A) ? {x: 0, y: -C / (B || 1e-9)} : {x: -C / (A || 1e-9), y: 0};
+  infLine(p, {x: -B, y: A}, color, opt);
+}
+function circleG(c, r, color, opt) {
+  opt = opt || {};
+  if (r <= 0) return;
+  ctx.save();
+  ctx.globalAlpha = opt.alpha == null ? 1 : opt.alpha;
+  if (opt.fill) {
+    ctx.fillStyle = opt.fill;
+    ctx.beginPath(); ctx.arc(X(c.x), Y(c.y), Math.max(.5, r * V.k), 0, TAU); ctx.fill();
+  }
+  ctx.strokeStyle = color;
+  ctx.lineWidth = opt.w || 1.8;
+  if (opt.dash) ctx.setLineDash(opt.dash);
+  if (opt.glow) { ctx.shadowColor = color; ctx.shadowBlur = opt.glow; }
+  ctx.beginPath(); ctx.arc(X(c.x), Y(c.y), Math.max(.5, r * V.k), 0, TAU); ctx.stroke();
+  ctx.restore();
+}
+function dot(p, color, r = 4, glow = true) {
+  ctx.save();
+  ctx.fillStyle = color;
+  if (glow) { ctx.shadowColor = color; ctx.shadowBlur = 10; }
+  ctx.beginPath(); ctx.arc(X(p.x), Y(p.y), r, 0, TAU); ctx.fill();
+  ctx.restore();
+}
+function ringDot(p, color, r = 3.4) {
+  ctx.save();
+  ctx.strokeStyle = color; ctx.lineWidth = 1.6;
+  ctx.beginPath(); ctx.arc(X(p.x), Y(p.y), r + 2, 0, TAU); ctx.stroke();
+  ctx.restore();
+}
+function handle(p, color, active) {
+  const x = X(p.x), y = Y(p.y);
+  ctx.save();
+  ctx.shadowColor = 'rgba(0,0,0,.55)';
+  ctx.shadowBlur = 8;
+  ctx.beginPath(); ctx.arc(x, y, active ? 9 : 7, 0, TAU);
+  ctx.fillStyle = '#0a111d'; ctx.fill();
+  ctx.shadowBlur = 0;
+  ctx.lineWidth = 2.2;
+  ctx.strokeStyle = color;
+  ctx.stroke();
+  ctx.beginPath(); ctx.arc(x, y, 2.3, 0, TAU);
+  ctx.fillStyle = color; ctx.fill();
+  ctx.restore();
+}
+function pLabel(p, txt, color, dx, dy, size) {
+  sans(txt, X(p.x) + (dx == null ? 14 : dx), Y(p.y) + (dy == null ? -13 : dy), color, size || 12.5);
+}
+function segLabel(a, b, txt, color, frac, off, size) {
+  frac = frac == null ? .5 : frac;
+  off = off == null ? 16 : off;
+  size = size || 12;
+  const x1 = X(a.x), y1 = Y(a.y), x2 = X(b.x), y2 = Y(b.y);
+  const px = lerp(x1, x2, frac), py = lerp(y1, y2, frac);
+  const dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy) || 1;
+  let nx = -dy / L, ny = dx / L;
+  if (ny > 0) { nx = -nx; ny = -ny; }
+  off *= tscale();
+  sans(txt, px + nx * off, py + ny * off, color, size);
+}
+function angleArc(c, th1, th2, r, color, txt, size = 15) {
+  let d = ((th2 - th1 + Math.PI) % TAU + TAU) % TAU - Math.PI;
+  if (Math.abs(d) < .02) return;
+  ctx.save();
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 1.8;
+  ctx.beginPath();
+  ctx.arc(X(c.x), Y(c.y), r, -th1, -(th1 + d), d > 0);
+  ctx.stroke();
+  ctx.restore();
+  if (txt) {
+    const mid = th1 + d / 2;
+    sans(txt, X(c.x) + Math.cos(mid) * (r + 22), Y(c.y) - Math.sin(mid) * (r + 22), color, size);
+  }
+}
+function rightAngle(center, u, v, s, color) {
+  const cx = X(center.x), cy = Y(center.y);
+  const ux = u.x, uy = -u.y, vx = v.x, vy = -v.y;
+  ctx.save();
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 1.3;
+  ctx.setLineDash([]);
+  ctx.beginPath();
+  ctx.moveTo(cx + ux * s, cy + uy * s);
+  ctx.lineTo(cx + (ux + vx) * s, cy + (uy + vy) * s);
+  ctx.lineTo(cx + vx * s, cy + vy * s);
+  ctx.stroke();
+  ctx.restore();
+}
+function canvasMsg(title, sub, color) {
+  ctx.save();
+  ctx.font = '600 14px ' + SANS;
+  const tw = ctx.measureText(title).width;
+  ctx.font = '11px ' + SANS;
+  const sw = sub ? ctx.measureText(sub).width : 0;
+  const w = Math.max(tw, sw) + 38, h = sub ? 66 : 46;
+  const x = W / 2 - w / 2, y = H * .43 - h / 2;
+  const r = 12;
+  ctx.beginPath();
+  ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
+  ctx.fillStyle = 'rgba(5,12,21,.88)'; ctx.fill();
+  ctx.strokeStyle = color || 'rgba(var(--accent-rgb),.3)'; ctx.lineWidth = 1; ctx.stroke();
+  ctx.fillStyle = '#fff';
+  ctx.font = '600 14px ' + SANS; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText(title, W / 2, y + (sub ? 25 : h / 2));
+  if (sub) {
+    ctx.fillStyle = 'rgba(170,195,207,.85)';
+    ctx.font = '11px ' + SANS;
+    ctx.fillText(sub, W / 2, y + 46);
+  }
+  ctx.restore();
+}
+function sig(n, d) { return fmt(n, d == null ? 2 : d); }
+function numTerm(v, unit) {
+  unit = unit || '';
+  return (v >= 0 ? '+ ' : '− ') + fmt(Math.abs(v)) + unit;
+}
+function parenX(x0) {
+  return x0 >= 0 ? '(x − ' + fmt(x0) + ')' : '(x + ' + fmt(-x0) + ')';
+}
+function slopeK(a, b) {
+  return Math.abs(b.x - a.x) < 1e-9 ? null : (b.y - a.y) / (b.x - a.x);
+}
+
+const MODULES = [];
+
+/* ============================================================
+   控件构造
+   ============================================================ */
+function addSlider(parent, label, min, max, step, value, format, onInput) {
+  const w = document.createElement('label');
+  w.className = 'ctrl';
+  const top = document.createElement('div');
+  top.className = 'ctrl-top';
+  const l = document.createElement('span');
+  l.textContent = label;
+  const b = document.createElement('b');
+  b.textContent = format(value);
+  top.append(l, b);
+  const inp = document.createElement('input');
+  inp.type = 'range';
+  inp.min = min; inp.max = max; inp.step = step; inp.value = value;
+  inp.addEventListener('input', () => {
+    const v = parseFloat(inp.value);
+    b.textContent = format(v);
+    onInput(v);
+  });
+  w.append(top, inp);
+  parent.appendChild(w);
+  return {
+    input: inp,
+    set(v, fire) {
+      inp.value = v;
+      b.textContent = format(v);
+      if (fire) onInput(v);
+    }
+  };
+}
+function addToggle(parent, label, value, onChange) {
+  const w = document.createElement('label');
+  w.className = 'switch';
+  const s = document.createElement('span');
+  s.textContent = label;
+  const inp = document.createElement('input');
+  inp.type = 'checkbox';
+  inp.checked = !!value;
+  const i = document.createElement('i');
+  inp.addEventListener('change', () => onChange(inp.checked));
+  w.append(s, inp, i);
+  parent.appendChild(w);
+  return {input: inp};
+}
+function addBtn(parent, label, fn, cls) {
+  const b = document.createElement('button');
+  b.type = 'button';
+  b.className = 'btn ' + (cls || '');
+  b.textContent = label;
+  b.addEventListener('click', fn);
+  parent.appendChild(b);
+  return b;
+}
+function row(parent) {
+  const r = document.createElement('div');
+  r.className = 'row';
+  parent.appendChild(r);
+  return r;
+}
+
+/* ============================================================
+   01 倾斜角与斜率
+   ============================================================ */
+MODULES.push({
+  key: 'slope', tab: '01', name: '倾斜角与斜率', accent: '#ffc267', rgb: '255,194,103',
+  playIdle: '▶ 播放旋转',
+  hint: '拖动 A、B 两点，观察倾斜角 α 与斜率 k 的联动',
+  state: {A: {x: -3.2, y: -1.2}, B: {x: 2.4, y: 1.6}, tri: true, playing: false, dir: 1, anim: 0},
+  reset() {
+    this.state.A = {x: -3.2, y: -1.2};
+    this.state.B = {x: 2.4, y: 1.6};
+    this.state.tri = true;
+    this.state.playing = false;
+    this.state.dir = 1;
+    this.state.anim = 0;
+  },
+  meta() {
+    return {
+      title: '倾斜角与斜率',
+      desc: '直线向上的方向与 x 轴正方向所成的角 α 叫做<b>倾斜角</b>，范围是 <b>[0°, 180°)</b>。拖动 A、B 两点，观察 Δy/Δx 与 tan α 如何同步变化。',
+      formula: 'k = tan α = (y₂ − y₁) / (x₂ − x₁)',
+      note: 'α = 0° 时直线水平，k = 0；α 增大到 90° 时 k 趋向 +∞；α = 90° 时斜率<b>不存在</b>；α 继续增大到 180° 时 k 从 −∞ 增大到 0。斜率公式与两点的选取顺序无关。'
+    };
+  },
+  handles() {
+    return [{id: 'A', ...this.state.A}, {id: 'B', ...this.state.B}];
+  },
+  drag(id, p) {
+    const q = clampPt(p);
+    this.state[id].x = q.x;
+    this.state[id].y = q.y;
+    this.state.playing = false;
+    setPlayLabel(this.playIdle);
+  },
+  togglePlay() {
+    const s = this.state;
+    s.playing = !s.playing;
+    if (s.playing && s.anim >= .999) s.dir = -1;
+    setPlayLabel(s.playing ? '❚❚ 暂停旋转' : this.playIdle);
+  },
+  draw(dt) {
+    const s = this.state;
+    if (s.playing) {
+      s.anim += dt * .17 * s.dir;
+      if (s.anim > 1) { s.anim = 1; s.dir = -1; }
+      if (s.anim < 0) { s.anim = 0; s.dir = 1; }
+      const a = rad(12 + 156 * s.anim);
+      const L = Math.max(2.8, Math.hypot(s.B.x - s.A.x, s.B.y - s.A.y));
+      s.B = {x: s.A.x + L * Math.cos(a), y: s.A.y + L * Math.sin(a)};
+    }
+    setFrame(.5, .55, 12.6);
+    base();
+
+    const A = s.A, B = s.B;
+    const d = {x: B.x - A.x, y: B.y - A.y};
+    const L = Math.hypot(d.x, d.y);
+    if (L < .18) {
+      handle(A, '#ffc267', hoverId === 'A');
+      canvasMsg('两点重合，不能确定直线', '拖动 A 或 B 拉开距离');
+      return;
+    }
+    let dx = d.x, dy = d.y;
+    if (dx < 0) { dx = -dx; dy = -dy; }
+    const vertical = Math.abs(dx) < 1e-8;
+    let alpha = vertical ? Math.PI / 2 : Math.atan2(dy, dx);
+    if (alpha < 0) alpha += Math.PI;
+    const k = vertical ? null : dy / dx;
+
+    // 斜率三角形
+    if (s.tri && Math.abs(d.x) > .08 && Math.abs(d.y) > .08) {
+      const C = {x: B.x, y: A.y};
+      line(A, C, 'rgba(255,255,255,.3)', {w: 1.1, dash: [5, 4]});
+      line(C, B, 'rgba(255,255,255,.3)', {w: 1.1, dash: [5, 4]});
+      segLabel(A, C, 'Δx = ' + fmt(B.x - A.x), 'rgba(210,230,238,.75)', .5, 13, 10);
+      segLabel(C, B, 'Δy = ' + fmt(B.y - A.y), 'rgba(210,230,238,.75)', .5, 16, 10);
+      rightAngle(C, {x: Math.sign(B.x - A.x), y: 0}, {x: 0, y: Math.sign(B.y - A.y)}, 9, 'rgba(255,255,255,.35)');
+    }
+
+    // 无限延伸的直线
+    infLine(A, {x: dx, y: dy}, '#ffc267', {w: 2.6, glow: 10, alpha: .95});
+
+    // 倾斜角
+    let vertex = A;
+    if (Math.abs(dy) > 1e-7) {
+      const t = -A.y / dy;
+      const vx = A.x + t * dx;
+      if (inView({x: vx, y: 0}, 1.5)) vertex = {x: vx, y: 0};
+    } else if (inView({x: A.x, y: 0}, 1.5)) {
+      vertex = {x: A.x, y: 0};
+    }
+    if (vertical) {
+      line(vertex, {x: vertex.x + 2.4, y: 0}, 'rgba(255,194,103,.3)', {w: 1, dash: [4, 4]});
+      line(vertex, {x: vertex.x, y: vertex.y + 2.4}, 'rgba(255,194,103,.3)', {w: 1, dash: [4, 4]});
+      angleArc(vertex, 0, Math.PI / 2, 46, 'rgba(255,194,103,.85)', 'α = 90°', 11);
+    } else if (Math.abs(alpha) < 1e-7) {
+      line(vertex, {x: vertex.x + 2.6, y: 0}, 'rgba(255,194,103,.4)', {w: 1.2, dash: [5, 4]});
+      sans('α = 0°', X(vertex.x + 1.35), Y(0) - 16, 'rgba(255,194,103,.9)', 11);
+    } else {
+      const u = {x: Math.cos(alpha), y: Math.sin(alpha)};
+      line(vertex, {x: vertex.x + 2.6, y: 0}, 'rgba(255,194,103,.32)', {w: 1, dash: [4, 4]});
+      line(vertex, add(vertex, mul(u, 2.6)), 'rgba(255,194,103,.32)', {w: 1, dash: [4, 4]});
+      angleArc(vertex, 0, alpha, 46, 'rgba(255,194,103,.85)', 'α = ' + Math.round(deg(alpha)) + '°', 11);
+    }
+
+    // 端点
+    handle(A, '#9fb4bf', hoverId === 'A');
+    handle(B, '#ffc267', hoverId === 'B');
+    pLabel(A, 'A', 'rgba(190,210,220,.95)', -17, 18, 12.5);
+    pLabel(B, 'B', '#ffe0ae', 17, -14, 13);
+    if (k != null) {
+      sans('k = ' + fmt(k), X(vertex.x) + 78, Y(vertex.y) - 44, 'rgba(255,224,174,.9)', 10.5);
+    } else {
+      sans('k 不存在', X(vertex.x) + 78, Y(vertex.y) - 44, 'rgba(255,145,176,.95)', 10.5);
+    }
+  },
+  hud() {
+    const A = this.state.A, B = this.state.B;
+    const d = {x: B.x - A.x, y: B.y - A.y};
+    let dx = d.x, dy = d.y;
+    if (dx < 0) { dx = -dx; dy = -dy; }
+    const vertical = Math.abs(dx) < 1e-8;
+    let alpha = vertical ? Math.PI / 2 : Math.atan2(dy, dx);
+    if (alpha < 0) alpha += Math.PI;
+    return [
+      {k: '倾斜角 α', v: vertical ? '90°' : Math.round(deg(alpha)) + '°', hi: true},
+      {k: '斜率 k', v: vertical ? '不存在' : fmt(dy / dx), hi: vertical},
+      {k: 'Δx', v: fmt(B.x - A.x)},
+      {k: 'Δy', v: fmt(B.y - A.y)}
+    ];
+  },
+  numeric() {
+    const A = this.state.A, B = this.state.B;
+    if (Math.abs(B.x - A.x) < 1e-9) return 'x₁ = x₂ = ' + fmt(A.x) + '，斜率不存在';
+    return 'k = (' + fmt(B.y) + ' − ' + parenNum(A.y) + ') / (' + fmt(B.x) + ' − ' + parenNum(A.x) + ') = ' + fmt((B.y - A.y) / (B.x - A.x));
+  },
+  panel(el) {
+    const s = this.state;
+    addToggle(el, '显示斜率三角形 Δy / Δx', s.tri, v => s.tri = v);
+    const r = row(el);
+    r.classList.add('three');
+    [45, 135, 90].forEach(a => {
+      addBtn(r, 'α = ' + a + '°', () => {
+        const L = Math.max(2.6, Math.hypot(s.B.x - s.A.x, s.B.y - s.A.y));
+        s.B = {x: s.A.x + L * Math.cos(rad(a)), y: s.A.y + L * Math.sin(rad(a))};
+        s.playing = false;
+        setPlayLabel(this.playIdle);
+      }, a === 90 ? 'ghost' : '');
+    });
+  }
+});
+
+/* ============================================================
+   02 直线的方程
+   ============================================================ */
+const LINE_FORMS = {
+  point: 'y − y₀ = k(x − x₀)',
+  slope: 'y = kx + b',
+  two: '(y − y₀) / (y₁ − y₀) = (x − x₀) / (x₁ − x₀)',
+  intercept: 'x / a + y / b = 1',
+  general: 'Ax + By + C = 0'
+};
+MODULES.push({
+  key: 'equation', tab: '02', name: '直线的方程', accent: '#67e3cf', rgb: '103,227,207',
+  hint: '拖动 P 点或调节 k，切换五种方程形式看同一条直线',
+  state: {P: {x: -1.2, y: 1.4}, k: .85, form: 'point', tri: true, inter: true},
+  reset() {
+    this.state.P = {x: -1.2, y: 1.4};
+    this.state.k = .85;
+    this.state.form = 'point';
+    this.state.tri = true;
+    this.state.inter = true;
+  },
+  bVal() { return this.state.P.y - this.state.k * this.state.P.x; },
+  meta() {
+    const s = this.state;
+    const descs = {
+      point: '已知一点 P(x₀, y₀) 和斜率 k，就能写出直线的点斜式。它不能表示斜率不存在的竖直直线。',
+      slope: '把点斜式整理成 y = kx + b，b 就是直线在 y 轴上的截距。斜截式同样不能表示竖直直线。',
+      two: '已知两点 P(x₀, y₀)、Q(x₀+1, y₀+k)，两点式用坐标差之比表示直线；分母为 0 时失效。',
+      intercept: '直线在 x 轴、y 轴上的截距分别为 a、b。截距式要求 a、b 都不为 0，截距本身可以为负。',
+      general: '把所有项移到一边得到一般式 Ax+By+C=0（A、B 不同时为 0）。一般式可以表示坐标平面内的所有直线。'
+    };
+    return {
+      title: '一点与斜率确定一条直线',
+      desc: '拖动 P 点改变所过的定点，调节 k 改变倾斜程度。' + descs[s.form],
+      formula: LINE_FORMS[s.form],
+      note: '点斜式、斜截式、两点式都不能表示斜率不存在的直线；截距式还要求两个截距都不为 0。一般式是“万能形式”，但使用时要注意 A、B 不同时为 0。'
+    };
+  },
+  handles() { return [{id: 'P', ...this.state.P}]; },
+  drag(id, p) {
+    const q = clampPt(p);
+    this.state.P.x = q.x;
+    this.state.P.y = q.y;
+  },
+  draw() {
+    const s = this.state, P = s.P, k = s.k, b = this.bVal();
+    setFrame(.5, .55, 12.6);
+    base();
+    slopeLine(k, b, '#67e3cf', {w: 2.6, glow: 9, alpha: .95});
+
+    // P 到两轴的虚线
+    line(P, {x: 0, y: P.y}, 'rgba(160,200,210,.2)', {w: 1, dash: [4, 4]});
+    line(P, {x: P.x, y: 0}, 'rgba(160,200,210,.2)', {w: 1, dash: [4, 4]});
+    if (inView({x: 0, y: P.y}, .2)) sans('y₀', X(0) - 13, Y(P.y) - 9, 'rgba(160,200,210,.7)', 9);
+    if (inView({x: P.x, y: 0}, .2)) sans('x₀', X(P.x) + 10, Y(0) + 13, 'rgba(160,200,210,.7)', 9);
+
+    // 斜率三角形
+    if (s.tri && Math.abs(k) > .05) {
+      const A = {x: P.x, y: P.y}, B = {x: P.x + 1, y: P.y}, C = {x: P.x + 1, y: P.y + k};
+      line(A, B, 'rgba(255,255,255,.28)', {w: 1, dash: [4, 4]});
+      line(B, C, 'rgba(255,255,255,.28)', {w: 1, dash: [4, 4]});
+      segLabel(A, B, '1', 'rgba(210,230,238,.7)', .5, 11, 9.5);
+      segLabel(B, C, 'k = ' + fmt(k), 'rgba(210,230,238,.7)', .5, 15, 9.5);
+      rightAngle(B, {x: 1, y: 0}, {x: 0, y: Math.sign(k)}, 8, 'rgba(255,255,255,.32)');
+    }
+
+    // 截距
+    if (s.inter) {
+      const yInt = {x: 0, y: b};
+      if (inView(yInt, .4)) {
+        dot(yInt, '#ffc267', 3.6);
+        sans('b = ' + fmt(b), X(0) + 16, Y(b) - 12, 'rgba(255,220,160,.95)', 9.5, 'left');
+      }
+      if (Math.abs(k) > 1e-6) {
+        const a = -b / k;
+        const xInt = {x: a, y: 0};
+        if (inView(xInt, .4)) {
+          dot(xInt, '#ffc267', 3.6);
+          sans('a = ' + fmt(a), X(a), Y(0) + 17, 'rgba(255,220,160,.95)', 9.5);
+        }
+      }
+    }
+
+    handle(P, '#67e3cf', hoverId === 'P');
+    pLabel(P, 'P', '#a9fff2', 15, -14, 13);
+  },
+  hud() {
+    const s = this.state, b = this.bVal();
+    return [
+      {k: 'k', v: fmt(s.k)},
+      {k: 'b', v: fmt(b)},
+      {k: 'x 轴截距', v: Math.abs(s.k) > 1e-6 ? fmt(-b / s.k) : '不存在'},
+      {k: 'y 轴截距', v: fmt(b)},
+      {k: 'P 坐标', v: '(' + fmt(s.P.x) + ', ' + fmt(s.P.y) + ')'}
+    ];
+  },
+  numeric() {
+    const s = this.state, P = s.P, k = s.k, b = this.bVal();
+    const yt = 'y ' + (P.y >= 0 ? '− ' + fmt(P.y) : '+ ' + fmt(-P.y));
+    if (s.form === 'point') return yt + ' = ' + fmt(k) + ' · ' + parenX(P.x);
+    if (s.form === 'slope') return 'y = ' + fmt(k) + 'x ' + (b >= 0 ? '+ ' : '− ') + fmt(Math.abs(b));
+    if (s.form === 'two') return '(' + yt + ') / ' + fmt(k) + ' = ' + parenX(P.x) + ' / 1';
+    if (s.form === 'intercept') {
+      if (Math.abs(k) < 1e-6 || Math.abs(b) < 1e-6) return '截距式不适用：截距不能为 0';
+      return 'x / (' + fmt(-b / k) + ') + y / (' + fmt(b) + ') = 1';
+    }
+    return fmt(k) + 'x − y ' + (b >= 0 ? '+ ' : '− ') + fmt(Math.abs(b)) + ' = 0';
+  },
+  panel(el) {
+    const s = this.state;
+    const seg = document.createElement('div');
+    seg.className = 'seg five';
+    [['point', '点斜'], ['slope', '斜截'], ['two', '两点'], ['intercept', '截距'], ['general', '一般']].forEach(([k, name]) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = name;
+      btn.className = s.form === k ? 'on' : '';
+      btn.addEventListener('click', () => {
+        s.form = k;
+        buildPanel();
+      });
+      seg.appendChild(btn);
+    });
+    el.appendChild(seg);
+    addSlider(el, '斜率 k', -3, 3, .05, s.k, v => fmt(v), v => s.k = v);
+    addToggle(el, '显示斜率三角形', s.tri, v => s.tri = v);
+    addToggle(el, '显示截距 a、b', s.inter, v => s.inter = v);
+    const r = row(el);
+    r.classList.add('three');
+    [[0, 'k = 0'], [1, 'k = 1'], [-1, 'k = −1']].forEach(([k, name]) => {
+      addBtn(r, name, () => { s.k = k; buildPanel(); }, 'ghost');
+    });
+  }
+});
+
+/* ============================================================
+   03 两条直线的位置关系
+   ============================================================ */
+MODULES.push({
+  key: 'position', tab: '03', name: '两直线位置关系', accent: '#7cc0ff', rgb: '124,192,255',
+  hint: '拖动四条端点改变两条直线，观察平行、垂直、相交与重合',
+  state: {
+    A1: {x: -4.4, y: -1.6}, B1: {x: 1.6, y: 1.4},
+    A2: {x: -3.6, y: 2.8}, B2: {x: 2.6, y: 0.4},
+    showI: true, showAngle: true
+  },
+  reset() {
+    this.state.A1 = {x: -4.4, y: -1.6};
+    this.state.B1 = {x: 1.6, y: 1.4};
+    this.state.A2 = {x: -3.6, y: 2.8};
+    this.state.B2 = {x: 2.6, y: 0.4};
+    this.state.showI = true;
+    this.state.showAngle = true;
+  },
+  calc() {
+    const s = this.state;
+    const r = sub(s.B1, s.A1), t = sub(s.B2, s.A2);
+    const Lr = Math.hypot(r.x, r.y), Lt = Math.hypot(t.x, t.y);
+    if (Lr < .15 || Lt < .15) return {bad: true, r, t, k1: null, k2: null, rel: '退化', angle: 0, I: null};
+    const cr = cross(r, t), dt = vdot(r, t);
+    const parallel = Math.abs(cr) < 1e-6 * Lr * Lt;
+    const coincident = parallel && Math.abs(cross(sub(s.A2, s.A1), r)) / Lr < 1e-6;
+    const perpendicular = !parallel && Math.abs(dt) < 1e-6 * Lr * Lt;
+    let I = null;
+    if (!parallel) {
+      const qp = sub(s.A2, s.A1);
+      const u = cross(qp, t) / cr;
+      I = add(s.A1, mul(r, u));
+    }
+    return {
+      r, t, Lr, Lt, parallel, coincident, perpendicular, I,
+      rel: parallel ? (coincident ? '重合' : '平行') : (perpendicular ? '垂直' : '相交'),
+      angle: Math.acos(clamp(Math.abs(dt) / (Lr * Lt), 0, 1)),
+      k1: Math.abs(r.x) < 1e-8 ? null : r.y / r.x,
+      k2: Math.abs(t.x) < 1e-8 ? null : t.y / t.x
+    };
+  },
+  meta() {
+    return {
+      title: '两条直线的位置关系',
+      desc: '把两条直线都看成方向向量 <b>r₁</b>、<b>r₂</b>：<b>r₁ ∥ r₂</b> 时两直线平行或重合；<b>r₁ · r₂ = 0</b> 时两直线垂直。拖动端点，改变两条直线的方向。',
+      formula: 'r₁ ∥ r₂ ⇔ x₁y₂ − x₂y₁ = 0<br>r₁ ⊥ r₂ ⇔ x₁x₂ + y₁y₂ = 0',
+      note: '若用斜率判定：k₁ = k₂ 且 b₁ ≠ b₂ 时平行；k₁k₂ = −1 时垂直。这两个结论都以两条直线的斜率都存在为前提。一般式 A₁x+B₁y+C₁=0 的判定更通用。'
+    };
+  },
+  handles() {
+    const s = this.state;
+    return [{id: 'A1', ...s.A1}, {id: 'B1', ...s.B1}, {id: 'A2', ...s.A2}, {id: 'B2', ...s.B2}];
+  },
+  drag(id, p) {
+    const q = clampPt(p);
+    this.state[id].x = q.x;
+    this.state[id].y = q.y;
+  },
+  draw() {
+    const s = this.state, c = this.calc();
+    setFrame(.5, .55, 12.6);
+    base();
+    const c1 = '#7cc0ff', c2 = '#ffc267';
+    infLine(s.A1, c.r, c1, {w: 2.5, glow: 8, alpha: .92});
+    infLine(s.A2, c.t, c2, {w: 2.5, glow: 8, alpha: .92});
+
+    const seg1 = clipLine(s.A1, c.r), seg2 = clipLine(s.A2, c.t);
+    if (seg1) {
+      const q = {x: lerp(seg1[0].x, seg1[1].x, .84), y: lerp(seg1[0].y, seg1[1].y, .84)};
+      math('l₁', X(q.x), Y(q.y) - 14, c1, 17);
+    }
+    if (seg2) {
+      const q = {x: lerp(seg2[0].x, seg2[1].x, .84), y: lerp(seg2[0].y, seg2[1].y, .84)};
+      math('l₂', X(q.x), Y(q.y) - 14, c2, 17);
+    }
+
+    if (c.bad) {
+      canvasMsg('直线退化', '请把每条直线的两个端点拉开');
+    } else if (c.I && s.showI) {
+      let u = norm(c.r), v = norm(c.t);
+      if (vdot(u, v) < 0) v = {x: -v.x, y: -v.y};
+      if (s.showAngle && !c.parallel) {
+        angleArc(c.I, Math.atan2(u.y, u.x), Math.atan2(v.y, v.x), 44, 'rgba(255,255,255,.55)', 'θ = ' + fmtDeg(c.angle), 10.5);
+      }
+      if (c.perpendicular) rightAngle(c.I, u, v, 15, 'rgba(255,255,255,.55)');
+      dot(c.I, '#ffffff', 4.2);
+      pLabel(c.I, 'P', '#ffffff', 14, 18, 12.5);
+    } else if (c.parallel && !c.bad) {
+      sans('l₁ ∥ l₂' + (c.coincident ? '（重合）' : ''), W / 2, 62, 'rgba(200,225,238,.75)', 12);
+    }
+
+    handle(s.A1, c1, hoverId === 'A1');
+    handle(s.B1, c1, hoverId === 'B1');
+    handle(s.A2, c2, hoverId === 'A2');
+    handle(s.B2, c2, hoverId === 'B2');
+    pLabel(s.A1, 'A₁', 'rgba(170,210,255,.95)', -18, 17, 11);
+    pLabel(s.B1, 'B₁', 'rgba(170,210,255,.95)', 17, -13, 11);
+    pLabel(s.A2, 'A₂', 'rgba(255,224,174,.95)', -18, 17, 11);
+    pLabel(s.B2, 'B₂', 'rgba(255,224,174,.95)', 17, -13, 11);
+  },
+  hud() {
+    const c = this.calc();
+    return [
+      {k: 'l₁ 斜率', v: c.k1 == null ? '不存在' : fmt(c.k1)},
+      {k: 'l₂ 斜率', v: c.k2 == null ? '不存在' : fmt(c.k2)},
+      {k: '位置关系', v: c.rel, hi: true},
+      {k: '交点 P', v: c.I ? '(' + fmt(c.I.x) + ', ' + fmt(c.I.y) + ')' : '—'},
+      {k: '夹角 θ', v: c.parallel ? '0°' : fmtDeg(c.angle)}
+    ];
+  },
+  panel(el) {
+    const s = this.state;
+    addToggle(el, '显示交点 P', s.showI, v => s.showI = v);
+    addToggle(el, '显示夹角 θ 与直角标记', s.showAngle, v => s.showAngle = v);
+    const r1 = row(el);
+    addBtn(r1, '设为平行', () => this.setRelation('parallel'));
+    addBtn(r1, '设为垂直', () => this.setRelation('perp'));
+    const r2 = row(el);
+    addBtn(r2, '设为相交', () => this.setRelation('cross'), 'ghost');
+    addBtn(r2, '设为重合', () => this.setRelation('coincide'), 'ghost');
+  },
+  setRelation(kind) {
+    const s = this.state;
+    if (kind === 'coincide') {
+      s.A2 = {...s.A1};
+      s.B2 = {...s.B1};
+      renderHud();
+      return;
+    }
+    const r = sub(s.B1, s.A1);
+    const u = norm(r);
+    const Lt = clamp(Math.hypot(s.B2.x - s.A2.x, s.B2.y - s.A2.y), 2.4, 4.2);
+    let d;
+    if (kind === 'parallel') d = u;
+    else if (kind === 'perp') d = perp(u);
+    else {
+      const a = Math.atan2(r.y, r.x) + rad(62);
+      d = {x: Math.cos(a), y: Math.sin(a)};
+    }
+    // 两个方向表示同一条直线；选端点更靠近视野的一侧，避免端点飞出画面
+    const q1 = add(s.A2, mul(d, Lt)), q2 = add(s.A2, mul(d, -Lt));
+    const penalty = q => Math.max(0, Math.abs(q.x) - 5.6) + Math.max(0, Math.abs(q.y) - 3.8);
+    s.B2 = penalty(q1) <= penalty(q2) ? q1 : q2;
+    renderHud();
+  }
+});
+
+/* ============================================================
+   04 距离公式
+   ============================================================ */
+MODULES.push({
+  key: 'distance', tab: '04', name: '距离公式', accent: '#ff9f7a', rgb: '255,159,122',
+  hint: '拖动 P 点，观察点到直线的距离；也可切换两平行线',
+  state: {sub: 'point', k: .8, b: -.6, P: {x: 2.2, y: 1.8}, b1: -.8, b2: 2.2, showFoot: true},
+  reset() {
+    this.state.sub = 'point';
+    this.state.k = .8;
+    this.state.b = -.6;
+    this.state.P = {x: 2.2, y: 1.8};
+    this.state.b1 = -.8;
+    this.state.b2 = 2.2;
+    this.state.showFoot = true;
+  },
+  distPoint() {
+    const s = this.state;
+    return Math.abs(s.k * s.P.x - s.P.y + s.b) / Math.sqrt(s.k * s.k + 1);
+  },
+  footPoint() {
+    const s = this.state;
+    const f = s.k * s.P.x - s.P.y + s.b;
+    return {x: s.P.x - s.k * f / (s.k * s.k + 1), y: s.P.y + f / (s.k * s.k + 1)};
+  },
+  footOn2(q) {
+    const s = this.state;
+    const f = s.k * q.x - q.y + s.b2;
+    return {x: q.x - s.k * f / (s.k * s.k + 1), y: q.y + f / (s.k * s.k + 1)};
+  },
+  meta() {
+    const point = this.state.sub === 'point';
+    return {
+      title: point ? '点到直线的距离' : '两条平行线间的距离',
+      desc: point
+        ? '把直线写成一般式 Ax+By+C=0，点 P(x₀, y₀) 到它的距离等于“斜边上的高”。图中 PH 就是垂线段，H 是垂足。'
+        : '两条平行线的 x、y 系数相同，距离等于截距差除以法向量的模。图中垂线段连接两条直线，并与它们都垂直。',
+      formula: point ? 'd = |Ax₀ + By₀ + C| / √(A² + B²)' : 'd = |C₁ − C₂| / √(A² + B²)',
+      note: point
+        ? '直线 y = kx + b 化成一般式是 kx − y + b = 0，因此 A=k、B=−1、C=b。距离公式的分子是“代入后的绝对值”，分母是法向量的模。'
+        : '使用两平行线距离公式前，必须先把两条直线化成 x、y 系数分别相同的一般式；若系数不同，要先同乘一个数配成相同系数。'
+    };
+  },
+  handles() { return this.state.sub === 'point' ? [{id: 'P', ...this.state.P}] : []; },
+  drag(id, p) {
+    const q = clampPt(p);
+    this.state.P.x = q.x;
+    this.state.P.y = q.y;
+  },
+  draw() {
+    const s = this.state;
+    setFrame(.5, .55, 12.6);
+    base();
+    const col = '#ff9f7a';
+    if (s.sub === 'point') {
+      slopeLine(s.k, s.b, col, {w: 2.5, glow: 8, alpha: .95});
+      const H = this.footPoint(), P = s.P, d = this.distPoint();
+      const u = norm({x: 1, y: s.k});
+      const w = norm(sub(P, H));
+      line(P, H, 'rgba(255,159,122,.85)', {w: 2.2, dash: [7, 5]});
+      if (s.showFoot) {
+        dot(H, '#ffd4c2', 3.8);
+        ringDot(H, 'rgba(255,159,122,.7)', 3);
+        rightAngle(H, u, w, 14, 'rgba(255,205,185,.7)');
+        pLabel(H, 'H', '#ffd4c2', 12, 17, 11.5);
+      }
+      dot(P, '#ffffff', 4.2);
+      pLabel(P, 'P', '#ffffff', 14, -14, 13);
+      segLabel(P, H, 'd = ' + fmt(d), '#ffe0d3', .5, 18, 11.5);
+      handle(P, col, hoverId === 'P');
+    } else {
+      slopeLine(s.k, s.b1, col, {w: 2.5, glow: 8, alpha: .95});
+      slopeLine(s.k, s.b2, '#ffc267', {w: 2.5, glow: 8, alpha: .95});
+      const H1 = {x: 1, y: s.k + s.b1};
+      const H2 = this.footOn2(H1);
+      const d = Math.abs(s.b1 - s.b2) / Math.sqrt(s.k * s.k + 1);
+      const u = norm({x: 1, y: s.k});
+      const w = norm(sub(H2, H1));
+      line(H1, H2, 'rgba(255,159,122,.9)', {w: 2.2, dash: [7, 5]});
+      dot(H1, '#ffd4c2', 3.8); dot(H2, '#ffe0ae', 3.8);
+      rightAngle(H1, u, w, 14, 'rgba(255,205,185,.65)');
+      rightAngle(H2, u, {x: -w.x, y: -w.y}, 14, 'rgba(255,224,174,.65)');
+      segLabel(H1, H2, 'd = ' + fmt(d), '#ffe0d3', .5, 18, 11.5);
+      const q1 = {x: 0, y: s.b1}, q2 = {x: 0, y: s.b2};
+      if (inView(q1, .5)) sans('l₁', X(0) + 13, Y(s.b1) - 11, 'rgba(255,200,180,.95)', 10.5);
+      if (inView(q2, .5)) sans('l₂', X(0) + 13, Y(s.b2) - 11, 'rgba(255,224,174,.95)', 10.5);
+      if (Math.abs(s.b1 - s.b2) < 1e-6) sans('两直线重合', W / 2, 62, 'rgba(255,210,190,.8)', 11.5);
+    }
+  },
+  hud() {
+    const s = this.state;
+    if (s.sub === 'point') {
+      const d = this.distPoint();
+      return [
+        {k: '距离 d', v: fmt(d), hi: true},
+        {k: '|kx₀ − y₀ + b|', v: fmt(Math.abs(s.k * s.P.x - s.P.y + s.b))},
+        {k: '√(k² + 1)', v: fmt(Math.sqrt(s.k * s.k + 1))},
+        {k: '垂足 H', v: '(' + fmt(this.footPoint().x) + ', ' + fmt(this.footPoint().y) + ')'}
+      ];
+    }
+    return [
+      {k: '距离 d', v: fmt(Math.abs(s.b1 - s.b2) / Math.sqrt(s.k * s.k + 1)), hi: true},
+      {k: 'k', v: fmt(s.k)},
+      {k: 'b₁', v: fmt(s.b1)},
+      {k: 'b₂', v: fmt(s.b2)}
+    ];
+  },
+  numeric() {
+    const s = this.state;
+    if (s.sub === 'point') {
+      const d = this.distPoint();
+      return 'd = |' + fmt(s.k) + '·' + parenNum(s.P.x) + ' − ' + parenNum(s.P.y) + ' + (' + fmt(s.b) + ')| / √(' + fmt(s.k) + '² + 1) = ' + fmt(d);
+    }
+    const d = Math.abs(s.b1 - s.b2) / Math.sqrt(s.k * s.k + 1);
+    return 'd = |(' + fmt(s.b1) + ') − (' + fmt(s.b2) + ')| / √(' + fmt(s.k) + '² + 1) = ' + fmt(d);
+  },
+  panel(el) {
+    const s = this.state;
+    const seg = document.createElement('div');
+    seg.className = 'seg two';
+    [['point', '点到直线'], ['parallel', '两平行线']].forEach(([k, name]) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = name;
+      btn.className = s.sub === k ? 'on' : '';
+      btn.addEventListener('click', () => { s.sub = k; buildPanel(); });
+      seg.appendChild(btn);
+    });
+    el.appendChild(seg);
+
+    addSlider(el, '斜率 k', -2.5, 2.5, .05, s.k, v => fmt(v), v => s.k = v);
+    if (s.sub === 'point') {
+      addSlider(el, '截距 b', -5, 5, .1, s.b, v => fmt(v), v => {
+        s.b = v;
+        s.b1 = v;
+      });
+      addToggle(el, '显示垂足 H 与直角标记', s.showFoot, v => s.showFoot = v);
+      const r = row(el);
+      addBtn(r, '使 P 在直线上', () => {
+        s.b = clamp(s.P.y - s.k * s.P.x, -5, 5);
+        s.b1 = s.b;
+        buildPanel();
+      });
+      addBtn(r, '过原点', () => { s.b = 0; s.b1 = 0; buildPanel(); }, 'ghost');
+    } else {
+      addSlider(el, '截距 b₁', -5, 5, .1, s.b1, v => fmt(v), v => s.b1 = v);
+      addSlider(el, '截距 b₂', -5, 5, .1, s.b2, v => fmt(v), v => s.b2 = v);
+      const r = row(el);
+      addBtn(r, 'b₂ = b₁ + 2', () => { s.b2 = clamp(s.b1 + 2, -5, 5); buildPanel(); });
+      addBtn(r, '两线重合', () => { s.b2 = s.b1; buildPanel(); }, 'ghost');
+    }
+  }
+});
+
+
+/* ============================================================
+   05 圆的方程
+   ============================================================ */
+MODULES.push({
+  key: 'circle', tab: '05', name: '圆的方程', accent: '#ada0ff', rgb: '173,160,255',
+  hint: '拖动圆心或调节半径；切换到一般式，观察判别式的变化',
+  state: {sub: 'standard', C: {x: -.8, y: .6}, r: 2.6, D: 1.6, E: -1.2, F: -5.76},
+  reset() {
+    this.state.sub = 'standard';
+    this.state.C = {x: -.8, y: .6};
+    this.state.r = 2.6;
+    this.state.D = 1.6;
+    this.state.E = -1.2;
+    this.state.F = -5.76;
+  },
+  general() {
+    const s = this.state;
+    const disc = s.D * s.D + s.E * s.E - 4 * s.F;
+    const c = {x: -s.D / 2, y: -s.E / 2};
+    if (disc > 1e-9) return {disc, c, r: Math.sqrt(disc) / 2, type: '圆'};
+    if (Math.abs(disc) <= 1e-9) return {disc, c, r: 0, type: '一个点'};
+    return {disc, c, r: 0, type: '不表示图形'};
+  },
+  syncGeneral() {
+    const s = this.state;
+    s.D = -2 * s.C.x;
+    s.E = -2 * s.C.y;
+    s.F = s.C.x * s.C.x + s.C.y * s.C.y - s.r * s.r;
+  },
+  syncStandard() {
+    const s = this.state;
+    const g = this.general();
+    if (g.disc > 1e-9) {
+      s.C = {x: g.c.x, y: g.c.y};
+      s.r = clamp(g.r, .4, 4.2);
+    }
+  },
+  meta() {
+    const std = this.state.sub === 'standard';
+    return {
+      title: std ? '圆的标准方程' : '圆的一般方程',
+      desc: std
+        ? '圆心 C(a, b)、半径 r 是圆的两个要素。拖动圆心、调节半径，方程 <b>(x−a)²+(y−b)²=r²</b> 随之变化；把它展开，就得到一般式。'
+        : '一般式 <b>x²+y²+Dx+Ey+F=0</b> 配方后成为 <b>(x+D/2)²+(y+E/2)²=(D²+E²−4F)/4</b>。判别式的符号决定它表示圆、一个点，还是不表示图形。',
+      formula: std ? '(x − a)² + (y − b)² = r²' : 'x² + y² + Dx + Ey + F = 0',
+      note: std
+        ? '标准方程直接读出圆心与半径。展开后 x²、y² 的系数都是 1，且没有 xy 项——这是判断一个二元二次方程是否为圆的重要特征。'
+        : '当 D²+E²−4F>0 时是圆；等于 0 时只有一个点；小于 0 时不表示任何图形。圆心是 (−D/2, −E/2)，半径是 ½√(D²+E²−4F)。'
+    };
+  },
+  handles() { return this.state.sub === 'standard' ? [{id: 'C', ...this.state.C}] : []; },
+  drag(id, p) {
+    const q = clampPt(p);
+    this.state.C.x = q.x;
+    this.state.C.y = q.y;
+  },
+  draw() {
+    const s = this.state;
+    setFrame(.5, .55, 12.6);
+    base();
+    const col = '#ada0ff';
+    if (s.sub === 'standard') {
+      const C = s.C, r = s.r;
+      circleG(C, r, col, {w: 2.2, glow: 12, fill: 'rgba(173,160,255,.035)'});
+      const a = rad(42);
+      const T = {x: C.x + r * Math.cos(a), y: C.y + r * Math.sin(a)};
+      line(C, T, 'rgba(173,160,255,.75)', {w: 1.6, dash: [6, 4]});
+      dot(C, '#ffffff', 4.2);
+      dot(T, '#d8d2ff', 3.2);
+      pLabel(C, 'C', '#ffffff', 14, 17, 13);
+      pLabel(T, 'r', '#d8d2ff', 14, -12, 12);
+      sans('C(' + fmt(C.x) + ', ' + fmt(C.y) + ')  r = ' + fmt(r), X(C.x) + 14, Y(C.y) + 33, 'rgba(210,205,240,.75)', 9);
+      handle(C, col, hoverId === 'C');
+    } else {
+      const g = this.general();
+      if (g.disc > 1e-9) {
+        circleG(g.c, g.r, col, {w: 2.2, glow: 12, fill: 'rgba(173,160,255,.035)'});
+        const a = rad(42);
+        const T = {x: g.c.x + g.r * Math.cos(a), y: g.c.y + g.r * Math.sin(a)};
+        line(g.c, T, 'rgba(173,160,255,.7)', {w: 1.5, dash: [6, 4]});
+        dot(g.c, '#ffffff', 4);
+        dot(T, '#d8d2ff', 3);
+        pLabel(g.c, 'C', '#ffffff', 14, 17, 13);
+        pLabel(T, 'r', '#d8d2ff', 14, -12, 12);
+        sans('C(' + fmt(g.c.x) + ', ' + fmt(g.c.y) + ')  r = ' + fmt(g.r), X(g.c.x) + 14, Y(g.c.y) + 33, 'rgba(210,205,240,.75)', 9);
+      } else if (Math.abs(g.disc) <= 1e-9) {
+        dot(g.c, col, 4.5);
+        ringDot(g.c, 'rgba(173,160,255,.65)', 4);
+        pLabel(g.c, 'C', '#ffffff', 14, 17, 13);
+        canvasMsg('D² + E² − 4F = 0', '方程只表示一个点 (' + fmt(g.c.x) + ', ' + fmt(g.c.y) + ')', 'rgba(173,160,255,.5)');
+      } else {
+        ringDot(g.c, 'rgba(173,160,255,.4)', 4);
+        pLabel(g.c, 'C', 'rgba(220,215,240,.7)', 14, 17, 12);
+        canvasMsg('D² + E² − 4F < 0', '方程不表示任何图形', 'rgba(173,160,255,.5)');
+      }
+    }
+  },
+  hud() {
+    const s = this.state;
+    if (s.sub === 'standard') {
+      return [
+        {k: '圆心 C', v: '(' + fmt(s.C.x) + ', ' + fmt(s.C.y) + ')'},
+        {k: '半径 r', v: fmt(s.r), hi: true},
+        {k: 'D', v: fmt(-2 * s.C.x)},
+        {k: 'E', v: fmt(-2 * s.C.y)},
+        {k: 'F', v: fmt(s.C.x * s.C.x + s.C.y * s.C.y - s.r * s.r)},
+        {k: 'D²+E²−4F', v: fmt(4 * s.r * s.r), hi: true}
+      ];
+    }
+    const g = this.general();
+    return [
+      {k: 'D', v: fmt(s.D)}, {k: 'E', v: fmt(s.E)}, {k: 'F', v: fmt(s.F)},
+      {k: '判别式', v: fmt(g.disc), hi: true},
+      {k: '类型', v: g.type, hi: g.disc <= 1e-9},
+      {k: '半径 r', v: g.disc > 1e-9 ? fmt(g.r) : '—'}
+    ];
+  },
+  numeric() {
+    const s = this.state;
+    if (s.sub === 'standard') {
+      const xp = Math.abs(s.C.x) < 5e-3 ? 'x²' : (s.C.x > 0 ? '(x − ' + fmt(s.C.x) + ')²' : '(x + ' + fmt(-s.C.x) + ')²');
+      const yp = Math.abs(s.C.y) < 5e-3 ? 'y²' : (s.C.y > 0 ? '(y − ' + fmt(s.C.y) + ')²' : '(y + ' + fmt(-s.C.y) + ')²');
+      return xp + ' + ' + yp + ' = ' + fmt(s.r) + '²';
+    }
+    return 'x² + y² ' + (s.D >= 0 ? '+ ' + fmt(s.D) : '− ' + fmt(-s.D)) + 'x ' +
+      (s.E >= 0 ? '+ ' + fmt(s.E) : '− ' + fmt(-s.E)) + 'y ' +
+      (s.F >= 0 ? '+ ' + fmt(s.F) : '− ' + fmt(-s.F)) + ' = 0';
+  },
+  panel(el) {
+    const s = this.state;
+    const seg = document.createElement('div');
+    seg.className = 'seg two';
+    [['standard', '标准方程'], ['general', '一般方程']].forEach(([k, name]) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = name;
+      btn.className = s.sub === k ? 'on' : '';
+      btn.addEventListener('click', () => {
+        if (k === 'general') this.syncGeneral();
+        else this.syncStandard();
+        s.sub = k;
+        buildPanel();
+      });
+      seg.appendChild(btn);
+    });
+    el.appendChild(seg);
+
+    if (s.sub === 'standard') {
+      addSlider(el, '半径 r', .4, 4.2, .05, s.r, v => fmt(v), v => s.r = v);
+      const r = row(el);
+      addBtn(r, '圆心移到原点', () => { s.C = {x: 0, y: 0}; buildPanel(); });
+      addBtn(r, 'r = 2.5', () => { s.r = 2.5; buildPanel(); }, 'ghost');
+    } else {
+      addSlider(el, 'D', -5, 5, .1, s.D, v => fmt(v), v => s.D = v);
+      addSlider(el, 'E', -5, 5, .1, s.E, v => fmt(v), v => s.E = v);
+      addSlider(el, 'F', -14, 14, .1, s.F, v => fmt(v), v => s.F = v);
+      const r = row(el);
+      addBtn(r, '令判别式 = 0', () => {
+        s.F = (s.D * s.D + s.E * s.E) / 4;
+        buildPanel();
+      });
+      addBtn(r, '取一组圆', () => {
+        s.D = 1.6; s.E = -1.2; s.F = -5.76;
+        buildPanel();
+      }, 'ghost');
+    }
+  }
+});
+
+/* ============================================================
+   06 直线与圆的位置关系
+   ============================================================ */
+MODULES.push({
+  key: 'lineCircle', tab: '06', name: '直线与圆', accent: '#5ad7e8', rgb: '90,215,232',
+  playIdle: '▶ 扫描直线',
+  hint: '拖动圆心或调节参数；点击「扫描直线」连续观察三种位置关系',
+  state: {C: {x: -.6, y: .2}, r: 2.4, k: .6, b: -1.0, showChord: true, playing: false, dir: 1},
+  reset() {
+    this.state.C = {x: -.6, y: .2};
+    this.state.r = 2.4;
+    this.state.k = .6;
+    this.state.b = -1.0;
+    this.state.showChord = true;
+    this.state.playing = false;
+    this.state.dir = 1;
+  },
+  dist() {
+    const s = this.state;
+    return Math.abs(s.k * s.C.x - s.C.y + s.b) / Math.sqrt(s.k * s.k + 1);
+  },
+  foot() {
+    const s = this.state;
+    const f = s.k * s.C.x - s.C.y + s.b;
+    return {x: s.C.x - s.k * f / (s.k * s.k + 1), y: s.C.y + f / (s.k * s.k + 1)};
+  },
+  relation() {
+    const d = this.dist(), r = this.state.r;
+    if (d > r + 1e-7) return '相离';
+    if (Math.abs(d - r) <= 1e-7) return '相切';
+    return '相交';
+  },
+  chord() {
+    const s = this.state;
+    const d = this.dist();
+    if (d >= s.r - 1e-7) return null;
+    const H = this.foot();
+    const u = norm({x: 1, y: s.k});
+    const h = Math.sqrt(Math.max(0, s.r * s.r - d * d));
+    return {A: add(H, mul(u, h)), B: sub(H, mul(u, h)), h};
+  },
+  meta() {
+    return {
+      title: '直线与圆的位置关系',
+      desc: '比较圆心到直线的距离 <b>d</b> 与半径 <b>r</b>：d &lt; r 时相交，d = r 时相切，d &gt; r 时相离。拖动圆心或调节参数，观察几何关系的变化。',
+      formula: 'd = |Ax₀ + By₀ + C| / √(A² + B²)',
+      note: '相交时弦长由垂径定理得到：<i>|AB| = 2√(r² − d²)</i>。相切时 d = r，且半径 CA 垂直于切线。代数法联立方程后，也可以用判别式 Δ 判断公共点个数。'
+    };
+  },
+  handles() { return [{id: 'C', ...this.state.C}]; },
+  drag(id, p) {
+    const q = clampPt(p);
+    this.state.C.x = q.x;
+    this.state.C.y = q.y;
+  },
+  togglePlay() {
+    const s = this.state;
+    s.playing = !s.playing;
+    setPlayLabel(s.playing ? '❚❚ 暂停扫描' : this.playIdle);
+  },
+  draw(dt) {
+    const s = this.state;
+    if (s.playing) {
+      s.b += dt * 1.05 * s.dir;
+      if (s.b > 6) { s.b = 6; s.dir = -1; }
+      if (s.b < -6) { s.b = -6; s.dir = 1; }
+      if (this.bCtl) this.bCtl.set(s.b, false);
+    }
+    setFrame(.5, .55, 12.6);
+    base();
+    const col = '#5ad7e8';
+    circleG(s.C, s.r, col, {w: 2.2, glow: 12, fill: 'rgba(90,215,232,.035)'});
+    slopeLine(s.k, s.b, '#ffc267', {w: 2.2, glow: 7, alpha: .9});
+
+    const d = this.dist(), H = this.foot(), rel = this.relation();
+    line(s.C, H, 'rgba(90,215,232,.8)', {w: 1.7, dash: [6, 4]});
+    dot(H, '#d9fbff', 3.5);
+    rightAngle(H, norm({x: 1, y: s.k}), norm(sub(s.C, H)), 13, 'rgba(180,240,248,.6)');
+    pLabel(H, 'H', '#d9fbff', 12, 17, 10.5);
+    segLabel(s.C, H, 'd = ' + fmt(d), '#bff4fb', .5, 16, 10.5);
+    dot(s.C, '#ffffff', 4.2);
+    pLabel(s.C, 'C', '#ffffff', 14, -14, 13);
+    handle(s.C, col, hoverId === 'C');
+
+    if (rel === '相交' && s.showChord) {
+      const ch = this.chord();
+      if (ch) {
+        line(ch.A, ch.B, '#ffffff', {w: 3.4, alpha: .92, glow: 10});
+        line(s.C, ch.A, 'rgba(90,215,232,.55)', {w: 1.3, dash: [5, 4]});
+        dot(ch.A, '#ffffff', 3.6); dot(ch.B, '#ffffff', 3.6);
+        pLabel(ch.A, 'A', '#ffffff', -16, 17, 12);
+        pLabel(ch.B, 'B', '#ffffff', 16, 17, 12);
+        segLabel(ch.A, ch.B, '|AB| = ' + fmt(2 * ch.h), '#ffffff', .5, 17, 10.5);
+      }
+    } else if (rel === '相切') {
+      dot(H, '#ffffff', 4.2);
+      ringDot(H, 'rgba(255,255,255,.5)', 3.5);
+      pLabel(H, 'T', '#ffffff', 15, -13, 12);
+      sans('相切：d = r', X(H.x) + 18, Y(H.y) + 30, 'rgba(210,245,250,.9)', 9.5);
+    } else if (rel === '相离') {
+      sans('相离：d > r', W / 2, 62, 'rgba(200,230,240,.7)', 11);
+    }
+  },
+  hud() {
+    const d = this.dist(), rel = this.relation();
+    const ch = this.chord();
+    return [
+      {k: 'd', v: fmt(d), hi: true},
+      {k: 'r', v: fmt(this.state.r)},
+      {k: '位置关系', v: rel, hi: true},
+      {k: '弦长 |AB|', v: ch ? fmt(2 * ch.h) : '—'},
+      {k: '公共点个数', v: rel === '相交' ? '2' : rel === '相切' ? '1' : '0'}
+    ];
+  },
+  numeric() {
+    const s = this.state;
+    return 'd = |' + fmt(s.k) + '·' + parenNum(s.C.x) + ' − ' + parenNum(s.C.y) + ' + (' + fmt(s.b) + ')| / √(' + fmt(s.k) + '² + 1) = ' + fmt(this.dist());
+  },
+  panel(el) {
+    const s = this.state;
+    addSlider(el, '斜率 k', -2.5, 2.5, .05, s.k, v => fmt(v), v => s.k = v);
+    this.bCtl = addSlider(el, '截距 b', -6, 6, .1, s.b, v => fmt(v), v => s.b = v);
+    addSlider(el, '半径 r', .5, 3.6, .05, s.r, v => fmt(v), v => s.r = v);
+    addToggle(el, '显示弦 AB', s.showChord, v => s.showChord = v);
+    const base = s.C.y - s.k * s.C.x;
+    const off = s.r * Math.sqrt(s.k * s.k + 1);
+    const r1 = row(el);
+    r1.classList.add('three');
+    addBtn(r1, '调到相切', () => {
+      s.b = clamp(base + (s.b >= base ? off : -off), -6, 6);
+      s.playing = false;
+      buildPanel();
+      setPlayLabel(this.playIdle);
+    });
+    addBtn(r1, '过圆心', () => {
+      s.b = clamp(base, -6, 6);
+      s.playing = false;
+      buildPanel();
+      setPlayLabel(this.playIdle);
+    }, 'ghost');
+    addBtn(r1, '调到相离', () => {
+      s.b = clamp(base + (off + 1.4 * Math.sqrt(s.k * s.k + 1)), -6, 6);
+      s.playing = false;
+      buildPanel();
+      setPlayLabel(this.playIdle);
+    }, 'ghost');
+  }
+});
+
+/* ============================================================
+   07 圆与圆的位置关系
+   ============================================================ */
+MODULES.push({
+  key: 'twoCircles', tab: '07', name: '圆与圆', accent: '#f78fb3', rgb: '247,143,179',
+  hint: '拖动两个圆心，调节半径，观察五种位置关系与公共弦',
+  state: {C1: {x: -2.1, y: .2}, C2: {x: 1.2, y: .4}, r1: 2.0, r2: 1.4, showChord: true},
+  reset() {
+    this.state.C1 = {x: -2.1, y: .2};
+    this.state.C2 = {x: 1.2, y: .4};
+    this.state.r1 = 2.0;
+    this.state.r2 = 1.4;
+    this.state.showChord = true;
+  },
+  calc() {
+    const s = this.state;
+    const vec = sub(s.C2, s.C1);
+    const d = Math.hypot(vec.x, vec.y);
+    const sum = s.r1 + s.r2, diff = Math.abs(s.r1 - s.r2);
+    let rel;
+    if (d < 1e-7) rel = diff < 1e-6 ? '重合' : '内含（同心）';
+    else if (d > sum + 1e-6) rel = '外离';
+    else if (Math.abs(d - sum) <= 1e-6) rel = '外切';
+    else if (d > diff + 1e-6) rel = '相交';
+    else if (Math.abs(d - diff) <= 1e-6) rel = '内切';
+    else rel = '内含';
+    let base = null, P1 = null, P2 = null, h = 0;
+    if (d > 1e-7) {
+      const u = norm(vec);
+      const a = (s.r1 * s.r1 - s.r2 * s.r2 + d * d) / (2 * d);
+      const h2 = s.r1 * s.r1 - a * a;
+      if (h2 >= -1e-7) {
+        h = Math.sqrt(Math.max(0, h2));
+        base = add(s.C1, mul(u, a));
+        const n = perp(u);
+        P1 = add(base, mul(n, h));
+        P2 = sub(base, mul(n, h));
+      }
+    }
+    return {vec, d, sum, diff, rel, base, P1, P2, h};
+  },
+  meta() {
+    return {
+      title: '圆与圆的位置关系',
+      desc: '用圆心距 <b>d</b> 与 <b>r₁+r₂</b>、<b>|r₁−r₂|</b> 比较：外离、外切、相交、内切、内含。拖动圆心、调节半径，观察公共弦的出现与消失。',
+      formula: '相交：|r₁ − r₂| &lt; d &lt; r₁ + r₂',
+      note: '两圆相交时，公共弦所在直线可由两圆方程相减得到（消去 x²、y² 项）。公共弦长用垂径定理：<i>l = 2√(r₁² − a²)</i>，其中 a 是圆心到公共弦的距离。'
+    };
+  },
+  handles() {
+    return [{id: 'C1', ...this.state.C1}, {id: 'C2', ...this.state.C2}];
+  },
+  drag(id, p) {
+    const q = clampPt(p);
+    this.state[id].x = q.x;
+    this.state[id].y = q.y;
+  },
+  draw() {
+    const s = this.state, c = this.calc();
+    setFrame(.5, .55, 12.6);
+    base();
+    const c1 = '#f78fb3', c2 = '#ffc267';
+    circleG(s.C1, s.r1, c1, {w: 2.1, glow: 10, fill: 'rgba(247,143,179,.03)'});
+    circleG(s.C2, s.r2, c2, {w: 2.1, glow: 10, fill: 'rgba(255,194,103,.025)'});
+
+    line(s.C1, s.C2, 'rgba(255,255,255,.3)', {w: 1.2, dash: [5, 4]});
+    segLabel(s.C1, s.C2, 'd = ' + fmt(c.d), 'rgba(220,230,238,.8)', .5, 15, 10.5);
+
+    if (c.base && s.showChord) {
+      const n = norm(perp(c.vec));
+      if (c.h > 1e-6) {
+        infLine(c.base, n, 'rgba(255,255,255,.18)', {w: 1, dash: [4, 5]});
+        line(c.P1, c.P2, '#ffffff', {w: 3.2, alpha: .9, glow: 9});
+        sans('公共弦', X(c.base.x) + 14, Y(c.base.y) - 14, 'rgba(255,255,255,.8)', 9.5, 'left');
+        dot(c.P1, '#ffffff', 3.4); dot(c.P2, '#ffffff', 3.4);
+        pLabel(c.P1, 'A', '#ffffff', 13, -12, 11);
+        pLabel(c.P2, 'B', '#ffffff', 13, 16, 11);
+      } else {
+        infLine(c.P1, n, 'rgba(255,255,255,.55)', {w: 1.6, dash: [6, 5]});
+        dot(c.P1, '#ffffff', 4);
+        pLabel(c.P1, 'T', '#ffffff', 14, -12, 11.5);
+      }
+    }
+
+    handle(s.C1, c1, hoverId === 'C1');
+    handle(s.C2, c2, hoverId === 'C2');
+    pLabel(s.C1, 'C₁', '#ffc3d6', -20, 16, 12);
+    pLabel(s.C2, 'C₂', '#ffe0ae', 15, -13, 12);
+    sans('r₁ = ' + fmt(s.r1), X(s.C1.x), Y(s.C1.y) + 32, 'rgba(255,195,214,.75)', 9);
+    sans('r₂ = ' + fmt(s.r2), X(s.C2.x), Y(s.C2.y) + 32, 'rgba(255,224,174,.75)', 9);
+    sans(c.rel, W / 2, 62, 'rgba(235,215,225,.85)', 12);
+  },
+  hud() {
+    const c = this.calc();
+    const points = c.rel === '相交' ? '2' : (c.rel === '外切' || c.rel === '内切') ? '1' : (c.rel === '重合' ? '无数' : '0');
+    return [
+      {k: 'd', v: fmt(c.d), hi: true},
+      {k: 'r₁ + r₂', v: fmt(c.sum)},
+      {k: '|r₁ − r₂|', v: fmt(c.diff)},
+      {k: '位置关系', v: c.rel, hi: true},
+      {k: '公共点个数', v: points},
+      {k: '公共弦长', v: c.h > 1e-6 ? fmt(2 * c.h) : '—'}
+    ];
+  },
+  numeric() {
+    const c = this.calc();
+    return 'd = ' + fmt(c.d) + '，r₁ + r₂ = ' + fmt(c.sum) + '，|r₁ − r₂| = ' + fmt(c.diff);
+  },
+  placeAt(target) {
+    const s = this.state;
+    const u = Math.hypot(s.C2.x - s.C1.x, s.C2.y - s.C1.y) > 1e-6
+      ? norm(sub(s.C2, s.C1)) : {x: 1, y: 0};
+    const L = limits();
+    s.C2 = {
+      x: clamp(s.C1.x + u.x * target, L.x0, L.x1),
+      y: clamp(s.C1.y + u.y * target, L.y0, L.y1)
+    };
+  },
+  panel(el) {
+    const s = this.state;
+    addSlider(el, '半径 r₁', .5, 3.2, .05, s.r1, v => fmt(v), v => s.r1 = v);
+    addSlider(el, '半径 r₂', .5, 3.2, .05, s.r2, v => fmt(v), v => s.r2 = v);
+    addToggle(el, '显示公共弦 / 根轴', s.showChord, v => s.showChord = v);
+    const r1 = row(el);
+    addBtn(r1, '外切', () => { this.placeAt(s.r1 + s.r2); });
+    addBtn(r1, '相交', () => { this.placeAt((s.r1 + s.r2 + Math.abs(s.r1 - s.r2)) / 2); });
+    const r2 = row(el);
+    addBtn(r2, '内切', () => {
+      s.r1 = 2.4; s.r2 = 1.2;
+      this.placeAt(1.2);
+      buildPanel();
+    }, 'ghost');
+    addBtn(r2, '外离', () => { this.placeAt(s.r1 + s.r2 + 1.3); }, 'ghost');
+  }
+});
+
+/* ============================================================
+   08 圆的切线
+   ============================================================ */
+MODULES.push({
+  key: 'tangent', tab: '08', name: '圆的切线', accent: '#8ee6a0', rgb: '142,230,160',
+  hint: '拖动 P 点或圆心，观察两条切线、切线长与切点弦',
+  state: {C: {x: 0, y: 0}, P: {x: 4.6, y: 2.8}, r: 2.2, showAux: false, showChord: true},
+  reset() {
+    this.state.C = {x: 0, y: 0};
+    this.state.P = {x: 4.6, y: 2.8};
+    this.state.r = 2.2;
+    this.state.showAux = false;
+    this.state.showChord = true;
+  },
+  geo() {
+    const s = this.state;
+    const vec = sub(s.P, s.C);
+    const d = Math.hypot(vec.x, vec.y);
+    if (d <= s.r + 1e-7) return {d, L: 0, inside: d < s.r - 1e-7, T1: null, T2: null, angle: 0};
+    const u = norm(vec);
+    const gamma = Math.acos(clamp(s.r / d, 0, 1));
+    const phi = Math.atan2(u.y, u.x);
+    const a1 = phi + gamma, a2 = phi - gamma;
+    return {
+      d, L: Math.sqrt(Math.max(0, d * d - s.r * s.r)),
+      inside: false,
+      T1: {x: s.C.x + s.r * Math.cos(a1), y: s.C.y + s.r * Math.sin(a1)},
+      T2: {x: s.C.x + s.r * Math.cos(a2), y: s.C.y + s.r * Math.sin(a2)},
+      angle: 2 * Math.asin(clamp(s.r / d, 0, 1)),
+      gamma
+    };
+  },
+  meta() {
+    return {
+      title: '过圆外一点作切线',
+      desc: '过圆外一点 P 可以作两条切线，切点分别为 T₁、T₂。切线长相等，且 <b>PT ⊥ CT</b>。拖动 P 点，观察切线、切线长与切点弦。',
+      formula: '|PT| = √(|PC|² − r²)',
+      note: '两个切点 T₁、T₂ 就是以 PC 为直径的圆与圆 C 的交点。两圆方程相减，就得到切点弦 T₁T₂ 所在直线的方程。切线长公式来自直角三角形 PCT：PT² + r² = PC²。'
+    };
+  },
+  handles() {
+    const s = this.state;
+    return [{id: 'C', ...s.C}, {id: 'P', ...s.P}];
+  },
+  drag(id, p) {
+    const q = clampPt(p);
+    this.state[id].x = q.x;
+    this.state[id].y = q.y;
+  },
+  draw() {
+    const s = this.state, g = this.geo();
+    setFrame(.5, .55, 12.6);
+    base();
+    const col = '#8ee6a0';
+    circleG(s.C, s.r, col, {w: 2.2, glow: 12, fill: 'rgba(142,230,160,.03)'});
+
+    if (g.T1 && g.T2) {
+      line(s.P, g.T1, 'rgba(142,230,160,.95)', {w: 2.2});
+      line(s.P, g.T2, 'rgba(142,230,160,.95)', {w: 2.2});
+      line(s.C, g.T1, 'rgba(255,255,255,.4)', {w: 1.2, dash: [5, 4]});
+      line(s.C, g.T2, 'rgba(255,255,255,.4)', {w: 1.2, dash: [5, 4]});
+      rightAngle(g.T1, norm(sub(s.C, g.T1)), norm(sub(s.P, g.T1)), 13, 'rgba(210,255,220,.7)');
+      rightAngle(g.T2, norm(sub(s.C, g.T2)), norm(sub(s.P, g.T2)), 13, 'rgba(210,255,220,.7)');
+      dot(g.T1, '#e9ffed', 3.6); dot(g.T2, '#e9ffed', 3.6);
+      pLabel(g.T1, 'T₁', '#e9ffed', 14, -12, 11.5);
+      pLabel(g.T2, 'T₂', '#e9ffed', 14, 17, 11.5);
+
+      line(s.C, s.P, 'rgba(255,255,255,.22)', {w: 1.1, dash: [4, 5]});
+      segLabel(s.C, s.P, 'd = ' + fmt(g.d), 'rgba(220,240,225,.7)', .68, 15, 10);
+
+      const mid = {x: (s.P.x + g.T1.x) / 2, y: (s.P.y + g.T1.y) / 2};
+      sans('PT = ' + fmt(g.L), X(mid.x) + 18, Y(mid.y) - 14, 'rgba(200,255,210,.9)', 9.5, 'left');
+      angleArc(s.P, Math.atan2(g.T1.y - s.P.y, g.T1.x - s.P.x), Math.atan2(g.T2.y - s.P.y, g.T2.x - s.P.x),
+        42, 'rgba(200,255,210,.65)', fmtDeg(g.angle), 10);
+
+      if (s.showAux) {
+        const M = {x: (s.C.x + s.P.x) / 2, y: (s.C.y + s.P.y) / 2};
+        circleG(M, g.d / 2, 'rgba(255,255,255,.32)', {w: 1.2, dash: [5, 5]});
+        dot(M, 'rgba(255,255,255,.55)', 2.8);
+        sans('以 PC 为直径的圆', X(M.x), Y(M.y) + 18, 'rgba(210,225,230,.65)', 9);
+      }
+      if (s.showChord) {
+        line(g.T1, g.T2, 'rgba(255,255,255,.75)', {w: 2.2, dash: [6, 4]});
+        const m = {x: (g.T1.x + g.T2.x) / 2, y: (g.T1.y + g.T2.y) / 2};
+        sans('切点弦', X(m.x) + 13, Y(m.y) - 12, 'rgba(255,255,255,.75)', 9.5, 'left');
+      }
+    } else if (!g.inside) {
+      const u = norm(sub(s.P, s.C));
+      const v = perp(u);
+      infLine(s.P, v, 'rgba(255,255,255,.6)', {w: 1.8, dash: [6, 4]});
+      rightAngle(s.P, {x: -u.x, y: -u.y}, v, 13, 'rgba(210,255,220,.6)');
+      dot(s.P, '#ffffff', 4);
+      canvasMsg('P 在圆上', '此时只有一条切线，它垂直于半径 CP', 'rgba(142,230,160,.5)');
+    } else {
+      canvasMsg('P 在圆内', '过圆内一点不能作圆的切线', 'rgba(255,145,176,.5)');
+    }
+
+    dot(s.C, '#ffffff', 4.2);
+    pLabel(s.C, 'C', '#ffffff', 14, -14, 13);
+    dot(s.P, '#ffffff', 4.2);
+    pLabel(s.P, 'P', '#ffffff', 15, -13, 13);
+    handle(s.C, '#d7ffe0', hoverId === 'C');
+    handle(s.P, col, hoverId === 'P');
+    sans('r = ' + fmt(s.r), X(s.C.x) + 14, Y(s.C.y) + 32, 'rgba(200,245,210,.75)', 9);
+  },
+  hud() {
+    const s = this.state, g = this.geo();
+    const status = g.inside ? '点在圆内' : g.T1 ? '点在圆外' : '点在圆上';
+    return [
+      {k: '|PC|', v: fmt(g.d), hi: true},
+      {k: '半径 r', v: fmt(s.r)},
+      {k: '位置', v: status},
+      {k: '切线长', v: g.L > 0 ? fmt(g.L) : '—', hi: true},
+      {k: '两切线夹角', v: g.L > 0 ? fmtDeg(g.angle) : '—'},
+      {k: '切点弦长', v: g.L > 0 ? fmt(2 * s.r * g.L / g.d) : '—'}
+    ];
+  },
+  numeric() {
+    const g = this.geo();
+    if (g.L <= 0) return 'P 不在圆外，切线长不存在';
+    return '|PT| = √(' + fmt(g.d) + '² − ' + fmt(this.state.r) + '²) = ' + fmt(g.L);
+  },
+  panel(el) {
+    const s = this.state;
+    addSlider(el, '半径 r', .6, 3, .05, s.r, v => fmt(v), v => s.r = v);
+    addToggle(el, '显示辅助圆（以 PC 为直径）', s.showAux, v => s.showAux = v);
+    addToggle(el, '显示切点弦 T₁T₂', s.showChord, v => s.showChord = v);
+    const put = d => {
+      const u = Math.hypot(s.P.x - s.C.x, s.P.y - s.C.y) > 1e-6 ? norm(sub(s.P, s.C)) : {x: 1, y: 0};
+      const L = limits();
+      s.P = {
+        x: clamp(s.C.x + u.x * d, L.x0, L.x1),
+        y: clamp(s.C.y + u.y * d, L.y0, L.y1)
+      };
+      renderHud();
+    };
+    const r = row(el);
+    addBtn(r, '∠TPT′ = 60°', () => put(2 * s.r));
+    addBtn(r, 'P 远离圆', () => put(3 * s.r), 'ghost');
+  }
+});
+
+
+/* ============================================================
+   引擎
+   ============================================================ */
+const chapterListEl = $('#chapterList');
+const catalogEl = $('#catalogTrack');
+const EXTRA = {
+  slope: ['SLOPE', '倾斜角与斜率'],
+  equation: ['EQUATION', '五种方程形式'],
+  position: ['POSITION', '平行与垂直'],
+  distance: ['DISTANCE', '点到直线'],
+  circle: ['CIRCLE', '标准与一般'],
+  lineCircle: ['LINE–CIRCLE', '相交相切相离'],
+  twoCircles: ['TWO CIRCLES', '公共弦'],
+  tangent: ['TANGENT', '切线长']
+};
+let curIdx = 0, cur = null, hoverId = null, dragId = null;
+
+MODULES.forEach((m, i) => {
+  const extra = EXTRA[m.key] || ['', ''];
+  m.en = extra[0];
+  m.blurb = extra[1];
+
+  const b = document.createElement('button');
+  b.type = 'button';
+  b.className = 'chapter-item';
+  b.style.setProperty('--tc', m.accent);
+  b.style.setProperty('--tc-rgb', m.rgb);
+  b.innerHTML = '<span class="ci-num">' + m.tab + '</span>' +
+    '<span class="ci-name">' + m.name + '</span>' +
+    '<span class="ci-en">' + m.en + '</span>';
+  b.addEventListener('click', () => activate(i));
+  chapterListEl.appendChild(b);
+
+  const c = document.createElement('button');
+  c.type = 'button';
+  c.className = 'catalog-card';
+  c.style.setProperty('--tc', m.accent);
+  c.style.setProperty('--tc-rgb', m.rgb);
+  c.innerHTML = '<span class="cc-top"><b>' + m.tab + '</b><span>' + m.en + '</span></span>' +
+    '<strong>' + m.name + '</strong><small>' + m.blurb + '</small>';
+  c.addEventListener('click', () => activate(i));
+  catalogEl.appendChild(c);
+});
+
+function plainFormula(html) {
+  return html.replace(/<br\s*\/?>/gi, ' ').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+}
+function buildPanel() {
+  const m = cur.meta();
+  $('#title').textContent = m.title;
+  $('#desc').innerHTML = m.desc;
+  $('#formula').innerHTML = m.formula;
+  $('#note').innerHTML = m.note;
+  $('#stageFormula').textContent = plainFormula(m.formula);
+  $('#eqTag').textContent = cur.tab;
+  $('#eqNum').textContent = cur.numeric ? cur.numeric() : '';
+  controlsEl.innerHTML = '';
+  cur.panel(controlsEl);
+}
+function renderHud() {
+  if (!cur) return;
+  const rows = cur.hud();
+  hudEl.innerHTML = rows.map(r =>
+    '<div class="hud-item' + (r.hi ? ' hi' : '') + '"><span>' + r.k + '</span><b>' + r.v + '</b></div>'
+  ).join('');
+  $('#stageValues').textContent = rows.slice(0, 3).map(r => r.k + ' ' + r.v).join('   ·   ');
+  if (cur.numeric) $('#eqNum').textContent = cur.numeric();
+}
+function setPlayLabel(txt) {
+  const p = $('#playBtn');
+  if (p) p.textContent = txt;
+}
+function activate(i) {
+  curIdx = i;
+  cur = MODULES[i];
+  root.style.setProperty('--accent', cur.accent);
+  root.style.setProperty('--accent-rgb', cur.rgb);
+  for (let j = 0; j < chapterListEl.children.length; j++) {
+    chapterListEl.children[j].classList.toggle('on', j === i);
+    catalogEl.children[j].classList.toggle('on', j === i);
+  }
+  cur.reset();
+  hoverId = null;
+  dragId = null;
+  buildPanel();
+  const m = cur.meta();
+  $('#liveName').textContent = m.title;
+  $('#liveIndex').textContent = cur.tab;
+  $('#defMark').textContent = cur.tab;
+  $('#topChip').innerHTML = '<span class="chip-dot"></span>第 ' + (i + 1) + ' / ' + MODULES.length + ' 节';
+  $('#hint').textContent = cur.hint + ' · ← → 切换章节';
+  const play = $('#playBtn');
+  play.hidden = !cur.togglePlay;
+  play.textContent = cur.playIdle || '▶ 播放';
+  renderHud();
+  cv.style.cursor = 'default';
+}
+
+function resize() {
+  const r = $('.stage-card').getBoundingClientRect();
+  if (r.width < 2 || r.height < 2) return;
+  W = r.width;
+  H = r.height;
+  DPR = Math.min(2, window.devicePixelRatio || 1);
+  cv.width = Math.round(W * DPR);
+  cv.height = Math.round(H * DPR);
+  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+}
+
+let last = performance.now(), lastHud = 0;
+function loop(now) {
+  const dt = Math.min(.05, (now - last) / 1000 || 0);
+  last = now;
+  if (cur && W > 0) {
+    ctx.clearRect(0, 0, W, H);
+    cur.draw(dt);
+    if (now - lastHud > 120) {
+      lastHud = now;
+      renderHud();
+    }
+  }
+  requestAnimationFrame(loop);
+}
+
+/* ---------- 指针交互 ---------- */
+function pointAt(e) {
+  const r = cv.getBoundingClientRect();
+  const sx = (e.clientX - r.left) * (W / r.width);
+  const sy = (e.clientY - r.top) * (H / r.height);
+  return {sx, sy, wx: (sx - V.ox) / V.k, wy: (V.oy - sy) / V.k};
+}
+function pick(e) {
+  if (!cur) return null;
+  const p = pointAt(e);
+  const hs = cur.handles() || [];
+  let best = null, bd = 22;
+  for (const h of hs) {
+    const d = Math.hypot(X(h.x) - p.sx, Y(h.y) - p.sy);
+    if (d < bd) { bd = d; best = h.id; }
+  }
+  return best;
+}
+cv.addEventListener('pointerdown', e => {
+  if (!cur) return;
+  const id = pick(e);
+  if (id) {
+    dragId = id;
+    hoverId = id;
+    cv.setPointerCapture(e.pointerId);
+    cv.style.cursor = 'grabbing';
+    e.preventDefault();
+  }
+});
+cv.addEventListener('pointermove', e => {
+  if (!cur) return;
+  if (dragId) {
+    const p = pointAt(e);
+    cur.drag(dragId, {x: p.wx, y: p.wy});
+    renderHud();
+  } else {
+    const id = pick(e);
+    hoverId = id;
+    cv.style.cursor = id ? 'grab' : 'default';
+  }
+});
+function endDrag() {
+  if (!dragId) return;
+  dragId = null;
+  cv.style.cursor = hoverId ? 'grab' : 'default';
+}
+cv.addEventListener('pointerup', endDrag);
+cv.addEventListener('pointercancel', endDrag);
+cv.addEventListener('pointerleave', () => { if (!dragId) { hoverId = null; cv.style.cursor = 'default'; } });
+
+/* ---------- 顶部操作 ---------- */
+$('#resetBtn').addEventListener('click', () => {
+  if (!cur) return;
+  cur.reset();
+  buildPanel();
+  renderHud();
+  if (cur.togglePlay) setPlayLabel(cur.playIdle || '▶ 播放');
+});
+$('#playBtn').addEventListener('click', () => { if (cur && cur.togglePlay) cur.togglePlay(); });
+$('#fullBtn').addEventListener('click', () => {
+  if (!document.fullscreenElement) {
+    if (root.requestFullscreen) root.requestFullscreen();
+  } else if (document.exitFullscreen) {
+    document.exitFullscreen();
+  }
+});
+
+/* ---------- 速查弹窗 ---------- */
+const modal = $('#guideModal');
+let modalOpen = false, lastFocus = null;
+function openGuide() {
+  if (!modal) return;
+  modalOpen = true;
+  lastFocus = document.activeElement;
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('modal-open');
+  const close = modal.querySelector('.modal-close');
+  if (close) requestAnimationFrame(() => close.focus());
+}
+function closeGuide() {
+  if (!modal) return;
+  modalOpen = false;
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('modal-open');
+  if (lastFocus && lastFocus.focus) lastFocus.focus();
+}
+$('#guideBtn').addEventListener('click', openGuide);
+modal.addEventListener('click', e => {
+  if (e.target.hasAttribute('data-close')) closeGuide();
+});
+document.addEventListener('keydown', e => {
+  if (e.target && /INPUT|TEXTAREA|SELECT/.test(e.target.tagName)) return;
+  if (modalOpen) {
+    if (e.key === 'Escape') { e.preventDefault(); closeGuide(); }
+    return;
+  }
+  if (e.key === 'ArrowRight') {
+    e.preventDefault();
+    activate((curIdx + 1) % MODULES.length);
+  } else if (e.key === 'ArrowLeft') {
+    e.preventDefault();
+    activate((curIdx - 1 + MODULES.length) % MODULES.length);
+  } else if (e.code === 'Space') {
+    e.preventDefault();
+    if (cur && cur.togglePlay) cur.togglePlay();
+  } else if (e.key === 'r' || e.key === 'R') {
+    e.preventDefault();
+    if (cur) {
+      cur.reset();
+      buildPanel();
+      renderHud();
+      if (cur.togglePlay) setPlayLabel(cur.playIdle || '▶ 播放');
+    }
+  } else if (e.key === 'g' || e.key === 'G') {
+    e.preventDefault();
+    openGuide();
+  }
+});
+document.addEventListener('fullscreenchange', () => {
+  const b = $('#fullBtn');
+  b.title = document.fullscreenElement ? '退出全屏' : '全屏显示';
+  b.setAttribute('aria-label', document.fullscreenElement ? '退出全屏' : '全屏显示');
+});
+
+if (window.ResizeObserver) new ResizeObserver(resize).observe($('.stage-card'));
+window.addEventListener('resize', resize);
+
+function initWithUrl() {
+  const q = new URLSearchParams(location.search);
+  let idx = 0;
+  const sec = q.get('section') || q.get('sec');
+  if (sec) {
+    const n = parseInt(sec, 10);
+    if (n >= 1 && n <= MODULES.length) idx = n - 1;
+    else {
+      const k = MODULES.findIndex(m => m.key === sec);
+      if (k >= 0) idx = k;
+    }
+  }
+  resize();
+  activate(idx);
+  requestAnimationFrame(loop);
+}
+initWithUrl();
+</script>
+</body>
+</html>
