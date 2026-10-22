@@ -1,0 +1,182 @@
+{
+  "books": [
+    {
+      "name": "必修第一册",
+      "chapters": [
+        {
+          "no": 1,
+          "dir": "集合与常用逻辑用语",
+          "title": "集合与常用逻辑用语",
+          "en": "SETS & LOGIC",
+          "desc": "韦恩图、数轴、充分必要条件",
+          "accent": "#5eead4"
+        },
+        {
+          "no": 2,
+          "dir": "一元二次函数方程和不等式",
+          "title": "一元二次函数、方程和不等式",
+          "en": "QUADRATIC",
+          "desc": "抛物线、判别式、基本不等式",
+          "accent": "#6cb6ff"
+        },
+        {
+          "no": 3,
+          "dir": "函数的概念与性质",
+          "title": "函数的概念与性质",
+          "en": "FUNCTIONS",
+          "desc": "映射、单调性、奇偶性",
+          "accent": "#b49cff"
+        },
+        {
+          "no": 4,
+          "dir": "指数函数与对数函数",
+          "title": "指数函数与对数函数",
+          "en": "EXP & LOG",
+          "desc": "底数、图象、互为反函数",
+          "accent": "#ffc56b"
+        },
+        {
+          "no": 5,
+          "dir": "三角函数",
+          "title": "三角函数",
+          "en": "TRIGONOMETRY",
+          "desc": "单位圆、诱导公式、图象变换",
+          "accent": "#7be0c0"
+        }
+      ]
+    },
+    {
+      "name": "必修第二册",
+      "chapters": [
+        {
+          "no": 6,
+          "dir": "平面向量及其应用",
+          "title": "平面向量及其应用",
+          "en": "VECTORS",
+          "desc": "线性运算、数量积、几何应用",
+          "accent": "#ffa97a"
+        },
+        {
+          "no": 7,
+          "dir": "复数",
+          "title": "复数",
+          "en": "COMPLEX",
+          "desc": "复平面、加减乘、模与共轭",
+          "accent": "#ff8fab"
+        },
+        {
+          "no": 8,
+          "dir": "立体几何初步",
+          "title": "立体几何初步",
+          "en": "SOLID GEOMETRY",
+          "desc": "基本立体、线面关系、体积",
+          "accent": "#9ad0ff"
+        },
+        {
+          "no": 9,
+          "dir": "统计",
+          "title": "统计",
+          "en": "STATISTICS",
+          "desc": "抽样、直方图、数字特征",
+          "accent": "#5eead4"
+        },
+        {
+          "no": 10,
+          "dir": "概率",
+          "title": "概率",
+          "en": "PROBABILITY",
+          "desc": "样本空间、古典概型、频率",
+          "accent": "#ffc56b"
+        }
+      ]
+    },
+    {
+      "name": "选择性必修第一册",
+      "chapters": [
+        {
+          "no": 11,
+          "dir": "空间向量与立体几何",
+          "title": "空间向量与立体几何",
+          "en": "SPACE VECTORS",
+          "desc": "建系、法向量、线面角",
+          "accent": "#6cb6ff"
+        },
+        {
+          "no": 12,
+          "dir": "直线和圆的方程",
+          "title": "直线和圆的方程",
+          "en": "LINES & CIRCLES",
+          "desc": "斜率、直线方程、位置关系",
+          "accent": "#b49cff"
+        },
+        {
+          "no": 13,
+          "dir": "圆锥曲线的方程",
+          "title": "圆锥曲线的方程",
+          "en": "CONICS",
+          "desc": "椭圆、双曲线、抛物线",
+          "accent": "#ff8fab"
+        }
+      ]
+    },
+    {
+      "name": "选择性必修第二册",
+      "chapters": [
+        {
+          "no": 14,
+          "dir": "数列",
+          "title": "数列",
+          "en": "SEQUENCES",
+          "desc": "等差、等比、求和",
+          "accent": "#7be0c0"
+        },
+        {
+          "no": 15,
+          "dir": "一元函数的导数及其应用",
+          "title": "一元函数的导数及其应用",
+          "en": "DERIVATIVES",
+          "desc": "切线、单调性、极值",
+          "accent": "#ffa97a"
+        }
+      ]
+    },
+    {
+      "name": "选择性必修第三册",
+      "chapters": [
+        {
+          "no": 16,
+          "dir": "计数原理",
+          "title": "计数原理",
+          "en": "COUNTING",
+          "desc": "排列组合、二项式定理",
+          "accent": "#9ad0ff"
+        },
+        {
+          "no": 17,
+          "dir": "随机变量及其分布",
+          "title": "随机变量及其分布",
+          "en": "RANDOM VARIABLES",
+          "desc": "分布列、期望、正态分布",
+          "accent": "#b49cff"
+        },
+        {
+          "no": 18,
+          "dir": "成对数据的统计分析",
+          "title": "成对数据的统计分析",
+          "en": "DATA ANALYSIS",
+          "desc": "相关、回归、独立性检验",
+          "accent": "#5eead4"
+        }
+      ]
+    }
+  ],
+  "topics": [
+    {
+      "dir": "平面切正方体",
+      "title": "平面切正方体",
+      "en": "CUBE SLICER",
+      "desc": "三维旋转 · 平面切割 · 截面形状与全截面图鉴",
+      "accent": "#9ad0ff"
+    }
+  ]
+}

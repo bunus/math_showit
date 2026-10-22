@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#070b12">
+<title>高中数学动态演示 · Math Showit</title>
+<style>
+:root{
+  --bg:#060a12;--ink:#eef7f6;--soft:#c3d5dc;--muted:#8ba1ac;--muted2:#6f858f;
+  --line:rgba(165,200,220,.12);--accent:#5eead4;--accent-rgb:94,234,212;
+  --sans:"PingFang SC","Microsoft YaHei","Noto Sans SC",system-ui,sans-serif;
+  --serif:"Cambria Math","Times New Roman",serif;--mono:"Cascadia Code",Consolas,monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+body.locked{overflow:hidden}
+.ambient{position:fixed;inset:0;z-index:0;pointer-events:none;background:
+  radial-gradient(ellipse 70% 55% at 20% -10%,rgba(94,234,212,.12),transparent 62%),
+  radial-gradient(ellipse 55% 50% at 100% 100%,rgba(120,100,220,.1),transparent 70%),
+  linear-gradient(180deg,#08101c,#05080d 70%)}
+.ambient::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(180,215,235,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(180,215,235,.03) 1px,transparent 1px);background-size:70px 70px;mask-image:radial-gradient(ellipse 80% 70% at 50% 30%,#000,transparent 80%)}
+.wrap{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:30px 24px 56px}
+.top{display:flex;align-items:center;gap:12px;margin-bottom:32px}
+.mark{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;border:1px solid rgba(var(--accent-rgb),.3);background:rgba(var(--accent-rgb),.09);font-family:var(--serif);font-style:italic;font-size:21px;color:var(--accent)}
+.top b{font-size:14px;font-weight:600;letter-spacing:.1em}
+.top span{font-size:9px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase}
+.hero{margin-bottom:26px}
+.eyebrow{font-size:9px;letter-spacing:.26em;color:var(--accent);text-transform:uppercase;margin-bottom:12px}
+h1{margin:0;font-size:clamp(27px,4.4vw,44px);line-height:1.2;letter-spacing:.02em;font-weight:600}
+h1 em{font-family:var(--serif);font-style:italic;color:var(--accent);font-weight:400}
+.lead{margin:14px 0 0;max-width:680px;font-size:12.5px;line-height:1.9;color:var(--soft)}
+.howto{margin-top:14px;display:inline-flex;align-items:center;gap:8px;font-size:10px;color:var(--muted);
+  border:1px solid var(--line);border-radius:999px;padding:7px 12px;background:rgba(255,255,255,.025)}
+.howto i{width:5px;height:5px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent)}
+.stats{display:flex;gap:24px;margin-top:20px;flex-wrap:wrap}
+.stat{display:flex;flex-direction:column;gap:2px}
+.stat b{font-family:var(--mono);font-size:19px;font-weight:500;color:var(--accent)}
+.stat span{font-size:9px;letter-spacing:.12em;color:var(--muted)}
+.book{margin-top:30px}
+.book-head{display:flex;align-items:baseline;gap:12px;margin-bottom:11px;padding-bottom:9px;border-bottom:1px solid var(--line)}
+.book-head h2{margin:0;font-size:15px;font-weight:600;letter-spacing:.05em}
+.book-head span{font-size:9px;letter-spacing:.14em;color:var(--muted);font-family:var(--mono)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+.card{position:relative;display:flex;flex-direction:column;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:linear-gradient(180deg,rgba(16,27,45,.86),rgba(8,15,27,.92));transition:transform .18s,border-color .18s,box-shadow .18s}
+.card:hover{transform:translateY(-2px);border-color:rgba(var(--tc-rgb),.38);box-shadow:0 14px 36px rgba(0,0,0,.32)}
+.card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--tc);opacity:.55;z-index:2}
+.thumb{position:relative;display:block;width:100%;aspect-ratio:16/9;padding:0;border:0;border-bottom:1px solid var(--line);background:#091321;cursor:pointer;overflow:hidden}
+.thumb img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block;transition:transform .5s ease;opacity:.94}
+.card:hover .thumb img{transform:scale(1.035);opacity:1}
+.thumb::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(5,9,15,.55))}
+.thumb-zoom{position:absolute;right:9px;bottom:8px;z-index:2;font-size:8.5px;letter-spacing:.08em;color:var(--tc);background:rgba(5,12,21,.78);border:1px solid rgba(var(--tc-rgb),.3);border-radius:999px;padding:4px 8px;backdrop-filter:blur(8px)}
+.body{padding:10px 13px 12px;display:flex;flex-direction:column;gap:5px;flex:1}
+.row1{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.num{font-family:var(--mono);font-size:8.5px;letter-spacing:.06em;color:var(--tc)}
+.en{font-size:7px;letter-spacing:.1em;color:var(--muted2);font-family:var(--mono);white-space:nowrap}
+.card h3{margin:0;font-size:13.5px;font-weight:600;line-height:1.4}
+.card p{margin:0;font-size:9.5px;line-height:1.55;color:var(--muted);min-height:15px}
+.actions{display:flex;align-items:center;gap:7px;margin-top:6px}
+.actions a,.actions button{font-size:9px;letter-spacing:.04em;border-radius:7px;padding:5px 8px;cursor:pointer;text-decoration:none;transition:.16s;background:transparent}
+.actions a{color:var(--tc);border:1px solid rgba(var(--tc-rgb),.28)}
+.actions a:hover{background:rgba(var(--tc-rgb),.12)}
+.actions button{margin-left:auto;color:var(--muted);border:1px solid var(--line)}
+.actions button:hover{color:var(--soft);border-color:rgba(255,255,255,.2)}
+.foot{margin-top:38px;padding-top:14px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;font-size:9px;letter-spacing:.08em;color:var(--muted);flex-wrap:wrap}
+
+.topic-section{margin-top:30px}
+.topic-card{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);align-items:stretch}
+.topic-card .thumb{height:100%;aspect-ratio:auto;border-bottom:0;border-right:1px solid var(--line)}
+.topic-body{padding:16px 18px;display:flex;flex-direction:column;gap:7px;justify-content:center;min-width:0}
+.topic-body h3{margin:0;font-size:16px;font-weight:600}
+.topic-body p{margin:0;font-size:10.5px;line-height:1.7;color:var(--muted)}
+.topic-body .actions{margin-top:6px}
+@media(max-width:720px){.topic-card{grid-template-columns:1fr}.topic-card .thumb{aspect-ratio:16/9;border-right:0;border-bottom:1px solid var(--line)}}
+
+/* modal */
+.modal{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;padding:2.5vh 2.5vw;background:rgba(3,6,11,.82);backdrop-filter:blur(10px)}
+.modal[hidden]{display:none}
+.modal-inner{width:min(1500px,95vw);height:90vh;display:flex;flex-direction:column;border:1px solid rgba(165,200,220,.18);border-radius:14px;overflow:hidden;background:#060b13;box-shadow:0 40px 100px rgba(0,0,0,.6)}
+.modal-head{flex:0 0 48px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 14px;border-bottom:1px solid var(--line);background:rgba(10,18,30,.94)}
+.modal-title{display:flex;align-items:baseline;gap:9px;min-width:0}
+.modal-title b{font-size:12.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.modal-title span{font-family:var(--mono);font-size:8px;letter-spacing:.1em;color:var(--muted);white-space:nowrap}
+.modal-actions{display:flex;gap:7px;flex:none}
+.modal-actions a,.modal-actions button{font-size:10px;padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--soft);cursor:pointer;text-decoration:none;transition:.16s}
+.modal-actions a:hover,.modal-actions button:hover{background:rgba(255,255,255,.07);color:#fff}
+#mFrame{flex:1;width:100%;border:0;background:#070b12}
+
+@media(max-width:1100px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:720px){
+  .wrap{padding:20px 12px 40px}
+  .grid{grid-template-columns:1fr}
+  .hero{margin-bottom:20px}
+  .stats{gap:18px}
+  .modal{padding:0}
+  .modal-inner{width:100vw;height:100vh;border-radius:0;border:0}
+  .modal-head{flex-basis:44px;padding:0 9px}
+  .modal-title span{display:none}
+}
+</style>
+</head>
+<body>
+<div class="ambient"></div>
+<div class="wrap">
+  <div class="top"><div class="mark">Σ</div><div><b>高中数学动态演示</b><br><span>Math Showit</span></div></div>
+  <header class="hero">
+    <div class="eyebrow">人教 A 版（2019）· 必修 + 选择性必修</div>
+    <h1>把每一章，变成可以<em>拖一拖</em>的图形</h1>
+    <p class="lead">按教材顺序收录 5 册、18 章，另附立体几何专题；每章一个独立页面。左侧选择情境，中间拖动、播放，右侧同步公式与实时数据。点击缩略图即可在本页快速预览，或在新窗口单独打开。</p>
+    <div class="howto"><i></i>缩略图 / 快速预览：当前页内嵌演示 · 打开页面：新窗口全屏</div>
+    <div class="stats">
+      <div class="stat"><b>5</b><span>教材分册</span></div>
+      <div class="stat"><b>18</b><span>章节</span></div>
+      <div class="stat"><b>91</b><span>交互情境</span></div>
+      <div class="stat"><b>0</b><span>外部依赖</span></div>
+    </div>
+  </header>
+  <section class="book"><div class="book-head"><h2>必修第一册</h2><span>5 章</span></div><div class="grid"><article class="card" style="--tc:#5eead4;--tc-rgb:94,234,212"><button class="thumb" type="button" data-preview="集合与常用逻辑用语" data-title="集合与常用逻辑用语" data-no="01" aria-label="快速预览：集合与常用逻辑用语"><img src="集合与常用逻辑用语/preview.png" alt="集合与常用逻辑用语 预览图" loading="lazy"><span class="thumb-zoom">▷ 快速预览</span></button><div class="body"><div class="row1"><span class="en">SETS &amp; LOGIC</span></div><h3>集合与常用逻辑用语</h3><p>韦恩图、数轴、充分必要条件</p><div class="actions"><a href="集合与常用逻辑用语/index.html" target="_blank" rel="noopener">打开页面 ↗</a><button type="button" data-preview="集合与常用逻辑用语" data-title="集合与常用逻辑用语" data-no="01">快速预览</button></div></div></article><article class="card" style="--tc:#6cb6ff;--tc-rgb:108,182,255"><button class="thumb" type="button" data-preview="一元二次函数方程和不等式" data-title="一元二次函数、方程和不等式" data-no="02" aria-label="快速预览：一元二次函数、方程和不等式"><img src="一元二次函数方程和不等式/preview.png" alt="一元二次函数、方程和不等式 预览图" loading="lazy"><span class="thumb-zoom">▷ 快速预览</span></button><div class="body"><div class="row1"><span class="en">QUADRATIC</span></div><h3>一元二次函数、方程和不等式</h3><p>抛物线、判别式、基本不等式</p><div class="actions"><a href="一元二次函数方程和不等式/index.html" target="_blank" rel="noopener">打开页面 ↗</a><button type="button" data-preview="一元二次函数方程和不等式" data-title="一元二次函数、方程和不等式" data-no="02">快速预览</button></div></div></article><article class="card" style="--tc:#b49cff;--tc-rgb:180,156,255"><button class="thumb" type="button" data-preview="函数的概念与性质" data-title="函数的概念与性质" data-no="03" aria-label="快速预览：函数的概念与性质"><img src="函数的概念与性质/preview.png" alt="函数的概念与性质 预览图" loading="lazy"><span class="thumb-zoom">▷ 快速预览</span></button><div class="body"><div class="row1"><span class="en">FUNCTIONS</span></div><h3>函数的概念与性质</h3><p>映射、单调性、奇偶性</p><div class="actions"><a href="函数的概念与性质/index.html" target="_blank" rel="noopener">打开页面 ↗</a><button type="button" data-preview="函数的概念与性质" data-title="函数的概念与性质" data-no="03">快速预览</button></div></div></article><article class="card" style="--tc:#ffc56b;--tc-rgb:255,197,107"><button class="thumb" type="button" data-preview="指数函数与对数函数" data-title="指数函数与对数函数" data-no="04" aria-label="快速预览：指数函数与对数函数"><img src="指数函数与对数函数/preview.png" alt="指数函数与对数函数 预览图" loading="lazy"><span class="thumb-zoom">▷ 快速预览</span></button><div class="body"><div class="row1"><span class="en">EXP &amp; LOG</span></div><h3>指数函数与对数函数</h3><p>底数、图象、互为反函数</p><div class="actions"><a href="指数函数与对数函数/index.html" target="_blank" rel="noopener">打开页面 ↗</a><button type="button" data-preview="指数函数与对数函数" data-title="指数函数与对数函数" data-no="04">快速预览</button></div></div></article><article class="card" style="--tc:#7be0c0;--tc-rgb:123,224,192"><button class="thumb" type="button" data-preview="三角函数" data-title="三角函数" data-no="05" aria-label="快速预览：三角函数"><img src="三角函数/preview.png" alt="三角函数 预览图" loading="lazy"><span class="thumb-zoom">▷ 快速预览</span></button><div class="body"><div class="row1"><span class="en">TRIGONOMETRY</span></div><h3>三角函数</h3><p>单位圆、诱导公式、图象变换</p><div class="actions"><a href="三角函数/index.html" target="_blank" rel="noopener">打开页面 ↗</a><button type="button" data-preview="三角函数" data-title="三角函数" data-no="05">快速预览</button></div></div></article></div></section>
+<section class="book"><div class="book-head"><h2>必修第二册</h2><span>5 章</span></div><div class="grid"><article class="card" style="--tc:#ffa97a;--tc-rgb:255,169,122"><button class="thumb" type="button" data-preview="平面向量及其应用" data-title="平面向量及其应用" data-no="06" aria-label="快速预览：平面向量及其应用"><img src="平面向量及其应用/preview.png" alt="平面向量及其应用 预览图" loading="lazy"><span class="thumb-zoom">▷ 快速预览</span></button><div class="body"><div class="row1"><span class="en">VECTORS</span></div><h3>平面向量及其应用</h3><p>线性运算、数量积、几何应用</p><div class="actions"><a href="平面向量及其应用/index.html" target="_blank" rel="noopener">打开页面 ↗</a><button type="button" data-preview="平面向量及其应用" data-title="平面向量及其应用" data-no="06">快速预览</button></div></div></article><article class="card" style="--tc:#ff8fab;--tc-rgb:255,143,171"><button class="thumb" type="button" data-preview="复数" data-title="复数" data-no="07" aria-label="快速预览：复数"><img src="复数/preview.png" alt="复数 预览图" loading="lazy"><span class="thumb-zoom">▷ 快速预览</span></button><div class="body"><div class="row1"><span class="en">COMPLEX</span></div><h3>复数</h3><p>复平面、加减乘、模与共轭</p><div class="actions"><a href="复数/index.html" target="_blank" rel="noopener">打开页面 ↗</a><button type="button" data-preview="复数" data-title="复数" data-no="07">快速预览</button></div></div></article><article class="card" style="--tc:#9ad0ff;--tc-rgb:154,208,255"><button class="thumb" type="button" data-preview="立体几何初步" data-title="立体几何初步" data-no="08" aria-label="快速预览：立体几何初步"><img src="立体几何初步/preview.png" alt="立体几何初步 预览图" loading="lazy"><span class="thumb-zoom">▷ 快速预览</span></button><div class="body"><div class="row1"><span class="en">SOLID GEOMETRY</span></div><h3>立体几何初步</h3><p>基本立体、线面关系、体积</p><div class="actions"><a href="立体几何初步/index.html" target="_blank" rel="noopener">打开页面 ↗</a><button type="button" data-preview="立体几何初步" data-title="立体几何初步" data-no="08">快速预览</button></div></div></article><article class="card" style="--tc:#5eead4;--tc-rgb:94,234,212"><button class="thumb" type="button" data-preview="统计" data-title="统计" data-no="09" aria-label="快速预览：统计"><img src="统计/preview.png" alt="统计 预览图" loading="lazy"><span class="thumb-zoom">▷ 快速预览</span></button><div class="body"><div class="row1"><span class="en">STATISTICS</span></div><h3>统计</h3><p>抽样、直方图、数字特征</p><div class="actions"><a href="统计/index.html" target="_blank" rel="noopener">打开页面 ↗</a><button type="button" data-preview="统计" data-title="统计" data-no="09">快速预览</button></div></div></article><article class="card" style="--tc:#ffc56b;--tc-rgb:255,197,107"><button class="thumb" type="button" data-preview="概率" data-title="概率" data-no="10" aria-label="快速预览：概率"><img src="概率/preview.png" alt="概率 预览图" loading="lazy"><span class="thumb-zoom">▷ 快速预览</span></button><div class="body"><div class="row1"><span class="en">PROBABILITY</span></div><h3>概率</h3><p>样本空间、古典概型、频率</p><div class="actions"><a href="概率/index.html" target="_blank" rel="noopener">打开页面 ↗</a><button type="button" data-preview="概率" data-title="概率" data-no="10">快速预览</button></div></div></article></div></section>
+<section class="book"><div class="book-head"><h2>选择性必修第一册</h2><span>3 章</span></div><div class="grid"><article class="card" style="--tc:#6cb6ff;--tc-rgb:108,182,255"><button class="thumb" type="button" data-preview="空间向量与立体几何" data-title="空间向量与立体几何" data-no="11" aria-label="快速预览：空间向量与立体几何"><img src="空间向量与立体几何/preview.png" alt="空间向量与立体几何 预览图" loading="lazy"><span class="thumb-zoom">▷ 快速预览</span></button><div class="body"><div class="row1"><span class="en">SPACE VECTORS</span></div><h3>空间向量与立体几何</h3><p>建系、法向量、线面角</p><div class="actions"><a href="空间向量与立体几何/index.html" target="_blank" rel="noopener">打开页面 ↗</a><button type="button" data-preview="空间向量与立体几何" data-title="空间向量与立体几何" data-no="11">快速预览</button></div></div></article><article class="card" style="--tc:#b49cff;--tc-rgb:180,156,255"><button class="thumb" type="button" data-preview="直线和圆的方程" data-title="直线和圆的方程" data-no="12" aria-label="快速预览：直线和圆的方程"><img src="直线和圆的方程/preview.png" alt="直线和圆的方程 预览图" loading="lazy"><span class="thumb-zoom">▷ 快速预览</span></button><div class="body"><div class="row1"><span class="en">LINES &amp; CIRCLES</span></div><h3>直线和圆的方程</h3><p>斜率、直线方程、位置关系</p><div class="actions"><a href="直线和圆的方程/index.html" target="_blank" rel="noopener">打开页面 ↗</a><button type="button" data-preview="直线和圆的方程" data-title="直线和圆的方程" data-no="12">快速预览</button></div></div></article><article class="card" style="--tc:#ff8fab;--tc-rgb:255,143,171"><button class="thumb" type="button" data-preview="圆锥曲线的方程" data-title="圆锥曲线的方程" data-no="13" aria-label="快速预览：圆锥曲线的方程"><img src="圆锥曲线的方程/preview.png" alt="圆锥曲线的方程 预览图" loading="lazy"><span class="thumb-zoom">▷ 快速预览</span></button><div class="body"><div class="row1"><span class="en">CONICS</span></div><h3>圆锥曲线的方程</h3><p>椭圆、双曲线、抛物线</p><div class="actions"><a href="圆锥曲线的方程/index.html" target="_blank" rel="noopener">打开页面 ↗</a><button type="button" data-preview="圆锥曲线的方程" data-title="圆锥曲线的方程" data-no="13">快速预览</button></div></div></article></div></section>
+<section class="book"><div class="book-head"><h2>选择性必修第二册</h2><span>2 章</span></div><div class="grid"><article class="card" style="--tc:#7be0c0;--tc-rgb:123,224,192"><button class="thumb" type="button" data-preview="数列" data-title="数列" data-no="14" aria-label="快速预览：数列"><img src="数列/preview.png" alt="数列 预览图" loading="lazy"><span class="thumb-zoom">▷ 快速预览</span></button><div class="body"><div class="row1"><span class="en">SEQUENCES</span></div><h3>数列</h3><p>等差、等比、求和</p><div class="actions"><a href="数列/index.html" target="_blank" rel="noopener">打开页面 ↗</a><button type="button" data-preview="数列" data-title="数列" data-no="14">快速预览</button></div></div></article><article class="card" style="--tc:#ffa97a;--tc-rgb:255,169,122"><button class="thumb" type="button" data-preview="一元函数的导数及其应用" data-title="一元函数的导数及其应用" data-no="15" aria-label="快速预览：一元函数的导数及其应用"><img src="一元函数的导数及其应用/preview.png" alt="一元函数的导数及其应用 预览图" loading="lazy"><span class="thumb-zoom">▷ 快速预览</span></button><div class="body"><div class="row1"><span class="en">DERIVATIVES</span></div><h3>一元函数的导数及其应用</h3><p>切线、单调性、极值</p><div class="actions"><a href="一元函数的导数及其应用/index.html" target="_blank" rel="noopener">打开页面 ↗</a><button type="button" data-preview="一元函数的导数及其应用" data-title="一元函数的导数及其应用" data-no="15">快速预览</button></div></div></article></div></section>
+<section class="book"><div class="book-head"><h2>选择性必修第三册</h2><span>3 章</span></div><div class="grid"><article class="card" style="--tc:#9ad0ff;--tc-rgb:154,208,255"><button class="thumb" type="button" data-preview="计数原理" data-title="计数原理" data-no="16" aria-label="快速预览：计数原理"><img src="计数原理/preview.png" alt="计数原理 预览图" loading="lazy"><span class="thumb-zoom">▷ 快速预览</span></button><div class="body"><div class="row1"><span class="en">COUNTING</span></div><h3>计数原理</h3><p>排列组合、二项式定理</p><div class="actions"><a href="计数原理/index.html" target="_blank" rel="noopener">打开页面 ↗</a><button type="button" data-preview="计数原理" data-title="计数原理" data-no="16">快速预览</button></div></div></article><article class="card" style="--tc:#b49cff;--tc-rgb:180,156,255"><button class="thumb" type="button" data-preview="随机变量及其分布" data-title="随机变量及其分布" data-no="17" aria-label="快速预览：随机变量及其分布"><img src="随机变量及其分布/preview.png" alt="随机变量及其分布 预览图" loading="lazy"><span class="thumb-zoom">▷ 快速预览</span></button><div class="body"><div class="row1"><span class="en">RANDOM VARIABLES</span></div><h3>随机变量及其分布</h3><p>分布列、期望、正态分布</p><div class="actions"><a href="随机变量及其分布/index.html" target="_blank" rel="noopener">打开页面 ↗</a><button type="button" data-preview="随机变量及其分布" data-title="随机变量及其分布" data-no="17">快速预览</button></div></div></article><article class="card" style="--tc:#5eead4;--tc-rgb:94,234,212"><button class="thumb" type="button" data-preview="成对数据的统计分析" data-title="成对数据的统计分析" data-no="18" aria-label="快速预览：成对数据的统计分析"><img src="成对数据的统计分析/preview.png" alt="成对数据的统计分析 预览图" loading="lazy"><span class="thumb-zoom">▷ 快速预览</span></button><div class="body"><div class="row1"><span class="en">DATA ANALYSIS</span></div><h3>成对数据的统计分析</h3><p>相关、回归、独立性检验</p><div class="actions"><a href="成对数据的统计分析/index.html" target="_blank" rel="noopener">打开页面 ↗</a><button type="button" data-preview="成对数据的统计分析" data-title="成对数据的统计分析" data-no="18">快速预览</button></div></div></article></div></section>
+  <section class="book topic-section"><div class="book-head"><h2>独立专题</h2><span>1 个演示</span></div><article class="card topic-card" style="--tc:#9ad0ff;--tc-rgb:154,208,255"><button class="thumb" type="button" data-preview="平面切正方体" data-title="平面切正方体" data-no="TOPIC" aria-label="快速预览：平面切正方体"><img src="平面切正方体/preview.png" alt="平面切正方体 预览图" loading="lazy"><span class="thumb-zoom">▷ 快速预览</span></button><div class="topic-body"><div class="row1"><span class="num">TOPIC</span><span class="en">CUBE SLICER</span></div><h3>平面切正方体</h3><p>三维旋转 · 平面切割 · 截面形状与全截面图鉴</p><div class="actions"><a href="平面切正方体/index.html" target="_blank" rel="noopener">打开页面 ↗</a><button type="button" data-preview="平面切正方体" data-title="平面切正方体" data-no="TOPIC">快速预览</button></div></div></article></section>
+  <footer class="foot"><span>高中数学动态演示 · Math Showit</span><span>18 章 + 1 专题 · 单文件页面 · 无需联网</span></footer>
+</div>
+
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-label="章节演示预览">
+  <div class="modal-inner">
+    <div class="modal-head">
+      <div class="modal-title"><b id="mTitle">章节</b><span id="mSub"></span></div>
+      <div class="modal-actions">
+        <a id="mOpen" href="#" target="_blank" rel="noopener">新窗口打开 ↗</a>
+        <button id="mClose" type="button">关闭 ✕</button>
+      </div>
+    </div>
+    <iframe id="mFrame" src="about:blank" title="章节演示"></iframe>
+  </div>
+</div>
+
+<script>
+(function () {
+  var modal = document.getElementById('modal');
+  var frame = document.getElementById('mFrame');
+  var titleEl = document.getElementById('mTitle');
+  var subEl = document.getElementById('mSub');
+  var openEl = document.getElementById('mOpen');
+
+  function closeModal() {
+    modal.hidden = true;
+    frame.src = 'about:blank';
+    document.body.classList.remove('locked');
+  }
+  function openModal(dir, title, no) {
+    titleEl.textContent = title;
+    subEl.textContent = '演示预览';
+    openEl.href = dir + '/index.html';
+    frame.src = dir + '/index.html';
+    modal.hidden = false;
+    document.body.classList.add('locked');
+  }
+  document.querySelectorAll('[data-preview]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      openModal(btn.getAttribute('data-preview'), btn.getAttribute('data-title'), btn.getAttribute('data-no'));
+    });
+  });
+  document.getElementById('mClose').addEventListener('click', closeModal);
+  modal.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !modal.hidden) closeModal(); });
+})();
+</script>
+</body>
+</html>

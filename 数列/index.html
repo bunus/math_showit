@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#070a11">
+<meta name="description" content="数列：通项、等差数列、等比数列、前 n 项和与递推。">
+<title>数列 · 动态教学实验室</title>
+<style>
+/* ============================================================
+   平面向量及其应用 · Vector Lab
+   ============================================================ */
+:root{
+  --bg:#060a12;
+  --text:#eef7f6;
+  --text-soft:#c3d5dc;
+  --muted:#8ba1ac;
+  --muted-2:#6f858f;
+  --line:rgba(165,200,220,.11);
+  --line-strong:rgba(165,200,220,.2);
+  --accent:#5eead4;
+  --accent-rgb:94,234,212;
+  --sans:"PingFang SC","Microsoft YaHei","Noto Sans SC","Source Han Sans SC",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --serif:"Cambria Math","STIX Two Math","Latin Modern Math","Times New Roman","Songti SC",serif;
+  --mono:"Cascadia Code","SFMono-Regular","JetBrains Mono",Consolas,monospace;
+  --radius:18px;
+  --shadow:0 24px 60px rgba(0,0,0,.3);
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{
+  background:var(--bg);color:var(--text);font-family:var(--sans);
+  overflow:hidden;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+button{font:inherit;color:inherit}
+::selection{background:rgba(var(--accent-rgb),.24);color:#fff}
+[hidden]{display:none!important}
+
+/* ---------- atmosphere ---------- */
+.ambient{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;background:
+  radial-gradient(ellipse 70% 60% at 50% -12%,rgba(43,92,122,.2),transparent 64%),
+  linear-gradient(180deg,#08101c 0%,#05090f 100%);}
+.ambient::after{
+  content:"";position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(180,215,235,.028) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(180,215,235,.028) 1px,transparent 1px);
+  background-size:70px 70px;
+  -webkit-mask-image:radial-gradient(ellipse 78% 68% at 46% 34%,#000 8%,transparent 78%);
+  mask-image:radial-gradient(ellipse 78% 68% at 46% 34%,#000 8%,transparent 78%);
+}
+.glow{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none}
+.glow-a{width:540px;height:540px;left:-140px;top:-220px;background:rgba(var(--accent-rgb),.1)}
+.glow-b{width:640px;height:640px;right:-220px;bottom:-300px;background:rgba(104,86,210,.08)}
+
+/* ---------- app ---------- */
+.app{position:relative;z-index:1;height:100vh;height:100dvh;min-height:660px;display:flex;flex-direction:column}
+
+/* ---------- topbar ---------- */
+.topbar{flex:0 0 74px;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:0 20px}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.brand-mark{
+  width:42px;height:42px;border-radius:12px;flex:none;display:grid;place-items:center;
+  border:1px solid rgba(var(--accent-rgb),.3);
+  background:linear-gradient(140deg,rgba(var(--accent-rgb),.18),rgba(var(--accent-rgb),.02));
+  box-shadow:0 0 28px rgba(var(--accent-rgb),.14),inset 0 0 18px rgba(var(--accent-rgb),.05);
+  transition:border-color .4s,box-shadow .4s;
+}
+.brand-mark svg{width:30px;height:30px;display:block}
+.brand-copy{min-width:0}
+.eyebrow{display:flex;align-items:center;gap:7px;font-size:8px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;white-space:nowrap}
+.eyebrow i{width:13px;height:1px;background:rgba(255,255,255,.18);flex:none}
+.brand h1{margin:3px 0 0;font-size:15px;font-weight:600;letter-spacing:.06em;white-space:nowrap}
+.title-en{font-size:.64em;color:var(--muted);font-weight:400;letter-spacing:.14em}
+.top-actions{display:flex;align-items:center;gap:8px;flex:none}
+.status-chip{
+  display:flex;align-items:center;gap:7px;padding:7px 11px;border-radius:999px;
+  border:1px solid var(--line);background:rgba(255,255,255,.03);
+  font-size:10px;color:var(--text-soft);white-space:nowrap;letter-spacing:.04em;
+}
+.chip-dot{width:5px;height:5px;border-radius:50%;background:var(--accent);box-shadow:0 0 9px var(--accent);flex:none}
+.ghost-btn,.icon-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  border:1px solid var(--line);background:rgba(255,255,255,.025);color:var(--text-soft);
+  border-radius:10px;padding:8px 12px;font-size:11px;cursor:pointer;
+  transition:background .18s,border-color .18s,color .18s,transform .18s;white-space:nowrap;
+}
+.ghost-btn:hover,.icon-btn:hover{background:rgba(255,255,255,.06);border-color:var(--line-strong);color:#fff}
+.ghost-btn:active,.icon-btn:active{transform:translateY(1px)}
+.ghost-btn svg{width:14px;height:14px}
+.icon-btn{width:36px;height:36px;padding:0}
+.icon-btn svg{width:16px;height:16px}
+
+/* ---------- workspace ---------- */
+.workspace{
+  flex:1;min-height:0;display:grid;gap:11px;padding:0 16px 15px;
+  grid-template-columns:minmax(248px,276px) minmax(0,1fr) minmax(298px,326px);
+  grid-template-rows:minmax(0,1fr) 146px;
+  grid-template-areas:"controls stage details" "catalog catalog catalog";
+}
+.panel,.stage-card,.catalog{
+  border:1px solid var(--line);
+  background:linear-gradient(180deg,rgba(16,27,45,.9),rgba(8,15,27,.93));
+  box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.04);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+}
+.panel{min-height:0;border-radius:var(--radius);overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.12) transparent}
+.panel::-webkit-scrollbar{width:5px}
+.panel::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px}
+.panel-controls{grid-area:controls;padding:15px 14px 14px;display:flex;flex-direction:column;gap:11px}
+.panel-details{grid-area:details;padding:15px 14px 14px;display:flex;flex-direction:column;gap:10px}
+.panel-controls>*,.panel-details>*{flex:0 0 auto}
+.panel-head{display:flex;align-items:flex-start;gap:9px;min-width:0}
+.section-num{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.04em;color:var(--accent);
+  border:1px solid rgba(var(--accent-rgb),.25);background:rgba(var(--accent-rgb),.07);
+  border-radius:7px;padding:4px 6px;line-height:1;margin-top:2px;flex:none;
+}
+.panel-head h2{margin:0;font-size:14.5px;font-weight:600;letter-spacing:.04em;line-height:1.35}
+.panel-head p{margin:2px 0 0;font-size:9.5px;color:var(--muted);letter-spacing:.03em}
+
+/* ---------- chapter nav ---------- */
+.chapter-list{display:flex;flex-direction:column;gap:2px}
+.chapter-item{
+  display:flex;align-items:center;gap:9px;padding:7px 9px;border-radius:9px;
+  border:1px solid transparent;background:transparent;color:var(--muted);
+  cursor:pointer;text-align:left;transition:background .16s,color .16s,border-color .16s;
+}
+.chapter-item:hover{background:rgba(255,255,255,.045);color:var(--text-soft)}
+.chapter-item.on{color:var(--tc);background:rgba(var(--tc-rgb),.09);border-color:rgba(var(--tc-rgb),.22)}
+.ci-num{font-family:var(--mono);font-size:9px;opacity:.65;width:17px;flex:none}
+.ci-name{font-size:12px;letter-spacing:.02em;white-space:nowrap}
+.ci-en{margin-left:auto;font-size:7px;letter-spacing:.13em;opacity:.4;white-space:nowrap}
+.chapter-item.on .ci-en{opacity:.65}
+
+.block-label{
+  display:flex;align-items:baseline;justify-content:space-between;gap:8px;
+  padding-top:10px;border-top:1px solid var(--line);
+  font-size:8.5px;letter-spacing:.13em;color:var(--muted);text-transform:uppercase;
+}
+.block-label span:last-child{font-size:8px;letter-spacing:.04em;color:var(--muted-2);text-transform:none}
+
+/* ---------- controls ---------- */
+.controls{display:flex;flex-direction:column;gap:9px}
+.ctrl{display:flex;flex-direction:column;gap:6px}
+.ctrl-top{display:flex;align-items:baseline;justify-content:space-between;gap:10px;font-size:10.5px;color:var(--muted);letter-spacing:.02em}
+.ctrl-top b{font-family:var(--mono);font-size:10.5px;font-weight:500;color:var(--accent)}
+input[type=range]{
+  -webkit-appearance:none;appearance:none;width:100%;height:3px;border-radius:99px;margin:5px 0;
+  background:linear-gradient(90deg,rgba(var(--accent-rgb),.72),rgba(var(--accent-rgb),.12));
+  outline:none;cursor:pointer;
+}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:13px;height:13px;border-radius:50%;
+  background:#0b1220;border:2px solid var(--accent);cursor:grab;
+  box-shadow:0 0 12px rgba(var(--accent-rgb),.55);
+}
+input[type=range]::-moz-range-thumb{
+  width:11px;height:11px;border-radius:50%;background:#0b1220;border:2px solid var(--accent);
+  box-shadow:0 0 12px rgba(var(--accent-rgb),.55);
+}
+.switch{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:5px 0;font-size:11px;color:var(--text-soft);cursor:pointer;position:relative}
+.switch > span{flex:1;line-height:1.45}
+.switch input{position:absolute;opacity:0;width:0;height:0;pointer-events:none}
+.switch i{width:32px;height:18px;border-radius:99px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.07);position:relative;flex:none;transition:.2s}
+.switch i::after{content:"";position:absolute;top:2px;left:2px;width:12px;height:12px;border-radius:50%;background:#93a8b2;transition:.2s}
+.switch input:checked + i{background:rgba(var(--accent-rgb),.3);border-color:rgba(var(--accent-rgb),.35)}
+.switch input:checked + i::after{transform:translateX(14px);background:var(--accent);box-shadow:0 0 8px rgba(var(--accent-rgb),.7)}
+.switch input:focus-visible + i{outline:2px solid rgba(var(--accent-rgb),.8);outline-offset:3px}
+.row{display:flex;gap:6px;flex-wrap:wrap}
+.btn{
+  flex:1;min-width:84px;padding:8px 9px;border-radius:8px;cursor:pointer;
+  border:1px solid rgba(var(--accent-rgb),.28);background:rgba(var(--accent-rgb),.08);
+  color:var(--accent);font-size:10.5px;letter-spacing:.02em;transition:.18s;
+}
+.btn:hover{background:rgba(var(--accent-rgb),.16);border-color:rgba(var(--accent-rgb),.45)}
+.btn:active{transform:translateY(1px)}
+.btn.ghost{border-color:var(--line);background:rgba(255,255,255,.03);color:var(--muted)}
+.btn.ghost:hover{color:var(--text-soft);border-color:var(--line-strong);background:rgba(255,255,255,.06)}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;padding:3px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid var(--line)}
+.seg button{padding:6px 3px;border-radius:7px;border:1px solid transparent;background:transparent;color:var(--muted);font-size:10px;cursor:pointer;transition:.18s;white-space:nowrap}
+.seg button:hover{color:var(--text-soft)}
+.seg button.on{background:rgba(var(--accent-rgb),.14);border-color:rgba(var(--accent-rgb),.26);color:var(--accent)}
+
+/* ---------- stage ---------- */
+.stage-card{
+  grid-area:stage;position:relative;min-height:0;border-radius:var(--radius);overflow:hidden;isolation:isolate;
+  background:
+    radial-gradient(ellipse 70% 64% at 52% 42%,rgba(var(--accent-rgb),.06),transparent 68%),
+    radial-gradient(ellipse 55% 55% at 60% 108%,rgba(73,60,122,.1),transparent 72%),
+    linear-gradient(180deg,#091321 0%,#060d17 100%);
+}
+.stage-card::before{
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background-image:radial-gradient(rgba(190,225,238,.1) .7px,transparent .8px);
+  background-size:26px 26px;opacity:.28;
+  -webkit-mask-image:radial-gradient(ellipse 72% 72% at 50% 44%,#000,transparent 76%);
+  mask-image:radial-gradient(ellipse 72% 72% at 50% 44%,#000,transparent 76%);
+}
+.stage-card::after{
+  content:"";position:absolute;inset:0;z-index:5;pointer-events:none;border-radius:inherit;
+  box-shadow:inset 0 0 90px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.04);
+}
+#cv{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:2;touch-action:none;cursor:default}
+
+.stage-top{position:absolute;z-index:7;top:13px;left:14px;right:14px;display:flex;justify-content:space-between;align-items:flex-start;gap:10px;pointer-events:none}
+.live-badge{
+  display:flex;align-items:center;gap:9px;padding:7px 10px;border-radius:11px;
+  background:rgba(5,11,20,.7);border:1px solid rgba(201,232,242,.1);
+  backdrop-filter:blur(14px);box-shadow:0 10px 30px rgba(0,0,0,.16);
+}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 13px rgba(var(--accent-rgb),.8);flex:none}
+.live-copy{display:flex;flex-direction:column;gap:3px}
+.live-copy strong{line-height:1.15}
+.live-copy span{font-size:7.5px;color:var(--muted);letter-spacing:.12em}
+.live-copy strong{font-size:12.5px;font-weight:600;letter-spacing:.04em;white-space:nowrap}
+.live-idx{
+  font-family:var(--mono);font-size:8.5px;color:var(--accent);
+  background:rgba(var(--accent-rgb),.09);border:1px solid rgba(var(--accent-rgb),.18);
+  border-radius:999px;padding:3px 6px;white-space:nowrap;
+}
+.stage-tools{display:flex;gap:6px;pointer-events:auto}
+.mini-btn{
+  display:inline-flex;align-items:center;gap:5px;padding:7px 10px;border-radius:9px;
+  font-size:10px;color:var(--text-soft);cursor:pointer;
+  border:1px solid rgba(201,236,228,.12);background:rgba(5,11,20,.62);
+  backdrop-filter:blur(12px);transition:.18s;
+}
+.mini-btn:hover{background:rgba(14,28,44,.85);border-color:rgba(var(--accent-rgb),.3);color:#fff}
+.stage-note{
+  position:absolute;z-index:6;left:16px;bottom:86px;max-width:70%;
+  font-family:var(--mono);font-size:8px;letter-spacing:.05em;
+  color:rgba(170,200,212,.5);pointer-events:none;
+}
+.definition-bar{
+  position:absolute;z-index:7;left:13px;right:13px;bottom:13px;
+  display:flex;align-items:center;gap:11px;min-height:58px;padding:8px 11px;
+  border:1px solid rgba(200,232,242,.11);border-radius:13px;
+  background:rgba(5,12,21,.8);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  box-shadow:0 16px 40px rgba(0,0,0,.2);
+}
+.definition-mark{
+  width:34px;height:34px;border-radius:9px;display:grid;place-items:center;flex:none;
+  color:var(--accent);border:1px solid rgba(var(--accent-rgb),.26);background:rgba(var(--accent-rgb),.08);
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.02em;
+}
+.definition-copy{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.def-title{font-size:7px;letter-spacing:.14em;color:var(--muted)}
+.def-formula{font-family:var(--serif);font-size:14px;line-height:1.35;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.def-values{font-family:var(--mono);font-size:8.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ---------- details ---------- */
+.concept h3{margin:0;font-size:15.5px;line-height:1.45;font-weight:600;letter-spacing:.01em}
+.concept .desc{margin:5px 0 0;font-size:11px;line-height:1.72;color:var(--text-soft)}
+.desc b,.note-card b{color:#fff;font-weight:500}
+.equation-card{
+  border:1px solid rgba(var(--accent-rgb),.2);border-radius:13px;padding:9px 11px 7px;
+  background:radial-gradient(ellipse 100% 120% at 0% 0%,rgba(var(--accent-rgb),.08),transparent 58%),rgba(0,0,0,.16);
+}
+.eq-head{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:8px;letter-spacing:.08em;color:var(--muted)}
+.eq-head span:last-child{font-family:var(--mono);font-size:8px;color:var(--accent)}
+.formula{
+  font-family:var(--serif);font-size:17px;line-height:1.45;text-align:center;color:#fff;
+  padding:7px 2px 6px;letter-spacing:.01em;text-shadow:0 0 20px rgba(var(--accent-rgb),.24);
+  overflow-wrap:anywhere;
+}
+.formula sub,.formula sup{font-size:.6em}
+.metric-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.hud-item{
+  display:flex;flex-direction:column;gap:2px;min-width:0;
+  padding:7px 9px;border-radius:9px;border:1px solid var(--line);
+  background:rgba(255,255,255,.025);
+}
+.hud-item span{font-size:8px;color:var(--muted);letter-spacing:.05em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hud-item b{font-family:var(--mono);font-size:11px;font-weight:500;color:var(--text-soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hud-item.hi{border-color:rgba(var(--accent-rgb),.26);background:rgba(var(--accent-rgb),.07)}
+.hud-item.hi b{color:var(--accent)}
+.note-card{
+  margin-top:auto;
+  border:1px solid var(--line);border-radius:12px;padding:9px 11px;
+  background:rgba(255,255,255,.025);
+}
+.tip-card{
+  margin-top:auto;border:1px solid var(--line);border-radius:11px;padding:9px 11px;
+  background:rgba(255,255,255,.02);
+}
+.tip-card span{display:block;font-size:7.5px;letter-spacing:.13em;color:var(--muted-2);text-transform:uppercase;margin-bottom:3px}
+.tip-card p{margin:0;font-size:9.5px;line-height:1.7;color:var(--muted)}
+.metric-grid .hud-item:last-child:nth-child(odd){grid-column:1/-1}
+.note-head{display:flex;align-items:center;gap:6px;font-size:8px;letter-spacing:.1em;color:var(--text-soft);text-transform:uppercase;margin-bottom:3px}
+.note-icon{
+  width:15px;height:15px;border-radius:50%;display:grid;place-items:center;
+  border:1px solid rgba(var(--accent-rgb),.3);color:var(--accent);
+  font-family:var(--serif);font-size:9px;line-height:1;
+}
+.note-card p{margin:0;font-size:10px;line-height:1.7;color:var(--muted)}
+.note-card i{font-family:var(--serif);font-style:italic;color:var(--text-soft)}
+.nw{white-space:nowrap}
+
+/* ---------- catalog ---------- */
+.catalog{
+  grid-area:catalog;min-width:0;border-radius:var(--radius);
+  padding:11px 15px 9px;display:flex;flex-direction:column;gap:7px;
+}
+.catalog-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.catalog-title{display:flex;align-items:flex-start;gap:9px;min-width:0}
+.catalog-head h2{margin:0;font-size:13.5px;font-weight:600;letter-spacing:.04em;line-height:1.35}
+.catalog-head p{margin:1px 0 0;font-size:9px;color:var(--muted);letter-spacing:.03em}
+.catalog-hint{font-size:8px;letter-spacing:.05em;color:var(--muted-2);white-space:nowrap;font-family:var(--mono)}
+.catalog-track{
+  display:flex;gap:6px;min-height:0;overflow-x:auto;overflow-y:hidden;
+  padding-bottom:2px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.12) transparent;
+}
+.catalog-track::-webkit-scrollbar{height:4px}
+.catalog-track::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px}
+.catalog-card{
+  flex:1 1 0;min-width:126px;display:flex;flex-direction:column;gap:1px;
+  padding:7px 10px 6px;border-radius:10px;border:1px solid var(--line);
+  background:rgba(255,255,255,.025);color:var(--text-soft);cursor:pointer;text-align:left;
+  transition:background .16s,border-color .16s,box-shadow .16s;
+}
+.catalog-card:hover{background:rgba(255,255,255,.055);border-color:rgba(255,255,255,.17)}
+.catalog-card.on{border-color:rgba(var(--tc-rgb),.35);background:rgba(var(--tc-rgb),.08);box-shadow:inset 0 0 20px rgba(var(--tc-rgb),.05)}
+.cc-top{display:flex;justify-content:space-between;align-items:baseline;gap:6px;font-family:var(--mono);font-size:7px;letter-spacing:.1em;color:var(--muted-2)}
+.cc-top b{font-weight:500;color:inherit}
+.catalog-card.on .cc-top{color:var(--tc)}
+.catalog-card strong{font-size:11px;font-weight:600;line-height:1.5;color:var(--text-soft);white-space:nowrap}
+.catalog-card.on strong{color:var(--tc)}
+.catalog-card small{font-size:8px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ---------- responsive ---------- */
+@media(max-width:1240px){
+  .workspace{grid-template-columns:minmax(228px,246px) minmax(0,1fr) minmax(272px,296px);gap:10px}
+  .panel-controls,.panel-details{padding:13px 12px}
+  .brand h1{font-size:14px}
+}
+@media(max-width:1020px){
+  body{overflow:auto}
+  .app{height:auto;min-height:100vh;min-height:100dvh}
+  .topbar{flex:0 0 auto;flex-wrap:wrap;gap:10px;padding:10px 14px}
+  .brand{flex:1 1 100%}
+  .top-actions{width:100%;justify-content:flex-end}
+  .workspace{
+    flex:none;display:flex;flex-direction:column;gap:10px;padding:0 12px 16px;
+  }
+  .stage-card{order:1;height:min(62vh,560px);min-height:400px;flex:none}
+  .panel-controls{order:2;flex:none;overflow:visible}
+  .panel-details{order:3;flex:none;overflow:visible}
+  .catalog{order:4;flex:none;height:auto}
+  .chapter-list{display:grid;grid-template-columns:1fr 1fr;gap:3px}
+  .metric-grid{grid-template-columns:repeat(3,1fr)}
+  .catalog-track{flex-wrap:nowrap}
+  .catalog-card{flex:0 0 140px}
+}
+@media(max-width:620px){
+  .eyebrow,.title-en{display:none}
+  .status-chip{display:none}
+  .brand h1{font-size:14px}
+  .workspace{padding:0 9px 12px}
+  .stage-card{height:52vh;min-height:340px}
+  .stage-card .stage-note{display:none}
+  .definition-bar{left:10px;right:10px;bottom:10px;min-height:52px;padding:7px 9px}
+  .def-formula{font-size:12.5px}
+  .def-values{font-size:8px}
+  .definition-mark{width:29px;height:29px;font-size:8.5px}
+  .panel-controls,.panel-details{padding:12px 11px}
+  .metric-grid{grid-template-columns:1fr 1fr}
+  .catalog{padding:10px 11px 8px}
+  .catalog-hint{display:none}
+  .catalog-card{flex:0 0 132px}
+  .live-copy strong{font-size:11.5px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+<div class="ambient" aria-hidden="true"><div class="glow glow-a"></div><div class="glow glow-b"></div></div>
+
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 36 36" fill="none">
+          <path d="M7 28.5h22M7 28.5V6.5" stroke="#ffc96b" stroke-width="1.05" opacity=".4" stroke-linecap="round"/>
+          <path d="M7 28.5 28 8.5" stroke="#69e5d0" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M23.2 8.5H28v4.8" stroke="#69e5d0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M7 28.5 21.5 14" stroke="#a99cff" stroke-width="1.2" opacity=".75" stroke-linecap="round"/>
+          <path d="M21.5 14v14.5" stroke="#ff8fab" stroke-width="1.1" opacity=".5" stroke-dasharray="2.5 3.5"/>
+        </svg>
+      </div>
+      <div class="brand-copy">
+        <div class="eyebrow"><span>Sequence Lab</span><i></i><span>选择性必修第二册</span></div>
+        <h1>数列 <span class="title-en">/ SEQUENCES</span></h1>
+      </div>
+    </div>
+    <div class="top-actions">
+      <a class="ghost-btn" href="../index.html" title="返回总览" style="text-decoration:none">← 总览</a>
+      <div class="status-chip" id="topChip"><span class="chip-dot"></span>第 1 / 7 节</div>
+      <button class="ghost-btn" id="resetBtn" type="button" title="恢复本节初始状态">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3M4.5 4.5V9H9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        重置本节
+      </button>
+      <button class="icon-btn" id="fullBtn" type="button" aria-label="全屏显示" title="全屏显示">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8.5 4H4v4.5M15.5 4H20v4.5M8.5 20H4v-4.5M15.5 20H20v-4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <aside class="panel panel-controls" aria-label="情境与参数控制">
+      <div class="panel-head">
+        <span class="section-num">01</span>
+        <div><h2>情境与参数</h2><p>选择情境 · 调整变量</p></div>
+      </div>
+      <nav class="chapter-list" id="chapterList" aria-label="情境列表"></nav>
+      <div class="block-label"><span>本节控制 / Controls</span><span>拖动或调节</span></div>
+      <div class="controls" id="controls"></div>
+      <div class="tip-card">
+        <span>操作提示 / Tips</span>
+        <p>拖动画布彩色端点 · 调节滑块与开关 · ← → 切换章节 · 空格播放</p>
+      </div>
+    </aside>
+
+    <section class="stage-card" aria-label="平面向量动态图">
+      <canvas id="cv">你的浏览器需要支持 Canvas。</canvas>
+
+      <div class="stage-top">
+        <div class="live-badge">
+          <span class="live-dot"></span>
+          <div class="live-copy"><span>当前情境 / Scene</span><strong id="liveName">概念</strong></div>
+          <span class="live-idx" id="liveIndex">01</span>
+        </div>
+        <div class="stage-tools">
+          <button class="mini-btn" id="playBtn" type="button" hidden>▶ 播放法则</button>
+        </div>
+      </div>
+
+      <div class="stage-note" id="hint"></div>
+
+      <div class="definition-bar">
+        <div class="definition-mark" id="defMark">01</div>
+        <div class="definition-copy">
+          <div class="def-title">核心公式 / Key Formula</div>
+          <div class="def-formula" id="stageFormula"></div>
+          <div class="def-values" id="stageValues"></div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="panel panel-details" aria-label="本节要点与实时数据">
+      <div class="panel-head">
+        <span class="section-num">02</span>
+        <div><h2>本节要点</h2><p>概念 · 公式 · 实时数据</p></div>
+      </div>
+      <div class="concept">
+        <h3 id="title"></h3>
+        <p class="desc" id="desc"></p>
+      </div>
+      <div class="equation-card">
+        <div class="eq-head"><span>公式 / Formula</span><span id="eqTag">01</span></div>
+        <div class="formula" id="formula"></div>
+      </div>
+      <div class="metric-grid" id="hud"></div>
+      <div class="note-card">
+        <div class="note-head"><span class="note-icon">i</span>观察提示</div>
+        <p id="note"></p>
+      </div>
+    </aside>
+
+    <section class="catalog" aria-label="情境图鉴">
+      <div class="catalog-head">
+        <div class="catalog-title">
+          <span class="section-num">03</span>
+          <div><h2>情境图鉴</h2><p>五个情境 · 点击切换</p></div>
+        </div>
+        <div class="catalog-hint">从通项到求和</div>
+      </div>
+      <div class="catalog-track" id="catalogTrack"></div>
+    </section>
+  </main>
+</div>
+<script>
+'use strict';
+/* ============================================================
+   基础工具
+   ============================================================ */
+const $ = s => document.querySelector(s);
+const root = document.documentElement;
+const cv = $('#cv');
+const ctx = cv.getContext('2d');
+const hudEl = $('#hud');
+const controlsEl = $('#controls');
+const SERIF = '"Cambria Math","STIX Two Math","Times New Roman",serif';
+const SANS = '"PingFang SC","Microsoft YaHei","Noto Sans SC",system-ui,sans-serif';
+const TAU = Math.PI * 2;
+
+let W = 800, H = 600, DPR = 1;
+const V = {ox: 400, oy: 300, k: 60};
+const clamp = (v, a, b) => v < a ? a : v > b ? b : v;
+const lerp = (a, b, t) => a + (b - a) * t;
+const X = x => V.ox + x * V.k;
+const Y = y => V.oy - y * V.k;
+const fmt = (n, d = 2) => (Math.abs(n) < 5e-3 ? 0 : n).toFixed(d);
+const deg = r => { let d = r * 180 / Math.PI % 360; return d < 0 ? d + 360 : d; };
+const len2 = (x, y) => Math.hypot(x, y);
+const easeInOut = t => t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+
+function setFrame(cx, cy, span) {
+  V.k = Math.min(W / span, H / (span * .62));
+  V.ox = W * cx;
+  V.oy = H * cy;
+}
+function lim() {
+  return {
+    x0: -V.ox / V.k + .25,
+    x1: (W - V.ox) / V.k - .25,
+    y0: -(H - V.oy) / V.k + .25,
+    y1: V.oy / V.k - .25
+  };
+}
+function clampPt(p) {
+  const L = lim();
+  return {x: clamp(p.x, L.x0, L.x1), y: clamp(p.y, L.y0, L.y1)};
+}
+function base() {
+  const L = lim();
+  ctx.save();
+  ctx.lineWidth = 1;
+  for (let i = Math.ceil(L.x0); i <= Math.floor(L.x1); i++) {
+    ctx.strokeStyle = i === 0 ? 'rgba(170,205,220,.15)' : 'rgba(170,205,220,.045)';
+    ctx.beginPath(); ctx.moveTo(X(i), 0); ctx.lineTo(X(i), H); ctx.stroke();
+  }
+  for (let j = Math.ceil(L.y0); j <= Math.floor(L.y1); j++) {
+    ctx.strokeStyle = j === 0 ? 'rgba(170,205,220,.15)' : 'rgba(170,205,220,.045)';
+    ctx.beginPath(); ctx.moveTo(0, Y(j)); ctx.lineTo(W, Y(j)); ctx.stroke();
+  }
+  ctx.restore();
+}
+function tscale() { return clamp(V.k / 62, .84, 1.06); }
+function math(txt, x, y, color, size = 17, align = 'center', baseline = 'middle') {
+  size = Math.max(9, size * tscale());
+  ctx.save();
+  ctx.font = 'italic ' + size + 'px ' + SERIF;
+  ctx.fillStyle = color;
+  ctx.textAlign = align;
+  ctx.textBaseline = baseline;
+  ctx.lineJoin = 'round';
+  ctx.lineWidth = Math.max(2, size * .24);
+  ctx.strokeStyle = 'rgba(5,10,18,.78)';
+  ctx.strokeText(txt, x, y);
+  ctx.fillText(txt, x, y);
+  ctx.restore();
+}
+function sans(txt, x, y, color, size = 11.5, align = 'center', baseline = 'middle') {
+  size = Math.max(8, size * tscale());
+  ctx.save();
+  ctx.font = size + 'px ' + SANS;
+  ctx.fillStyle = color;
+  ctx.textAlign = align;
+  ctx.textBaseline = baseline;
+  ctx.lineJoin = 'round';
+  ctx.lineWidth = Math.max(2, size * .24);
+  ctx.strokeStyle = 'rgba(5,10,18,.78)';
+  ctx.strokeText(txt, x, y);
+  ctx.fillText(txt, x, y);
+  ctx.restore();
+}
+function arrow(a, b, color, opt) {
+  opt = opt || {};
+  const x1 = X(a.x), y1 = Y(a.y), x2 = X(b.x), y2 = Y(b.y);
+  const dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy);
+  if (L < 1) return;
+  const ux = dx / L, uy = dy / L;
+  const head = Math.min(opt.head || 11, L * .55);
+  const hw = head * .55;
+  const bx = x2 - ux * head * .88, by = y2 - uy * head * .88;
+  ctx.save();
+  ctx.globalAlpha = opt.alpha == null ? 1 : opt.alpha;
+  ctx.strokeStyle = color;
+  ctx.lineWidth = opt.w || 3;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  if (opt.dash) ctx.setLineDash(opt.dash);
+  if (opt.glow) { ctx.shadowColor = color; ctx.shadowBlur = opt.glow; }
+  ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(bx, by); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  ctx.moveTo(x2, y2);
+  ctx.lineTo(bx - uy * hw, by + ux * hw);
+  ctx.lineTo(bx + uy * hw, by - ux * hw);
+  ctx.closePath();
+  ctx.fill();
+  ctx.restore();
+}
+function line(a, b, color, opt) {
+  opt = opt || {};
+  ctx.save();
+  ctx.globalAlpha = opt.alpha == null ? 1 : opt.alpha;
+  ctx.strokeStyle = color;
+  ctx.lineWidth = opt.w || 1.4;
+  ctx.lineCap = 'round';
+  if (opt.dash) ctx.setLineDash(opt.dash);
+  ctx.beginPath(); ctx.moveTo(X(a.x), Y(a.y)); ctx.lineTo(X(b.x), Y(b.y)); ctx.stroke();
+  ctx.restore();
+}
+function dot(p, color, r = 4) {
+  ctx.save();
+  ctx.fillStyle = color;
+  ctx.shadowColor = color;
+  ctx.shadowBlur = 10;
+  ctx.beginPath(); ctx.arc(X(p.x), Y(p.y), r, 0, TAU); ctx.fill();
+  ctx.restore();
+}
+function handle(p, color, active) {
+  const x = X(p.x), y = Y(p.y);
+  ctx.save();
+  ctx.shadowColor = 'rgba(0,0,0,.55)';
+  ctx.shadowBlur = 8;
+  ctx.beginPath(); ctx.arc(x, y, active ? 9 : 7, 0, TAU);
+  ctx.fillStyle = '#0a111d'; ctx.fill();
+  ctx.shadowBlur = 0;
+  ctx.lineWidth = 2.2;
+  ctx.strokeStyle = color;
+  ctx.stroke();
+  ctx.beginPath(); ctx.arc(x, y, 2.3, 0, TAU);
+  ctx.fillStyle = color; ctx.fill();
+  ctx.restore();
+}
+function vlabel(a, b, txt, color, off = 18, size = 18) {
+  const x1 = X(a.x), y1 = Y(a.y), x2 = X(b.x), y2 = Y(b.y);
+  const mx = (x1 + x2) / 2, my = (y1 + y2) / 2;
+  const dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy) || 1;
+  let nx = -dy / L, ny = dx / L;
+  if (ny > 0) { nx = -nx; ny = -ny; }
+  off *= tscale();
+  math(txt, mx + nx * off, my + ny * off, color, size);
+}
+function segLabel(a, b, txt, color, frac, off, size) {
+  frac = frac == null ? .5 : frac;
+  off = off == null ? 16 : off;
+  size = size || 12;
+  const x1 = X(a.x), y1 = Y(a.y), x2 = X(b.x), y2 = Y(b.y);
+  const px = lerp(x1, x2, frac), py = lerp(y1, y2, frac);
+  const dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy) || 1;
+  let nx = -dy / L, ny = dx / L;
+  if (ny > 0) { nx = -nx; ny = -ny; }
+  off *= tscale();
+  sans(txt, px + nx * off, py + ny * off, color, size);
+}
+function segMath(a, b, txt, color, frac, off, size) {
+  frac = frac == null ? .5 : frac;
+  off = off == null ? 16 : off;
+  size = size || 17;
+  const x1 = X(a.x), y1 = Y(a.y), x2 = X(b.x), y2 = Y(b.y);
+  const px = lerp(x1, x2, frac), py = lerp(y1, y2, frac);
+  const dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy) || 1;
+  let nx = -dy / L, ny = dx / L;
+  if (ny > 0) { nx = -nx; ny = -ny; }
+  off *= tscale();
+  math(txt, px + nx * off, py + ny * off, color, size);
+}
+function angleArc(c, th1, th2, r, color, txt, size = 15) {
+  let d = ((th2 - th1 + Math.PI) % TAU + TAU) % TAU - Math.PI;
+  if (Math.abs(d) < .02) return;
+  ctx.save();
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 1.8;
+  ctx.beginPath();
+  ctx.arc(X(c.x), Y(c.y), r, -th1, -(th1 + d), d > 0);
+  ctx.stroke();
+  ctx.restore();
+  if (txt) {
+    const mid = th1 + d / 2;
+    sans(txt, X(c.x) + Math.cos(mid) * (r + 22), Y(c.y) - Math.sin(mid) * (r + 22), color, size);
+  }
+}
+function rightAngle(center, u, v, s, color) {
+  const cx = X(center.x), cy = Y(center.y);
+  const ux = u.x, uy = -u.y, vx = v.x, vy = -v.y;
+  ctx.save();
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 1.2;
+  ctx.setLineDash([]);
+  ctx.beginPath();
+  ctx.moveTo(cx + ux * s, cy + uy * s);
+  ctx.lineTo(cx + (ux + vx) * s, cy + (uy + vy) * s);
+  ctx.lineTo(cx + vx * s, cy + vy * s);
+  ctx.stroke();
+  ctx.restore();
+}
+function vecText(p) {
+  return '(' + fmt(p.x) + ', ' + fmt(p.y) + ')';
+}
+
+/* ============================================================
+   控件构造
+   ============================================================ */
+function addSlider(parent, label, min, max, step, value, format, onInput) {
+  const w = document.createElement('label');
+  w.className = 'ctrl';
+  const top = document.createElement('div');
+  top.className = 'ctrl-top';
+  const l = document.createElement('span');
+  l.textContent = label;
+  const b = document.createElement('b');
+  b.textContent = format(value);
+  top.append(l, b);
+  const inp = document.createElement('input');
+  inp.type = 'range';
+  inp.min = min; inp.max = max; inp.step = step; inp.value = value;
+  inp.addEventListener('input', () => {
+    const v = parseFloat(inp.value);
+    b.textContent = format(v);
+    onInput(v);
+  });
+  w.append(top, inp);
+  parent.appendChild(w);
+  return {
+    input: inp,
+    set(v, fire) {
+      inp.value = v;
+      b.textContent = format(v);
+      if (fire) onInput(v);
+    }
+  };
+}
+function addToggle(parent, label, value, onChange) {
+  const w = document.createElement('label');
+  w.className = 'switch';
+  const s = document.createElement('span');
+  s.textContent = label;
+  const inp = document.createElement('input');
+  inp.type = 'checkbox';
+  inp.checked = !!value;
+  const i = document.createElement('i');
+  inp.addEventListener('change', () => onChange(inp.checked));
+  w.append(s, inp, i);
+  parent.appendChild(w);
+  return {input: inp};
+}
+function addBtn(parent, label, fn, cls) {
+  const b = document.createElement('button');
+  b.className = 'btn ' + (cls || '');
+  b.textContent = label;
+  b.addEventListener('click', fn);
+  parent.appendChild(b);
+  return b;
+}
+function row(parent) {
+  const r = document.createElement('div');
+  r.className = 'row';
+  parent.appendChild(r);
+  return r;
+}
+const MODULES = [];
+
+/* ============================================================
+   选择性必修第二册 · 第 4 章 数列
+   ============================================================ */
+(function () {
+
+const SUB = ['₀', '₁', '₂', '₃', '₄', '₅', '₆', '₇', '₈', '₉'];
+
+function f2(v) {
+  const s = (Math.abs(v) < 5e-3 ? 0 : v).toFixed(2);
+  return s.indexOf('.') >= 0 ? s.replace(/0+$/, '').replace(/\.$/, '') : s;
+}
+
+function axes(tx, ty) {
+  const L = lim();
+  line({x: L.x0, y: 0}, {x: L.x1, y: 0}, 'rgba(200,225,235,.45)', {w: 1.4});
+  line({x: 0, y: L.y0}, {x: 0, y: L.y1}, 'rgba(200,225,235,.45)', {w: 1.4});
+  arrow({x: L.x1 - .6, y: 0}, {x: L.x1, y: 0}, 'rgba(200,225,235,.55)', {w: 1.2, head: 8});
+  arrow({x: 0, y: L.y1 - .6}, {x: 0, y: L.y1}, 'rgba(200,225,235,.55)', {w: 1.2, head: 8});
+  if (tx) sans(tx, X(L.x1) - 6, Y(0) + 16, 'rgba(175,200,215,.8)', 12, 'right');
+  if (ty) sans(ty, X(0) + 12, Y(L.y1) + 18, 'rgba(175,200,215,.8)', 12, 'left');
+  return L;
+}
+
+function ticksN(a, b) {
+  for (let k = a; k <= b; k++) {
+    line({x: k, y: -.1}, {x: k, y: .1}, 'rgba(200,225,235,.5)', {w: 1});
+    sans(String(k), X(k), Y(0) + 15, 'rgba(160,185,200,.7)', 10.5);
+  }
+}
+
+/* ---------- 01 数列与通项 ---------- */
+MODULES.push({
+  key: 'terms', tab: '01', name: '数列与通项', en: 'TERMS', blurb: '序号与项的对应',
+  accent: '#5eead4', rgb: '94,234,212',
+  hint: '拖动高亮点或调节 n，观察 aₙ 随序号变化',
+  state: {n: 3, curve: true, list: true},
+  reset() { this.state.n = 3; this.state.curve = true; this.state.list = true; this.slN = null; },
+  term(k) { return 12 / (k + 2); },
+  meta() {
+    return {
+      title: '数列：按序号排好的一列数',
+      desc: '按一定顺序排列的一列数叫做数列，每一项由它的序号唯一确定。把序号 n 作横坐标、项 aₙ 作纵坐标描点，就得到数列的图象——一串孤立的点。拖动亮点或调节 n，观察 aₙ 怎样随序号变化。',
+      formula: 'aₙ = 12/(n + 2)，n ∈ N*',
+      note: '数列的定义域是正整数集（或其子集），图象是<b>离散的点</b>，不是连续曲线。本例中 aₙ 随 n 增大而<b>递减</b>，并无限趋近于 0。'
+    };
+  },
+  handles() { return [{id: 'pt', x: this.state.n, y: this.term(this.state.n)}]; },
+  drag(id, p) {
+    const q = clampPt(p);
+    this.state.n = clamp(Math.round(q.x), 1, 8);
+    if (this.slN) this.slN.set(this.state.n);
+  },
+  draw() {
+    setFrame(.4, .55, 16);
+    base();
+    const L = axes('n', 'aₙ');
+    const s = this.state;
+    ticksN(1, 8);
+
+    if (s.curve) {
+      let prev = null;
+      for (let x = .34; x <= 8.9; x += .04) {
+        const p = {x: x, y: this.term(x)};
+        if (prev) line(prev, p, 'rgba(94,234,212,.3)', {w: 1.6});
+        prev = p;
+      }
+      sans('aₙ = 12/(n+2)', X(8.7), Y(2.7), 'rgba(94,234,212,.8)', 11.5, 'right');
+    }
+
+    for (let k = 1; k <= 8; k++) {
+      const y = this.term(k);
+      line({x: k, y: 0}, {x: k, y: y}, 'rgba(94,234,212,.14)', {w: 1, dash: [3, 4]});
+      dot({x: k, y: y}, k === s.n ? '#fff1cf' : '#5eead4', 4.2);
+    }
+
+    const an = this.term(s.n);
+    line({x: 0, y: an}, {x: s.n, y: an}, 'rgba(255,255,255,.22)', {w: 1.2, dash: [5, 5]});
+    line({x: s.n, y: 0}, {x: s.n, y: an}, 'rgba(255,255,255,.28)', {w: 1.2, dash: [5, 5]});
+    math('a' + SUB[s.n] + ' = ' + f2(an), X(s.n) + 15, Y(an) - 15, '#ffe7b8', 15, 'left');
+
+    if (s.list) {
+      sans('前几项', X(-5.85), Y(5.05), 'rgba(160,200,210,.7)', 11, 'left');
+      for (let k = 1; k <= 6; k++) {
+        const yy = 4.35 - (k - 1) * .62;
+        const on = k === s.n;
+        math('a' + SUB[k] + ' = ' + f2(this.term(k)), X(-5.85), Y(yy),
+          on ? '#ffffff' : 'rgba(150,190,200,.6)', on ? 14.5 : 12.5, 'left');
+      }
+    }
+
+    handle({x: s.n, y: an}, '#ffc56b', hoverId === 'pt');
+  },
+  hud() {
+    const s = this.state, an = this.term(s.n);
+    return [
+      {k: '序号 n', v: String(s.n), hi: true},
+      {k: 'aₙ', v: f2(an), hi: true},
+      {k: 'aₙ₊₁', v: s.n < 8 ? f2(this.term(s.n + 1)) : '—'},
+      {k: '相邻两项之差', v: s.n > 1 ? f2(an - this.term(s.n - 1)) : '—'},
+      {k: 'n 增大时', v: '递减 · 趋近 0'}
+    ];
+  },
+  panel(el) {
+    const s = this.state;
+    this.slN = addSlider(el, '序号 n', 1, 8, 1, s.n, v => String(v), v => s.n = v);
+    addToggle(el, '显示通项曲线（辅助）', s.curve, v => s.curve = v);
+    addToggle(el, '显示前几项列表', s.list, v => s.list = v);
+    addBtn(el, '下一项 →', () => {
+      s.n = s.n >= 8 ? 1 : s.n + 1;
+      if (this.slN) this.slN.set(s.n);
+    }, 'ghost');
+  }
+});
+
+/* ---------- 02 等差数列 ---------- */
+MODULES.push({
+  key: 'arith', tab: '02', name: '等差数列', en: 'ARITHMETIC', blurb: '公差 d 与共线点列',
+  accent: '#6cb6ff', rgb: '108,182,255',
+  hint: '拖动 a₁ 或 a₂ 的点，观察点列是否始终共线',
+  state: {a1: 1, d: .6, showD: true},
+  reset() { this.state.a1 = 1; this.state.d = .6; this.state.showD = true; this.slA = null; this.slD = null; },
+  val(k) { return this.state.a1 + (k - 1) * this.state.d; },
+  meta() {
+    return {
+      title: '等差数列：公差恒定，点列共线',
+      desc: '从第 2 项起，每一项与前一项的差都等于同一个常数 d，这样的数列叫等差数列，d 称为公差。把点 (n, aₙ) 描出来，它们恰好落在一条直线上。拖动 a₁、a₂ 两点，或调节滑块，观察直线与公差如何联动。',
+      formula: 'aₙ = a₁ + (n − 1)d',
+      note: 'd &gt; 0 时数列递增，d &lt; 0 时递减，d = 0 时为常数列。相邻两点间的竖直高度差恒为 <span class="nw">d</span>，这正是点列共线的原因。'
+    };
+  },
+  handles() { return [{id: 'p1', x: 1, y: this.val(1)}, {id: 'p2', x: 2, y: this.val(2)}]; },
+  drag(id, p) {
+    const q = clampPt(p);
+    const s = this.state;
+    if (id === 'p1') {
+      s.a1 = clamp(Math.round(q.y * 10) / 10, -1.5, 2.5);
+      if (this.slA) this.slA.set(s.a1);
+    } else {
+      s.d = clamp(Math.round((q.y - s.a1) * 20) / 20, -.6, .6);
+      if (this.slD) this.slD.set(s.d);
+    }
+  },
+  draw() {
+    setFrame(.4, .55, 16);
+    base();
+    const L = axes('n', 'aₙ');
+    const s = this.state;
+    ticksN(1, 8);
+    const A = k => s.a1 + (k - 1) * s.d;
+
+    line({x: L.x0, y: A(L.x0)}, {x: 8.7, y: A(8.7)}, 'rgba(108,182,255,.42)', {w: 1.5, dash: [7, 6]});
+
+    for (let k = 1; k <= 7; k++) {
+      const y = A(k);
+      line({x: k, y: 0}, {x: k, y: y}, 'rgba(108,182,255,.14)', {w: 1});
+      dot({x: k, y: y}, '#6cb6ff', 4.4);
+      sans('a' + SUB[k], X(k) + 12, Y(y) + 15, 'rgba(160,200,245,.7)', 10.5, 'left');
+    }
+
+    if (s.showD) {
+      for (let k = 1; k <= 6; k++) {
+        const xr = k + .78;
+        line({x: k + .4, y: A(k)}, {x: xr, y: A(k)}, 'rgba(255,255,255,.22)', {w: 1, dash: [3, 4]});
+        line({x: xr, y: A(k)}, {x: xr, y: A(k + 1)}, 'rgba(255,255,255,.22)', {w: 1, dash: [3, 4]});
+      }
+      math('d = ' + f2(s.d), X(1.95), Y((A(1) + A(2)) / 2), '#ffd8a0', 13, 'left');
+    }
+
+    math('aₙ = a₁ + (n − 1)d', X(L.x0 + 2.6), Y(5.3), 'rgba(160,205,255,.85)', 14);
+
+    handle({x: 1, y: A(1)}, '#6cb6ff', hoverId === 'p1');
+    handle({x: 2, y: A(2)}, '#ffc56b', hoverId === 'p2');
+  },
+  hud() {
+    const s = this.state;
+    const an = this.val(7);
+    let trend = '常数列（d = 0）';
+    if (s.d > 1e-6) trend = '递增';
+    else if (s.d < -1e-6) trend = '递减';
+    return [
+      {k: '首项 a₁', v: f2(s.a1), hi: true},
+      {k: '公差 d', v: f2(s.d), hi: true},
+      {k: 'a₂ − a₁', v: f2(this.val(2) - this.val(1))},
+      {k: 'a₇', v: f2(an)},
+      {k: '单调性', v: trend}
+    ];
+  },
+  panel(el) {
+    const s = this.state;
+    this.slA = addSlider(el, '首项 a₁', -1.5, 2.5, .1, s.a1, v => f2(v), v => s.a1 = v);
+    this.slD = addSlider(el, '公差 d', -.6, .6, .05, s.d, v => f2(v), v => s.d = v);
+    addToggle(el, '标出公差 d', s.showD, v => s.showD = v);
+    addBtn(el, '令 d = 0（常数列）', () => {
+      s.d = 0;
+      if (this.slD) this.slD.set(0);
+    }, 'ghost');
+  }
+});
+
+/* ---------- 03 等比数列 ---------- */
+MODULES.push({
+  key: 'geom', tab: '03', name: '等比数列', en: 'GEOMETRIC', blurb: '公比 q 与指数变化',
+  accent: '#ff8fab', rgb: '255,143,171',
+  hint: '拖动 a₁ 或 a₂ 的点，观察 q 对增长与衰减的影响',
+  state: {a1: 1, q: 1.3},
+  reset() { this.state.a1 = 1; this.state.q = 1.3; this.slA = null; this.slQ = null; },
+  val(k) { return this.state.a1 * Math.pow(this.state.q, k - 1); },
+  meta() {
+    return {
+      title: '等比数列：公比恒定，指数增减',
+      desc: '从第 2 项起，每一项与前一项的比都等于同一个常数 q，这样的数列叫等比数列，q 称为公比。q &gt; 1 时项随序号指数增长，0 &lt; q &lt; 1 时指数衰减。拖动 a₂ 改变公比，观察点列的弯曲方向如何变化。',
+      formula: 'aₙ = a₁ · qⁿ⁻¹（q ≠ 0）',
+      note: '等比数列的点列<b>不共线</b>，整体呈指数曲线形状。相邻两项之比恒为 <span class="nw">aₙ₊₁ / aₙ = q</span>；q = 1 时退化为常数列。'
+    };
+  },
+  handles() { return [{id: 'p1', x: 1, y: this.val(1)}, {id: 'p2', x: 2, y: this.val(2)}]; },
+  drag(id, p) {
+    const q = clampPt(p);
+    const s = this.state;
+    if (id === 'p1') {
+      s.a1 = clamp(Math.round(q.y * 20) / 20, .5, 2);
+      if (this.slA) this.slA.set(s.a1);
+    } else {
+      s.q = clamp(Math.round((q.y / s.a1) * 20) / 20, .5, 1.3);
+      if (this.slQ) this.slQ.set(s.q);
+    }
+  },
+  draw() {
+    setFrame(.3, .86, 14);
+    base();
+    const L = axes('n', 'aₙ');
+    const s = this.state;
+    ticksN(1, 6);
+    const A = k => s.a1 * Math.pow(s.q, k - 1);
+
+    let prev = null;
+    for (let x = .6; x <= 6.4; x += .03) {
+      const y = s.a1 * Math.pow(s.q, x - 1);
+      if (prev) line(prev, {x: x, y: y}, 'rgba(255,143,171,.3)', {w: 1.6});
+      prev = {x: x, y: y};
+    }
+    line({x: 1, y: s.a1}, {x: 6.4, y: s.a1}, 'rgba(255,255,255,.13)', {w: 1, dash: [4, 5]});
+
+    for (let k = 1; k <= 6; k++) {
+      const y = A(k);
+      line({x: k, y: 0}, {x: k, y: y}, 'rgba(255,143,171,.16)', {w: 1, dash: [3, 4]});
+      dot({x: k, y: y}, '#ff8fab', 4.4);
+      sans(f2(y), X(k), Y(y) - 13, 'rgba(255,185,205,.85)', 10.5);
+    }
+
+    math('aₙ = a₁·qⁿ⁻¹', X(L.x0 + 2.6), Y(5.7), 'rgba(255,170,195,.9)', 14);
+    math('q = ' + f2(s.q), X(L.x0 + 2.6), Y(5.05), 'rgba(255,205,220,.85)', 12.5);
+
+    const xr = 1.45;
+    line({x: xr, y: A(1)}, {x: xr, y: A(2)}, 'rgba(255,255,255,.22)', {w: 1, dash: [3, 3]});
+    math('×q', X(xr) + 9, Y((A(1) + A(2)) / 2), 'rgba(255,225,235,.85)', 12, 'left');
+
+    handle({x: 1, y: A(1)}, '#ffd0dd', hoverId === 'p1');
+    handle({x: 2, y: A(2)}, '#ffc56b', hoverId === 'p2');
+  },
+  hud() {
+    const s = this.state;
+    let trend = '常数列';
+    if (s.q > 1 + 1e-6) trend = '递增（指数增长）';
+    else if (s.q < 1 - 1e-6) trend = '递减（指数衰减）';
+    return [
+      {k: '首项 a₁', v: f2(s.a1), hi: true},
+      {k: '公比 q', v: f2(s.q), hi: true},
+      {k: 'a₆', v: f2(this.val(6))},
+      {k: 'a₂ / a₁', v: f2(this.val(2) / s.a1)},
+      {k: '变化趋势', v: trend}
+    ];
+  },
+  panel(el) {
+    const s = this.state;
+    this.slA = addSlider(el, '首项 a₁', .5, 2, .05, s.a1, v => f2(v), v => s.a1 = v);
+    this.slQ = addSlider(el, '公比 q', .5, 1.3, .05, s.q, v => f2(v), v => s.q = v);
+    const r = row(el);
+    addBtn(r, '递增', () => { s.q = 1.2; if (this.slQ) this.slQ.set(1.2); }, 'ghost');
+    addBtn(r, '递减', () => { s.q = .6; if (this.slQ) this.slQ.set(.6); }, 'ghost');
+    addBtn(r, '常数列', () => { s.q = 1; if (this.slQ) this.slQ.set(1); }, 'ghost');
+  }
+});
+
+/* ---------- 04 前 n 项和 ---------- */
+MODULES.push({
+  key: 'sum', tab: '04', name: '前 n 项和', en: 'SUM', blurb: '柱形堆叠与倒序相加',
+  accent: '#ffc56b', rgb: '255,197,107',
+  hint: '拖动最后一根柱子的顶端，或调节 n 观察 Sₙ',
+  state: {a1: 1, d: .4, n: 6, rect: true},
+  reset() { this.state.a1 = 1; this.state.d = .4; this.state.n = 6; this.state.rect = true; this.slN = null; this.slA = null; this.slD = null; },
+  val(k) { return this.state.a1 + (k - 1) * this.state.d; },
+  sum() { const s = this.state; return s.n * (s.a1 + this.val(s.n)) / 2; },
+  meta() {
+    return {
+      title: '前 n 项和：柱形面积与倒序相加',
+      desc: '把每一项画成一根宽度为 1 的柱子，前 n 项和就是这些柱子的总面积。再取一份倒过来的柱子，两份恰好拼成一个 n × (a₁ + aₙ) 的大矩形，于是一次性得到求和公式。调节 n 与公差 d，观察面积与公式如何同步变化。',
+      formula: 'Sₙ = n(a₁ + aₙ)/2 = na₁ + n(n − 1)d/2',
+      note: '虚线高度 (a₁ + aₙ)/2 是各项的<b>平均值</b>，Sₙ 等于“平均项 × 项数”。打开矩形开关，可以看到 <span class="nw">2Sₙ = n(a₁ + aₙ)</span>。'
+    };
+  },
+  handles() {
+    const s = this.state;
+    if (s.n < 2) return [];
+    return [{id: 'top', x: s.n + .5, y: this.val(s.n)}];
+  },
+  drag(id, p) {
+    const q = clampPt(p);
+    const s = this.state;
+    if (s.n < 2) return;
+    s.d = clamp(Math.round(((q.y - s.a1) / (s.n - 1)) * 20) / 20, 0, .6);
+    if (this.slD) this.slD.set(s.d);
+  },
+  draw() {
+    setFrame(.3, .84, 15);
+    base();
+    const L = axes('n', '项');
+    const s = this.state, n = s.n, a1 = s.a1, d = s.d;
+    ticksN(1, 8);
+    const A = k => a1 + (k - 1) * d;
+    const an = A(n), S = n * (a1 + an) / 2, avg = (a1 + an) / 2;
+
+    for (let k = 1; k <= n; k++) {
+      const h = A(k);
+      ctx.save();
+      ctx.fillStyle = 'rgba(255,197,107,.16)';
+      ctx.strokeStyle = 'rgba(255,197,107,.6)';
+      ctx.lineWidth = 1.6;
+      ctx.beginPath();
+      ctx.rect(X(k) + 2, Y(h), V.k - 4, Y(0) - Y(h));
+      ctx.fill();
+      ctx.stroke();
+      ctx.restore();
+      if (h > .55) sans(f2(h), X(k + .5), Y(h) + 14, 'rgba(255,228,185,.9)', 10.5);
+    }
+
+    line({x: 1, y: avg}, {x: n + 1, y: avg}, 'rgba(255,255,255,.5)', {w: 1.5, dash: [6, 5]});
+    math('S' + SUB[n] + ' = ' + f2(S), X(1) - 18, Y(avg) - 16, '#ffe1ad', 15, 'right');
+    math('(a₁+aₙ)/2 = ' + f2(avg), X(1) - 18, Y(avg) + 16, 'rgba(255,255,255,.62)', 12, 'right');
+
+    if (s.rect) {
+      ctx.save();
+      ctx.setLineDash([7, 6]);
+      ctx.strokeStyle = 'rgba(255,197,107,.5)';
+      ctx.lineWidth = 1.5;
+      ctx.strokeRect(X(1), Y(a1 + an), n * V.k, (a1 + an) * V.k);
+      ctx.restore();
+      sans('2S' + SUB[n] + ' = n(a₁+aₙ) = ' + f2(2 * S), X(1) + n * V.k / 2, Y(a1 + an) + 16, 'rgba(255,215,160,.9)', 11);
+    }
+
+    if (n >= 2) handle({x: n + .5, y: an}, '#ffc56b', hoverId === 'top');
+  },
+  hud() {
+    const s = this.state;
+    const an = this.val(s.n), S = this.sum();
+    return [
+      {k: '项数 n', v: String(s.n), hi: true},
+      {k: '末项 aₙ', v: f2(an), hi: true},
+      {k: 'Sₙ', v: f2(S), hi: true},
+      {k: '平均项 (a₁+aₙ)/2', v: f2((s.a1 + an) / 2)},
+      {k: '2Sₙ', v: f2(2 * S)}
+    ];
+  },
+  panel(el) {
+    const s = this.state;
+    this.slA = addSlider(el, '首项 a₁', .5, 2.5, .1, s.a1, v => f2(v), v => s.a1 = v);
+    this.slD = addSlider(el, '公差 d', 0, .6, .05, s.d, v => f2(v), v => s.d = v);
+    this.slN = addSlider(el, '项数 n', 1, 8, 1, s.n, v => String(v), v => s.n = v);
+    addToggle(el, '显示倒序相加的矩形', s.rect, v => s.rect = v);
+  }
+});
+
+/* ---------- 05 递推数列 ---------- */
+const REC = [
+  {name: 'aₙ₊₁ = aₙ/2 + 1', short: 'aₙ/2+1', a0: 3.5, f: x => x / 2 + 1, fix: 2, desc: '单调递增，趋近 2'},
+  {name: 'aₙ₊₁ = (aₙ + 3/aₙ)/2', short: '(aₙ+3/aₙ)/2', a0: .6, f: x => (x + 3 / x) / 2, fix: Math.sqrt(3), desc: '单调递减，趋近 √3'},
+  {name: 'aₙ₊₁ = 3 − 0.8aₙ', short: '3−0.8aₙ', a0: .6, f: x => 3 - .8 * x, fix: 5 / 3, desc: '左右摆动，趋近 5/3'}
+];
+
+MODULES.push({
+  key: 'recur', tab: '05', name: '递推数列', en: 'RECURSION', blurb: 'aₙ₊₁ = f(aₙ) 的迭代',
+  accent: '#b49cff', rgb: '180,156,255',
+  hint: '拖动 x 轴上的 a₁，或切换递推式，观察迭代走向',
+  state: {which: 1, a1: 1, steps: 5},
+  reset() { this.state.which = 1; this.state.a1 = REC[1].a0; this.state.steps = 5; this.slA = null; this.slS = null; },
+  vals() {
+    const f = REC[this.state.which].f;
+    const out = [this.state.a1];
+    for (let i = 0; i < this.state.steps; i++) out.push(f(out[out.length - 1]));
+    return out;
+  },
+  meta() {
+    return {
+      title: '递推数列：由前一项推出后一项',
+      desc: '若数列的每一项由前一项按同一规则算出，即 aₙ₊₁ = f(aₙ)，就称它是递推数列。给定首项 a₁，逐次迭代即可得到整个数列。画布上紫色曲线是 y = f(x)，斜线是 y = x，阶梯状折线把每次迭代“搬运”到对角线上。',
+      formula: 'aₙ₊₁ = f(aₙ)，n ∈ N*',
+      note: '折线被“吸”向曲线与斜线的交点，该点满足 <span class="nw">x = f(x)</span>，就是数列的极限。斜率绝对值小于 1 时迭代收敛，正负号决定是单调靠近还是左右摆动。'
+    };
+  },
+  handles() { return [{id: 'a1', x: this.state.a1, y: 0}]; },
+  drag(id, p) {
+    const q = clampPt(p);
+    this.state.a1 = clamp(Math.round(q.x * 20) / 20, .5, 4);
+    if (this.slA) this.slA.set(this.state.a1);
+  },
+  draw() {
+    setFrame(.46, .5, 13);
+    base();
+    const L = axes('aₙ', 'aₙ₊₁');
+    const s = this.state, R = REC[s.which], f = R.f;
+
+    for (let i = 1; i <= 4; i++) {
+      line({x: i, y: -.1}, {x: i, y: .1}, 'rgba(200,225,235,.4)', {w: 1});
+      sans(String(i), X(i), Y(0) + 15, 'rgba(160,185,200,.65)', 10);
+    }
+
+    line({x: L.x0, y: L.x0}, {x: L.x1, y: L.x1}, 'rgba(255,255,255,.24)', {w: 1.3, dash: [6, 5]});
+    sans('y = x', X(4.2), Y(4.2) + 16, 'rgba(200,215,225,.7)', 11);
+
+    let prev = null;
+    const xa = s.which === 1 ? .42 : L.x0 + .3;
+    for (let x = xa; x <= 4.8; x += .03) {
+      const y = f(x);
+      if (y > L.y0 - 1 && y < L.y1 + 1) {
+        if (prev) line(prev, {x: x, y: y}, 'rgba(180,156,255,.55)', {w: 2});
+        prev = {x: x, y: y};
+      } else prev = null;
+    }
+    sans('y = f(x)', X(3.55), Y(f(3.55)) + 18, 'rgba(200,180,255,.85)', 11.5);
+
+    const vs = this.vals();
+    let p = {x: vs[0], y: 0};
+    for (let i = 0; i < s.steps; i++) {
+      const y = vs[i + 1];
+      line({x: p.x, y: p.y}, {x: p.x, y: y}, 'rgba(180,156,255,.9)', {w: 1.8});
+      line({x: p.x, y: y}, {x: y, y: y}, 'rgba(180,156,255,.9)', {w: 1.8});
+      dot({x: y, y: y}, '#d9caff', 3.4);
+      p = {x: y, y: y};
+    }
+    dot({x: R.fix, y: R.fix}, 'rgba(255,255,255,.55)', 3.6);
+    math(f2(R.fix), X(R.fix) + 13, Y(R.fix) + 24, 'rgba(255,255,255,.7)', 12, 'left');
+
+    math('a₁ = ' + f2(vs[0]), X(vs[0]), Y(0) + 34, '#e3d9ff', 13);
+    handle({x: vs[0], y: 0}, '#ffc56b', hoverId === 'a1');
+  },
+  hud() {
+    const s = this.state, R = REC[s.which], vs = this.vals();
+    const last = vs[vs.length - 1];
+    return [
+      {k: '首项 a₁', v: f2(vs[0]), hi: true},
+      {k: '递推式', v: R.name.replace('aₙ₊₁ = ', ''), hi: true},
+      {k: '第 ' + (s.steps + 1) + ' 项', v: f2(last)},
+      {k: '走势', v: R.desc},
+      {k: '不动点', v: f2(R.fix)}
+    ];
+  },
+  panel(el) {
+    const s = this.state;
+    const r = row(el);
+    REC.forEach((R, i) => {
+      addBtn(r, (s.which === i ? '● ' : '○ ') + R.short, () => {
+        s.which = i;
+        s.a1 = R.a0;
+        buildPanel();
+      }, 'ghost');
+    });
+    this.slA = addSlider(el, '首项 a₁', .5, 4, .05, s.a1, v => f2(v), v => s.a1 = v);
+    this.slS = addSlider(el, '迭代步数', 2, 6, 1, s.steps, v => String(v), v => s.steps = v);
+  }
+});
+
+})();
+
+
+/* ============================================================
+   引擎
+   ============================================================ */
+const chapterListEl = $('#chapterList');
+const catalogEl = $('#catalogTrack');
+let curIdx = 0, cur = null, hoverId = null, dragId = null;
+
+MODULES.forEach((m, i) => {
+  m.en = m.en || '';
+  m.blurb = m.blurb || '';
+
+  const b = document.createElement('button');
+  b.type = 'button';
+  b.className = 'chapter-item';
+  b.style.setProperty('--tc', m.accent);
+  b.style.setProperty('--tc-rgb', m.rgb);
+  b.innerHTML = '<span class="ci-num">' + m.tab + '</span>' +
+    '<span class="ci-name">' + m.name + '</span>' +
+    '<span class="ci-en">' + m.en + '</span>';
+  b.addEventListener('click', () => activate(i));
+  chapterListEl.appendChild(b);
+
+  const c = document.createElement('button');
+  c.type = 'button';
+  c.className = 'catalog-card';
+  c.style.setProperty('--tc', m.accent);
+  c.style.setProperty('--tc-rgb', m.rgb);
+  c.innerHTML = '<span class="cc-top"><b>' + m.tab + '</b><span>' + m.en + '</span></span>' +
+    '<strong>' + m.name + '</strong><small>' + m.blurb + '</small>';
+  c.addEventListener('click', () => activate(i));
+  catalogEl.appendChild(c);
+});
+
+function plainFormula(html) {
+  return html.replace(/<br\s*\/?>/gi, ' ').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+}
+function buildPanel() {
+  const m = cur.meta();
+  $('#title').textContent = m.title;
+  $('#desc').innerHTML = m.desc;
+  $('#formula').innerHTML = m.formula;
+  $('#note').innerHTML = m.note;
+  $('#stageFormula').textContent = plainFormula(m.formula);
+  $('#eqTag').textContent = cur.tab;
+  controlsEl.innerHTML = '';
+  cur.panel(controlsEl);
+}
+function renderHud() {
+  if (!cur) return;
+  const rows = cur.hud();
+  hudEl.innerHTML = rows.map(r =>
+    '<div class="hud-item' + (r.hi ? ' hi' : '') + '"><span>' + r.k + '</span><b>' + r.v + '</b></div>'
+  ).join('');
+  $('#stageValues').textContent = rows.slice(0, 4).map(r => r.k + ' ' + r.v).join('   ·   ');
+}
+function activate(i) {
+  curIdx = i;
+  cur = MODULES[i];
+  root.style.setProperty('--accent', cur.accent);
+  root.style.setProperty('--accent-rgb', cur.rgb);
+  for (let j = 0; j < chapterListEl.children.length; j++) {
+    chapterListEl.children[j].classList.toggle('on', j === i);
+    catalogEl.children[j].classList.toggle('on', j === i);
+  }
+  cur.reset();
+  hoverId = null;
+  dragId = null;
+  buildPanel();
+  const m = cur.meta();
+  $('#liveName').textContent = cur.name;
+  $('#liveIndex').textContent = cur.tab;
+  $('#defMark').textContent = cur.tab;
+  $('#topChip').innerHTML = '<span class="chip-dot"></span>第 ' + (i + 1) + ' / ' + MODULES.length + ' 节';
+  $('#hint').textContent = cur.hint + ' · ← → 切换';
+  const play = $('#playBtn');
+  play.hidden = !cur.togglePlay;
+  play.textContent = cur.key === 'add' ? '▶ 播放三角形法则' : '▶ 播放';
+  renderHud();
+  cv.style.cursor = 'default';
+}
+
+function resize() {
+  const r = $('.stage-card').getBoundingClientRect();
+  if (r.width < 2 || r.height < 2) return;
+  W = r.width;
+  H = r.height;
+  DPR = Math.min(2, window.devicePixelRatio || 1);
+  cv.width = Math.round(W * DPR);
+  cv.height = Math.round(H * DPR);
+  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+}
+
+let last = performance.now(), lastHud = 0;
+function loop(now) {
+  const dt = Math.min(.05, (now - last) / 1000 || 0);
+  last = now;
+  if (cur && W > 0) {
+    ctx.clearRect(0, 0, W, H);
+    cur.draw(dt);
+    if (now - lastHud > 120) {
+      lastHud = now;
+      renderHud();
+    }
+  }
+  requestAnimationFrame(loop);
+}
+
+/* ---------- 指针交互 ---------- */
+function pointAt(e) {
+  const r = cv.getBoundingClientRect();
+  const sx = (e.clientX - r.left) * (W / r.width);
+  const sy = (e.clientY - r.top) * (H / r.height);
+  return {sx, sy, wx: (sx - V.ox) / V.k, wy: (V.oy - sy) / V.k};
+}
+function pick(e) {
+  if (!cur) return null;
+  const p = pointAt(e);
+  const hs = cur.handles() || [];
+  let best = null, bd = 22;
+  for (const h of hs) {
+    const d = Math.hypot(X(h.x) - p.sx, Y(h.y) - p.sy);
+    if (d < bd) { bd = d; best = h.id; }
+  }
+  return best;
+}
+cv.addEventListener('pointerdown', e => {
+  if (!cur) return;
+  const id = pick(e);
+  if (id) {
+    dragId = id;
+    hoverId = id;
+    cv.setPointerCapture(e.pointerId);
+    cv.style.cursor = 'grabbing';
+    e.preventDefault();
+  }
+});
+cv.addEventListener('pointermove', e => {
+  if (!cur) return;
+  if (dragId) {
+    const p = pointAt(e);
+    cur.drag(dragId, {x: p.wx, y: p.wy});
+    renderHud();
+  } else {
+    const id = pick(e);
+    hoverId = id;
+    cv.style.cursor = id ? 'grab' : 'default';
+  }
+});
+function endDrag() {
+  if (!dragId) return;
+  dragId = null;
+  cv.style.cursor = hoverId ? 'grab' : 'default';
+}
+cv.addEventListener('pointerup', endDrag);
+cv.addEventListener('pointercancel', endDrag);
+cv.addEventListener('pointerleave', () => { if (!dragId) { hoverId = null; cv.style.cursor = 'default'; } });
+
+/* ---------- 顶部操作 ---------- */
+$('#resetBtn').addEventListener('click', () => {
+  if (!cur) return;
+  cur.reset();
+  buildPanel();
+  renderHud();
+});
+$('#playBtn').addEventListener('click', () => { if (cur && cur.togglePlay) cur.togglePlay(); });
+$('#fullBtn').addEventListener('click', () => {
+  if (!document.fullscreenElement) {
+    if (root.requestFullscreen) root.requestFullscreen();
+  } else if (document.exitFullscreen) {
+    document.exitFullscreen();
+  }
+});
+
+/* ---------- 键盘 ---------- */
+window.addEventListener('keydown', e => {
+  if (e.target && /INPUT|TEXTAREA|SELECT/.test(e.target.tagName)) return;
+  if (e.key === 'ArrowRight') {
+    e.preventDefault();
+    activate((curIdx + 1) % MODULES.length);
+  } else if (e.key === 'ArrowLeft') {
+    e.preventDefault();
+    activate((curIdx - 1 + MODULES.length) % MODULES.length);
+  } else if (e.code === 'Space') {
+    e.preventDefault();
+    if (cur && cur.togglePlay) cur.togglePlay();
+  }
+});
+
+if (window.ResizeObserver) new ResizeObserver(resize).observe($('.stage-card'));
+window.addEventListener('resize', resize);
+
+resize();
+activate(0);
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#070b12">
+<title>高中数学动态演示 · Math Showit</title>
+<style>
+:root{
+  --bg:#060a12;--ink:#eef7f6;--soft:#c3d5dc;--muted:#8ba1ac;--muted2:#6f858f;
+  --line:rgba(165,200,220,.12);--accent:#5eead4;--accent-rgb:94,234,212;
+  --sans:"PingFang SC","Microsoft YaHei","Noto Sans SC",system-ui,sans-serif;
+  --serif:"Cambria Math","Times New Roman",serif;--mono:"Cascadia Code",Consolas,monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+body.locked{overflow:hidden}
+.ambient{position:fixed;inset:0;z-index:0;pointer-events:none;background:
+  radial-gradient(ellipse 70% 55% at 20% -10%,rgba(94,234,212,.12),transparent 62%),
+  radial-gradient(ellipse 55% 50% at 100% 100%,rgba(120,100,220,.1),transparent 70%),
+  linear-gradient(180deg,#08101c,#05080d 70%)}
+.ambient::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(180,215,235,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(180,215,235,.03) 1px,transparent 1px);background-size:70px 70px;mask-image:radial-gradient(ellipse 80% 70% at 50% 30%,#000,transparent 80%)}
+.wrap{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:30px 24px 56px}
+.top{display:flex;align-items:center;gap:12px;margin-bottom:32px}
+.mark{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;border:1px solid rgba(var(--accent-rgb),.3);background:rgba(var(--accent-rgb),.09);font-family:var(--serif);font-style:italic;font-size:21px;color:var(--accent)}
+.top b{font-size:14px;font-weight:600;letter-spacing:.1em}
+.top span{font-size:9px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase}
+.hero{margin-bottom:26px}
+.eyebrow{font-size:9px;letter-spacing:.26em;color:var(--accent);text-transform:uppercase;margin-bottom:12px}
+h1{margin:0;font-size:clamp(27px,4.4vw,44px);line-height:1.2;letter-spacing:.02em;font-weight:600}
+h1 em{font-family:var(--serif);font-style:italic;color:var(--accent);font-weight:400}
+.lead{margin:14px 0 0;max-width:680px;font-size:12.5px;line-height:1.9;color:var(--soft)}
+.howto{margin-top:14px;display:inline-flex;align-items:center;gap:8px;font-size:10px;color:var(--muted);
+  border:1px solid var(--line);border-radius:999px;padding:7px 12px;background:rgba(255,255,255,.025)}
+.howto i{width:5px;height:5px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent)}
+.stats{display:flex;gap:24px;margin-top:20px;flex-wrap:wrap}
+.stat{display:flex;flex-direction:column;gap:2px}
+.stat b{font-family:var(--mono);font-size:19px;font-weight:500;color:var(--accent)}
+.stat span{font-size:9px;letter-spacing:.12em;color:var(--muted)}
+.book{margin-top:30px}
+.book-head{display:flex;align-items:baseline;gap:12px;margin-bottom:11px;padding-bottom:9px;border-bottom:1px solid var(--line)}
+.book-head h2{margin:0;font-size:15px;font-weight:600;letter-spacing:.05em}
+.book-head span{font-size:9px;letter-spacing:.14em;color:var(--muted);font-family:var(--mono)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+.card{position:relative;display:flex;flex-direction:column;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:linear-gradient(180deg,rgba(16,27,45,.86),rgba(8,15,27,.92));transition:transform .18s,border-color .18s,box-shadow .18s}
+.card:hover{transform:translateY(-2px);border-color:rgba(var(--tc-rgb),.38);box-shadow:0 14px 36px rgba(0,0,0,.32)}
+.card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--tc);opacity:.55;z-index:2}
+.thumb{position:relative;display:block;width:100%;aspect-ratio:16/9;padding:0;border:0;border-bottom:1px solid var(--line);background:#091321;cursor:pointer;overflow:hidden}
+.thumb img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block;transition:transform .5s ease;opacity:.94}
+.card:hover .thumb img{transform:scale(1.035);opacity:1}
+.thumb::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(5,9,15,.55))}
+.thumb-zoom{position:absolute;right:9px;bottom:8px;z-index:2;font-size:8.5px;letter-spacing:.08em;color:var(--tc);background:rgba(5,12,21,.78);border:1px solid rgba(var(--tc-rgb),.3);border-radius:999px;padding:4px 8px;backdrop-filter:blur(8px)}
+.body{padding:10px 13px 12px;display:flex;flex-direction:column;gap:5px;flex:1}
+.row1{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.num{font-family:var(--mono);font-size:8.5px;letter-spacing:.06em;color:var(--tc)}
+.en{font-size:7px;letter-spacing:.1em;color:var(--muted2);font-family:var(--mono);white-space:nowrap}
+.card h3{margin:0;font-size:13.5px;font-weight:600;line-height:1.4}
+.card p{margin:0;font-size:9.5px;line-height:1.55;color:var(--muted);min-height:15px}
+.actions{display:flex;align-items:center;gap:7px;margin-top:6px}
+.actions a,.actions button{font-size:9px;letter-spacing:.04em;border-radius:7px;padding:5px 8px;cursor:pointer;text-decoration:none;transition:.16s;background:transparent}
+.actions a{color:var(--tc);border:1px solid rgba(var(--tc-rgb),.28)}
+.actions a:hover{background:rgba(var(--tc-rgb),.12)}
+.actions button{margin-left:auto;color:var(--muted);border:1px solid var(--line)}
+.actions button:hover{color:var(--soft);border-color:rgba(255,255,255,.2)}
+.foot{margin-top:38px;padding-top:14px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;font-size:9px;letter-spacing:.08em;color:var(--muted);flex-wrap:wrap}
+
+.topic-section{margin-top:30px}
+.topic-card{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);align-items:stretch}
+.topic-card .thumb{height:100%;aspect-ratio:auto;border-bottom:0;border-right:1px solid var(--line)}
+.topic-body{padding:16px 18px;display:flex;flex-direction:column;gap:7px;justify-content:center;min-width:0}
+.topic-body h3{margin:0;font-size:16px;font-weight:600}
+.topic-body p{margin:0;font-size:10.5px;line-height:1.7;color:var(--muted)}
+.topic-body .actions{margin-top:6px}
+@media(max-width:720px){.topic-card{grid-template-columns:1fr}.topic-card .thumb{aspect-ratio:16/9;border-right:0;border-bottom:1px solid var(--line)}}
+
+/* modal */
+.modal{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;padding:2.5vh 2.5vw;background:rgba(3,6,11,.82);backdrop-filter:blur(10px)}
+.modal[hidden]{display:none}
+.modal-inner{width:min(1500px,95vw);height:90vh;display:flex;flex-direction:column;border:1px solid rgba(165,200,220,.18);border-radius:14px;overflow:hidden;background:#060b13;box-shadow:0 40px 100px rgba(0,0,0,.6)}
+.modal-head{flex:0 0 48px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 14px;border-bottom:1px solid var(--line);background:rgba(10,18,30,.94)}
+.modal-title{display:flex;align-items:baseline;gap:9px;min-width:0}
+.modal-title b{font-size:12.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.modal-title span{font-family:var(--mono);font-size:8px;letter-spacing:.1em;color:var(--muted);white-space:nowrap}
+.modal-actions{display:flex;gap:7px;flex:none}
+.modal-actions a,.modal-actions button{font-size:10px;padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--soft);cursor:pointer;text-decoration:none;transition:.16s}
+.modal-actions a:hover,.modal-actions button:hover{background:rgba(255,255,255,.07);color:#fff}
+#mFrame{flex:1;width:100%;border:0;background:#070b12}
+
+@media(max-width:1100px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:720px){
+  .wrap{padding:20px 12px 40px}
+  .grid{grid-template-columns:1fr}
+  .hero{margin-bottom:20px}
+  .stats{gap:18px}
+  .modal{padding:0}
+  .modal-inner{width:100vw;height:100vh;border-radius:0;border:0}
+  .modal-head{flex-basis:44px;padding:0 9px}
+  .modal-title span{display:none}
+}
+</style>
+</head>
+<body>
+<div class="ambient"></div>
+<div class="wrap">
+  <div class="top"><div class="mark">Σ</div><div><b>高中数学动态演示</b><br><span>Math Showit</span></div></div>
+  <header class="hero">
+    <div class="eyebrow">人教 A 版（2019）· 必修 + 选择性必修</div>
+    <h1>把每一章，变成可以<em>拖一拖</em>的图形</h1>
+    <p class="lead">按教材顺序收录 5 册、18 章，另附立体几何专题；每章一个独立页面。左侧选择情境，中间拖动、播放，右侧同步公式与实时数据。点击缩略图即可在本页快速预览，或在新窗口单独打开。</p>
+    <div class="howto"><i></i>缩略图 / 快速预览：当前页内嵌演示 · 打开页面：新窗口全屏</div>
+    <div class="stats">
+      <div class="stat"><b>5</b><span>教材分册</span></div>
+      <div class="stat"><b>18</b><span>章节</span></div>
+      <div class="stat"><b>91</b><span>交互情境</span></div>
+      <div class="stat"><b>0</b><span>外部依赖</span></div>
+    </div>
+  </header>
+  __BOOKS__
+  __TOPICS__
+  <footer class="foot"><span>高中数学动态演示 · Math Showit</span><span>18 章 + 1 专题 · 单文件页面 · 无需联网</span></footer>
+</div>
+
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-label="章节演示预览">
+  <div class="modal-inner">
+    <div class="modal-head">
+      <div class="modal-title"><b id="mTitle">章节</b><span id="mSub"></span></div>
+      <div class="modal-actions">
+        <a id="mOpen" href="#" target="_blank" rel="noopener">新窗口打开 ↗</a>
+        <button id="mClose" type="button">关闭 ✕</button>
+      </div>
+    </div>
+    <iframe id="mFrame" src="about:blank" title="章节演示"></iframe>
+  </div>
+</div>
+
+<script>
+(function () {
+  var modal = document.getElementById('modal');
+  var frame = document.getElementById('mFrame');
+  var titleEl = document.getElementById('mTitle');
+  var subEl = document.getElementById('mSub');
+  var openEl = document.getElementById('mOpen');
+
+  function closeModal() {
+    modal.hidden = true;
+    frame.src = 'about:blank';
+    document.body.classList.remove('locked');
+  }
+  function openModal(dir, title, no) {
+    titleEl.textContent = title;
+    subEl.textContent = '演示预览';
+    openEl.href = dir + '/index.html';
+    frame.src = dir + '/index.html';
+    modal.hidden = false;
+    document.body.classList.add('locked');
+  }
+  document.querySelectorAll('[data-preview]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      openModal(btn.getAttribute('data-preview'), btn.getAttribute('data-title'), btn.getAttribute('data-no'));
+    });
+  });
+  document.getElementById('mClose').addEventListener('click', closeModal);
+  modal.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !modal.hidden) closeModal(); });
+})();
+</script>
+</body>
+</html>

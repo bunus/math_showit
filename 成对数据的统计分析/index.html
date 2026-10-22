@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#070a11">
-<meta name="description" content="平面向量及其应用：用可拖拽的动态图形讲解向量概念、加减法、数乘、基本定理、数量积与几何物理应用。">
-<title>平面向量及其应用 · 动态教学实验室</title>
+<meta name="description" content="成对数据：散点图、回归直线、残差与独立性检验。">
+<title>成对数据的统计分析 · 动态教学实验室</title>
 <style>
 /* ============================================================
    平面向量及其应用 · Vector Lab
@@ -391,11 +391,12 @@ input[type=range]::-moz-range-thumb{
         </svg>
       </div>
       <div class="brand-copy">
-        <div class="eyebrow"><span>Vector Lab</span><i></i><span>平面向量</span></div>
-        <h1>平面向量及其应用 <span class="title-en">/ VECTOR LAB</span></h1>
+        <div class="eyebrow"><span>Data Lab</span><i></i><span>选择性必修第三册</span></div>
+        <h1>成对数据的统计分析 <span class="title-en">/ DATA ANALYSIS</span></h1>
       </div>
     </div>
     <div class="top-actions">
+      <a class="ghost-btn" href="../index.html" title="返回总览" style="text-decoration:none">← 总览</a>
       <div class="status-chip" id="topChip"><span class="chip-dot"></span>第 1 / 7 节</div>
       <button class="ghost-btn" id="resetBtn" type="button" title="恢复本节初始状态">
         <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3M4.5 4.5V9H9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -408,12 +409,12 @@ input[type=range]::-moz-range-thumb{
   </header>
 
   <main class="workspace">
-    <aside class="panel panel-controls" aria-label="章节与参数控制">
+    <aside class="panel panel-controls" aria-label="情境与参数控制">
       <div class="panel-head">
         <span class="section-num">01</span>
-        <div><h2>章节与参数</h2><p>选择章节 · 调整变量</p></div>
+        <div><h2>情境与参数</h2><p>选择情境 · 调整变量</p></div>
       </div>
-      <nav class="chapter-list" id="chapterList" aria-label="章节列表"></nav>
+      <nav class="chapter-list" id="chapterList" aria-label="情境列表"></nav>
       <div class="block-label"><span>本节控制 / Controls</span><span>拖动或调节</span></div>
       <div class="controls" id="controls"></div>
       <div class="tip-card">
@@ -428,7 +429,7 @@ input[type=range]::-moz-range-thumb{
       <div class="stage-top">
         <div class="live-badge">
           <span class="live-dot"></span>
-          <div class="live-copy"><span>当前章节 / Chapter</span><strong id="liveName">概念</strong></div>
+          <div class="live-copy"><span>当前情境 / Scene</span><strong id="liveName">概念</strong></div>
           <span class="live-idx" id="liveIndex">01</span>
         </div>
         <div class="stage-tools">
@@ -468,13 +469,13 @@ input[type=range]::-moz-range-thumb{
       </div>
     </aside>
 
-    <section class="catalog" aria-label="章节图鉴">
+    <section class="catalog" aria-label="情境图鉴">
       <div class="catalog-head">
         <div class="catalog-title">
           <span class="section-num">03</span>
-          <div><h2>章节图鉴</h2><p>七节内容 · 点击切换</p></div>
+          <div><h2>情境图鉴</h2><p>五个情境 · 点击切换</p></div>
         </div>
-        <div class="catalog-hint">向量 = 大小 + 方向 · a + b = b + a</div>
+        <div class="catalog-hint">相关、回归与独立性检验</div>
       </div>
       <div class="catalog-track" id="catalogTrack"></div>
     </section>
@@ -757,1022 +758,583 @@ function row(parent) {
 const MODULES = [];
 
 /* ============================================================
-   01 向量的概念
+   选择性必修第三册 · 第 8 章 成对数据的统计分析
+   散点图 / 回归直线 / 残差 / 列联表 / 统计案例
    ============================================================ */
-MODULES.push({
-  key: 'concept', tab: '01', name: '概念', accent: '#5eead4', rgb: '94,234,212',
-  hint: '拖动 A、B 两点，改变向量的方向与长度',
-  state: {A: {x: -2.4, y: -1.0}, B: {x: 1.9, y: 1.3}, equal: true, opp: false, unit: false},
-  reset() {
-    this.state.A = {x: -2.4, y: -1.0};
-    this.state.B = {x: 1.9, y: 1.3};
-    this.state.equal = true;
-    this.state.opp = false;
-    this.state.unit = false;
-  },
-  meta() {
-    return {
-      title: '向量：既有大小，又有方向',
-      desc: '用有向线段表示向量：线段的长度是向量的<b>模</b>，箭头的指向是向量的<b>方向</b>。拖动端点，观察模与方向如何变化。',
-      formula: '|a| = √(x² + y²)',
-      note: '向量平移后仍是同一个向量，称为<b>自由向量</b>。方向相同或相反的非零向量叫做<b>平行向量</b>（共线向量）；长度为 1 的向量叫做<b>单位向量</b>。'
-    };
-  },
-  handles() {
-    return [{id: 'A', ...this.state.A}, {id: 'B', ...this.state.B}];
-  },
-  drag(id, p) {
-    const q = clampPt(p);
-    this.state[id].x = q.x;
-    this.state[id].y = q.y;
-  },
-  draw(dt) {
-    const s = this.state, A = s.A, B = s.B;
-    setFrame(.5, .55, 12.6);
-    base();
-    const d = {x: B.x - A.x, y: B.y - A.y};
-    const L = len2(d.x, d.y), ang = Math.atan2(d.y, d.x);
-    const Lm = lim();
+(function () {
 
-    // 平移后的相等向量
-    if (s.equal && L > .3) {
-      const px = clamp(1.3, Lm.x0 + .5, Math.max(Lm.x0 + .5, Lm.x1 - .5 - d.x));
-      const py = clamp(-2.75, Lm.y0 + .5, Math.max(Lm.y0 + .5, Lm.y1 - .5 - d.y));
-      const P = {x: px, y: py}, Q = {x: px + d.x, y: py + d.y};
-      arrow(P, Q, '#5eead4', {w: 2.2, dash: [6, 5], alpha: .55, head: 10});
-      const ex = X(Q.x) - X(P.x), ey = Y(Q.y) - Y(P.y), eL = Math.hypot(ex, ey) || 1;
-      let enx = -ey / eL, eny = ex / eL;
-      if (eny > 0) { enx = -enx; eny = -eny; }
-      sans('相等向量（平移）', (X(P.x) + X(Q.x)) / 2 + enx * 34, (Y(P.y) + Y(Q.y)) / 2 + eny * 34, 'rgba(150,215,210,.9)', 11.5);
-    }
-
-    // 相反向量
-    if (s.opp && L > .3) {
-      const C = {x: A.x - d.x, y: A.y - d.y};
-      arrow(A, C, '#ff8fab', {w: 2.2, dash: [6, 5], alpha: .7, head: 10});
-      math('−a', X((A.x + C.x) / 2) - 14, Y((A.y + C.y) / 2) + 24, 'rgba(255,143,171,.85)', 16);
-    }
-
-    // 单位向量与零向量
-    if (s.unit && L > .3) {
-      const e = {x: A.x + d.x / L, y: A.y + d.y / L};
-      arrow(A, e, '#ffc56b', {w: 3, glow: 12, head: 9});
-      math('e', X(e.x) + 14, Y(e.y) - 13, '#ffc56b', 15);
-      const z = {x: Lm.x0 + .9, y: Lm.y0 + .8};
-      dot(z, 'rgba(200,220,230,.85)', 3.5);
-      math('0', X(z.x) + 15, Y(z.y) - 1, 'rgba(200,220,230,.85)', 15);
-      sans('零向量', X(z.x) + 40, Y(z.y) + 15, 'rgba(139,160,171,.8)', 10);
-    }
-
-    // 方向角
-    if (L > .6) {
-      line(A, {x: A.x + 1.5, y: A.y}, 'rgba(255,197,107,.3)', {w: 1, dash: [3, 4]});
-      const r = Math.min(58, Math.max(30, L * V.k * .34));
-      angleArc(A, 0, ang, r, 'rgba(255,197,107,.7)', Math.round(deg(ang)) + '°', 11);
-    }
-
-    // 主向量 a = AB
-    arrow(A, B, '#5eead4', {w: 4, glow: 16, head: 12});
-    vlabel(A, B, 'a', '#8ff5e4', 20, 19);
-
-    handle(A, '#7f97a6', false);
-    handle(B, '#5eead4', hoverId === 'B');
-    sans('A', X(A.x) - 17, Y(A.y) + 19, 'rgba(160,185,196,.9)', 13);
-    sans('B', X(B.x) + 19, Y(B.y) - 15, '#9ff7e8', 13);
-  },
-  hud() {
-    const A = this.state.A, B = this.state.B;
-    const d = {x: B.x - A.x, y: B.y - A.y}, L = len2(d.x, d.y);
-    return [
-      {k: '|a|', v: L.toFixed(2)},
-      {k: '方向角', v: Math.round(deg(Math.atan2(d.y, d.x))) + '°'},
-      {k: 'a 的坐标', v: vecText(d)}
-    ];
-  },
-  panel(el) {
-    const s = this.state;
-    addToggle(el, '显示相等向量（平移不变）', s.equal, v => s.equal = v);
-    addToggle(el, '显示相反向量 −a', s.opp, v => s.opp = v);
-    addToggle(el, '显示单位向量 e 与零向量 0', s.unit, v => s.unit = v);
+/* ---------- 通用：描述统计与最小二乘 ---------- */
+function stat(pts) {
+  const n = pts.length;
+  let sx = 0, sy = 0;
+  for (let i = 0; i < n; i++) { sx += pts[i].x; sy += pts[i].y; }
+  const mx = sx / n, my = sy / n;
+  let sxx = 0, sxy = 0, syy = 0;
+  for (let i = 0; i < n; i++) {
+    const dx = pts[i].x - mx, dy = pts[i].y - my;
+    sxx += dx * dx; sxy += dx * dy; syy += dy * dy;
   }
-});
+  const b = sxx > 1e-9 ? sxy / sxx : 0;
+  const a = my - b * mx;
+  const r = (sxx > 1e-9 && syy > 1e-9) ? sxy / Math.sqrt(sxx * syy) : 0;
+  let q = 0;
+  for (let i = 0; i < n; i++) {
+    const e = pts[i].y - (a + b * pts[i].x);
+    q += e * e;
+  }
+  return {n: n, mx: mx, my: my, sxx: sxx, sxy: sxy, syy: syy, b: b, a: a, r: r, q: q};
+}
 
-/* ============================================================
-   02 向量的加法
-   ============================================================ */
+function corrWord(r) {
+  const v = Math.abs(r);
+  if (v >= .85) return r > 0 ? '强正相关' : '强负相关';
+  if (v >= .5) return r > 0 ? '正相关' : '负相关';
+  if (v >= .25) return r > 0 ? '弱正相关' : '弱负相关';
+  return '几乎不相关';
+}
+
+function ring(p, color, rad) {
+  ctx.save();
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 1.8;
+  ctx.beginPath();
+  ctx.arc(X(p.x), Y(p.y), rad || 4.5, 0, TAU);
+  ctx.stroke();
+  ctx.restore();
+}
+
+/* 带刻度的坐标轴 */
+function axesXY(xl, yl, every) {
+  every = every || 2;
+  const L = lim(), c = 'rgba(190,215,225,.4)';
+  line({x: L.x0, y: 0}, {x: L.x1, y: 0}, c, {w: 1.2});
+  line({x: 0, y: L.y0}, {x: 0, y: L.y1}, c, {w: 1.2});
+  arrow({x: L.x1 - .65, y: 0}, {x: L.x1, y: 0}, c, {w: 1.2, head: 7});
+  arrow({x: 0, y: L.y1 - .65}, {x: 0, y: L.y1}, c, {w: 1.2, head: 7});
+  sans(xl, X(L.x1) - 4, Y(0) + 17, 'rgba(175,205,215,.8)', 12, 'right');
+  sans(yl, X(0) - 10, Y(L.y1) + 2, 'rgba(175,205,215,.8)', 12, 'right');
+  for (let i = Math.ceil(L.x0); i <= Math.floor(L.x1); i++) {
+    if (i === 0) continue;
+    line({x: i, y: -.1}, {x: i, y: .1}, c, {w: 1});
+    if (i % every === 0) sans(String(i), X(i), Y(0) + 13, 'rgba(150,180,195,.55)', 9);
+  }
+  for (let j = Math.ceil(L.y0); j <= Math.floor(L.y1); j++) {
+    if (j === 0) continue;
+    line({x: -.1, y: j}, {x: .1, y: j}, c, {w: 1});
+    if (j % every === 0) sans(String(j), X(0) - 8, Y(j), 'rgba(150,180,195,.55)', 9, 'right');
+  }
+}
+
+const D1 = [[-3.6, -2.6], [-2.7, -2.1], [-1.6, -1.6], [-.6, -.1], [.4, .9], [1.4, .6], [2.5, 2.4], [3.4, 2.9]];
+
+/* ---------- 01 散点图与相关性 ---------- */
 MODULES.push({
-  key: 'add', tab: '02', name: '加法', accent: '#6cb6ff', rgb: '108,182,255',
-  hint: '拖动 A、B 两个终点，按「播放」把 b 平移到 a 的终点',
-  state: {A: {x: 2.8, y: 1.1}, B: {x: .8, y: 2.4}, moved: 1, playing: false, para: true},
+  key: 'scatter', tab: '01', name: '散点图', en: 'SCATTER', blurb: '相关方向与强度',
+  accent: '#5eead4', rgb: '94,234,212',
+  hint: '拖动样本点，观察相关系数 r 的正负与大小',
+  state: {pts: D1.map(function (p) { return {x: p[0], y: p[1]}; }), showMean: true},
   reset() {
-    this.state.A = {x: 2.8, y: 1.1};
-    this.state.B = {x: .8, y: 2.4};
-    this.state.moved = 1;
-    this.state.playing = false;
-    this.state.para = true;
+    this.state.pts = D1.map(function (p) { return {x: p[0], y: p[1]}; });
+    this.state.showMean = true;
   },
   meta() {
     return {
-      title: '向量加法：首尾相接',
-      desc: '把 <b>b</b> 平移到 <b>a</b> 的终点，再从 <b>a</b> 的起点连向 <b>b</b> 的终点，就得到 <b>a + b</b>。同一起点作出的平行四边形的对角线，也是 <b>a + b</b>。',
-      formula: 'a + b = b + a',
-      note: '三角形法则：<b>首尾相接，首指向尾</b>；平行四边形法则：<b>共起点，作对角线</b>。由三角形两边之和大于第三边可得 <i>|a + b| ≤ |a| + |b|</i>。'
+      title: '散点图：看出相关的方向',
+      desc: '把成对数据 (x, y) 画成散点，点的分布就透露了两个变量的关系。拖动任意一个点，观察 <b>相关系数 r</b> 的正负与大小如何变化：点越贴近一条上升的直线，正相关就越强。',
+      formula: 'r = Σ(xᵢ−x̄)(yᵢ−ȳ) / √(Σ(xᵢ−x̄)²·Σ(yᵢ−ȳ)²)',
+      note: '|r| ≤ 1；r &gt; 0 为正相关，r &lt; 0 为负相关。把点拖成水平的一团，r 会趋近 0，说明两个变量几乎不呈线性关系。'
     };
   },
   handles() {
-    return [{id: 'A', ...this.state.A}, {id: 'B', ...this.state.B}];
+    return this.state.pts.map(function (p, i) { return {id: 'p' + i, x: p.x, y: p.y}; });
   },
   drag(id, p) {
-    const q = clampPt(p);
-    this.state[id].x = q.x;
-    this.state[id].y = q.y;
+    const i = +id.slice(1);
+    const q = clampPt(p), L = lim();
+    this.state.pts[i] = {x: clamp(q.x, L.x0 + .35, L.x1 - .35), y: clamp(q.y, L.y0 + .5, L.y1 - .5)};
   },
-  togglePlay() {
-    this.state.moved = 0;
-    this.state.playing = true;
-  },
-  draw(dt) {
-    const s = this.state;
-    if (s.playing) {
-      s.moved = Math.min(1, s.moved + dt / 1.25);
-      if (s.moved >= 1) { s.moved = 1; s.playing = false; }
-    }
-    setFrame(.34, .7, 14);
+  draw() {
+    setFrame(.5, .54, 12.2);
     base();
-    const A = s.A, B = s.B, O = {x: 0, y: 0};
-    const sum = {x: A.x + B.x, y: A.y + B.y};
-    const tip = {x: A.x + B.x * s.moved, y: A.y + B.y * s.moved};
+    const s = this.state, L = lim(), st = stat(s.pts);
+    axesXY('x', 'y', 2);
 
-    // 平行四边形辅助线
-    if (s.para) {
-      line(B, sum, 'rgba(255,255,255,.26)', {w: 1.1, dash: [5, 5], alpha: .5 * s.moved});
-      line(A, sum, 'rgba(255,255,255,.26)', {w: 1.1, dash: [5, 5], alpha: .5 * s.moved});
+    if (s.showMean) {
+      line({x: st.mx, y: L.y0 + .2}, {x: st.mx, y: L.y1 - .2}, 'rgba(230,240,245,.22)', {w: 1, dash: [5, 5]});
+      line({x: L.x0 + .2, y: st.my}, {x: L.x1 - .2, y: st.my}, 'rgba(230,240,245,.22)', {w: 1, dash: [5, 5]});
+      sans('x̄', X(st.mx) + 10, Y(0) - 8, 'rgba(200,220,230,.8)', 12);
+      sans('ȳ', X(0) - 14, Y(st.my) - 10, 'rgba(200,220,230,.8)', 12);
+      dot({x: st.mx, y: st.my}, '#ffc56b', 5);
     }
 
-    // a
-    arrow(O, A, '#6cb6ff', {w: 3.6, glow: 12, head: 12});
-    vlabel(O, A, 'a', '#a9d4ff', 18, 18);
-
-    // b（起点处）
-    arrow(O, B, '#ffc56b', {w: 3.4, glow: 10, head: 11});
-    vlabel(O, B, 'b', '#ffd99a', 24, 18);
-
-    // b 的平移副本
-    if (s.moved > .005) {
-      const short = s.moved > .94
-        ? {x: A.x + (tip.x - A.x) * .93, y: A.y + (tip.y - A.y) * .93}
-        : tip;
-      arrow(A, short, '#ffc56b', {w: 3, dash: s.moved < .99 ? [7, 5] : null, alpha: .95, head: 11});
-      if (s.moved > .94) line(short, tip, 'rgba(255,197,107,.9)', {w: 3});
-      if (s.moved > .35) {
-        segLabel(A, tip, 'b', '#ffd99a', .5, 22, 16);
-      }
-    }
-
-    // 和向量
-    const al = clamp((s.moved - .5) / .5, 0, 1);
-    if (al > .02) {
-      arrow(O, sum, '#5eead4', {w: 4.2, glow: 14, head: 12, alpha: al});
-      if (s.moved > .9) {
-        const sl = Math.hypot(sum.x, sum.y) || 1;
-        const ext = 1 + .9 / sl;
-        math('a+b', X(sum.x * ext), Y(sum.y * ext), '#9ff7e8', 18);
-      }
-    }
-
-    dot(O, '#cfe0e8', 3);
-    sans('O', X(O.x) - 14, Y(O.y) + 16, 'rgba(180,200,210,.8)', 11.5);
-    handle(A, '#6cb6ff', hoverId === 'A');
-    handle(B, '#ffc56b', hoverId === 'B');
-    sans('A', X(A.x) + 16, Y(A.y) - 12, '#a9d4ff', 11.5);
-    sans('B', X(B.x) + 16, Y(B.y) - 12, '#ffd99a', 11.5);
-  },
-  hud() {
-    const A = this.state.A, B = this.state.B;
-    const la = len2(A.x, A.y), lb = len2(B.x, B.y);
-    const sum = {x: A.x + B.x, y: A.y + B.y};
-    const ls = len2(sum.x, sum.y);
-    const cos = (A.x * B.x + A.y * B.y) / (la * lb || 1);
-    const th = Math.acos(clamp(cos, -1, 1));
-    const eq = Math.abs(ls - (la + lb)) < 1e-3;
-    return [
-      {k: '|a|', v: la.toFixed(2)},
-      {k: '|b|', v: lb.toFixed(2)},
-      {k: '|a+b|', v: ls.toFixed(2), hi: true},
-      {k: '夹角 θ', v: Math.round(th * 180 / Math.PI) + '°'},
-      {k: '三角不等式', v: eq ? '|a+b| = |a|+|b|' : '|a+b| < |a|+|b|', hi: eq}
-    ];
-  },
-  panel(el) {
-    const s = this.state;
-    const r = row(el);
-    addBtn(r, s.moved >= 1 ? '↻ 重播三角形法则' : '▶ 播放三角形法则', () => {
-      s.moved = 0; s.playing = true;
+    s.pts.forEach(function (p, i) {
+      const prod = (p.x - st.mx) * (p.y - st.my);
+      const col = prod >= 0 ? '#5eead4' : '#ff8fab';
+      line({x: p.x, y: 0}, {x: p.x, y: p.y}, 'rgba(255,255,255,.07)', {w: 1});
+      handle(p, col, hoverId === 'p' + i);
     });
-    addBtn(r, '⇄ 交换 a、b', () => {
-      const t = s.A; s.A = s.B; s.B = t; s.moved = 1; s.playing = false;
-    }, 'ghost');
-    addToggle(el, '显示平行四边形', s.para, v => s.para = v);
-  }
-});
 
-/* ============================================================
-   03 向量的减法
-   ============================================================ */
-MODULES.push({
-  key: 'sub', tab: '03', name: '减法', accent: '#ff8fab', rgb: '255,143,171',
-  hint: '拖动 A、B，观察 a−b 总是由 b 的终点指向 a 的终点',
-  state: {A: {x: 3.1, y: .8}, B: {x: 1.0, y: 2.5}, showSum: true, showPara: true, showNeg: false},
-  reset() {
-    this.state.A = {x: 3.1, y: .8};
-    this.state.B = {x: 1.0, y: 2.5};
-    this.state.showSum = true;
-    this.state.showPara = true;
-    this.state.showNeg = false;
-  },
-  meta() {
-    return {
-      title: '向量减法：指向被减向量',
-      desc: '两个向量共起点时，<b>a − b</b> 从 <b>b</b> 的终点指向 <b>a</b> 的终点；也可以理解成 <b>a + (−b)</b>。平行四边形的两条对角线，恰好就是 <b>a + b</b> 与 <b>a − b</b>。',
-      formula: 'a − b = a + (−b)',
-      note: '注意方向：<i>a − b</i> 指向 <i>a</i> 的终点，<i>b − a</i> 指向 <i>b</i> 的终点，两者互为相反向量。平行四边形恒等式：<span class="nw"><i>|a+b|² + |a−b|² = 2(|a|² + |b|²)</i></span>。'
-    };
-  },
-  handles() {
-    return [{id: 'A', ...this.state.A}, {id: 'B', ...this.state.B}];
-  },
-  drag(id, p) {
-    const q = clampPt(p);
-    this.state[id].x = q.x;
-    this.state[id].y = q.y;
-  },
-  draw(dt) {
-    const s = this.state;
-    setFrame(.42, .6, 13);
-    base();
-    const A = s.A, B = s.B, O = {x: 0, y: 0};
-    const sum = {x: A.x + B.x, y: A.y + B.y};
-    const negB = {x: -B.x, y: -B.y};
-    const diffEnd = {x: A.x - B.x, y: A.y - B.y};
-
-    if (s.showPara) {
-      line(B, sum, 'rgba(255,255,255,.24)', {w: 1.1, dash: [5, 5], alpha: .75});
-      line(A, sum, 'rgba(255,255,255,.24)', {w: 1.1, dash: [5, 5], alpha: .75});
-      line(O, sum, 'rgba(94,234,212,.22)', {w: 1.2, dash: [4, 5]});
-    }
-
-    if (s.showNeg) {
-      arrow(O, negB, '#ff8fab', {w: 2.2, dash: [6, 5], alpha: .38, head: 10});
-      math('−b', X(negB.x) + 18, Y(negB.y) + 16, 'rgba(255,143,171,.6)', 16);
-      arrow(A, diffEnd, '#ff8fab', {w: 2.4, dash: [6, 5], alpha: .55, head: 10});
-      math('−b', X((A.x + diffEnd.x) / 2) + 18, Y((A.y + diffEnd.y) / 2) + 14, 'rgba(255,143,171,.75)', 15);
-    }
-
-    arrow(O, A, '#6cb6ff', {w: 3.6, glow: 12, head: 12});
-    vlabel(O, A, 'a', '#a9d4ff', 18, 18);
-
-    arrow(O, B, '#ffc56b', {w: 3.6, glow: 12, head: 12});
-    vlabel(O, B, 'b', '#ffd99a', 18, 18);
-
-    if (s.showSum) {
-      arrow(O, sum, '#5eead4', {w: 2.8, dash: [7, 5], alpha: .9, head: 11});
-      segMath(O, sum, 'a+b', 'rgba(159,247,232,.95)', .28, 18, 17);
-    }
-
-    arrow(B, A, '#ff8fab', {w: 4.2, glow: 18, head: 13});
-    segMath(B, A, 'a−b', '#ffb3c6', .66, 22, 17);
-
-    dot(O, '#cfe0e8', 3.2);
-    sans('O', X(O.x) - 14, Y(O.y) + 16, 'rgba(180,200,210,.8)', 11.5);
-    handle(A, '#6cb6ff', hoverId === 'A');
-    handle(B, '#ffc56b', hoverId === 'B');
-    sans('A', X(A.x) + 17, Y(A.y) - 14, '#a9d4ff', 13);
-    sans('B', X(B.x) - 18, Y(B.y) - 14, '#ffd99a', 13);
+    sans('n = ' + st.n, X(L.x0 + .5), Y(L.y1 - .5), 'rgba(170,200,215,.75)', 10.5, 'left');
+    sans('r = ' + fmt(st.r, 3), X(L.x0 + .5), Y(L.y1 - 1.05), '#8ff5e4', 20, 'left');
+    sans(corrWord(st.r), X(L.x0 + .5), Y(L.y1 - 1.6), 'rgba(205,225,235,.85)', 11, 'left');
   },
   hud() {
-    const A = this.state.A, B = this.state.B;
-    const la = len2(A.x, A.y), lb = len2(B.x, B.y);
-    const d = {x: A.x - B.x, y: A.y - B.y};
-    const sm = {x: A.x + B.x, y: A.y + B.y};
-    const ld = len2(d.x, d.y), ls = len2(sm.x, sm.y);
+    const st = stat(this.state.pts);
     return [
-      {k: '|a−b|', v: ld.toFixed(2), hi: true},
-      {k: '|a+b|', v: ls.toFixed(2)},
-      {k: '恒等式左边', v: (ld * ld + ls * ls).toFixed(2)},
-      {k: '2(|a|²+|b|²)', v: (2 * (la * la + lb * lb)).toFixed(2)}
+      {k: '样本量 n', v: String(st.n)},
+      {k: '相关系数 r', v: fmt(st.r, 3), hi: true},
+      {k: '相关方向', v: Math.abs(st.r) < .25 ? '无明显方向' : (st.r > 0 ? '正相关' : '负相关')},
+      {k: '相关强度', v: corrWord(st.r)},
+      {k: 'x̄ / ȳ', v: fmt(st.mx, 2) + ' / ' + fmt(st.my, 2)}
     ];
   },
   panel(el) {
     const s = this.state;
-    addToggle(el, '显示 a + b（另一条对角线）', s.showSum, v => s.showSum = v);
-    addToggle(el, '显示平行四边形', s.showPara, v => s.showPara = v);
-    addToggle(el, '显示 −b 与 a + (−b)', s.showNeg, v => s.showNeg = v);
+    addToggle(el, '显示均值线 x̄、ȳ', s.showMean, function (v) { s.showMean = v; });
+    addBtn(el, '恢复默认数据', function () { this.reset(); buildPanel(); }.bind(this), 'ghost');
+    addBtn(el, '随机生成一组数据', function () {
+      const k = (Math.random() * 2 - 1) * 1.15;
+      const b = Math.random() * 1.2 - .6;
+      const arr = [];
+      for (let i = 0; i < 8; i++) {
+        const x = -3.8 + i * 7.6 / 7 + (Math.random() - .5) * .7;
+        const y = k * x + b + (Math.random() - .5) * 1.4;
+        arr.push({x: clamp(x, -5.2, 5.2), y: clamp(y, -3.2, 3.2)});
+      }
+      s.pts = arr;
+    }, 'ghost');
   }
 });
-/* ============================================================
-   04 数乘
-   ============================================================ */
+
+const B2X = [-3, -2, -1, 0, 1, 2, 3];
+const B2Y = [-2.4, -1.2, -1.0, 0, 1.1, 1.5, 2.7];
+
+/* ---------- 02 回归直线 ---------- */
 MODULES.push({
-  key: 'scale', tab: '04', name: '数乘', accent: '#b49cff', rgb: '180,156,255',
-  hint: '拖动 a 的终点，调节 λ，观察 λa 与 a 始终共线',
-  state: {A: {x: 2.5, y: 1.2}, lam: 1.4, auto: false, t: 0},
+  key: 'regression', tab: '02', name: '回归直线', en: 'REGRESSION', blurb: '最小二乘拟合',
+  accent: '#6cb6ff', rgb: '108,182,255',
+  hint: '拖动样本点，最小二乘直线即时重新拟合',
+  state: {pts: [], spread: 1, showDev: true, showMean: true},
+  applySpread() {
+    const s = this.state;
+    s.pts = B2X.map(function (x, i) { return {x: x, y: .1 + s.spread * (B2Y[i] - .1)}; });
+  },
   reset() {
-    this.state.A = {x: 2.5, y: 1.2};
-    this.state.lam = 1.4;
-    this.state.auto = false;
-    this.state.t = 0;
+    this.state.spread = 1;
+    this.state.showDev = true;
+    this.state.showMean = true;
+    this.applySpread();
   },
   meta() {
     return {
-      title: '数乘：长度伸缩，方向反转',
-      desc: '实数 λ 与向量 <b>a</b> 相乘，得到向量 <b>λa</b>：长度为 <b>|λ||a|</b>。λ &gt; 0 时与 a 同向，λ &lt; 0 时与 a 反向，λ = 0 时得到零向量。',
-      formula: '|λa| = |λ| · |a|',
-      note: '共线定理：对非零向量 <i>a</i>，若 <i>b = λa</i>，则 <i>a ∥ b</i>；反过来，若 <i>a ∥ b</i>，则存在唯一的实数 λ 使 <i>b = λa</i>。'
+      title: '回归直线：最小二乘估计',
+      desc: '用一条直线近似描述两个变量的关系，就是回归。拖动样本点，最小二乘估计会立刻重算：直线总经过样本中心 (x̄, ȳ)，并使残差平方和达到最小。',
+      formula: 'b̂ = Σ(xᵢ−x̄)(yᵢ−ȳ) / Σ(xᵢ−x̄)²<br>â = ȳ − b̂x̄',
+      note: '竖直偏差 eᵢ = yᵢ − ŷᵢ 叫残差。直线随点转动，但始终穿过样本中心 (x̄, ȳ)。'
     };
   },
   handles() {
-    return [{id: 'A', ...this.state.A}];
+    return this.state.pts.map(function (p, i) { return {id: 'p' + i, x: p.x, y: p.y}; });
   },
   drag(id, p) {
-    const q = clampPt(p);
-    this.state.A.x = q.x;
-    this.state.A.y = q.y;
+    const i = +id.slice(1);
+    const q = clampPt(p), L = lim();
+    this.state.pts[i] = {x: clamp(q.x, L.x0 + .35, L.x1 - .35), y: clamp(q.y, L.y0 + .5, L.y1 - .5)};
   },
-  draw(dt) {
-    const s = this.state;
-    if (s.auto) {
-      s.t += dt;
-      s.lam = 1.75 * Math.sin(s.t * .85);
-      if (this.ui && this.ui.lam) this.ui.lam.set(s.lam);
-    }
-    setFrame(.4, .58, 13.5);
+  draw() {
+    setFrame(.5, .54, 12.2);
     base();
-    const A = s.A, O = {x: 0, y: 0};
-    const la = len2(A.x, A.y);
+    const s = this.state, L = lim(), st = stat(s.pts);
+    axesXY('x', 'y', 2);
 
-    // 共线直线（裁剪到画布内）
-    const Lm = lim();
-    let tm = 2.45;
-    if (Math.abs(A.x) > 1e-6) tm = Math.min(tm, Math.abs(Lm.x1 / A.x), Math.abs(Lm.x0 / A.x));
-    if (Math.abs(A.y) > 1e-6) tm = Math.min(tm, Math.abs(Lm.y1 / A.y), Math.abs(Lm.y0 / A.y));
-    line({x: -tm * A.x, y: -tm * A.y}, {x: tm * A.x, y: tm * A.y},
-      'rgba(180,156,255,.2)', {w: 1.2, dash: [4, 7]});
+    line({x: L.x0, y: st.a + st.b * L.x0}, {x: L.x1, y: st.a + st.b * L.x1}, '#6cb6ff', {w: 2.8});
 
-    // 整数倍刻度
-    for (let k = -2; k <= 2; k++) {
-      if (k === 0 || la < .2 || Math.abs(k) > tm) continue;
-      const c = {x: A.x * k, y: A.y * k};
-      const nx = -A.y / la, ny = A.x / la;
-      const px = X(c.x), py = Y(c.y);
-      ctx.save();
-      ctx.strokeStyle = 'rgba(180,156,255,.35)';
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(px - nx * 4, py + ny * 4);
-      ctx.lineTo(px + nx * 4, py - ny * 4);
-      ctx.stroke();
-      ctx.restore();
-      if (Math.abs(k) === 2) sans(String(k), px + nx * 26, py + ny * 26, 'rgba(190,175,240,.95)', 11);
+    if (s.showDev) {
+      s.pts.forEach(function (p) {
+        const yh = st.a + st.b * p.x;
+        if (Math.abs(yh - p.y) > .03) {
+          line({x: p.x, y: p.y}, {x: p.x, y: yh}, 'rgba(154,208,255,.45)', {w: 1.2, dash: [4, 4]});
+        }
+      });
     }
 
-    // a
-    arrow(O, A, '#6cb6ff', {w: 3.4, glow: 12, head: 12});
-    vlabel(O, A, 'a', '#a9d4ff', 24, 17);
-
-    // λa
-    const P = {x: A.x * s.lam, y: A.y * s.lam};
-    const col = s.lam >= 0 ? '#b49cff' : '#ff8fab';
-    if (Math.abs(s.lam) > .04) {
-      arrow(O, P, col, {w: 4.2, glow: 16, head: 13});
-      const nx = -A.y / (la || 1), ny = A.x / (la || 1);
-      const lx = X(P.x) + nx * 26, ly = Y(P.y) - ny * 26;
-      math((Math.abs(s.lam) === 1 ? '' : (Math.abs(s.lam - 1) < .05 || Math.abs(s.lam + 1) < .05 ? (s.lam > 0 ? '' : '−') : fmt(s.lam, 1))) + 'a',
-        lx, ly, col, 18);
-    } else {
-      dot(O, '#b49cff', 5);
-      math('λa = 0', X(O.x) + 40, Y(O.y) - 20, 'rgba(180,156,255,.9)', 14);
+    if (s.showMean) {
+      line({x: st.mx, y: st.my}, {x: st.mx, y: 0}, 'rgba(255,197,107,.3)', {w: 1, dash: [4, 5]});
+      line({x: 0, y: st.my}, {x: st.mx, y: st.my}, 'rgba(255,197,107,.3)', {w: 1, dash: [4, 5]});
+      dot({x: st.mx, y: st.my}, '#ffc56b', 5.5);
+      sans('(x̄, ȳ)', X(st.mx) + 26, Y(st.my) + 13, 'rgba(255,210,145,.9)', 10.5, 'left');
     }
 
-    dot(O, '#cfe0e8', 3);
-    sans('O', X(O.x) - 14, Y(O.y) + 16, 'rgba(180,200,210,.8)', 11.5);
-    handle(A, '#6cb6ff', hoverId === 'A');
-    sans('A', X(A.x) + 20, Y(A.y) + 26, '#a9d4ff', 13);
+    s.pts.forEach(function (p, i) {
+      handle(p, '#6cb6ff', hoverId === 'p' + i);
+    });
+
+    math('ŷ = ' + fmt(st.b, 2) + 'x ' + (st.a >= 0 ? '+ ' : '− ') + fmt(Math.abs(st.a), 2),
+      X(L.x0 + .5), Y(L.y1 - .55), '#9ad0ff', 18, 'left');
+    sans('b̂ = ' + fmt(st.b, 3) + '　â = ' + fmt(st.a, 3), X(L.x0 + .5), Y(L.y1 - 1.15), 'rgba(175,210,240,.8)', 10.5, 'left');
   },
   hud() {
-    const s = this.state, A = s.A;
-    const la = len2(A.x, A.y);
-    const dir = Math.abs(s.lam) < .04 ? '零向量' : (s.lam > 0 ? '与 a 同向' : '与 a 反向');
+    const st = stat(this.state.pts);
     return [
-      {k: 'λ', v: fmt(s.lam, 2), hi: true},
-      {k: '|a|', v: la.toFixed(2)},
-      {k: '|λa|', v: (Math.abs(s.lam) * la).toFixed(2), hi: true},
-      {k: '方向', v: dir},
-      {k: '共线', v: Math.abs(s.lam) < .04 ? '—' : 'a ∥ λa'}
+      {k: 'x̄', v: fmt(st.mx, 2)},
+      {k: 'ȳ', v: fmt(st.my, 2)},
+      {k: '斜率 b̂', v: fmt(st.b, 3), hi: true},
+      {k: '截距 â', v: fmt(st.a, 3), hi: true},
+      {k: '相关系数 r', v: fmt(st.r, 3)}
     ];
   },
   panel(el) {
     const s = this.state, self = this;
-    if (s.auto) { s.t = 0; }
-    const sl = addSlider(el, '实数 λ', -2, 2, .1, s.lam, v => v.toFixed(1), v => {
-      s.lam = v;
-      s.auto = false;
-      if (self.ui && self.ui.auto) self.ui.auto.input.checked = false;
-    });
-    const tg = addToggle(el, '自动演示 λ 的变化', s.auto, v => {
-      s.auto = v;
-      s.t = 0;
-    });
-    this.ui = {lam: sl, auto: tg};
-    const r = row(el);
-    addBtn(r, 'λ = 1', () => {
-      s.lam = 1; s.auto = false;
-      if (self.ui.auto) self.ui.auto.input.checked = false;
-      self.ui.lam.set(1);
-    }, 'ghost');
-    addBtn(r, 'λ = −1', () => {
-      s.lam = -1; s.auto = false;
-      if (self.ui.auto) self.ui.auto.input.checked = false;
-      self.ui.lam.set(-1);
-    }, 'ghost');
+    addSlider(el, '样本整体波动幅度', .5, 1.8, .05, s.spread, function (v) { return v.toFixed(2); },
+      function (v) { s.spread = v; self.applySpread(); });
+    addToggle(el, '显示竖直偏差', s.showDev, function (v) { s.showDev = v; });
+    addToggle(el, '显示样本中心', s.showMean, function (v) { s.showMean = v; });
+    addBtn(el, '恢复默认数据', function () { self.reset(); buildPanel(); }, 'ghost');
   }
 });
 
-/* ============================================================
-   05 平面向量基本定理
-   ============================================================ */
+const P3 = [[-3, -2.4], [-2, -1.0], [-1, -1.3], [0, .6], [1, .5], [2, 2.2], [3, 2.1]]
+  .map(function (p) { return {x: p[0], y: p[1]}; });
+
+/* ---------- 03 残差与拟合 ---------- */
 MODULES.push({
-  key: 'basis', tab: '05', name: '基本定理', accent: '#ffc56b', rgb: '255,197,107',
-  hint: '拖动向量 v，或调节基底夹角 θ，观察分解系数 x、y 的变化',
-  state: {v: {x: 2.6, y: 2.4}, th: 62},
+  key: 'residual', tab: '03', name: '残差分析', en: 'RESIDUALS', blurb: '残差平方和',
+  accent: '#ffc56b', rgb: '255,197,107',
+  hint: '调节斜率与截距，比较候选直线与最小二乘直线',
+  state: {b: .5, a: -.2, resid: false, showLS: true},
   reset() {
-    this.state.v = {x: 2.6, y: 2.4};
-    this.state.th = 62;
+    this.state.b = .5; this.state.a = -.2;
+    this.state.resid = false; this.state.showLS = true;
   },
   meta() {
     return {
-      title: '平面向量基本定理',
-      desc: '如果 <b>e₁、e₂</b> 是同一平面内两个不共线的向量，那么对这一平面内的任意向量 <b>v</b>，存在<b>唯一</b>的一对实数 (x, y)，使 <b>v = x e₁ + y e₂</b>。',
-      formula: 'v = x e₁ + y e₂',
-      note: '不共线是成为基底的前提：当 θ = 0° 或 180° 时 e₁、e₂ 共线，任何向量都无法被唯一表示。取 θ = 90°，就得到最常用的<b>正交分解</b>。'
+      title: '残差：直线拟合得好不好',
+      desc: '残差是实际值与预测值之差。直线拟合得好不好，要看残差是否随机地散布在 0 附近。调节斜率或截距，比较候选直线与最小二乘直线的残差平方和。',
+      formula: 'eᵢ = yᵢ − (b̂xᵢ + â)<br>Q = Σeᵢ²',
+      note: '残差图以 x 为横轴、e 为纵轴。若残差呈现明显的弯曲或喇叭形，说明直线模型并不合适。'
     };
   },
-  handles() {
-    return [{id: 'v', ...this.state.v}];
-  },
-  drag(id, p) {
-    const q = clampPt(p);
-    this.state.v.x = q.x;
-    this.state.v.y = q.y;
-  },
-  draw(dt) {
-    const s = this.state;
-    setFrame(.37, .58, 8.8);
-    base();
-    const O = {x: 0, y: 0}, v = s.v;
-    const th = s.th * Math.PI / 180;
-    const e1 = {x: 1, y: 0};
-    const e2 = {x: Math.cos(th), y: Math.sin(th)};
-    const det = e1.x * e2.y - e1.y * e2.x;
-    const Lm = lim();
+  handles() { return []; },
+  draw() {
+    const s = this.state, opt = stat(P3);
+    let q = 0;
+    P3.forEach(function (p) { const e = p.y - (s.a + s.b * p.x); q += e * e; });
 
-    // 基底向量（画成方向射线，避免与分量箭头重合）
-    line(O, {x: e1.x * 3.5, y: e1.y * 3.5}, 'rgba(108,182,255,.32)', {w: 1.1, dash: [5, 7]});
-    line(O, {x: e2.x * 3.5, y: e2.y * 3.5}, 'rgba(255,197,107,.32)', {w: 1.1, dash: [5, 7]});
-    math('e₁', X(e1.x * 1.18), Y(e1.y * 1.18) + 22, 'rgba(150,195,240,.95)', 15);
-    math('e₂', X(e2.x * 1.18) + e2.y * 26, Y(e2.y * 1.18) + e2.x * 26, 'rgba(255,205,140,.95)', 15);
-    angleArc(O, 0, th, 40, 'rgba(205,220,230,.8)', null, 13);
-    math('θ', X(O.x) + Math.cos(th * .32) * 58, Y(O.y) - Math.sin(th * .32) * 58, 'rgba(205,220,230,.9)', 14);
-
-    const bad = Math.abs(det) < .02;
-    if (bad) {
-      sans('e₁ 与 e₂ 共线，不能作为基底', W / 2, H - 56, 'rgba(255,143,171,.9)', 13);
-      arrow(O, v, '#5eead4', {w: 4, glow: 16, head: 12});
-      vlabel(O, v, 'v', '#9ff7e8', 20, 18);
-      handle(v, '#5eead4', hoverId === 'v');
-      return;
-    }
-
-    const x = (v.x * e2.y - v.y * e2.x) / det;
-    const y = (e1.x * v.y - e1.y * v.x) / det;
-    const xa = {x: e1.x * x, y: e1.y * x};
-    const ya = {x: e2.x * y, y: e2.y * y};
-
-    // 分解辅助线
-    line(xa, v, 'rgba(255,197,107,.45)', {w: 1.3, dash: [5, 5]});
-    line(ya, v, 'rgba(108,182,255,.45)', {w: 1.3, dash: [5, 5]});
-
-    // 分量
-    arrow(O, xa, '#6cb6ff', {w: 3, alpha: .8, head: 10});
-    arrow(O, ya, '#ffc56b', {w: 3, alpha: .8, head: 10});
-
-    // v
-    arrow(O, v, '#5eead4', {w: 4.2, glow: 16, head: 12});
-    vlabel(O, v, 'v', '#9ff7e8', 20, 18);
-
-    if (Math.abs(x) > .25) {
-      sans('x e₁', X(xa.x * .62 + O.x * .38), Y(xa.y * .62 + O.y * .38) + 22, 'rgba(150,195,240,.95)', 12);
-    }
-    if (Math.abs(y) > .25) segLabel(O, ya, 'y e₂', 'rgba(255,205,140,.95)', .62, 19, 12);
-
-    dot(O, '#cfe0e8', 3);
-    sans('O', X(O.x) - 14, Y(O.y) + 16, 'rgba(180,200,210,.8)', 11.5);
-    handle(v, '#5eead4', hoverId === 'v');
-  },
-  hud() {
-    const s = this.state;
-    const th = s.th * Math.PI / 180;
-    const e2 = {x: Math.cos(th), y: Math.sin(th)};
-    const det = e2.y;
-    if (Math.abs(det) < .02) {
-      return [
-        {k: 'θ', v: s.th.toFixed(0) + '°'},
-        {k: '基底状态', v: '共线 · 不构成基底', hi: true},
-        {k: 'x, y', v: '不存在'}
-      ];
-    }
-    const v = s.v;
-    const x = (v.x * e2.y - v.y * e2.x) / det;
-    const y = v.y / det;
-    return [
-      {k: 'x', v: fmt(x)},
-      {k: 'y', v: fmt(y)},
-      {k: 'θ', v: s.th.toFixed(0) + '°'},
-      {k: 'v', v: vecText(v), hi: true}
-    ];
-  },
-  panel(el) {
-    const s = this.state;
-    addSlider(el, '基底夹角 θ', 0, 180, 1, s.th, v => v.toFixed(0) + '°', v => s.th = v);
-    const r = row(el);
-    addBtn(r, '正交基底 θ = 90°', () => {
-      s.th = 90;
-      buildPanel();
-    });
-    addBtn(r, '重置基底', () => {
-      s.th = 62;
-      buildPanel();
-    }, 'ghost');
-  }
-});
-
-/* ============================================================
-   06 数量积
-   ============================================================ */
-MODULES.push({
-  key: 'dot', tab: '06', name: '数量积', accent: '#7be0c0', rgb: '123,224,192',
-  hint: '拖动两个向量的终点，观察 b 在 a 上的投影',
-  state: {A: {x: 3.0, y: .9}, B: {x: 1.4, y: 2.4}, proj: true, rot: null},
-  reset() {
-    this.state.A = {x: 3.0, y: .9};
-    this.state.B = {x: 1.4, y: 2.4};
-    this.state.proj = true;
-    this.state.rot = null;
-  },
-  meta() {
-    return {
-      title: '数量积：夹角与投影',
-      desc: '两个向量的数量积是一个<b>实数</b>：<b>a · b = |a||b|cos θ</b>。它的几何意义是：b 在 a 方向上的<b>投影</b>长度与 |a| 的乘积。拖动端点，观察符号如何随夹角变化。',
-      formula: 'a · b = |a||b| cos θ',
-      note: '当 θ 为锐角时 <i>a·b &gt; 0</i>；直角时 <i>a·b = 0</i>（垂直判定）；钝角时 <i>a·b &lt; 0</i>。另外 <i>a·a = |a|²</i>，常用来求模长。'
-    };
-  },
-  handles() {
-    return [{id: 'A', ...this.state.A}, {id: 'B', ...this.state.B}];
-  },
-  drag(id, p) {
-    const q = clampPt(p);
-    this.state[id].x = q.x;
-    this.state[id].y = q.y;
-    this.state.rot = null;
-  },
-  draw(dt) {
-    const s = this.state;
-    const O = {x: 0, y: 0};
-    if (s.rot) {
-      s.rot.t = Math.min(1, s.rot.t + dt / .9);
-      const ang = s.rot.from + s.rot.delta * easeInOut(s.rot.t);
-      s.B = {x: s.rot.r * Math.cos(ang), y: s.rot.r * Math.sin(ang)};
-      if (s.rot.t >= 1) s.rot = null;
-    }
-    setFrame(.44, .58, 12.2);
-    base();
-    const A = s.A, B = s.B;
-    const la = len2(A.x, A.y), lb = len2(B.x, B.y);
-    const u = {x: A.x / (la || 1), y: A.y / (la || 1)};
-    const t = B.x * u.x + B.y * u.y;
-    const foot = {x: u.x * t, y: u.y * t};
-    const n = {x: -u.y, y: u.x};
-
-    // 向量
-    arrow(O, A, '#6cb6ff', {w: 3.6, glow: 12, head: 12});
-    vlabel(O, A, 'a', '#a9d4ff', 18, 18);
-    arrow(O, B, '#ffc56b', {w: 3.6, glow: 12, head: 12});
-    vlabel(O, B, 'b', '#ffd99a', 18, 18);
-
-    // 投影（叠加在 a 上，突出投影段）
-    if (s.proj && lb > .05) {
-      line(O, foot, 'rgba(255,143,171,.38)', {w: 11});
-      arrow(O, foot, '#ff8fab', {w: 2.4, alpha: .95, head: 9});
-      line(B, foot, 'rgba(255,255,255,.3)', {w: 1.2, dash: [4, 5]});
-      rightAngle(foot, {x: -u.x * Math.sign(t || 1), y: -u.y * Math.sign(t || 1)}, n, 10, 'rgba(255,255,255,.45)');
-      const mx = X(foot.x * .5), my = Y(foot.y * .5);
-      sans('投影', mx, my + (Math.abs(u.x) > .5 ? 22 : -20), 'rgba(255,160,185,.95)', 11.5);
-    }
-
-    // 夹角
-    angleArc(O, Math.atan2(A.y, A.x), Math.atan2(B.y, B.x), 46, 'rgba(123,224,192,.85)', 'θ', 12);
-
-    dot(O, '#cfe0e8', 3);
-    sans('O', X(O.x) - 14, Y(O.y) + 16, 'rgba(180,200,210,.8)', 11.5);
-    handle(A, '#6cb6ff', hoverId === 'A');
-    handle(B, '#ffc56b', hoverId === 'B');
-    sans('A', X(A.x) + 16, Y(A.y) - 12, '#a9d4ff', 11.5);
-    sans('B', X(B.x) + 16, Y(B.y) - 12, '#ffd99a', 11.5);
-  },
-  hud() {
-    const s = this.state, A = s.A, B = s.B;
-    const la = len2(A.x, A.y), lb = len2(B.x, B.y);
-    const dotv = A.x * B.x + A.y * B.y;
-    const cos = dotv / (la * lb || 1);
-    const th = Math.acos(clamp(cos, -1, 1));
-    const verdict = Math.abs(dotv) < 1e-3 ? 'a ⊥ b（垂直）' : (dotv > 0 ? '锐角，a·b > 0' : '钝角，a·b < 0');
-    return [
-      {k: '|a|', v: la.toFixed(2)},
-      {k: '|b|', v: lb.toFixed(2)},
-      {k: 'θ', v: (th * 180 / Math.PI).toFixed(1) + '°'},
-      {k: 'cos θ', v: fmt(cos)},
-      {k: 'a · b', v: fmt(dotv), hi: true},
-      {k: '判定', v: verdict, hi: Math.abs(dotv) < 1e-3}
-    ];
-  },
-  panel(el) {
-    const s = this.state;
-    addToggle(el, '显示 b 在 a 上的投影', s.proj, v => s.proj = v);
-    const r = row(el);
-    addBtn(r, '旋转 b 至垂直', () => {
-      const angA = Math.atan2(s.A.y, s.A.x);
-      const angB = Math.atan2(s.B.y, s.B.x);
-      let d = (angA + Math.PI / 2) - angB;
-      d = ((d + Math.PI) % TAU + TAU) % TAU - Math.PI;
-      s.rot = {from: angB, delta: d, r: len2(s.B.x, s.B.y), t: 0};
-    });
-    addBtn(r, '重置', () => {
-      s.A = {x: 3.0, y: .9};
-      s.B = {x: 1.4, y: 2.4};
-      s.rot = null;
-    }, 'ghost');
-  }
-});
-/* ============================================================
-   07 向量在几何与物理中的应用
-   ============================================================ */
-MODULES.push({
-  key: 'app', tab: '07', name: '应用', accent: '#ffa97a', rgb: '255,169,122',
-  hint: '切换右侧情境，调节参数，观察向量如何解决问题',
-  state: {
-    sub: 'cosine',
-    cos: {A: {x: -3.2, y: -2.0}, B: {x: 2.9, y: -2.0}, C: {x: -1.1, y: 2.0}},
-    inc: {th: 28},
-    boat: {vw: 1.2, vb: 2.8, alpha: 75, t: 0}
-  },
-  reset() {
-    this.state.sub = 'cosine';
-    this.state.inc = {th: 28};
-    this.state.boat = {vw: 1.2, vb: 2.8, alpha: 75, t: 0};
-    this.state.cos = {A: {x: -3.2, y: -2.0}, B: {x: 2.9, y: -2.0}, C: {x: -1.1, y: 2.0}};
-    this.flow = 0;
-  },
-  resetSub() {
-    if (this.state.sub === 'cosine') {
-      this.state.cos = {A: {x: -3.2, y: -2.0}, B: {x: 2.9, y: -2.0}, C: {x: -1.1, y: 2.0}};
-    } else if (this.state.sub === 'incline') {
-      this.state.inc = {th: 28};
+    if (s.resid) {
+      setFrame(.5, .55, 12.2);
+      base();
+      const L2 = lim();
+      axesXY('x', 'e', 1);
+      line({x: L2.x0, y: 0}, {x: L2.x1, y: 0}, 'rgba(230,240,250,.55)', {w: 1.4});
+      if (s.showLS) {
+        P3.forEach(function (p) {
+          ring({x: p.x, y: p.y - (opt.a + opt.b * p.x)}, 'rgba(108,182,255,.75)', 4.2);
+        });
+      }
+      P3.forEach(function (p) {
+        const e = p.y - (s.a + s.b * p.x);
+        const col = e >= 0 ? '#ffc56b' : '#ff8fab';
+        line({x: p.x, y: 0}, {x: p.x, y: e}, col, {w: 7, alpha: .8});
+        dot({x: p.x, y: e}, col, 3.6);
+      });
+      sans('残差图：e = y − ŷ', X(L2.x0 + .5), Y(L2.y1 - .5), 'rgba(255,215,150,.9)', 11, 'left');
+      sans('蓝圈为最小二乘直线的残差', X(L2.x0 + .5), Y(L2.y1 - 1.0), 'rgba(160,205,250,.8)', 10, 'left');
     } else {
-      this.state.boat = {vw: 1.2, vb: 2.8, alpha: 75, t: 0};
-      this.flow = 0;
+      setFrame(.5, .54, 12.2);
+      base();
+      const L = lim();
+      axesXY('x', 'y', 2);
+      if (s.showLS) {
+        line({x: L.x0, y: opt.a + opt.b * L.x0}, {x: L.x1, y: opt.a + opt.b * L.x1}, 'rgba(108,182,255,.55)', {w: 2, dash: [6, 5]});
+      }
+      line({x: L.x0, y: s.a + s.b * L.x0}, {x: L.x1, y: s.a + s.b * L.x1}, '#ffc56b', {w: 2.8});
+      P3.forEach(function (p) {
+        const yh = s.a + s.b * p.x;
+        line({x: p.x, y: p.y}, {x: p.x, y: yh}, 'rgba(255,197,107,.4)', {w: 1.2, dash: [4, 4]});
+        dot(p, '#ffc56b', 4.4);
+      });
+      math('ŷ = ' + fmt(s.b, 2) + 'x ' + (s.a >= 0 ? '+ ' : '− ') + fmt(Math.abs(s.a), 2),
+        X(L.x0 + .5), Y(L.y1 - .55), '#ffd99a', 18, 'left');
+      sans('Q = ' + fmt(q, 3) + '　最小二乘 Qmin = ' + fmt(opt.q, 3),
+        X(L.x0 + .5), Y(L.y1 - 1.15), 'rgba(255,220,165,.85)', 10.5, 'left');
     }
   },
+  hud() {
+    const s = this.state, opt = stat(P3);
+    let q = 0;
+    P3.forEach(function (p) { const e = p.y - (s.a + s.b * p.x); q += e * e; });
+    return [
+      {k: '斜率 b̂', v: fmt(s.b, 2)},
+      {k: '截距 â', v: fmt(s.a, 2)},
+      {k: '残差平方和 Q', v: fmt(q, 3), hi: true},
+      {k: '最小二乘 Qmin', v: fmt(opt.q, 3)},
+      {k: '判断', v: q <= opt.q * 1.02 + 1e-6 ? '已接近最优' : '仍有偏差'}
+    ];
+  },
+  panel(el) {
+    const s = this.state, opt = stat(P3);
+    addSlider(el, '候选直线斜率 b', -.2, 1.8, .05, s.b, function (v) { return v.toFixed(2); }, function (v) { s.b = v; });
+    addSlider(el, '候选直线截距 a', -1, 1, .05, s.a, function (v) { return v.toFixed(2); }, function (v) { s.a = v; });
+    addToggle(el, '切换为残差图', s.resid, function (v) { s.resid = v; });
+    addToggle(el, '显示最小二乘直线', s.showLS, function (v) { s.showLS = v; });
+    addBtn(el, '一键最小二乘', function () { s.b = opt.b; s.a = opt.a; buildPanel(); }, 'ghost');
+  }
+});
+
+/* ---------- 04 列联表与独立性检验 ---------- */
+MODULES.push({
+  key: 'chi2', tab: '04', name: '独立性检验', en: 'CHI-SQUARE', blurb: '列联表与 χ²',
+  accent: '#b49cff', rgb: '180,156,255',
+  hint: '调节四格频数，观察 χ² 与临界值的比较',
+  state: {a: 32, b: 18, c: 20, d: 30},
+  reset() { this.state.a = 32; this.state.b = 18; this.state.c = 20; this.state.d = 30; },
   meta() {
-    if (this.state.sub === 'cosine') {
-      return {
-        title: '用向量证明余弦定理',
-        desc: '在 △ABC 中，<b>BC = AC − AB</b>。把两边平方，数量积就自然给出了余弦定理。拖动顶点 C，改变角 A 的大小，等式始终成立。',
-        formula: '|BC|² = |AC|² + |AB|²<br>− 2 AC·AB',
-        note: '因为 <span class="nw"><i>AC·AB = |AC||AB|cos A</i></span>，上式就是 <span class="nw"><i>a² = b² + c² − 2bc cos A</i></span>。向量方法把长度关系转化成了数量积运算。'
-      };
-    }
-    if (this.state.sub === 'incline') {
-      return {
-        title: '斜面上重力的正交分解',
-        desc: '物体在斜面上时，重力 <b>G</b> 沿斜面方向与垂直斜面方向分解。沿斜面的分量使物体下滑，垂直分量压紧斜面，大小分别为 <b>G sin θ</b> 与 <b>G cos θ</b>。',
-        formula: 'G₁ = G sin θ　　G₂ = G cos θ',
-        note: '正交分解的关键是选好<b>互相垂直</b>的两个方向。斜面问题中，沿斜面和垂直斜面分解，可以让大多数力只落在一个方向上，从而简化运算。'
-      };
-    }
     return {
-      title: '小船渡河：速度的合成',
-      desc: '船在流动的河水中航行，实际速度是<b>船速</b>与<b>水速</b>的合速度。调节水速、船速和船头方向，观察合速度方向、渡河时间与漂移距离。',
-      formula: 'v合 = v船 + v水',
-      note: '渡河时间只由垂直于河岸的分速度决定：<i>t = d / (v船 sin α)</i>；沿河岸的分速度则造成漂移。船头垂直河岸时渡河时间最短，但漂移最大。'
+      title: '列联表与独立性检验',
+      desc: '把两个分类变量的频数排成 2×2 列联表，用 χ² 统计量判断它们是否独立。调节四格频数，观察 χ² 与临界值 3.841 的大小关系，以及结论如何改变。',
+      formula: 'χ² = n(ad − bc)² / [(a+b)(c+d)(a+c)(b+d)]',
+      note: 'χ² ≥ 3.841 时，在犯错误概率不超过 0.05 的前提下认为两变量有关；χ² ≥ 6.635 时把握提高到 99%。'
     };
   },
-  handles() {
-    if (this.state.sub === 'cosine') return [{id: 'C', ...this.state.cos.C}];
-    return [];
-  },
-  drag(id, p) {
-    if (id !== 'C') return;
-    const q = clampPt(p);
-    this.state.cos.C.x = q.x;
-    this.state.cos.C.y = q.y;
-  },
-  draw(dt) {
-    if (this.state.sub === 'cosine') this.drawCosine();
-    else if (this.state.sub === 'incline') this.drawIncline();
-    else this.drawBoat(dt);
-  },
-  drawCosine() {
-    const s = this.state.cos;
-    setFrame(.5, .55, 12.6);
-    base();
-    const A = s.A, B = s.B, C = s.C;
-    const AB = {x: B.x - A.x, y: B.y - A.y};
-    const AC = {x: C.x - A.x, y: C.y - A.y};
-    const BC = {x: C.x - B.x, y: C.y - B.y};
-    const c = len2(AB.x, AB.y), b = len2(AC.x, AC.y), a = len2(BC.x, BC.y);
-
-    ctx.save();
-    ctx.beginPath();
-    ctx.moveTo(X(A.x), Y(A.y));
-    ctx.lineTo(X(B.x), Y(B.y));
-    ctx.lineTo(X(C.x), Y(C.y));
-    ctx.closePath();
-    ctx.fillStyle = 'rgba(255,169,122,.055)';
-    ctx.fill();
-    ctx.strokeStyle = 'rgba(190,215,230,.2)';
-    ctx.lineWidth = 1;
-    ctx.stroke();
-    ctx.restore();
-
-    arrow(A, B, '#6cb6ff', {w: 3.6, glow: 12, head: 12});
-    arrow(A, C, '#ffc56b', {w: 3.6, glow: 12, head: 12});
-    arrow(B, C, '#ff8fab', {w: 4.2, glow: 16, head: 12});
-
-    sans('c = ' + fmt(c), X((A.x + B.x) / 2), Y((A.y + B.y) / 2) + 25, 'rgba(160,200,245,.95)', 12);
-    sans('b = ' + fmt(b), X((A.x + C.x) / 2) - 44, Y((A.y + C.y) / 2) + 4, 'rgba(255,210,150,.95)', 12);
-    sans('a = ' + fmt(a), X((B.x + C.x) / 2) + 52, Y((B.y + C.y) / 2) + 4, 'rgba(255,165,190,.95)', 12);
-
-    const thAB = Math.atan2(AB.y, AB.x), thAC = Math.atan2(AC.y, AC.x);
-    let dA = ((thAC - thAB + Math.PI) % TAU + TAU) % TAU - Math.PI;
-    angleArc(A, thAB, thAC, 44, 'rgba(255,169,122,.85)',
-      '∠A=' + Math.round(Math.abs(dA) * 180 / Math.PI) + '°', 12);
-
-    handle(C, '#ffa97a', hoverId === 'C');
-    sans('A', X(A.x) - 17, Y(A.y) + 18, 'rgba(190,210,220,.9)', 13);
-    sans('B', X(B.x) + 17, Y(B.y) + 18, 'rgba(190,210,220,.9)', 13);
-    sans('C', X(C.x) + 17, Y(C.y) - 14, '#ffc0a0', 13);
-  },
-  drawIncline() {
-    const th = this.state.inc.th * Math.PI / 180;
-    setFrame(.46, .55, 13.4);
-    base();
-    const P0 = {x: -4.0, y: -2.6}, P2 = {x: 1.9, y: -2.6};
-    const w = P2.x - P0.x, h = w * Math.tan(th);
-    const P1 = {x: P2.x, y: P2.y + h};
-
-    ctx.save();
-    ctx.beginPath();
-    ctx.moveTo(X(P0.x), Y(P0.y));
-    ctx.lineTo(X(P1.x), Y(P1.y));
-    ctx.lineTo(X(P2.x), Y(P2.y));
-    ctx.closePath();
-    ctx.fillStyle = 'rgba(200,220,235,.055)';
-    ctx.fill();
-    ctx.strokeStyle = 'rgba(190,215,230,.3)';
-    ctx.lineWidth = 1.6;
-    ctx.stroke();
-    ctx.restore();
-    line({x: P0.x - .4, y: -2.6}, {x: P2.x + 1.2, y: -2.6}, 'rgba(190,215,230,.22)', {w: 1.4});
-
-    angleArc(P0, 0, th, 40, 'rgba(255,197,107,.8)', 'θ=' + this.state.inc.th + '°', 11);
-
-    const f = .75;
-    const Q = {x: lerp(P0.x, P1.x, f), y: lerp(P0.y, P1.y, f)};
-    const n = {x: -Math.sin(th), y: Math.cos(th)};
-    const u = {x: Math.cos(th), y: Math.sin(th)};
-    const ctr = {x: Q.x + n.x * .44, y: Q.y + n.y * .44};
-
-    ctx.save();
-    ctx.translate(X(ctr.x), Y(ctr.y));
-    ctx.rotate(-th);
-    const bs = .84 * V.k;
-    ctx.fillStyle = 'rgba(255,169,122,.16)';
-    ctx.strokeStyle = 'rgba(255,169,122,.85)';
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    ctx.rect(-bs / 2, -bs / 2, bs, bs);
-    ctx.fill();
-    ctx.stroke();
-    ctx.restore();
-
-    const mg = 10, sc = .14;
-    const G = {x: 0, y: -mg * sc};
-    const Gpar = {x: -mg * Math.sin(th) * sc * u.x, y: -mg * Math.sin(th) * sc * u.y};
-    const Gperp = {x: -mg * Math.cos(th) * sc * n.x, y: -mg * Math.cos(th) * sc * n.y};
-
-    line({x: ctr.x + Gpar.x, y: ctr.y + Gpar.y}, {x: ctr.x + G.x, y: ctr.y + G.y}, 'rgba(255,255,255,.22)', {w: 1, dash: [4, 5]});
-    line({x: ctr.x + Gperp.x, y: ctr.y + Gperp.y}, {x: ctr.x + G.x, y: ctr.y + G.y}, 'rgba(255,255,255,.22)', {w: 1, dash: [4, 5]});
-
-    arrow(ctr, {x: ctr.x + Gperp.x, y: ctr.y + Gperp.y}, '#6cb6ff', {w: 2.8, head: 10, glow: 8});
-    arrow(ctr, {x: ctr.x + Gpar.x, y: ctr.y + Gpar.y}, '#ff8fab', {w: 2.8, head: 10, glow: 8});
-    arrow(ctr, {x: ctr.x + G.x, y: ctr.y + G.y}, '#ffc56b', {w: 3.6, head: 11, glow: 12});
-    arrow(ctr, {x: ctr.x + n.x * mg * Math.cos(th) * sc, y: ctr.y + n.y * mg * Math.cos(th) * sc},
-      'rgba(123,224,192,.75)', {w: 2.2, dash: [5, 4], head: 9});
-
-    sans('G', X(ctr.x + G.x) + 18, Y(ctr.y + G.y) - 4, '#ffd99a', 13);
-    sans('G sinθ', X(ctr.x + Gpar.x) - 28, Y(ctr.y + Gpar.y) + 15, 'rgba(255,160,185,.95)', 12);
-    sans('G cosθ', X(ctr.x + Gperp.x) + 38, Y(ctr.y + Gperp.y) - 2, 'rgba(160,200,240,.95)', 12);
-    sans('N', X(ctr.x + n.x * mg * Math.cos(th) * sc) + 15, Y(ctr.y + n.y * mg * Math.cos(th) * sc) - 9, 'rgba(140,230,205,.95)', 12);
-  },
-  drawBoat(dt) {
-    setFrame(.5, .5, 13.6);
-    base();
-    const b = this.state.boat;
+  handles() { return []; },
+  draw() {
+    setFrame(.5, .5, 12.4);
     const L = lim();
-    const vw = b.vw, vb = b.vb;
-    const al = b.alpha * Math.PI / 180;
-    const vel = {x: vw + vb * Math.cos(al), y: vb * Math.sin(al)};
-    const T = 4 / vel.y;
-    this.flow = (this.flow || 0) + dt * (vw * .55 + .12);
+    const s = this.state, a = s.a, b = s.b, c = s.c, d = s.d;
+    const n = a + b + c + d;
+    const den = (a + b) * (c + d) * (a + c) * (b + d);
+    const chi = den > 0 ? n * Math.pow(a * d - b * c, 2) / den : 0;
 
-    b.t += dt;
-    if (b.t > T + 1.2) b.t = 0;
-    const tt = Math.min(b.t, T);
-    const start = {x: Math.max(L.x0 + .6, -4.5), y: -2};
-    const pos = {x: start.x + vel.x * tt, y: start.y + vel.y * tt};
-    const end = {x: start.x + vel.x * T, y: 2};
+    const H0 = L.y1 - L.y0, W0 = L.x1 - L.x0;
+    const chh = clamp(H0 * .13, .45, .95);
+    const hdrY = L.y1 - H0 * .07;
+    const cy = [hdrY - H0 * .12, hdrY - H0 * .12 - chh, hdrY - H0 * .12 - 2 * chh];
+    const cw = Math.min(3.0, W0 * .235);
+    const cx = [-cw, 0, cw];
+    const hdr = ['喜欢数学', '不喜欢数学', '合计'];
 
-    ctx.save();
-    ctx.fillStyle = 'rgba(64,132,180,.085)';
-    ctx.fillRect(0, Y(2), W, Y(-2) - Y(2));
-    ctx.restore();
+    function box(x, y, fill, stroke) {
+      ctx.save();
+      ctx.fillStyle = fill;
+      ctx.strokeStyle = stroke;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.rect(X(x - cw / 2), Y(y + chh / 2), cw * V.k, chh * V.k);
+      ctx.fill();
+      ctx.stroke();
+      ctx.restore();
+    }
+    function val(x, y, t, col, size) {
+      sans(t, X(x), Y(y), col, size || 13);
+    }
 
-    // 水流
-    const off = this.flow % 2.6;
-    for (const yy of [-1.55, -.8, 0, .8, 1.55]) {
-      for (let x = L.x0 - 2.6 + off; x < L.x1; x += 2.6) {
-        arrow({x: x, y: yy}, {x: x + .55, y: yy}, 'rgba(120,180,220,.28)', {w: 1.1, head: 6});
+    hdr.forEach(function (t, i) {
+      sans(t, X(cx[i]), Y(hdrY), 'rgba(214,198,255,.95)', 10.5);
+    });
+    ['男生', '女生', '合计'].forEach(function (t, i) {
+      sans(t, X(cx[0] - cw / 2 - .14), Y(cy[i]), 'rgba(214,198,255,.95)', 10.5, 'right');
+    });
+
+    box(cx[0], cy[0], 'rgba(180,156,255,.15)', 'rgba(180,156,255,.32)');
+    box(cx[1], cy[0], 'rgba(180,156,255,.15)', 'rgba(180,156,255,.32)');
+    box(cx[2], cy[0], 'rgba(255,255,255,.045)', 'rgba(180,156,255,.22)');
+    box(cx[0], cy[1], 'rgba(180,156,255,.15)', 'rgba(180,156,255,.32)');
+    box(cx[1], cy[1], 'rgba(180,156,255,.15)', 'rgba(180,156,255,.32)');
+    box(cx[2], cy[1], 'rgba(255,255,255,.045)', 'rgba(180,156,255,.22)');
+    box(cx[0], cy[2], 'rgba(255,255,255,.045)', 'rgba(180,156,255,.22)');
+    box(cx[1], cy[2], 'rgba(255,255,255,.045)', 'rgba(180,156,255,.22)');
+    box(cx[2], cy[2], 'rgba(255,255,255,.045)', 'rgba(180,156,255,.22)');
+
+    val(cx[0], cy[0], String(a), '#efe8ff');
+    val(cx[1], cy[0], String(b), '#efe8ff');
+    val(cx[2], cy[0], String(a + b), '#cfc3ef');
+    val(cx[0], cy[1], String(c), '#efe8ff');
+    val(cx[1], cy[1], String(d), '#efe8ff');
+    val(cx[2], cy[1], String(c + d), '#cfc3ef');
+    val(cx[0], cy[2], String(a + c), '#cfc3ef');
+    val(cx[1], cy[2], String(b + d), '#cfc3ef');
+    val(cx[2], cy[2], String(n), '#cfc3ef');
+
+    const strong = chi >= 6.635;
+    const sig = chi >= 3.841;
+    const col = strong ? '#7be0c0' : (sig ? '#ffc56b' : 'rgba(195,210,220,.85)');
+
+    const yChi = cy[2] - chh / 2 - H0 * .095;
+    math('χ² = ' + fmt(chi, 2), X(L.x0 + .45), Y(yChi), col, 21, 'left');
+    sans('n = ' + n, X(L.x1 - .45), Y(yChi), 'rgba(205,215,225,.7)', 11, 'right');
+
+    const gmax = Math.max(12, Math.ceil(chi / 4) * 4);
+    const gx0 = L.x0 + .45, gx1 = L.x1 - .45;
+    const gx = function (v) { return gx0 + (gx1 - gx0) * Math.min(v, gmax) / gmax; };
+    const yG = yChi - H0 * .17;
+    line({x: gx0, y: yG}, {x: gx1, y: yG}, 'rgba(200,220,235,.28)', {w: 5});
+    line({x: gx0, y: yG}, {x: gx(Math.min(chi, gmax)), y: yG}, col, {w: 5});
+    [3.841, 6.635].forEach(function (v) {
+      line({x: gx(v), y: yG - .2}, {x: gx(v), y: yG + .2}, 'rgba(225,235,245,.6)', {w: 1.2});
+      sans(v.toFixed(3), X(gx(v)), Y(yG - .4), 'rgba(185,205,220,.75)', 9);
+    });
+    sans('0', X(gx0), Y(yG - .4), 'rgba(185,205,220,.6)', 9);
+    sans(String(gmax), X(gx1), Y(yG - .4), 'rgba(185,205,220,.6)', 9);
+    dot({x: gx(chi), y: yG}, col, 6.5);
+
+    sans(strong ? 'χ² ≥ 6.635：有 99% 的把握认为两者有关'
+      : sig ? 'χ² ≥ 3.841：有 95% 的把握认为两者有关'
+      : 'χ² < 3.841：没有充分证据认为两者有关',
+      X(0), Y(yG - H0 * .11), col, 11.5);
+  },
+
+  hud() {
+    const s = this.state;
+    const n = s.a + s.b + s.c + s.d;
+    const den = (s.a + s.b) * (s.c + s.d) * (s.a + s.c) * (s.b + s.d);
+    const chi = den > 0 ? n * Math.pow(s.a * s.d - s.b * s.c, 2) / den : 0;
+    return [
+      {k: '样本容量 n', v: String(n)},
+      {k: 'χ² 统计量', v: fmt(chi, 2), hi: true},
+      {k: '临界值 χ²₀.₀₅', v: '3.841'},
+      {k: '临界值 χ²₀.₀₁', v: '6.635'},
+      {k: '结论', v: chi >= 3.841 ? '认为有关' : '不能认为有关', hi: chi >= 3.841}
+    ];
+  },
+  panel(el) {
+    const s = this.state;
+    addSlider(el, '男生 · 喜欢 a', 6, 48, 1, s.a, function (v) { return String(v); }, function (v) { s.a = v; });
+    addSlider(el, '男生 · 不喜欢 b', 6, 48, 1, s.b, function (v) { return String(v); }, function (v) { s.b = v; });
+    addSlider(el, '女生 · 喜欢 c', 6, 48, 1, s.c, function (v) { return String(v); }, function (v) { s.c = v; });
+    addSlider(el, '女生 · 不喜欢 d', 6, 48, 1, s.d, function (v) { return String(v); }, function (v) { s.d = v; });
+    addBtn(el, '载入教材数据', function () { this.reset(); buildPanel(); }.bind(this), 'ghost');
+  }
+});
+
+const P5 = [[1, 22], [2, 33], [3, 36], [4, 48], [5, 53], [6, 67], [7, 70], [8, 83]]
+  .map(function (p) { return {x: p[0], y: p[1]}; });
+
+/* ---------- 05 统计案例：预测 ---------- */
+MODULES.push({
+  key: 'case', tab: '05', name: '统计案例', en: 'CASE STUDY', blurb: '回归预测',
+  accent: '#ff8fab', rgb: '255,143,171',
+  hint: '移动预测点 x₀，比较预测值与样本实际值',
+  state: {pts: P5.map(function (p) { return {x: p.x, y: p.y}; }), x0: 6, showResid: true, showLine: true},
+  reset() {
+    this.state.pts = P5.map(function (p) { return {x: p.x, y: p.y}; });
+    this.state.x0 = 6;
+    this.state.showResid = true;
+    this.state.showLine = true;
+  },
+  meta() {
+    return {
+      title: '统计案例：用回归方程预测',
+      desc: '把回归方程用于预测：给定 x₀，代入 ŷ = b̂x₀ + â 就得到预测值。移动 x₀，比较不同位置上的预测值与样本实际值，注意样本范围之外的预测要谨慎。',
+      formula: 'ŷ = b̂x + â<br>e = y − ŷ',
+      note: '回归直线经过样本中心，但单个样本点通常不在直线上；|e| 越小，预测越贴近实际。'
+    };
+  },
+  handles() { return []; },
+  draw() {
+    setFrame(.5, .5, 12.4);
+    const L = lim();
+    const s = this.state, st = stat(s.pts);
+    const x0 = s.x0, yh = st.a + st.b * x0;
+
+    const gx0 = L.x0 + 1.0, gx1 = L.x1 - .8;
+    const gy0 = L.y0 + .8, gy1 = L.y1 - .65;
+    const PX = function (x) { return gx0 + (gx1 - gx0) * x / 10; };
+    const PY = function (y) { return gy0 + (gy1 - gy0) * y / 95; };
+    const axc = 'rgba(200,225,235,.42)';
+
+    for (let i = 0; i <= 10; i++) {
+      line({x: PX(i), y: gy0}, {x: PX(i), y: gy1}, 'rgba(190,215,225,.06)', {w: 1});
+    }
+    for (let j = 0; j <= 9; j++) {
+      line({x: gx0, y: PY(j * 10)}, {x: gx1, y: PY(j * 10)}, 'rgba(190,215,225,.06)', {w: 1});
+    }
+
+    line({x: PX(0), y: gy0}, {x: PX(10.45), y: gy0}, axc, {w: 1.2});
+    line({x: PX(0), y: gy0 - .22}, {x: PX(0), y: PY(96)}, axc, {w: 1.2});
+    arrow({x: PX(9.9), y: gy0}, {x: PX(10.45), y: gy0}, axc, {w: 1.2, head: 7});
+    arrow({x: PX(0), y: PY(92)}, {x: PX(0), y: PY(96)}, axc, {w: 1.2, head: 7});
+
+    for (let i = 0; i <= 10; i++) {
+      line({x: PX(i), y: gy0 - .07}, {x: PX(i), y: gy0 + .07}, axc, {w: 1});
+      sans(String(i), X(PX(i)), Y(gy0) + 12, 'rgba(160,190,205,.6)', 8.5);
+    }
+    for (let j = 1; j <= 9; j++) {
+      line({x: PX(0) - .07, y: PY(j * 10)}, {x: PX(0) + .07, y: PY(j * 10)}, axc, {w: 1});
+      sans(String(j * 10), X(PX(0)) - 8, Y(PY(j * 10)), 'rgba(160,190,205,.6)', 8.5, 'right');
+    }
+    sans('广告费 x / 万元', X(PX(10.2)), Y(gy0) + 30, 'rgba(175,205,215,.8)', 10.5, 'right');
+    sans('销售额 y / 万元', X(PX(0)) + 10, Y(PY(93)) + 2, 'rgba(175,205,215,.8)', 10.5, 'left');
+
+    line({x: PX(.3), y: PY(st.a + st.b * .3)}, {x: PX(9.7), y: PY(st.a + st.b * 9.7)}, '#ff8fab', {w: 2.6});
+    s.pts.forEach(function (p) { dot({x: PX(p.x), y: PY(p.y)}, '#ffd0dd', 4.2); });
+
+    if (s.showLine) {
+      line({x: PX(x0), y: gy0}, {x: PX(x0), y: PY(yh)}, 'rgba(255,197,107,.4)', {w: 1.2, dash: [4, 4]});
+    }
+    dot({x: PX(x0), y: PY(yh)}, '#ffc56b', 6);
+    ring({x: PX(x0), y: PY(yh)}, 'rgba(255,197,107,.55)', 10);
+    if (x0 > 8) {
+      sans('ŷ = ' + fmt(yh, 2), X(PX(x0)) - 14, Y(PY(yh)) + 18, '#ffd99a', 11, 'right');
+    } else {
+      sans('ŷ = ' + fmt(yh, 2), X(PX(x0)) + 14, Y(PY(yh)) + 18, '#ffd99a', 11, 'left');
+    }
+
+    let act = null;
+    s.pts.forEach(function (p) { if (Math.abs(p.x - x0) < .26) act = p; });
+    if (act) {
+      ring({x: PX(act.x), y: PY(act.y)}, '#7be0c0', 7);
+      sans('实际 ' + fmt(act.y, 2), X(PX(act.x)) + 13, Y(PY(act.y)) - 14, 'rgba(150,240,215,.95)', 10.5, 'left');
+      if (s.showResid && Math.abs(act.y - yh) > .02) {
+        line({x: PX(act.x), y: PY(yh)}, {x: PX(act.x), y: PY(act.y)}, 'rgba(190,255,235,.7)', {w: 1.6, dash: [4, 3]});
+        if (Math.abs(act.y - yh) > .35) {
+          sans('e = ' + fmt(act.y - yh, 2), X(PX(act.x)) + 14, Y(PY((act.y + yh) / 2)), 'rgba(190,255,235,.9)', 10, 'left');
+        }
       }
     }
+    if (x0 > 8.01) {
+      sans('x₀ 超出样本范围（外推）', X(PX(.15)), Y(PY(76)), 'rgba(255,180,190,.9)', 10.5, 'left');
+    }
 
-    line({x: L.x0, y: 2}, {x: L.x1, y: 2}, 'rgba(150,200,220,.45)', {w: 1.8});
-    line({x: L.x0, y: -2}, {x: L.x1, y: -2}, 'rgba(150,200,220,.45)', {w: 1.8});
-    sans('河岸', X(L.x1) - 22, Y(2) - 12, 'rgba(150,190,210,.55)', 10);
-    sans('河岸', X(L.x1) - 22, Y(-2) + 13, 'rgba(150,190,210,.55)', 10);
-
-    // 实际航线
-    line(start, end, 'rgba(94,234,212,.35)', {w: 1.2, dash: [4, 6]});
-    ctx.save();
-    ctx.strokeStyle = 'rgba(94,234,212,.65)';
-    ctx.lineWidth = 1.4;
-    ctx.beginPath();
-    ctx.arc(X(end.x), Y(end.y), 5, 0, TAU);
-    ctx.stroke();
-    ctx.restore();
-
-    // 速度平行四边形
-    const kv = .5;
-    const pB = {x: pos.x + vb * Math.cos(al) * kv, y: pos.y + vb * Math.sin(al) * kv};
-    const pW = {x: pos.x + vw * kv, y: pos.y};
-    const pR = {x: pos.x + vel.x * kv, y: pos.y + vel.y * kv};
-    line(pW, pR, 'rgba(255,255,255,.16)', {w: 1, dash: [4, 4]});
-    line(pB, pR, 'rgba(255,255,255,.16)', {w: 1, dash: [4, 4]});
-    arrow(pos, pB, '#ffc56b', {w: 2.4, head: 9});
-    arrow(pos, pW, '#6cb6ff', {w: 2.4, head: 9});
-    arrow(pos, pR, '#5eead4', {w: 3, head: 10, glow: 10});
-    sans('v船', X(pB.x) + 8, Y(pB.y) - 14, 'rgba(255,217,154,.95)', 11);
-    sans('v水', X(pW.x) - 14, Y(pW.y) + 15, 'rgba(169,212,255,.95)', 11);
-    sans('v合', X(pR.x) + 16, Y(pR.y) + 6, 'rgba(159,247,232,1)', 11.5);
-
-    // 小船
-    ctx.save();
-    ctx.translate(X(pos.x), Y(pos.y));
-    ctx.rotate(-al);
-    ctx.beginPath();
-    ctx.moveTo(17, 0);
-    ctx.lineTo(-10, 7);
-    ctx.lineTo(-5, 0);
-    ctx.lineTo(-10, -7);
-    ctx.closePath();
-    ctx.fillStyle = '#e8f3f7';
-    ctx.fill();
-    ctx.strokeStyle = 'rgba(255,169,122,.9)';
-    ctx.lineWidth = 1.6;
-    ctx.stroke();
-    ctx.restore();
+    math('ŷ = ' + fmt(st.b, 2) + 'x ' + (st.a >= 0 ? '+ ' : '− ') + fmt(Math.abs(st.a), 2),
+      X(PX(.15)), Y(PY(92)), '#ffb3c6', 17, 'left');
+    sans('r = ' + fmt(st.r, 3), X(PX(.15)), Y(PY(86)), 'rgba(255,190,205,.8)', 10.5, 'left');
   },
+
   hud() {
-    if (this.state.sub === 'cosine') {
-      const s = this.state.cos;
-      const AB = {x: s.B.x - s.A.x, y: s.B.y - s.A.y};
-      const AC = {x: s.C.x - s.A.x, y: s.C.y - s.A.y};
-      const BC = {x: s.C.x - s.B.x, y: s.C.y - s.B.y};
-      const c = len2(AB.x, AB.y), b = len2(AC.x, AC.y), a = len2(BC.x, BC.y);
-      const cosA = (AB.x * AC.x + AB.y * AC.y) / (b * c || 1);
-      return [
-        {k: 'c = |AB|', v: c.toFixed(2)},
-        {k: 'b = |AC|', v: b.toFixed(2)},
-        {k: 'a = |BC|', v: a.toFixed(2), hi: true},
-        {k: 'cos A', v: fmt(cosA)},
-        {k: 'a²', v: (a * a).toFixed(2)},
-        {k: 'b²+c²−2bc·cosA', v: (b * b + c * c - 2 * b * c * cosA).toFixed(2), hi: true}
-      ];
-    }
-    if (this.state.sub === 'incline') {
-      const th = this.state.inc.th * Math.PI / 180;
-      return [
-        {k: '倾角 θ', v: this.state.inc.th + '°', hi: true},
-        {k: '重力 G', v: '10.0 N'},
-        {k: '沿斜面 G sinθ', v: (10 * Math.sin(th)).toFixed(2) + ' N'},
-        {k: '垂直斜面 G cosθ', v: (10 * Math.cos(th)).toFixed(2) + ' N'}
-      ];
-    }
-    const b = this.state.boat;
-    const al = b.alpha * Math.PI / 180;
-    const vel = {x: b.vw + b.vb * Math.cos(al), y: b.vb * Math.sin(al)};
-    const T = 4 / vel.y;
+    const s = this.state, st = stat(s.pts);
+    const yh = st.a + st.b * s.x0;
+    let act = null;
+    s.pts.forEach(function (p) { if (Math.abs(p.x - s.x0) < .26) act = p; });
     return [
-      {k: '船速 v船', v: b.vb.toFixed(1) + ' m/s'},
-      {k: '水速 v水', v: b.vw.toFixed(1) + ' m/s'},
-      {k: '合速度 |v合|', v: len2(vel.x, vel.y).toFixed(2) + ' m/s', hi: true},
-      {k: '渡河时间', v: T.toFixed(2) + ' s'},
-      {k: '漂移距离', v: (vel.x * T).toFixed(2) + ' m'}
+      {k: '斜率 b̂', v: fmt(st.b, 3)},
+      {k: '预测点 x₀', v: fmt(s.x0, 1), hi: true},
+      {k: '预测值 ŷ', v: fmt(yh, 2), hi: true},
+      {k: '实际值 y', v: act ? fmt(act.y, 2) : '无样本'},
+      {k: '残差 y − ŷ', v: act ? fmt(act.y - yh, 2) : '—'}
     ];
   },
   panel(el) {
-    const st = this.state;
-    const seg = document.createElement('div');
-    seg.className = 'seg';
-    [['cosine', '余弦定理'], ['incline', '力的分解'], ['boat', '小船过河']].forEach(([k, name]) => {
-      const btn = document.createElement('button');
-      btn.textContent = name;
-      btn.className = st.sub === k ? 'on' : '';
-      btn.addEventListener('click', () => {
-        st.sub = k;
-        this.resetSub();
-        buildPanel();
-      });
-      seg.appendChild(btn);
-    });
-    el.appendChild(seg);
-
-    if (st.sub === 'cosine') {
-      const r = row(el);
-      addBtn(r, '设为直角三角形', () => {
-        const c = st.cos;
-        const AB = {x: c.B.x - c.A.x, y: c.B.y - c.A.y};
-        const L = len2(AB.x, AB.y) || 1;
-        let nx = -AB.y / L, ny = AB.x / L;
-        if (ny < 0) { nx = -nx; ny = -ny; }
-        c.C = {x: c.A.x + nx * 4.3, y: c.A.y + ny * 4.3};
-      });
-      addBtn(r, '重置三角形', () => { this.resetSub(); buildPanel(); }, 'ghost');
-    } else if (st.sub === 'incline') {
-      addSlider(el, '斜面倾角 θ', 12, 38, 1, st.inc.th, v => v.toFixed(0) + '°', v => st.inc.th = v);
-      const r = row(el);
-      addBtn(r, 'θ = 30°', () => { st.inc.th = 30; buildPanel(); }, 'ghost');
-      addBtn(r, '重置', () => { st.inc.th = 28; buildPanel(); }, 'ghost');
-    } else {
-      addSlider(el, '水速 v水 (m/s)', 0, 2, .1, st.boat.vw, v => v.toFixed(1), v => { st.boat.vw = v; st.boat.t = 0; });
-      addSlider(el, '船速 v船 (m/s)', 1.5, 3.5, .1, st.boat.vb, v => v.toFixed(1), v => { st.boat.vb = v; st.boat.t = 0; });
-      addSlider(el, '船头方向 α', 55, 125, 1, st.boat.alpha, v => v.toFixed(0) + '°', v => { st.boat.alpha = v; st.boat.t = 0; });
-      const r = row(el);
-      addBtn(r, '船头垂直河岸', () => { st.boat.alpha = 90; st.boat.t = 0; buildPanel(); });
-      addBtn(r, '重置', () => { this.resetSub(); buildPanel(); }, 'ghost');
-    }
+    const s = this.state, self = this;
+    addSlider(el, '预测点 x₀（万元）', 1, 9, .5, s.x0, function (v) { return v.toFixed(1); }, function (v) { s.x0 = v; });
+    addToggle(el, '显示预测辅助线', s.showLine, function (v) { s.showLine = v; });
+    addToggle(el, '显示残差线段', s.showResid, function (v) { s.showResid = v; });
+    addBtn(el, '恢复默认数据', function () { self.reset(); buildPanel(); }, 'ghost');
   }
 });
+
+})();
+
 
 /* ============================================================
    引擎
    ============================================================ */
 const chapterListEl = $('#chapterList');
 const catalogEl = $('#catalogTrack');
-const EXTRA = {
-  concept: ['VECTOR', '大小与方向'],
-  add: ['ADDITION', '首尾相接'],
-  sub: ['SUBTRACTION', '指向被减向量'],
-  scale: ['SCALAR', '伸缩与反向'],
-  basis: ['BASIS', '基底与坐标'],
-  dot: ['DOT', '夹角与投影'],
-  app: ['APPLY', '几何与物理']
-};
 let curIdx = 0, cur = null, hoverId = null, dragId = null;
 
 MODULES.forEach((m, i) => {
-  const extra = EXTRA[m.key] || ['', ''];
-  m.en = extra[0];
-  m.blurb = extra[1];
+  m.en = m.en || '';
+  m.blurb = m.blurb || '';
 
   const b = document.createElement('button');
   b.type = 'button';

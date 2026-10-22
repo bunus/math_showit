@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#070a11">
+<meta name="description" content="计数原理：加法与乘法原理、排列、组合、二项式定理。">
+<title>计数原理 · 动态教学实验室</title>
+<style>
+/* ============================================================
+   平面向量及其应用 · Vector Lab
+   ============================================================ */
+:root{
+  --bg:#060a12;
+  --text:#eef7f6;
+  --text-soft:#c3d5dc;
+  --muted:#8ba1ac;
+  --muted-2:#6f858f;
+  --line:rgba(165,200,220,.11);
+  --line-strong:rgba(165,200,220,.2);
+  --accent:#5eead4;
+  --accent-rgb:94,234,212;
+  --sans:"PingFang SC","Microsoft YaHei","Noto Sans SC","Source Han Sans SC",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --serif:"Cambria Math","STIX Two Math","Latin Modern Math","Times New Roman","Songti SC",serif;
+  --mono:"Cascadia Code","SFMono-Regular","JetBrains Mono",Consolas,monospace;
+  --radius:18px;
+  --shadow:0 24px 60px rgba(0,0,0,.3);
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{
+  background:var(--bg);color:var(--text);font-family:var(--sans);
+  overflow:hidden;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+button{font:inherit;color:inherit}
+::selection{background:rgba(var(--accent-rgb),.24);color:#fff}
+[hidden]{display:none!important}
+
+/* ---------- atmosphere ---------- */
+.ambient{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;background:
+  radial-gradient(ellipse 70% 60% at 50% -12%,rgba(43,92,122,.2),transparent 64%),
+  linear-gradient(180deg,#08101c 0%,#05090f 100%);}
+.ambient::after{
+  content:"";position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(180,215,235,.028) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(180,215,235,.028) 1px,transparent 1px);
+  background-size:70px 70px;
+  -webkit-mask-image:radial-gradient(ellipse 78% 68% at 46% 34%,#000 8%,transparent 78%);
+  mask-image:radial-gradient(ellipse 78% 68% at 46% 34%,#000 8%,transparent 78%);
+}
+.glow{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none}
+.glow-a{width:540px;height:540px;left:-140px;top:-220px;background:rgba(var(--accent-rgb),.1)}
+.glow-b{width:640px;height:640px;right:-220px;bottom:-300px;background:rgba(104,86,210,.08)}
+
+/* ---------- app ---------- */
+.app{position:relative;z-index:1;height:100vh;height:100dvh;min-height:660px;display:flex;flex-direction:column}
+
+/* ---------- topbar ---------- */
+.topbar{flex:0 0 74px;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:0 20px}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.brand-mark{
+  width:42px;height:42px;border-radius:12px;flex:none;display:grid;place-items:center;
+  border:1px solid rgba(var(--accent-rgb),.3);
+  background:linear-gradient(140deg,rgba(var(--accent-rgb),.18),rgba(var(--accent-rgb),.02));
+  box-shadow:0 0 28px rgba(var(--accent-rgb),.14),inset 0 0 18px rgba(var(--accent-rgb),.05);
+  transition:border-color .4s,box-shadow .4s;
+}
+.brand-mark svg{width:30px;height:30px;display:block}
+.brand-copy{min-width:0}
+.eyebrow{display:flex;align-items:center;gap:7px;font-size:8px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;white-space:nowrap}
+.eyebrow i{width:13px;height:1px;background:rgba(255,255,255,.18);flex:none}
+.brand h1{margin:3px 0 0;font-size:15px;font-weight:600;letter-spacing:.06em;white-space:nowrap}
+.title-en{font-size:.64em;color:var(--muted);font-weight:400;letter-spacing:.14em}
+.top-actions{display:flex;align-items:center;gap:8px;flex:none}
+.status-chip{
+  display:flex;align-items:center;gap:7px;padding:7px 11px;border-radius:999px;
+  border:1px solid var(--line);background:rgba(255,255,255,.03);
+  font-size:10px;color:var(--text-soft);white-space:nowrap;letter-spacing:.04em;
+}
+.chip-dot{width:5px;height:5px;border-radius:50%;background:var(--accent);box-shadow:0 0 9px var(--accent);flex:none}
+.ghost-btn,.icon-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  border:1px solid var(--line);background:rgba(255,255,255,.025);color:var(--text-soft);
+  border-radius:10px;padding:8px 12px;font-size:11px;cursor:pointer;
+  transition:background .18s,border-color .18s,color .18s,transform .18s;white-space:nowrap;
+}
+.ghost-btn:hover,.icon-btn:hover{background:rgba(255,255,255,.06);border-color:var(--line-strong);color:#fff}
+.ghost-btn:active,.icon-btn:active{transform:translateY(1px)}
+.ghost-btn svg{width:14px;height:14px}
+.icon-btn{width:36px;height:36px;padding:0}
+.icon-btn svg{width:16px;height:16px}
+
+/* ---------- workspace ---------- */
+.workspace{
+  flex:1;min-height:0;display:grid;gap:11px;padding:0 16px 15px;
+  grid-template-columns:minmax(248px,276px) minmax(0,1fr) minmax(298px,326px);
+  grid-template-rows:minmax(0,1fr) 146px;
+  grid-template-areas:"controls stage details" "catalog catalog catalog";
+}
+.panel,.stage-card,.catalog{
+  border:1px solid var(--line);
+  background:linear-gradient(180deg,rgba(16,27,45,.9),rgba(8,15,27,.93));
+  box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.04);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+}
+.panel{min-height:0;border-radius:var(--radius);overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.12) transparent}
+.panel::-webkit-scrollbar{width:5px}
+.panel::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px}
+.panel-controls{grid-area:controls;padding:15px 14px 14px;display:flex;flex-direction:column;gap:11px}
+.panel-details{grid-area:details;padding:15px 14px 14px;display:flex;flex-direction:column;gap:10px}
+.panel-controls>*,.panel-details>*{flex:0 0 auto}
+.panel-head{display:flex;align-items:flex-start;gap:9px;min-width:0}
+.section-num{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.04em;color:var(--accent);
+  border:1px solid rgba(var(--accent-rgb),.25);background:rgba(var(--accent-rgb),.07);
+  border-radius:7px;padding:4px 6px;line-height:1;margin-top:2px;flex:none;
+}
+.panel-head h2{margin:0;font-size:14.5px;font-weight:600;letter-spacing:.04em;line-height:1.35}
+.panel-head p{margin:2px 0 0;font-size:9.5px;color:var(--muted);letter-spacing:.03em}
+
+/* ---------- chapter nav ---------- */
+.chapter-list{display:flex;flex-direction:column;gap:2px}
+.chapter-item{
+  display:flex;align-items:center;gap:9px;padding:7px 9px;border-radius:9px;
+  border:1px solid transparent;background:transparent;color:var(--muted);
+  cursor:pointer;text-align:left;transition:background .16s,color .16s,border-color .16s;
+}
+.chapter-item:hover{background:rgba(255,255,255,.045);color:var(--text-soft)}
+.chapter-item.on{color:var(--tc);background:rgba(var(--tc-rgb),.09);border-color:rgba(var(--tc-rgb),.22)}
+.ci-num{font-family:var(--mono);font-size:9px;opacity:.65;width:17px;flex:none}
+.ci-name{font-size:12px;letter-spacing:.02em;white-space:nowrap}
+.ci-en{margin-left:auto;font-size:7px;letter-spacing:.13em;opacity:.4;white-space:nowrap}
+.chapter-item.on .ci-en{opacity:.65}
+
+.block-label{
+  display:flex;align-items:baseline;justify-content:space-between;gap:8px;
+  padding-top:10px;border-top:1px solid var(--line);
+  font-size:8.5px;letter-spacing:.13em;color:var(--muted);text-transform:uppercase;
+}
+.block-label span:last-child{font-size:8px;letter-spacing:.04em;color:var(--muted-2);text-transform:none}
+
+/* ---------- controls ---------- */
+.controls{display:flex;flex-direction:column;gap:9px}
+.ctrl{display:flex;flex-direction:column;gap:6px}
+.ctrl-top{display:flex;align-items:baseline;justify-content:space-between;gap:10px;font-size:10.5px;color:var(--muted);letter-spacing:.02em}
+.ctrl-top b{font-family:var(--mono);font-size:10.5px;font-weight:500;color:var(--accent)}
+input[type=range]{
+  -webkit-appearance:none;appearance:none;width:100%;height:3px;border-radius:99px;margin:5px 0;
+  background:linear-gradient(90deg,rgba(var(--accent-rgb),.72),rgba(var(--accent-rgb),.12));
+  outline:none;cursor:pointer;
+}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:13px;height:13px;border-radius:50%;
+  background:#0b1220;border:2px solid var(--accent);cursor:grab;
+  box-shadow:0 0 12px rgba(var(--accent-rgb),.55);
+}
+input[type=range]::-moz-range-thumb{
+  width:11px;height:11px;border-radius:50%;background:#0b1220;border:2px solid var(--accent);
+  box-shadow:0 0 12px rgba(var(--accent-rgb),.55);
+}
+.switch{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:5px 0;font-size:11px;color:var(--text-soft);cursor:pointer;position:relative}
+.switch > span{flex:1;line-height:1.45}
+.switch input{position:absolute;opacity:0;width:0;height:0;pointer-events:none}
+.switch i{width:32px;height:18px;border-radius:99px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.07);position:relative;flex:none;transition:.2s}
+.switch i::after{content:"";position:absolute;top:2px;left:2px;width:12px;height:12px;border-radius:50%;background:#93a8b2;transition:.2s}
+.switch input:checked + i{background:rgba(var(--accent-rgb),.3);border-color:rgba(var(--accent-rgb),.35)}
+.switch input:checked + i::after{transform:translateX(14px);background:var(--accent);box-shadow:0 0 8px rgba(var(--accent-rgb),.7)}
+.switch input:focus-visible + i{outline:2px solid rgba(var(--accent-rgb),.8);outline-offset:3px}
+.row{display:flex;gap:6px;flex-wrap:wrap}
+.btn{
+  flex:1;min-width:84px;padding:8px 9px;border-radius:8px;cursor:pointer;
+  border:1px solid rgba(var(--accent-rgb),.28);background:rgba(var(--accent-rgb),.08);
+  color:var(--accent);font-size:10.5px;letter-spacing:.02em;transition:.18s;
+}
+.btn:hover{background:rgba(var(--accent-rgb),.16);border-color:rgba(var(--accent-rgb),.45)}
+.btn:active{transform:translateY(1px)}
+.btn.ghost{border-color:var(--line);background:rgba(255,255,255,.03);color:var(--muted)}
+.btn.ghost:hover{color:var(--text-soft);border-color:var(--line-strong);background:rgba(255,255,255,.06)}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;padding:3px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid var(--line)}
+.seg button{padding:6px 3px;border-radius:7px;border:1px solid transparent;background:transparent;color:var(--muted);font-size:10px;cursor:pointer;transition:.18s;white-space:nowrap}
+.seg button:hover{color:var(--text-soft)}
+.seg button.on{background:rgba(var(--accent-rgb),.14);border-color:rgba(var(--accent-rgb),.26);color:var(--accent)}
+
+/* ---------- stage ---------- */
+.stage-card{
+  grid-area:stage;position:relative;min-height:0;border-radius:var(--radius);overflow:hidden;isolation:isolate;
+  background:
+    radial-gradient(ellipse 70% 64% at 52% 42%,rgba(var(--accent-rgb),.06),transparent 68%),
+    radial-gradient(ellipse 55% 55% at 60% 108%,rgba(73,60,122,.1),transparent 72%),
+    linear-gradient(180deg,#091321 0%,#060d17 100%);
+}
+.stage-card::before{
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background-image:radial-gradient(rgba(190,225,238,.1) .7px,transparent .8px);
+  background-size:26px 26px;opacity:.28;
+  -webkit-mask-image:radial-gradient(ellipse 72% 72% at 50% 44%,#000,transparent 76%);
+  mask-image:radial-gradient(ellipse 72% 72% at 50% 44%,#000,transparent 76%);
+}
+.stage-card::after{
+  content:"";position:absolute;inset:0;z-index:5;pointer-events:none;border-radius:inherit;
+  box-shadow:inset 0 0 90px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.04);
+}
+#cv{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:2;touch-action:none;cursor:default}
+
+.stage-top{position:absolute;z-index:7;top:13px;left:14px;right:14px;display:flex;justify-content:space-between;align-items:flex-start;gap:10px;pointer-events:none}
+.live-badge{
+  display:flex;align-items:center;gap:9px;padding:7px 10px;border-radius:11px;
+  background:rgba(5,11,20,.7);border:1px solid rgba(201,232,242,.1);
+  backdrop-filter:blur(14px);box-shadow:0 10px 30px rgba(0,0,0,.16);
+}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 13px rgba(var(--accent-rgb),.8);flex:none}
+.live-copy{display:flex;flex-direction:column;gap:3px}
+.live-copy strong{line-height:1.15}
+.live-copy span{font-size:7.5px;color:var(--muted);letter-spacing:.12em}
+.live-copy strong{font-size:12.5px;font-weight:600;letter-spacing:.04em;white-space:nowrap}
+.live-idx{
+  font-family:var(--mono);font-size:8.5px;color:var(--accent);
+  background:rgba(var(--accent-rgb),.09);border:1px solid rgba(var(--accent-rgb),.18);
+  border-radius:999px;padding:3px 6px;white-space:nowrap;
+}
+.stage-tools{display:flex;gap:6px;pointer-events:auto}
+.mini-btn{
+  display:inline-flex;align-items:center;gap:5px;padding:7px 10px;border-radius:9px;
+  font-size:10px;color:var(--text-soft);cursor:pointer;
+  border:1px solid rgba(201,236,228,.12);background:rgba(5,11,20,.62);
+  backdrop-filter:blur(12px);transition:.18s;
+}
+.mini-btn:hover{background:rgba(14,28,44,.85);border-color:rgba(var(--accent-rgb),.3);color:#fff}
+.stage-note{
+  position:absolute;z-index:6;left:16px;bottom:86px;max-width:70%;
+  font-family:var(--mono);font-size:8px;letter-spacing:.05em;
+  color:rgba(170,200,212,.5);pointer-events:none;
+}
+.definition-bar{
+  position:absolute;z-index:7;left:13px;right:13px;bottom:13px;
+  display:flex;align-items:center;gap:11px;min-height:58px;padding:8px 11px;
+  border:1px solid rgba(200,232,242,.11);border-radius:13px;
+  background:rgba(5,12,21,.8);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  box-shadow:0 16px 40px rgba(0,0,0,.2);
+}
+.definition-mark{
+  width:34px;height:34px;border-radius:9px;display:grid;place-items:center;flex:none;
+  color:var(--accent);border:1px solid rgba(var(--accent-rgb),.26);background:rgba(var(--accent-rgb),.08);
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.02em;
+}
+.definition-copy{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.def-title{font-size:7px;letter-spacing:.14em;color:var(--muted)}
+.def-formula{font-family:var(--serif);font-size:14px;line-height:1.35;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.def-values{font-family:var(--mono);font-size:8.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ---------- details ---------- */
+.concept h3{margin:0;font-size:15.5px;line-height:1.45;font-weight:600;letter-spacing:.01em}
+.concept .desc{margin:5px 0 0;font-size:11px;line-height:1.72;color:var(--text-soft)}
+.desc b,.note-card b{color:#fff;font-weight:500}
+.equation-card{
+  border:1px solid rgba(var(--accent-rgb),.2);border-radius:13px;padding:9px 11px 7px;
+  background:radial-gradient(ellipse 100% 120% at 0% 0%,rgba(var(--accent-rgb),.08),transparent 58%),rgba(0,0,0,.16);
+}
+.eq-head{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:8px;letter-spacing:.08em;color:var(--muted)}
+.eq-head span:last-child{font-family:var(--mono);font-size:8px;color:var(--accent)}
+.formula{
+  font-family:var(--serif);font-size:17px;line-height:1.45;text-align:center;color:#fff;
+  padding:7px 2px 6px;letter-spacing:.01em;text-shadow:0 0 20px rgba(var(--accent-rgb),.24);
+  overflow-wrap:anywhere;
+}
+.formula sub,.formula sup{font-size:.6em}
+.metric-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.hud-item{
+  display:flex;flex-direction:column;gap:2px;min-width:0;
+  padding:7px 9px;border-radius:9px;border:1px solid var(--line);
+  background:rgba(255,255,255,.025);
+}
+.hud-item span{font-size:8px;color:var(--muted);letter-spacing:.05em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hud-item b{font-family:var(--mono);font-size:11px;font-weight:500;color:var(--text-soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hud-item.hi{border-color:rgba(var(--accent-rgb),.26);background:rgba(var(--accent-rgb),.07)}
+.hud-item.hi b{color:var(--accent)}
+.note-card{
+  margin-top:auto;
+  border:1px solid var(--line);border-radius:12px;padding:9px 11px;
+  background:rgba(255,255,255,.025);
+}
+.tip-card{
+  margin-top:auto;border:1px solid var(--line);border-radius:11px;padding:9px 11px;
+  background:rgba(255,255,255,.02);
+}
+.tip-card span{display:block;font-size:7.5px;letter-spacing:.13em;color:var(--muted-2);text-transform:uppercase;margin-bottom:3px}
+.tip-card p{margin:0;font-size:9.5px;line-height:1.7;color:var(--muted)}
+.metric-grid .hud-item:last-child:nth-child(odd){grid-column:1/-1}
+.note-head{display:flex;align-items:center;gap:6px;font-size:8px;letter-spacing:.1em;color:var(--text-soft);text-transform:uppercase;margin-bottom:3px}
+.note-icon{
+  width:15px;height:15px;border-radius:50%;display:grid;place-items:center;
+  border:1px solid rgba(var(--accent-rgb),.3);color:var(--accent);
+  font-family:var(--serif);font-size:9px;line-height:1;
+}
+.note-card p{margin:0;font-size:10px;line-height:1.7;color:var(--muted)}
+.note-card i{font-family:var(--serif);font-style:italic;color:var(--text-soft)}
+.nw{white-space:nowrap}
+
+/* ---------- catalog ---------- */
+.catalog{
+  grid-area:catalog;min-width:0;border-radius:var(--radius);
+  padding:11px 15px 9px;display:flex;flex-direction:column;gap:7px;
+}
+.catalog-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.catalog-title{display:flex;align-items:flex-start;gap:9px;min-width:0}
+.catalog-head h2{margin:0;font-size:13.5px;font-weight:600;letter-spacing:.04em;line-height:1.35}
+.catalog-head p{margin:1px 0 0;font-size:9px;color:var(--muted);letter-spacing:.03em}
+.catalog-hint{font-size:8px;letter-spacing:.05em;color:var(--muted-2);white-space:nowrap;font-family:var(--mono)}
+.catalog-track{
+  display:flex;gap:6px;min-height:0;overflow-x:auto;overflow-y:hidden;
+  padding-bottom:2px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.12) transparent;
+}
+.catalog-track::-webkit-scrollbar{height:4px}
+.catalog-track::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px}
+.catalog-card{
+  flex:1 1 0;min-width:126px;display:flex;flex-direction:column;gap:1px;
+  padding:7px 10px 6px;border-radius:10px;border:1px solid var(--line);
+  background:rgba(255,255,255,.025);color:var(--text-soft);cursor:pointer;text-align:left;
+  transition:background .16s,border-color .16s,box-shadow .16s;
+}
+.catalog-card:hover{background:rgba(255,255,255,.055);border-color:rgba(255,255,255,.17)}
+.catalog-card.on{border-color:rgba(var(--tc-rgb),.35);background:rgba(var(--tc-rgb),.08);box-shadow:inset 0 0 20px rgba(var(--tc-rgb),.05)}
+.cc-top{display:flex;justify-content:space-between;align-items:baseline;gap:6px;font-family:var(--mono);font-size:7px;letter-spacing:.1em;color:var(--muted-2)}
+.cc-top b{font-weight:500;color:inherit}
+.catalog-card.on .cc-top{color:var(--tc)}
+.catalog-card strong{font-size:11px;font-weight:600;line-height:1.5;color:var(--text-soft);white-space:nowrap}
+.catalog-card.on strong{color:var(--tc)}
+.catalog-card small{font-size:8px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ---------- responsive ---------- */
+@media(max-width:1240px){
+  .workspace{grid-template-columns:minmax(228px,246px) minmax(0,1fr) minmax(272px,296px);gap:10px}
+  .panel-controls,.panel-details{padding:13px 12px}
+  .brand h1{font-size:14px}
+}
+@media(max-width:1020px){
+  body{overflow:auto}
+  .app{height:auto;min-height:100vh;min-height:100dvh}
+  .topbar{flex:0 0 auto;flex-wrap:wrap;gap:10px;padding:10px 14px}
+  .brand{flex:1 1 100%}
+  .top-actions{width:100%;justify-content:flex-end}
+  .workspace{
+    flex:none;display:flex;flex-direction:column;gap:10px;padding:0 12px 16px;
+  }
+  .stage-card{order:1;height:min(62vh,560px);min-height:400px;flex:none}
+  .panel-controls{order:2;flex:none;overflow:visible}
+  .panel-details{order:3;flex:none;overflow:visible}
+  .catalog{order:4;flex:none;height:auto}
+  .chapter-list{display:grid;grid-template-columns:1fr 1fr;gap:3px}
+  .metric-grid{grid-template-columns:repeat(3,1fr)}
+  .catalog-track{flex-wrap:nowrap}
+  .catalog-card{flex:0 0 140px}
+}
+@media(max-width:620px){
+  .eyebrow,.title-en{display:none}
+  .status-chip{display:none}
+  .brand h1{font-size:14px}
+  .workspace{padding:0 9px 12px}
+  .stage-card{height:52vh;min-height:340px}
+  .stage-card .stage-note{display:none}
+  .definition-bar{left:10px;right:10px;bottom:10px;min-height:52px;padding:7px 9px}
+  .def-formula{font-size:12.5px}
+  .def-values{font-size:8px}
+  .definition-mark{width:29px;height:29px;font-size:8.5px}
+  .panel-controls,.panel-details{padding:12px 11px}
+  .metric-grid{grid-template-columns:1fr 1fr}
+  .catalog{padding:10px 11px 8px}
+  .catalog-hint{display:none}
+  .catalog-card{flex:0 0 132px}
+  .live-copy strong{font-size:11.5px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+<div class="ambient" aria-hidden="true"><div class="glow glow-a"></div><div class="glow glow-b"></div></div>
+
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 36 36" fill="none">
+          <path d="M7 28.5h22M7 28.5V6.5" stroke="#ffc96b" stroke-width="1.05" opacity=".4" stroke-linecap="round"/>
+          <path d="M7 28.5 28 8.5" stroke="#69e5d0" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M23.2 8.5H28v4.8" stroke="#69e5d0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M7 28.5 21.5 14" stroke="#a99cff" stroke-width="1.2" opacity=".75" stroke-linecap="round"/>
+          <path d="M21.5 14v14.5" stroke="#ff8fab" stroke-width="1.1" opacity=".5" stroke-dasharray="2.5 3.5"/>
+        </svg>
+      </div>
+      <div class="brand-copy">
+        <div class="eyebrow"><span>Counting Lab</span><i></i><span>选择性必修第三册</span></div>
+        <h1>计数原理 <span class="title-en">/ COUNTING</span></h1>
+      </div>
+    </div>
+    <div class="top-actions">
+      <a class="ghost-btn" href="../index.html" title="返回总览" style="text-decoration:none">← 总览</a>
+      <div class="status-chip" id="topChip"><span class="chip-dot"></span>第 1 / 7 节</div>
+      <button class="ghost-btn" id="resetBtn" type="button" title="恢复本节初始状态">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3M4.5 4.5V9H9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        重置本节
+      </button>
+      <button class="icon-btn" id="fullBtn" type="button" aria-label="全屏显示" title="全屏显示">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8.5 4H4v4.5M15.5 4H20v4.5M8.5 20H4v-4.5M15.5 20H20v-4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <aside class="panel panel-controls" aria-label="情境与参数控制">
+      <div class="panel-head">
+        <span class="section-num">01</span>
+        <div><h2>情境与参数</h2><p>选择情境 · 调整变量</p></div>
+      </div>
+      <nav class="chapter-list" id="chapterList" aria-label="情境列表"></nav>
+      <div class="block-label"><span>本节控制 / Controls</span><span>拖动或调节</span></div>
+      <div class="controls" id="controls"></div>
+      <div class="tip-card">
+        <span>操作提示 / Tips</span>
+        <p>拖动画布彩色端点 · 调节滑块与开关 · ← → 切换章节 · 空格播放</p>
+      </div>
+    </aside>
+
+    <section class="stage-card" aria-label="平面向量动态图">
+      <canvas id="cv">你的浏览器需要支持 Canvas。</canvas>
+
+      <div class="stage-top">
+        <div class="live-badge">
+          <span class="live-dot"></span>
+          <div class="live-copy"><span>当前情境 / Scene</span><strong id="liveName">概念</strong></div>
+          <span class="live-idx" id="liveIndex">01</span>
+        </div>
+        <div class="stage-tools">
+          <button class="mini-btn" id="playBtn" type="button" hidden>▶ 播放法则</button>
+        </div>
+      </div>
+
+      <div class="stage-note" id="hint"></div>
+
+      <div class="definition-bar">
+        <div class="definition-mark" id="defMark">01</div>
+        <div class="definition-copy">
+          <div class="def-title">核心公式 / Key Formula</div>
+          <div class="def-formula" id="stageFormula"></div>
+          <div class="def-values" id="stageValues"></div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="panel panel-details" aria-label="本节要点与实时数据">
+      <div class="panel-head">
+        <span class="section-num">02</span>
+        <div><h2>本节要点</h2><p>概念 · 公式 · 实时数据</p></div>
+      </div>
+      <div class="concept">
+        <h3 id="title"></h3>
+        <p class="desc" id="desc"></p>
+      </div>
+      <div class="equation-card">
+        <div class="eq-head"><span>公式 / Formula</span><span id="eqTag">01</span></div>
+        <div class="formula" id="formula"></div>
+      </div>
+      <div class="metric-grid" id="hud"></div>
+      <div class="note-card">
+        <div class="note-head"><span class="note-icon">i</span>观察提示</div>
+        <p id="note"></p>
+      </div>
+    </aside>
+
+    <section class="catalog" aria-label="情境图鉴">
+      <div class="catalog-head">
+        <div class="catalog-title">
+          <span class="section-num">03</span>
+          <div><h2>情境图鉴</h2><p>五个情境 · 点击切换</p></div>
+        </div>
+        <div class="catalog-hint">分类相加，分步相乘</div>
+      </div>
+      <div class="catalog-track" id="catalogTrack"></div>
+    </section>
+  </main>
+</div>
+<script>
+'use strict';
+/* ============================================================
+   基础工具
+   ============================================================ */
+const $ = s => document.querySelector(s);
+const root = document.documentElement;
+const cv = $('#cv');
+const ctx = cv.getContext('2d');
+const hudEl = $('#hud');
+const controlsEl = $('#controls');
+const SERIF = '"Cambria Math","STIX Two Math","Times New Roman",serif';
+const SANS = '"PingFang SC","Microsoft YaHei","Noto Sans SC",system-ui,sans-serif';
+const TAU = Math.PI * 2;
+
+let W = 800, H = 600, DPR = 1;
+const V = {ox: 400, oy: 300, k: 60};
+const clamp = (v, a, b) => v < a ? a : v > b ? b : v;
+const lerp = (a, b, t) => a + (b - a) * t;
+const X = x => V.ox + x * V.k;
+const Y = y => V.oy - y * V.k;
+const fmt = (n, d = 2) => (Math.abs(n) < 5e-3 ? 0 : n).toFixed(d);
+const deg = r => { let d = r * 180 / Math.PI % 360; return d < 0 ? d + 360 : d; };
+const len2 = (x, y) => Math.hypot(x, y);
+const easeInOut = t => t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+
+function setFrame(cx, cy, span) {
+  V.k = Math.min(W / span, H / (span * .62));
+  V.ox = W * cx;
+  V.oy = H * cy;
+}
+function lim() {
+  return {
+    x0: -V.ox / V.k + .25,
+    x1: (W - V.ox) / V.k - .25,
+    y0: -(H - V.oy) / V.k + .25,
+    y1: V.oy / V.k - .25
+  };
+}
+function clampPt(p) {
+  const L = lim();
+  return {x: clamp(p.x, L.x0, L.x1), y: clamp(p.y, L.y0, L.y1)};
+}
+function base() {
+  const L = lim();
+  ctx.save();
+  ctx.lineWidth = 1;
+  for (let i = Math.ceil(L.x0); i <= Math.floor(L.x1); i++) {
+    ctx.strokeStyle = i === 0 ? 'rgba(170,205,220,.15)' : 'rgba(170,205,220,.045)';
+    ctx.beginPath(); ctx.moveTo(X(i), 0); ctx.lineTo(X(i), H); ctx.stroke();
+  }
+  for (let j = Math.ceil(L.y0); j <= Math.floor(L.y1); j++) {
+    ctx.strokeStyle = j === 0 ? 'rgba(170,205,220,.15)' : 'rgba(170,205,220,.045)';
+    ctx.beginPath(); ctx.moveTo(0, Y(j)); ctx.lineTo(W, Y(j)); ctx.stroke();
+  }
+  ctx.restore();
+}
+function tscale() { return clamp(V.k / 62, .84, 1.06); }
+function math(txt, x, y, color, size = 17, align = 'center', baseline = 'middle') {
+  size = Math.max(9, size * tscale());
+  ctx.save();
+  ctx.font = 'italic ' + size + 'px ' + SERIF;
+  ctx.fillStyle = color;
+  ctx.textAlign = align;
+  ctx.textBaseline = baseline;
+  ctx.lineJoin = 'round';
+  ctx.lineWidth = Math.max(2, size * .24);
+  ctx.strokeStyle = 'rgba(5,10,18,.78)';
+  ctx.strokeText(txt, x, y);
+  ctx.fillText(txt, x, y);
+  ctx.restore();
+}
+function sans(txt, x, y, color, size = 11.5, align = 'center', baseline = 'middle') {
+  size = Math.max(8, size * tscale());
+  ctx.save();
+  ctx.font = size + 'px ' + SANS;
+  ctx.fillStyle = color;
+  ctx.textAlign = align;
+  ctx.textBaseline = baseline;
+  ctx.lineJoin = 'round';
+  ctx.lineWidth = Math.max(2, size * .24);
+  ctx.strokeStyle = 'rgba(5,10,18,.78)';
+  ctx.strokeText(txt, x, y);
+  ctx.fillText(txt, x, y);
+  ctx.restore();
+}
+function arrow(a, b, color, opt) {
+  opt = opt || {};
+  const x1 = X(a.x), y1 = Y(a.y), x2 = X(b.x), y2 = Y(b.y);
+  const dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy);
+  if (L < 1) return;
+  const ux = dx / L, uy = dy / L;
+  const head = Math.min(opt.head || 11, L * .55);
+  const hw = head * .55;
+  const bx = x2 - ux * head * .88, by = y2 - uy * head * .88;
+  ctx.save();
+  ctx.globalAlpha = opt.alpha == null ? 1 : opt.alpha;
+  ctx.strokeStyle = color;
+  ctx.lineWidth = opt.w || 3;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  if (opt.dash) ctx.setLineDash(opt.dash);
+  if (opt.glow) { ctx.shadowColor = color; ctx.shadowBlur = opt.glow; }
+  ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(bx, by); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  ctx.moveTo(x2, y2);
+  ctx.lineTo(bx - uy * hw, by + ux * hw);
+  ctx.lineTo(bx + uy * hw, by - ux * hw);
+  ctx.closePath();
+  ctx.fill();
+  ctx.restore();
+}
+function line(a, b, color, opt) {
+  opt = opt || {};
+  ctx.save();
+  ctx.globalAlpha = opt.alpha == null ? 1 : opt.alpha;
+  ctx.strokeStyle = color;
+  ctx.lineWidth = opt.w || 1.4;
+  ctx.lineCap = 'round';
+  if (opt.dash) ctx.setLineDash(opt.dash);
+  ctx.beginPath(); ctx.moveTo(X(a.x), Y(a.y)); ctx.lineTo(X(b.x), Y(b.y)); ctx.stroke();
+  ctx.restore();
+}
+function dot(p, color, r = 4) {
+  ctx.save();
+  ctx.fillStyle = color;
+  ctx.shadowColor = color;
+  ctx.shadowBlur = 10;
+  ctx.beginPath(); ctx.arc(X(p.x), Y(p.y), r, 0, TAU); ctx.fill();
+  ctx.restore();
+}
+function handle(p, color, active) {
+  const x = X(p.x), y = Y(p.y);
+  ctx.save();
+  ctx.shadowColor = 'rgba(0,0,0,.55)';
+  ctx.shadowBlur = 8;
+  ctx.beginPath(); ctx.arc(x, y, active ? 9 : 7, 0, TAU);
+  ctx.fillStyle = '#0a111d'; ctx.fill();
+  ctx.shadowBlur = 0;
+  ctx.lineWidth = 2.2;
+  ctx.strokeStyle = color;
+  ctx.stroke();
+  ctx.beginPath(); ctx.arc(x, y, 2.3, 0, TAU);
+  ctx.fillStyle = color; ctx.fill();
+  ctx.restore();
+}
+function vlabel(a, b, txt, color, off = 18, size = 18) {
+  const x1 = X(a.x), y1 = Y(a.y), x2 = X(b.x), y2 = Y(b.y);
+  const mx = (x1 + x2) / 2, my = (y1 + y2) / 2;
+  const dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy) || 1;
+  let nx = -dy / L, ny = dx / L;
+  if (ny > 0) { nx = -nx; ny = -ny; }
+  off *= tscale();
+  math(txt, mx + nx * off, my + ny * off, color, size);
+}
+function segLabel(a, b, txt, color, frac, off, size) {
+  frac = frac == null ? .5 : frac;
+  off = off == null ? 16 : off;
+  size = size || 12;
+  const x1 = X(a.x), y1 = Y(a.y), x2 = X(b.x), y2 = Y(b.y);
+  const px = lerp(x1, x2, frac), py = lerp(y1, y2, frac);
+  const dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy) || 1;
+  let nx = -dy / L, ny = dx / L;
+  if (ny > 0) { nx = -nx; ny = -ny; }
+  off *= tscale();
+  sans(txt, px + nx * off, py + ny * off, color, size);
+}
+function segMath(a, b, txt, color, frac, off, size) {
+  frac = frac == null ? .5 : frac;
+  off = off == null ? 16 : off;
+  size = size || 17;
+  const x1 = X(a.x), y1 = Y(a.y), x2 = X(b.x), y2 = Y(b.y);
+  const px = lerp(x1, x2, frac), py = lerp(y1, y2, frac);
+  const dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy) || 1;
+  let nx = -dy / L, ny = dx / L;
+  if (ny > 0) { nx = -nx; ny = -ny; }
+  off *= tscale();
+  math(txt, px + nx * off, py + ny * off, color, size);
+}
+function angleArc(c, th1, th2, r, color, txt, size = 15) {
+  let d = ((th2 - th1 + Math.PI) % TAU + TAU) % TAU - Math.PI;
+  if (Math.abs(d) < .02) return;
+  ctx.save();
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 1.8;
+  ctx.beginPath();
+  ctx.arc(X(c.x), Y(c.y), r, -th1, -(th1 + d), d > 0);
+  ctx.stroke();
+  ctx.restore();
+  if (txt) {
+    const mid = th1 + d / 2;
+    sans(txt, X(c.x) + Math.cos(mid) * (r + 22), Y(c.y) - Math.sin(mid) * (r + 22), color, size);
+  }
+}
+function rightAngle(center, u, v, s, color) {
+  const cx = X(center.x), cy = Y(center.y);
+  const ux = u.x, uy = -u.y, vx = v.x, vy = -v.y;
+  ctx.save();
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 1.2;
+  ctx.setLineDash([]);
+  ctx.beginPath();
+  ctx.moveTo(cx + ux * s, cy + uy * s);
+  ctx.lineTo(cx + (ux + vx) * s, cy + (uy + vy) * s);
+  ctx.lineTo(cx + vx * s, cy + vy * s);
+  ctx.stroke();
+  ctx.restore();
+}
+function vecText(p) {
+  return '(' + fmt(p.x) + ', ' + fmt(p.y) + ')';
+}
+
+/* ============================================================
+   控件构造
+   ============================================================ */
+function addSlider(parent, label, min, max, step, value, format, onInput) {
+  const w = document.createElement('label');
+  w.className = 'ctrl';
+  const top = document.createElement('div');
+  top.className = 'ctrl-top';
+  const l = document.createElement('span');
+  l.textContent = label;
+  const b = document.createElement('b');
+  b.textContent = format(value);
+  top.append(l, b);
+  const inp = document.createElement('input');
+  inp.type = 'range';
+  inp.min = min; inp.max = max; inp.step = step; inp.value = value;
+  inp.addEventListener('input', () => {
+    const v = parseFloat(inp.value);
+    b.textContent = format(v);
+    onInput(v);
+  });
+  w.append(top, inp);
+  parent.appendChild(w);
+  return {
+    input: inp,
+    set(v, fire) {
+      inp.value = v;
+      b.textContent = format(v);
+      if (fire) onInput(v);
+    }
+  };
+}
+function addToggle(parent, label, value, onChange) {
+  const w = document.createElement('label');
+  w.className = 'switch';
+  const s = document.createElement('span');
+  s.textContent = label;
+  const inp = document.createElement('input');
+  inp.type = 'checkbox';
+  inp.checked = !!value;
+  const i = document.createElement('i');
+  inp.addEventListener('change', () => onChange(inp.checked));
+  w.append(s, inp, i);
+  parent.appendChild(w);
+  return {input: inp};
+}
+function addBtn(parent, label, fn, cls) {
+  const b = document.createElement('button');
+  b.className = 'btn ' + (cls || '');
+  b.textContent = label;
+  b.addEventListener('click', fn);
+  parent.appendChild(b);
+  return b;
+}
+function row(parent) {
+  const r = document.createElement('div');
+  r.className = 'row';
+  parent.appendChild(r);
+  return r;
+}
+const MODULES = [];
+
+/* ============================================================
+   选择性必修第三册 · 第 6 章 计数原理
+   分类加法与分步乘法 / 排列 / 组合 / 二项式定理 / 杨辉三角
+   ============================================================ */
+(function () {
+
+/* ---------- 工具 ---------- */
+function fact(n) { let r = 1; for (let i = 2; i <= n; i++) r *= i; return r; }
+function perm(n, m) { let r = 1; for (let i = 0; i < m; i++) r *= (n - i); return r; }
+function comb(n, k) {
+  if (k < 0 || k > n) return 0;
+  return Math.round(fact(n) / (fact(k) * fact(n - k)));
+}
+function allCombos(n, m) {
+  const out = [], cur = [];
+  (function rec(st) {
+    if (cur.length === m) { out.push(cur.slice()); return; }
+    for (let i = st; i <= n - (m - cur.length); i++) { cur.push(i); rec(i + 1); cur.pop(); }
+  })(0);
+  return out;
+}
+const SUP = '⁰¹²³⁴⁵⁶⁷⁸⁹';
+function sup(v) {
+  v = Math.max(0, Math.round(v));
+  return String(v).split('').map(d => SUP[+d] || '').join('');
+}
+function ring(c, r, color, w, dash) {
+  ctx.save();
+  ctx.beginPath(); ctx.arc(X(c.x), Y(c.y), r * V.k, 0, TAU);
+  ctx.strokeStyle = color; ctx.lineWidth = w || 1.5;
+  if (dash) ctx.setLineDash(dash);
+  ctx.stroke(); ctx.restore();
+}
+function fillCircle(c, r, color) {
+  ctx.save();
+  ctx.beginPath(); ctx.arc(X(c.x), Y(c.y), r * V.k, 0, TAU);
+  ctx.fillStyle = color; ctx.fill(); ctx.restore();
+}
+function barAt(cx, y0, h, w, color) {
+  ctx.save();
+  ctx.fillStyle = color;
+  ctx.fillRect(X(cx) - w * V.k / 2, Y(y0 + h), w * V.k, Math.max(1, h * V.k));
+  ctx.restore();
+}
+
+/* ---------- 01 分类加法与分步乘法 ---------- */
+MODULES.push({
+  key: 'rules', tab: '01', name: '两个计数原理', en: 'RULES', blurb: '分类相加 · 分步相乘',
+  accent: '#5eead4', rgb: '94,234,212',
+  hint: '拖动换乘点乙，调节两段的路数，观察相乘',
+  state: {a: 3, b: 4, hub: {x: 0, y: .9}, direct: true},
+  reset() {
+    const s = this.state;
+    s.a = 3; s.b = 4; s.hub = {x: 0, y: .9}; s.direct = true;
+  },
+  meta() {
+    return {
+      title: '分类相加，分步相乘',
+      desc: '从甲地到丙地，若必须经乙地中转，就要分两步走：甲到乙有 a 种走法，乙到丙有 b 种走法，由<b>分步乘法</b>原理共有 a×b 种。若还有不经乙的走法，则同一类内部相乘、不同类之间相加。',
+      formula: '分类：N = m₁ + m₂ + …<br>分步：N = m₁ × m₂ × …',
+      note: '拖动乙点可改变中转位置，两条滑动条改变两段的路数。判断用加法还是乘法：<span class="nw">一步就能完成 → 加法</span>，<span class="nw">必须分步完成 → 乘法</span>。'
+    };
+  },
+  handles() { return [{id: 'hub', x: this.state.hub.x, y: this.state.hub.y}]; },
+  drag(id, p) {
+    const q = clampPt(p);
+    this.state.hub = {x: clamp(q.x, -1.5, 1.5), y: clamp(q.y, -.5, 1.9)};
+  },
+  draw() {
+    setFrame(.5, .58, 13);
+    base();
+    const s = this.state, a = s.a, b = s.b;
+    const P = {x: -4.85, y: .9}, Q = {x: 4.85, y: .9}, M = s.hub;
+
+    const dP = len2(M.x - P.x, M.y - P.y) || 1;
+    const n1 = {x: -(M.y - P.y) / dP, y: (M.x - P.x) / dP};
+    const dQ = len2(Q.x - M.x, Q.y - M.y) || 1;
+    const n2 = {x: -(Q.y - M.y) / dQ, y: (Q.x - M.x) / dQ};
+
+    // 不经乙的两条路线（类②）
+    if (s.direct) {
+      for (let i = 0; i < 2; i++) {
+        const w1 = {x: -1.9 - i * .5, y: -1.45 - i * .55};
+        const w2 = {x: 1.9 + i * .5, y: -1.45 - i * .55};
+        arrow(P, w1, 'rgba(255,197,107,.34)', {w: 1.5, dash: [6, 5], head: 6});
+        arrow(w1, w2, 'rgba(255,197,107,.34)', {w: 1.5, dash: [6, 5], head: 6});
+        arrow(w2, Q, 'rgba(255,197,107,.34)', {w: 1.5, dash: [6, 5], head: 6});
+      }
+      sans('类②：不经乙，共 2 种', X(0), Y(-2.5), 'rgba(255,215,150,.85)', 11);
+    }
+
+    // 甲→乙
+    for (let i = 0; i < a; i++) {
+      const off = (i - (a - 1) / 2) * .16;
+      const e = {x: M.x + n1.x * off, y: M.y + n1.y * off};
+      arrow(P, e, 'rgba(94,234,212,' + (.30 + .34 / a) + ')', {w: 1.8, head: 6, glow: 4});
+    }
+    // 乙→丙
+    for (let i = 0; i < b; i++) {
+      const off = (i - (b - 1) / 2) * .16;
+      const st = {x: M.x + n2.x * off, y: M.y + n2.y * off};
+      arrow(st, Q, 'rgba(108,182,255,' + (.26 + .3 / b) + ')', {w: 1.8, head: 6, glow: 4});
+    }
+
+    segLabel(P, M, a + ' 种', 'rgba(150,240,220,.95)', .42, 16, 11.5);
+    segLabel(M, Q, b + ' 种', 'rgba(160,205,255,.95)', .58, 16, 11.5);
+
+    dot(P, '#8ff5e4', 6); dot(Q, '#8ff5e4', 6);
+    sans('甲', X(P.x) - 26, Y(P.y), 'rgba(190,230,225,.9)', 13);
+    sans('丙', X(Q.x) + 26, Y(Q.y), 'rgba(190,230,225,.9)', 13);
+    sans('乙', X(M.x), Y(M.y) + 22, '#8ff5e4', 13);
+    handle(M, '#5eead4', hoverId === 'hub');
+
+    math(a + ' × ' + b + ' = ' + (a * b), X(0), Y(3.25), '#8ff5e4', 20);
+    sans('类①：先甲→乙，再乙→丙', X(0), Y(2.72), 'rgba(170,215,215,.75)', 10.5);
+    const total = a * b + (s.direct ? 2 : 0);
+    sans('全部走法：' + (s.direct ? (a * b) + ' + 2 = ' + total : String(a * b)) + ' 种',
+      X(0), Y(-3.15), '#ffd99a', 12.5);
+  },
+  hud() {
+    const s = this.state;
+    return [
+      {k: '甲→乙 的走法', v: s.a + ' 种'},
+      {k: '乙→丙 的走法', v: s.b + ' 种'},
+      {k: '经乙：a×b', v: String(s.a * s.b), hi: true},
+      {k: '不经乙', v: s.direct ? '2 种' : '未计入'},
+      {k: '总走法', v: String(s.a * s.b + (s.direct ? 2 : 0)), hi: true}
+    ];
+  },
+  panel(el) {
+    const s = this.state;
+    addSlider(el, '甲→乙 的走法数 a', 2, 5, 1, s.a, v => String(v), v => s.a = Math.round(v));
+    addSlider(el, '乙→丙 的走法数 b', 2, 6, 1, s.b, v => String(v), v => s.b = Math.round(v));
+    addToggle(el, '计入不经乙的 2 种走法', s.direct, v => s.direct = v);
+    const r = row(el);
+    addBtn(r, '拖动或恢复乙的位置', () => { s.hub = {x: 0, y: .9}; }, 'ghost');
+  }
+});
+
+/* ---------- 02 排列 ---------- */
+MODULES.push({
+  key: 'arrange', tab: '02', name: '排列', en: 'PERMUTATION', blurb: '排队与 A(n,m)',
+  accent: '#6cb6ff', rgb: '108,182,255',
+  hint: '调节人数与位数，点“安排下一位”填座',
+  state: {n: 5, m: 3, picked: [], tree: true},
+  reset() { const s = this.state; s.n = 5; s.m = 3; s.picked = []; s.tree = true; },
+  meta() {
+    return {
+      title: '排列：顺序不同就是不同的排法',
+      desc: '把 n 个不同的人安排到 m 个位置：第 1 个位置有 n 种选法，第 2 个位置只剩 n−1 种，依次递减。由分步乘法原理，排法总数为 <b>n(n−1)…(n−m+1)</b>，记作 <b>A(n,m)</b>。',
+      formula: 'A(n,m) = n(n−1)…(n−m+1) = n! / (n−m)!',
+      note: '每点一次按钮，可选人数就少 1，下方的树状图每层分支数也依次减少。<i>交换两个人的位置会得到新的排列</i>，所以排列与顺序有关。'
+    };
+  },
+  draw() {
+    setFrame(.5, .52, 13);
+    base();
+    const s = this.state, n = s.n, m = s.m, k = s.picked.length;
+    const nA = perm(n, m);
+
+    // 座位
+    const sx0 = -5.15, gap = 1.45, bw = 1.06;
+    for (let i = 0; i < m; i++) {
+      const cx = sx0 + i * gap;
+      const filled = i < k;
+      const col = filled ? '#6cb6ff' : 'rgba(150,180,205,.45)';
+      const yc = 2.72, hh = .5;
+      line({x: cx - bw / 2, y: yc - hh}, {x: cx + bw / 2, y: yc - hh}, col, {w: 1.5, dash: filled ? null : [5, 4]});
+      line({x: cx - bw / 2, y: yc + hh}, {x: cx + bw / 2, y: yc + hh}, col, {w: 1.5, dash: filled ? null : [5, 4]});
+      line({x: cx - bw / 2, y: yc - hh}, {x: cx - bw / 2, y: yc + hh}, col, {w: 1.5, dash: filled ? null : [5, 4]});
+      line({x: cx + bw / 2, y: yc - hh}, {x: cx + bw / 2, y: yc + hh}, col, {w: 1.5, dash: filled ? null : [5, 4]});
+      if (filled) math(String(s.picked[i]), X(cx), Y(yc), '#cfe6ff', 19);
+      else math('?', X(cx), Y(yc), 'rgba(140,170,200,.45)', 17);
+      sans('第 ' + (i + 1) + ' 位', X(cx), Y(yc + .78), 'rgba(150,185,215,.6)', 9.5);
+      sans((n - i) + ' 种', X(cx), Y(yc - .88), i === k ? '#8fc6ff' : 'rgba(150,185,215,.55)', 11);
+    }
+
+    // 递减因子链
+    const fs = [];
+    for (let i = 0; i < m; i++) fs.push(n - i);
+    math('A(' + n + ',' + m + ') = ' + (m > 1 ? fs.join(' × ') + ' = ' + nA : String(nA)),
+      X(0), Y(1.25), '#a9d4ff', 17);
+    sans('分步选择，每步少一种', X(0), Y(.72), 'rgba(150,185,215,.65)', 10);
+
+    // 树状图
+    if (s.tree) {
+      const yc = -2.0, st = .33;
+      const root = {x: -5.9, y: yc};
+      dot(root, 'rgba(108,182,255,.85)', 4);
+      for (let L = 1; L <= m; L++) {
+        const cnt = n - L + 1;
+        const x = -4.4 + (L - 1) * 1.5;
+        const span = (cnt - 1) * st;
+        let parent = root;
+        if (L > 1) parent = {x: -4.4 + (L - 2) * 1.5, y: yc + (n - L + 1) * st / 2};
+        for (let i = 0; i < cnt; i++) {
+          const p = {x: x, y: yc + span / 2 - i * st};
+          line(parent, p, 'rgba(108,182,255,.22)', {w: 1});
+          dot(p, L === m ? 'rgba(108,182,255,.95)' : 'rgba(150,195,240,.7)', 3.4);
+        }
+        sans(String(cnt), X(x), Y(yc - span / 2 - .42), 'rgba(150,185,215,.6)', 9.5);
+      }
+      sans('树状图：第 ' + m + ' 层的分支数为 ' + (n - m + 1), X(-1.2), Y(-3.7), 'rgba(150,185,215,.55)', 9.5);
+    }
+  },
+  hud() {
+    const s = this.state;
+    return [
+      {k: '人数 n', v: String(s.n)},
+      {k: '位数 m', v: String(s.m)},
+      {k: 'A(n,m)', v: String(perm(s.n, s.m)), hi: true},
+      {k: '已排', v: s.picked.length + ' / ' + s.m},
+      {k: '剩余可选', v: String(s.n - s.picked.length)}
+    ];
+  },
+  panel(el) {
+    const s = this.state;
+    const mS = addSlider(el, '人数 n', 3, 6, 1, s.n, v => String(v), v => {
+      s.n = Math.round(v);
+      mS.input.max = s.n;
+      if (s.m > s.n) { s.m = s.n; mS.set(s.m); }
+      s.picked = s.picked.filter(x => x <= s.n);
+    });
+    addSlider(el, '位数 m', 1, s.n, 1, s.m, v => String(v), v => {
+      s.m = Math.round(v);
+      s.picked = s.picked.slice(0, s.m);
+    });
+    addToggle(el, '显示树状图', s.tree, v => s.tree = v);
+    const r = row(el);
+    addBtn(r, '安排下一位', () => {
+      if (s.picked.length >= s.m) return;
+      const used = new Set(s.picked);
+      const pool = [];
+      for (let i = 1; i <= s.n; i++) if (!used.has(i)) pool.push(i);
+      s.picked.push(pool[Math.floor(Math.random() * pool.length)]);
+    });
+    addBtn(r, '清空', () => { s.picked = []; }, 'ghost');
+  }
+});
+
+/* ---------- 03 组合 ---------- */
+MODULES.push({
+  key: 'pick', tab: '03', name: '组合', en: 'COMBINATION', blurb: '只选不排 C(n,m)',
+  accent: '#ff8fab', rgb: '255,143,171',
+  hint: '滑动调节 n 与 m，点“下一组”遍历所有组合',
+  state: {n: 5, m: 2, idx: 0, all: true},
+  reset() { const s = this.state; s.n = 5; s.m = 2; s.idx = 0; s.all = true; },
+  meta() {
+    return {
+      title: '组合：只问取哪些，不问顺序',
+      desc: '从 n 个不同元素中取出 m 个，不计先后，得到<b>组合</b>。若按顺序取有 A(n,m) 种，而每种组合内部的 m! 种顺序都被重复计算，故 C(n,m) = A(n,m) / m!。',
+      formula: 'C(n,m) = A(n,m) / m! = n! / (m!(n−m)!)',
+      note: '点“下一组”会按字典序走遍所有组合，右下角编号与总数一致。<i>交换取出的元素顺序仍是同一组合</i>，这正是组合与排列的区别。'
+    };
+  },
+  draw() {
+    setFrame(.5, .56, 13);
+    base();
+    const s = this.state, n = s.n, m = s.m;
+    const list = allCombos(n, m);
+    const idx = clamp(s.idx, 0, list.length - 1);
+    const sel = list[idx];
+
+    const gap = 1.15, x0 = -(n - 1) * gap / 2, yc = 2.55;
+    for (let i = 0; i < n; i++) {
+      const c = {x: x0 + i * gap, y: yc};
+      const on = sel.indexOf(i) >= 0;
+      if (on) {
+        fillCircle(c, .34, 'rgba(255,143,171,.18)');
+        ring(c, .34, '#ff8fab', 2.2);
+        math(String(i + 1), X(c.x), Y(c.y), '#ffd3de', 16);
+        line({x: c.x, y: yc + .55}, {x: c.x, y: yc + .78}, 'rgba(255,143,171,.5)', {w: 1.2});
+      } else {
+        ring(c, .34, 'rgba(180,195,215,.32)', 1.4, [4, 4]);
+        math(String(i + 1), X(c.x), Y(c.y), 'rgba(185,200,215,.55)', 15);
+      }
+    }
+    sans('取出 ' + m + ' 个，顺序不算', X(0), Y(3.35), 'rgba(255,190,205,.85)', 10.5);
+
+    const np = perm(n, m), nc = comb(n, m);
+    math('C(' + n + ',' + m + ') = A(' + n + ',' + m + ') ÷ ' + m + '! = ' + np + ' ÷ ' + fact(m) + ' = ' + nc,
+      X(0), Y(1.55), '#ffb3c6', 15);
+    sans('先按顺序取 ' + np + ' 种，每种组合被重复算了 ' + fact(m) + ' 次', X(0), Y(1.0),
+      'rgba(210,175,190,.7)', 10);
+
+    if (s.all) {
+      const per = 5, cw = 2.2, ch = .56;
+      const rows = Math.ceil(list.length / per);
+      const gx0 = -(per - 1) * cw / 2, gy0 = -.2;
+      list.forEach((c, i2) => {
+        const r2 = Math.floor(i2 / per), c2 = i2 % per;
+        const px = gx0 + c2 * cw, py = gy0 - r2 * ch;
+        const on = i2 === idx;
+        if (on) {
+          ctx.save();
+          ctx.fillStyle = 'rgba(255,143,171,.16)';
+          ctx.fillRect(X(px) - cw * V.k * .36, Y(py) - 11, cw * V.k * .72, 22);
+          ctx.restore();
+        }
+        sans('{' + c.map(v => v + 1).join(',') + '}', X(px), Y(py),
+          on ? '#ffd3de' : 'rgba(190,195,215,.55)', on ? 11 : 10);
+      });
+      sans('共 ' + list.length + ' 种组合（第 ' + (idx + 1) + ' 组高亮）',
+        X(0), Y(gy0 - rows * ch - .15), 'rgba(210,175,190,.7)', 10);
+    }
+  },
+  hud() {
+    const s = this.state;
+    return [
+      {k: 'n', v: String(s.n)},
+      {k: 'm', v: String(s.m)},
+      {k: 'A(n,m)', v: String(perm(s.n, s.m))},
+      {k: 'm!', v: String(fact(s.m))},
+      {k: 'C(n,m)', v: String(comb(s.n, s.m)), hi: true}
+    ];
+  },
+  panel(el) {
+    const s = this.state;
+    const mS = addSlider(el, '总数 n', 3, 6, 1, s.n, v => String(v), v => {
+      s.n = Math.round(v);
+      mS.input.max = s.n;
+      if (s.m > s.n) { s.m = s.n; mS.set(s.m); }
+      s.idx = 0;
+    });
+    addSlider(el, '取出 m', 1, s.n, 1, s.m, v => String(v), v => { s.m = Math.round(v); s.idx = 0; });
+    addToggle(el, '列举全部组合', s.all, v => s.all = v);
+    const r = row(el);
+    const total = () => allCombos(s.n, s.m).length;
+    addBtn(r, '上一组', () => { s.idx = (s.idx - 1 + total()) % total(); });
+    addBtn(r, '下一组', () => { s.idx = (s.idx + 1) % total(); });
+  }
+});
+
+/* ---------- 04 二项式定理 ---------- */
+MODULES.push({
+  key: 'binomial', tab: '04', name: '二项式定理', en: 'BINOMIAL', blurb: '系数 C(n,k)',
+  accent: '#b49cff', rgb: '180,156,255',
+  hint: '滑动改变指数 n，观察各项系数的变化',
+  state: {n: 4, showV: true, mark: true},
+  reset() { const s = this.state; s.n = 4; s.showV = true; s.mark = true; },
+  meta() {
+    return {
+      title: '二项展开式的系数',
+      desc: '把 (a+b)ⁿ 逐项乘开，含 k 个 b 的项一共有 C(n,k) 个，合并同类项后其系数就是 <b>C(n,k)</b>。系数左右对称、中间最大，全部系数之和等于 2ⁿ。',
+      formula: '(a+b)<sup>n</sup> = Σ<sub>k=0</sub><sup>n</sup> C(n,k)·a<sup>n−k</sup>b<sup>k</sup>',
+      note: '拖动滑动条增大 n，条形图逐行变高、变宽，形状始终先增后减且左右对称。<i>第 k+1 项</i>的二项式系数就是 C(n,k)，注意与“系数”区分（含 a、b 自身系数时不同）。'
+    };
+  },
+  draw() {
+    setFrame(.5, .56, 13);
+    base();
+    const s = this.state, n = s.n;
+    const gap = Math.min(1.34, 10.4 / (n + 1));
+    const bw = Math.min(.78, gap * .58);
+    const yB = -1.05, H0 = 2.35;
+    const mx = comb(n, Math.floor(n / 2));
+    const unit = H0 / mx;
+    const x0 = -n * gap / 2;
+
+    line({x: -6.1, y: yB}, {x: 6.1, y: yB}, 'rgba(200,225,235,.32)', {w: 1.3});
+
+    for (let k = 0; k <= n; k++) {
+      const c = comb(n, k), h = c * unit, cx = x0 + k * gap;
+      const hot = s.mark && c === mx;
+      barAt(cx, yB, h, bw, hot ? 'rgba(255,197,107,.82)' : 'rgba(180,156,255,.62)');
+      line({x: cx - bw / 2, y: yB}, {x: cx - bw / 2, y: yB + h}, hot ? 'rgba(255,197,107,.95)' : 'rgba(180,156,255,.9)', {w: 1.2});
+      line({x: cx + bw / 2, y: yB}, {x: cx + bw / 2, y: yB + h}, hot ? 'rgba(255,197,107,.95)' : 'rgba(180,156,255,.9)', {w: 1.2});
+      if (s.showV) sans(String(c), X(cx), Y(yB + h) - 11, hot ? '#ffd99a' : 'rgba(215,205,255,.92)', 10.5);
+      math('a' + sup(n - k) + 'b' + sup(k), X(cx), Y(yB) + 24, hot ? 'rgba(255,215,150,.9)' : 'rgba(195,185,240,.72)', 11);
+    }
+
+    math('(a+b)' + sup(n), X(0), Y(2.95), '#d8caff', 20);
+    sans('展开共 ' + (n + 1) + ' 项 · 系数和 2' + sup(n) + ' = ' + Math.pow(2, n),
+      X(0), Y(2.4), 'rgba(205,195,245,.75)', 10.5);
+    sans('每一根柱子是一项的二项式系数 C(n,k)', X(0), Y(-3.15), 'rgba(205,195,245,.55)', 10);
+  },
+  hud() {
+    const s = this.state;
+    const n = s.n, mx = comb(n, Math.floor(n / 2));
+    return [
+      {k: '指数 n', v: String(n)},
+      {k: '项数 n+1', v: String(n + 1)},
+      {k: '系数和 2ⁿ', v: String(Math.pow(2, n))},
+      {k: '最大系数', v: String(mx), hi: true},
+      {k: '取到最大的 k', v: n % 2 ? '⌊n/2⌋ 与 ⌈n/2⌉' : String(n / 2)}
+    ];
+  },
+  panel(el) {
+    const s = this.state;
+    addSlider(el, '指数 n', 1, 7, 1, s.n, v => String(v), v => s.n = Math.round(v));
+    addToggle(el, '显示系数数值', s.showV, v => s.showV = v);
+    addToggle(el, '高亮最大系数', s.mark, v => s.mark = v);
+  }
+});
+
+/* ---------- 05 杨辉三角 ---------- */
+MODULES.push({
+  key: 'pascal', tab: '05', name: '杨辉三角', en: 'PASCAL', blurb: '对称与最大',
+  accent: '#ffc56b', rgb: '255,197,107',
+  hint: '上下拖动行标签切换行，观察对称与最大值',
+  state: {N: 7, row: 5, sym: true, gen: false},
+  reset() { const s = this.state; s.N = 7; s.row = 5; s.sym = true; s.gen = false; },
+  meta() {
+    return {
+      title: '杨辉三角：二项式系数的排列',
+      desc: '把 C(r,k) 按行排成三角形，就得到杨辉三角。第 r 行有 r+1 个数，左右对称、中间最大，每行之和为 2ʳ，并且每个数都等于它肩上两个数之和。',
+      formula: 'C(r,k) = C(r,r−k)<br>C(r,k) = C(r−1,k−1) + C(r−1,k)',
+      note: '拖动左侧圆点上下移动可换行。打开“对称连线”看首尾配对，打开“肩上两数”看递推关系。<i>r 为偶数时中间一个数最大，r 为奇数时中间两个数并列最大。</i>'
+    };
+  },
+  handles() {
+    const s = this.state;
+    const step = s.N >= 7 ? .56 : .64;
+    const sx = Math.min(1.25, 9.0 / (s.N + 1));
+    return [{id: 'row', x: -(s.row / 2) * sx - sx * 1.05, y: 3.1 - s.row * step}];
+  },
+  drag(id, p) {
+    const s = this.state, q = clampPt(p);
+    const step = s.N >= 7 ? .56 : .64;
+    s.row = clamp(Math.round((3.1 - q.y) / step), 0, s.N);
+  },
+  draw() {
+    setFrame(.5, .5, 13);
+    base();
+    const s = this.state, N = s.N, row = Math.min(s.row, N);
+    const step = N >= 7 ? .56 : .64;
+    const sx = Math.min(1.25, 9.0 / (N + 1));
+    const yTop = 3.1;
+    const rowY = r => yTop - r * step;
+    const cellX = (r, k) => (k - r / 2) * sx;
+
+    // 选中行的底纹
+    ctx.save();
+    ctx.fillStyle = 'rgba(255,197,107,.10)';
+    ctx.fillRect(X(cellX(row, 0)) - sx * V.k * .62, Y(rowY(row)) - 13,
+      sx * V.k * row + sx * V.k * 1.24, 26);
+    ctx.restore();
+
+    // 肩上两数
+    if (s.gen && row > 0) {
+      for (let k = 0; k <= row; k++) {
+        const p = {x: cellX(row, k), y: rowY(row)};
+        if (k - 1 >= 0) line({x: cellX(row - 1, k - 1), y: rowY(row - 1)}, p, 'rgba(255,197,107,.34)', {w: 1});
+        if (k <= row - 1) line({x: cellX(row - 1, k), y: rowY(row - 1)}, p, 'rgba(255,197,107,.22)', {w: 1});
+      }
+    }
+
+    // 三角形
+    for (let r = 0; r <= N; r++) {
+      const on = r === row;
+      for (let k = 0; k <= r; k++) {
+        const v = comb(r, k);
+        const isMax = v === comb(r, Math.floor(r / 2));
+        const c = {x: cellX(r, k), y: rowY(r)};
+        math(String(v), X(c.x), Y(c.y),
+          on ? (isMax ? '#ffe2a8' : '#ffe9c4') : 'rgba(200,215,225,.52)', on ? 12.5 : 10.5);
+        if (on && isMax) ring(c, .27, 'rgba(255,197,107,.85)', 1.3);
+      }
+    }
+
+    // 对称连线
+    if (s.sym && row >= 2) {
+      for (let k = 0; k < row - k; k++) {
+        const a = {x: cellX(row, k), y: rowY(row) + .26};
+        const b = {x: cellX(row, row - k), y: rowY(row) + .26};
+        const apex = {x: (a.x + b.x) / 2, y: rowY(row) + .26 + .10 + Math.abs(b.x - a.x) * .03};
+        line(a, apex, 'rgba(255,197,107,.42)', {w: 1.1, dash: [4, 4]});
+        line(apex, b, 'rgba(255,197,107,.42)', {w: 1.1, dash: [4, 4]});
+      }
+      sans('对称：C(' + row + ',k) = C(' + row + ',' + row + '−k)',
+        X(-6.0), Y(2.95), 'rgba(255,215,150,.75)', 10, 'left');
+    }
+
+    // 行标签与手柄
+    sans('r = ' + row, X(cellX(row, 0)) - sx * V.k * .62 - 26, Y(rowY(row)), '#ffd99a', 11);
+    handle({x: -(row / 2) * sx - sx * 1.05, y: rowY(row)}, '#ffc56b', hoverId === 'row');
+
+    sans('第 ' + row + ' 行 · 共 ' + (row + 1) + ' 个数 · 和为 2' + sup(row) + ' = ' + Math.pow(2, row),
+      X(0), Y(-3.85), 'rgba(215,200,175,.7)', 10.5);
+  },
+  hud() {
+    const s = this.state, row = Math.min(s.row, s.N);
+    return [
+      {k: '选中行 r', v: String(row), hi: true},
+      {k: '该行系数个数', v: String(row + 1)},
+      {k: '该行系数和', v: String(Math.pow(2, row))},
+      {k: '最大系数', v: String(comb(row, Math.floor(row / 2)))},
+      {k: '对称对数', v: String(Math.floor((row + 1) / 2))}
+    ];
+  },
+  panel(el) {
+    const s = this.state;
+    const rS = addSlider(el, '最大行号 N', 3, 8, 1, s.N, v => String(v), v => {
+      s.N = Math.round(v);
+      if (s.row > s.N) { s.row = s.N; rS.input.max = s.N; rS.set(s.row); }
+    });
+    addSlider(el, '选中行 r', 0, s.N, 1, s.row, v => String(v), v => s.row = Math.round(v));
+    addToggle(el, '对称连线 C(r,k) = C(r,r−k)', s.sym, v => s.sym = v);
+    addToggle(el, '肩上两数相加', s.gen, v => s.gen = v);
+  }
+});
+
+})();
+
+
+/* ============================================================
+   引擎
+   ============================================================ */
+const chapterListEl = $('#chapterList');
+const catalogEl = $('#catalogTrack');
+let curIdx = 0, cur = null, hoverId = null, dragId = null;
+
+MODULES.forEach((m, i) => {
+  m.en = m.en || '';
+  m.blurb = m.blurb || '';
+
+  const b = document.createElement('button');
+  b.type = 'button';
+  b.className = 'chapter-item';
+  b.style.setProperty('--tc', m.accent);
+  b.style.setProperty('--tc-rgb', m.rgb);
+  b.innerHTML = '<span class="ci-num">' + m.tab + '</span>' +
+    '<span class="ci-name">' + m.name + '</span>' +
+    '<span class="ci-en">' + m.en + '</span>';
+  b.addEventListener('click', () => activate(i));
+  chapterListEl.appendChild(b);
+
+  const c = document.createElement('button');
+  c.type = 'button';
+  c.className = 'catalog-card';
+  c.style.setProperty('--tc', m.accent);
+  c.style.setProperty('--tc-rgb', m.rgb);
+  c.innerHTML = '<span class="cc-top"><b>' + m.tab + '</b><span>' + m.en + '</span></span>' +
+    '<strong>' + m.name + '</strong><small>' + m.blurb + '</small>';
+  c.addEventListener('click', () => activate(i));
+  catalogEl.appendChild(c);
+});
+
+function plainFormula(html) {
+  return html.replace(/<br\s*\/?>/gi, ' ').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+}
+function buildPanel() {
+  const m = cur.meta();
+  $('#title').textContent = m.title;
+  $('#desc').innerHTML = m.desc;
+  $('#formula').innerHTML = m.formula;
+  $('#note').innerHTML = m.note;
+  $('#stageFormula').textContent = plainFormula(m.formula);
+  $('#eqTag').textContent = cur.tab;
+  controlsEl.innerHTML = '';
+  cur.panel(controlsEl);
+}
+function renderHud() {
+  if (!cur) return;
+  const rows = cur.hud();
+  hudEl.innerHTML = rows.map(r =>
+    '<div class="hud-item' + (r.hi ? ' hi' : '') + '"><span>' + r.k + '</span><b>' + r.v + '</b></div>'
+  ).join('');
+  $('#stageValues').textContent = rows.slice(0, 4).map(r => r.k + ' ' + r.v).join('   ·   ');
+}
+function activate(i) {
+  curIdx = i;
+  cur = MODULES[i];
+  root.style.setProperty('--accent', cur.accent);
+  root.style.setProperty('--accent-rgb', cur.rgb);
+  for (let j = 0; j < chapterListEl.children.length; j++) {
+    chapterListEl.children[j].classList.toggle('on', j === i);
+    catalogEl.children[j].classList.toggle('on', j === i);
+  }
+  cur.reset();
+  hoverId = null;
+  dragId = null;
+  buildPanel();
+  const m = cur.meta();
+  $('#liveName').textContent = cur.name;
+  $('#liveIndex').textContent = cur.tab;
+  $('#defMark').textContent = cur.tab;
+  $('#topChip').innerHTML = '<span class="chip-dot"></span>第 ' + (i + 1) + ' / ' + MODULES.length + ' 节';
+  $('#hint').textContent = cur.hint + ' · ← → 切换';
+  const play = $('#playBtn');
+  play.hidden = !cur.togglePlay;
+  play.textContent = cur.key === 'add' ? '▶ 播放三角形法则' : '▶ 播放';
+  renderHud();
+  cv.style.cursor = 'default';
+}
+
+function resize() {
+  const r = $('.stage-card').getBoundingClientRect();
+  if (r.width < 2 || r.height < 2) return;
+  W = r.width;
+  H = r.height;
+  DPR = Math.min(2, window.devicePixelRatio || 1);
+  cv.width = Math.round(W * DPR);
+  cv.height = Math.round(H * DPR);
+  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+}
+
+let last = performance.now(), lastHud = 0;
+function loop(now) {
+  const dt = Math.min(.05, (now - last) / 1000 || 0);
+  last = now;
+  if (cur && W > 0) {
+    ctx.clearRect(0, 0, W, H);
+    cur.draw(dt);
+    if (now - lastHud > 120) {
+      lastHud = now;
+      renderHud();
+    }
+  }
+  requestAnimationFrame(loop);
+}
+
+/* ---------- 指针交互 ---------- */
+function pointAt(e) {
+  const r = cv.getBoundingClientRect();
+  const sx = (e.clientX - r.left) * (W / r.width);
+  const sy = (e.clientY - r.top) * (H / r.height);
+  return {sx, sy, wx: (sx - V.ox) / V.k, wy: (V.oy - sy) / V.k};
+}
+function pick(e) {
+  if (!cur) return null;
+  const p = pointAt(e);
+  const hs = cur.handles() || [];
+  let best = null, bd = 22;
+  for (const h of hs) {
+    const d = Math.hypot(X(h.x) - p.sx, Y(h.y) - p.sy);
+    if (d < bd) { bd = d; best = h.id; }
+  }
+  return best;
+}
+cv.addEventListener('pointerdown', e => {
+  if (!cur) return;
+  const id = pick(e);
+  if (id) {
+    dragId = id;
+    hoverId = id;
+    cv.setPointerCapture(e.pointerId);
+    cv.style.cursor = 'grabbing';
+    e.preventDefault();
+  }
+});
+cv.addEventListener('pointermove', e => {
+  if (!cur) return;
+  if (dragId) {
+    const p = pointAt(e);
+    cur.drag(dragId, {x: p.wx, y: p.wy});
+    renderHud();
+  } else {
+    const id = pick(e);
+    hoverId = id;
+    cv.style.cursor = id ? 'grab' : 'default';
+  }
+});
+function endDrag() {
+  if (!dragId) return;
+  dragId = null;
+  cv.style.cursor = hoverId ? 'grab' : 'default';
+}
+cv.addEventListener('pointerup', endDrag);
+cv.addEventListener('pointercancel', endDrag);
+cv.addEventListener('pointerleave', () => { if (!dragId) { hoverId = null; cv.style.cursor = 'default'; } });
+
+/* ---------- 顶部操作 ---------- */
+$('#resetBtn').addEventListener('click', () => {
+  if (!cur) return;
+  cur.reset();
+  buildPanel();
+  renderHud();
+});
+$('#playBtn').addEventListener('click', () => { if (cur && cur.togglePlay) cur.togglePlay(); });
+$('#fullBtn').addEventListener('click', () => {
+  if (!document.fullscreenElement) {
+    if (root.requestFullscreen) root.requestFullscreen();
+  } else if (document.exitFullscreen) {
+    document.exitFullscreen();
+  }
+});
+
+/* ---------- 键盘 ---------- */
+window.addEventListener('keydown', e => {
+  if (e.target && /INPUT|TEXTAREA|SELECT/.test(e.target.tagName)) return;
+  if (e.key === 'ArrowRight') {
+    e.preventDefault();
+    activate((curIdx + 1) % MODULES.length);
+  } else if (e.key === 'ArrowLeft') {
+    e.preventDefault();
+    activate((curIdx - 1 + MODULES.length) % MODULES.length);
+  } else if (e.code === 'Space') {
+    e.preventDefault();
+    if (cur && cur.togglePlay) cur.togglePlay();
+  }
+});
+
+if (window.ResizeObserver) new ResizeObserver(resize).observe($('.stage-card'));
+window.addEventListener('resize', resize);
+
+resize();
+activate(0);
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>
