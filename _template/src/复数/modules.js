@@ -270,11 +270,12 @@ MODULES.push({
     const s = this.state, r1 = mod(s.z1), th1 = arg(s.z1), th2 = s.th2;
     const R = r1 * s.r2;
     const P = {x: R * Math.cos(th1 + th2), y: R * Math.sin(th1 + th2)};
+    const argP = Math.atan2(Math.sin(th1 + th2), Math.cos(th1 + th2));
     return [
       {k: '|z₁|', v: fmt(r1, 2)},
       {k: '|z₂|', v: fmt(s.r2, 2)},
       {k: '|z₁z₂|', v: fmt(R, 2), hi: true},
-      {k: 'arg(z₁z₂)', v: fmt(deg(th1 + th2), 1) + '°'},
+      {k: 'arg(z₁z₂) 主值', v: fmt(argP * 180 / Math.PI, 1) + '°'},
       {k: 'z₁z₂', v: fC(P.x, P.y)}
     ];
   },

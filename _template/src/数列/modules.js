@@ -372,9 +372,9 @@ MODULES.push({
 
 /* ---------- 05 递推数列 ---------- */
 const REC = [
-  {name: 'aₙ₊₁ = aₙ/2 + 1', short: 'aₙ/2+1', a0: 3.5, f: x => x / 2 + 1, fix: 2, desc: '单调递增，趋近 2'},
-  {name: 'aₙ₊₁ = (aₙ + 3/aₙ)/2', short: '(aₙ+3/aₙ)/2', a0: .6, f: x => (x + 3 / x) / 2, fix: Math.sqrt(3), desc: '单调递减，趋近 √3'},
-  {name: 'aₙ₊₁ = 3 − 0.8aₙ', short: '3−0.8aₙ', a0: .6, f: x => 3 - .8 * x, fix: 5 / 3, desc: '左右摆动，趋近 5/3'}
+  {name: 'aₙ₊₁ = aₙ/2 + 1', short: 'aₙ/2+1', a0: 3.5, f: x => x / 2 + 1, fix: 2, kind: 'half'},
+  {name: 'aₙ₊₁ = (aₙ + 3/aₙ)/2', short: '(aₙ+3/aₙ)/2', a0: .6, f: x => (x + 3 / x) / 2, fix: Math.sqrt(3), kind: 'newton'},
+  {name: 'aₙ₊₁ = 3 − 0.8aₙ', short: '3−0.8aₙ', a0: .6, f: x => 3 - .8 * x, fix: 5 / 3, kind: 'alt'}
 ];
 
 MODULES.push({
@@ -388,6 +388,13 @@ MODULES.push({
     const out = [this.state.a1];
     for (let i = 0; i < this.state.steps; i++) out.push(f(out[out.length - 1]));
     return out;
+  },
+  trend() {
+    const R = REC[this.state.which], a = this.state.a1, fix = R.fix;
+    if (R.kind === 'alt') return '左右摆动，趋近 ' + f2(fix);
+    if (Math.abs(a - fix) < .02) return '恒为 ' + f2(fix);
+    if (R.kind === 'half') return a > fix ? '递减趋近 ' + f2(fix) : '递增趋近 ' + f2(fix);
+    return a > fix ? '递减趋近 ' + f2(fix) : '先跳到上方，再递减趋近 ' + f2(fix);
   },
   meta() {
     return {
@@ -450,7 +457,7 @@ MODULES.push({
       {k: '首项 a₁', v: f2(vs[0]), hi: true},
       {k: '递推式', v: R.name.replace('aₙ₊₁ = ', ''), hi: true},
       {k: '第 ' + (s.steps + 1) + ' 项', v: f2(last)},
-      {k: '走势', v: R.desc},
+      {k: '走势', v: this.trend()},
       {k: '不动点', v: f2(R.fix)}
     ];
   },

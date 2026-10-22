@@ -150,7 +150,7 @@ MODULES.push({
       title: '数学期望：分布的重心',
       desc: '把每个取值乘以它的概率再相加，得到<b>数学期望</b> E(X)，它是分布的重心；各取值偏离 E(X) 的平方的加权平均是<b>方差</b> D(X)，刻画取值的分散程度。拖动柱顶或滑块改变 P(X=2)，看重心与 σ 区间如何移动。',
       formula: 'E(X) = Σ x<sub>k</sub>p<sub>k</sub>　D(X) = Σ (x<sub>k</sub> − E(X))²p<sub>k</sub>',
-      note: '若 P(X=−1)=0.2、P(X=0)=0.8−p、P(X=2)=p，则 <span class="nw">E(X) = 2p − 0.2</span> 随 p 线性增大。p 越大，取值越向 2 集中，σ 先减小后增大。'
+      note: '若 P(X=−1)=0.2、P(X=0)=0.8−p、P(X=2)=p，则 <span class="nw">E(X) = 2p − 0.2</span> 随 p 线性增大；σ 先增大后减小，在 p = 0.6 时达到最大。'
     };
   },
   handles() {

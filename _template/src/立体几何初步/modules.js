@@ -83,7 +83,7 @@ const SOLIDS = {
 MODULES.push({
   key: 'solid', tab: '01', name: '基本立体图形', en: 'SOLIDS', blurb: '顶点 · 棱 · 面',
   accent: '#9ad0ff', rgb: '154,208,255',
-  hint: '拖动下方圆环旋转几何体，实线与虚线随之切换',
+  hint: '拖动画布旋转几何体，或拖动下方圆环；实线与虚线随之切换',
   state: {kind: 'cube', yaw: -.55, pit: .40, faces: true, lab: true, hl: 0},
   reset() {
     this.state.kind = 'cube';
@@ -110,6 +110,10 @@ MODULES.push({
     const q = clampPt(p);
     const t = Math.atan2((q.y + 2.5) / .42, q.x / 1.85);
     this.state.yaw = Math.round(t / D2R) * D2R;
+  },
+  orbit(dx, dy) {
+    this.state.yaw -= dx * .007;
+    this.state.pit = clamp(this.state.pit + dy * .006, -.15, 1.15);
   },
   draw() {
     setFrame(.5, .55, 12);
@@ -204,9 +208,9 @@ MODULES.push({
 MODULES.push({
   key: 'measure', tab: '02', name: '表面积与体积', en: 'AREA & VOLUME', blurb: 'S 与 V',
   accent: '#ffc56b', rgb: '255,197,107',
-  hint: '拖动顶点或滑块改变边长与高，S、V 同步更新',
-  state: {a: 2.4, h: 2.6, pyr: false},
-  reset() { this.state.a = 2.4; this.state.h = 2.6; this.state.pyr = false; },
+  hint: '拖动画布旋转几何体，拖动顶点或滑块改变边长与高',
+  state: {a: 2.4, h: 2.6, pyr: false, yaw: .48, pit: .32},
+  reset() { this.state.a = 2.4; this.state.h = 2.6; this.state.pyr = false; this.state.yaw = .48; this.state.pit = .32; },
   meta() {
     const s = this.state;
     return {
@@ -228,12 +232,19 @@ MODULES.push({
     const q = clampPt(p);
     this.state.h = clamp(Math.round((q.y + 1.6) / .95 * 10) / 10, 1, 4.6);
   },
+  orbit(dx, dy) {
+    this.state.yaw -= dx * .007;
+    this.state.pit = clamp(this.state.pit + dy * .006, -.10, 1.10);
+  },
   draw() {
     setFrame(.5, .55, 10);
     base();
     const s = this.state, a = s.a, h = s.h, hw = a / 2;
     const sc = .95, by = -1.6;
-    const P = (x, y, z) => ({x: (x + .5 * z) * sc, y: by + (y + .34 * z) * sc});
+    const P = (x, y, z) => {
+      const r = rot3([x, y, z], s.yaw, s.pit);
+      return {x: r.x * sc, y: by + r.y * sc};
+    };
     const B = [P(-hw, 0, -hw), P(hw, 0, -hw), P(hw, 0, hw), P(-hw, 0, hw)];
     const T = [P(-hw, h, -hw), P(hw, h, -hw), P(hw, h, hw), P(-hw, h, hw)];
     const Apex = P(0, h, 0);
@@ -537,9 +548,9 @@ MODULES.push({
 MODULES.push({
   key: 'views', tab: '05', name: '三视图', en: 'THREE VIEWS', blurb: '长对正 · 高平齐',
   accent: '#ffa97a', rgb: '255,169,122',
-  hint: '切换视角按钮，或并排对照三视图',
-  state: {view: 'iso', h: 2.6, dim: true},
-  reset() { this.state.view = 'iso'; this.state.h = 2.6; this.state.dim = true; },
+  hint: '拖动画布旋转立体图；切换视角按钮对照三视图',
+  state: {view: 'iso', h: 2.6, dim: true, yaw: .48, pit: .35},
+  reset() { this.state.view = 'iso'; this.state.h = 2.6; this.state.dim = true; this.state.yaw = .48; this.state.pit = .35; },
   meta() {
     return {
       title: '三视图：从三个方向看同一个几何体',
@@ -556,6 +567,12 @@ MODULES.push({
     const q = clampPt(p);
     this.state.h = clamp(Math.round((q.y + 1.1) / 1.15 * 10) / 10, 1.4, 3.4);
   },
+  orbitEnabled() { return this.state.view === 'iso'; },
+  orbit(dx, dy) {
+    if (this.state.view !== 'iso') return;
+    this.state.yaw -= dx * .007;
+    this.state.pit = clamp(this.state.pit + dy * .006, -.10, 1.10);
+  },
   draw() {
     setFrame(.5, .55, 11);
     const s = this.state, h = s.h, a = 1.2;
@@ -569,14 +586,16 @@ MODULES.push({
       if (mode === 'front') { u = p[0]; v = p[1]; }
       else if (mode === 'left') { u = p[2]; v = p[1]; }
       else if (mode === 'top') { u = p[0]; v = -p[2]; }
-      else { u = p[0] + .52 * p[2]; v = p[1] + .34 * p[2]; }
+      else { const r = rot3(p, s.yaw, s.pit); u = r.x; v = r.y; }
       return {x: cx + u * sc, y: cy + v * sc};
     };
 
     const drawView = (mode, cx, cy, sc, label) => {
       const P = p => projV(p, mode, cx, cy, sc);
-      if (mode === 'front' || mode === 'left') {
+      if (mode === 'front') {
         poly([basePts[0], basePts[1], [0, h, 0]].map(P), 'rgba(255,169,122,.10)', null);
+      } else if (mode === 'left') {
+        poly([basePts[1], basePts[2], [0, h, 0]].map(P), 'rgba(255,169,122,.10)', null);
       } else {
         poly(basePts.map(P), 'rgba(255,169,122,.10)', null);
       }

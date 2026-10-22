@@ -1,11 +1,13 @@
 # 章节页开发指南
 
-每个章节 = 一个独立目录 `<章>/`，只写两个文件：
+每个章节交付目录 `<章>/` 只保留三个文件：`index.html`、`README.md`、`preview.png`。
+
+构建源文件统一放在 `_template/src/<章>/`：
 
 - `meta.json`：页面标题与文案槽位；
 - `modules.js`：本章 5 个交互情境（数组 push）。
 
-构建脚本会把 `_template/template.html`（布局、CSS、Canvas 引擎）与你的模块合并成单文件 `index.html`。**不要直接改 template.html，也不要手写 index.html。**
+构建脚本会把 `_template/template.html`（布局、CSS、Canvas 引擎）与源文件合并成单文件 `<章>/index.html`。**不要直接改 template.html，也不要手写 index.html。**
 
 ## meta.json
 
@@ -50,6 +52,11 @@ MODULES.push({
     const q = clampPt(p);
     this.state[id] = q;
   },
+  orbit(dx, dy) {         // 可选：拖动空白画布旋转立体视图
+    this.state.yaw -= dx * .007;
+    this.state.pit = clamp(this.state.pit + dy * .006, -.15, 1.15);
+  },
+  orbitEnabled() { return true; },  // 可选：按当前视角决定是否允许拖动
   draw(dt) {              // 每帧绘制（必写）
     setFrame(.5, .55, 12);
     base();
@@ -106,7 +113,7 @@ MODULES.push({
 - 5 个情境各用一个独立主题色（从下方色板取），并填写对应 rgb。
 - 画布上不要画大段说明文字；说明放 `meta().desc` / `note`。
 - 数值必须与图形一致，不要出现“图上一半、读数另一套”。
-- 拖动点使用 `handle`，并在 `drag` 中调用 `clampPt`。
+- 拖动点使用 `handle`，并在 `drag` 中调用 `clampPt`；立体图可提供 `orbit(dx,dy)`，让整幅画布都能拖动旋转，并用 `orbitEnabled()` 控制启用条件。
 - 所有文案用中文；公式可用 Unicode（²、√、∈、∩、∪、≤、≥、α、β、θ 等）。
 - 不引入外部库、图片、字体或网络请求。
 
@@ -119,8 +126,10 @@ MODULES.push({
 ## 构建与自检
 
 ```bash
-node --check 必修第一册/第1章-集合与常用逻辑用语/modules.js
-python3 _template/build.py <slug>
+node --check _template/src/集合与常用逻辑用语/modules.js
+python3 _template/build.py 集合与常用逻辑用语
+python3 _template/make_readmes.py
+python3 _template/portal.py
 ```
 
-构建成功会生成 `<章>/index.html`。
+构建成功会生成 `<章>/index.html`；`index.html` 已内联全部 CSS 与 JavaScript，可单独复制使用。`_template/src/` 中的 `meta.json`、`modules.js` 只是构建源文件，不随章节目录分发。

@@ -165,7 +165,7 @@ MODULES.push({
 const f2 = x => .25 * x * x * x - .75 * x;
 function mono2(x1, x2) {
   if (x1 >= 1 - 1e-6) return '单调递增';
-  if (x2 <= -1 + 1e-6) return '单调递减';
+  if (x2 <= -1 + 1e-6) return '单调递增';
   if (x1 >= -1 + 1e-6 && x2 <= 1 - 1e-6) return '单调递减';
   return '不确定';
 }
@@ -340,9 +340,12 @@ MODULES.push({
   },
   panel(el) {
     const s = this.state;
-    addToggle(el, '偶函数模式（否则为奇函数）', s.even, v => s.even = v);
-    addSlider(el, '三次项系数 a', -.6, .6, .05, s.a, v => v.toFixed(2), v => s.a = v);
-    addSlider(el, '常数项 b', -1, 1, .1, s.b, v => v.toFixed(1), v => s.b = v);
+    addToggle(el, '偶函数模式（否则为奇函数）', s.even, v => {
+      s.even = v;
+      buildPanel();
+    });
+    addSlider(el, s.even ? '二次项系数 a' : '三次项系数 a', -.6, .6, .05, s.a, v => v.toFixed(2), v => s.a = v);
+    addSlider(el, s.even ? '常数项 b' : '一次项系数 b', -1, 1, .1, s.b, v => v.toFixed(1), v => s.b = v);
   }
 });
 
@@ -350,7 +353,7 @@ MODULES.push({
    04 幂函数
    ============================================================ */
 const POW = [
-  {a: -2, label: '−2', dom: 'R\\{0}', mono: '逐支递增', par: '偶函数', x0: -4, x1: 4, px0: .45, px1: 3.2},
+  {a: -2, label: '−2', dom: 'R\\{0}', mono: '(−∞,0) 增，(0,+∞) 减', par: '偶函数', x0: -4, x1: 4, px0: .45, px1: 3.2},
   {a: -1, label: '−1', dom: 'R\\{0}', mono: '逐支递减', par: '奇函数', x0: -4, x1: 4, px0: .45, px1: 3.2},
   {a: -.5, label: '−½', dom: '(0,+∞)', mono: '(0,+∞) 递减', par: '非奇非偶', x0: .02, x1: 4, px0: .3, px1: 3.4},
   {a: 1 / 3, label: '⅓', dom: 'R', mono: 'R 上递增', par: '奇函数', x0: -4, x1: 4, px0: -2.4, px1: 2.4},

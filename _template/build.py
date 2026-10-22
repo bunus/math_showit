@@ -1,20 +1,31 @@
 #!/usr/bin/env python3
-# 构建：template.html + <分册>/<章>/meta.json + modules.js -> index.html
-import json, os, sys, glob
+# 构建：template.html + _template/src/<章>/meta.json + modules.js -> <章>/index.html
+import json, os, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SRC = os.path.join(ROOT, '_template', 'src')
 TPL = os.path.join(ROOT, '_template', 'template.html')
 
-def build_one(folder):
-    meta_path = os.path.join(folder, 'meta.json')
-    mod_path = os.path.join(folder, 'modules.js')
-    if not (os.path.exists(meta_path) and os.path.exists(mod_path)):
+
+def source_dir(name):
+    """优先使用章节目录内的源文件；否则使用 _template/src 归档。"""
+    local = os.path.join(ROOT, name)
+    archived = os.path.join(SRC, name)
+    for folder in (local, archived):
+        if os.path.exists(os.path.join(folder, 'meta.json')) and os.path.exists(os.path.join(folder, 'modules.js')):
+            return folder
+    return None
+
+
+def build_one(name):
+    src = source_dir(name)
+    if not src:
         return None
     with open(TPL, encoding='utf-8') as f:
         page = f.read()
-    with open(meta_path, encoding='utf-8') as f:
+    with open(os.path.join(src, 'meta.json'), encoding='utf-8') as f:
         meta = json.load(f)
-    with open(mod_path, encoding='utf-8') as f:
+    with open(os.path.join(src, 'modules.js'), encoding='utf-8') as f:
         mods = f.read()
     slots = {
         '__PAGE_TITLE__': meta.get('pageTitle', meta['h1'] + ' · 动态教学实验室'),
@@ -29,23 +40,33 @@ def build_one(folder):
     for k, v in slots.items():
         page = page.replace(k, v)
     page = page.replace('/*__MODULES__*/', mods)
-    out = os.path.join(folder, 'index.html')
+    out_dir = os.path.join(ROOT, name)
+    if not os.path.isdir(out_dir):
+        return None
+    out = os.path.join(out_dir, 'index.html')
     with open(out, 'w', encoding='utf-8') as f:
         f.write(page)
     return out
 
+
 def main():
     arg = sys.argv[1] if len(sys.argv) > 1 else 'all'
-    folders = sorted(set(os.path.dirname(p) for p in glob.glob(os.path.join(ROOT, '*', 'meta.json'))))
-    if arg != 'all':
-        folders = [f for f in folders if arg in f]
+    names = set()
+    if os.path.isdir(SRC):
+        names.update(d for d in os.listdir(SRC) if os.path.isdir(os.path.join(SRC, d)))
+    for d in os.listdir(ROOT):
+        if os.path.isdir(os.path.join(ROOT, d)) and d != '_template':
+            if os.path.exists(os.path.join(ROOT, d, 'meta.json')):
+                names.add(d)
     n = 0
-    for folder in folders:
-        out = build_one(folder)
-        if out:
+    for name in sorted(names):
+        if arg != 'all' and arg not in name:
+            continue
+        if build_one(name):
             n += 1
-            print('built', os.path.relpath(folder, ROOT))
+            print('built', name)
     print('done', n)
+
 
 if __name__ == '__main__':
     main()

@@ -109,7 +109,9 @@ MODULES.push({
   },
   drag(id, p) {
     const q = clampPt(p);
-    this.state.th = Math.atan2(q.y, q.x);
+    const a = Math.atan2(q.y, q.x);
+    const delta = ((a - this.state.th + Math.PI) % PI2 + PI2) % PI2 - Math.PI;
+    this.state.th = clamp(this.state.th + delta, -4 * Math.PI, 4 * Math.PI);
     if (this._sl) this._sl.set(this.state.th * 180 / Math.PI);
   },
   draw() {
@@ -190,7 +192,7 @@ MODULES.push({
   meta() {
     return {
       title: '单位圆：P(cos θ, sin θ)',
-      desc: '在单位圆上，角 θ 的终边与圆的交点 P 的横坐标就是 cos θ，纵坐标就是 sin θ，两者之比就是 tan θ。拖动 P 点，三条彩色线段随角度伸缩，右侧读数与线段长度始终一致。',
+      desc: '在单位圆上，角 θ 的终边与圆的交点 P 的横坐标就是 cos θ，纵坐标就是 sin θ，两者之比就是 tan θ。拖动 P 点，三条彩色线段随角度伸缩；tan θ 很大时正切线会超出画面，读数仍给出精确值。',
       formula: 'sin θ = y　cos θ = x　tan θ = y/x',
       note: 'P 在单位圆上，所以 <span class="nw">sin²θ + cos²θ = 1</span>；当 <span class="nw">cos θ = 0</span> 时 tan θ 不存在。'
     };
@@ -233,6 +235,9 @@ MODULES.push({
       segMath({x: 1, y: 0}, {x: 1, y: ty}, 'tan θ', '#ffb3c6', .5, 18, 13);
       dot({x: 1, y: ty}, '#ff8fab', 4.5);
       sans('T', X(1) + 12, Y(ty) - 10, '#ffb3c6', 11);
+      if (Math.abs(tv) > Math.abs(ty) + 1e-6) {
+        sans('tan θ ≈ ' + n2(tv, 1) + '（画面已截断）', X(1) + 12, Y(ty) - 30, 'rgba(255,179,198,.85)', 9.5, 'left');
+      }
     } else if (s.tan) {
       sans('tan θ 不存在', X(1.06), Y(-1.75), '#ff8fab', 11, 'left');
     }

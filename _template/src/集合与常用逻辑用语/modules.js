@@ -372,8 +372,9 @@ MODULES.push({
 
     // 反例
     if (!forall) {
-      dot({x: d0 + .15, y: 0}, '#ff8fab', 5);
-      sans('反例', X(d0 + .15), Y(-.85), 'rgba(255,143,171,.9)', 10);
+      const cx = clamp(s.a - .15, d0, d1);
+      dot({x: cx, y: 0}, '#ff8fab', 5);
+      sans('反例 x = ' + fmt(cx, 2), X(cx), Y(-.85), 'rgba(255,143,171,.9)', 10);
     }
     if (!exists) {
       sans('定义域内没有 x 满足', X(0), Y(-1.75), 'rgba(255,143,171,.9)', 11);

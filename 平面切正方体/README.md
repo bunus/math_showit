@@ -87,7 +87,7 @@ index.html?preset=regular-hexagon&static=1
 - 五边形截面必有两组平行边，因此不可能是正五边形。
 - 六边形截面一定有三组对边平行；但“三组对边平行”并不自动意味着中心对称或正六边形。
 
-更完整的推导、教学要点、常见错误和程序验证记录见 [research/section-taxonomy.md](research/section-taxonomy.md)。
+更完整的推导、教学要点、常见错误和程序验证记录归档在 [`_template/src/平面切正方体/research/section-taxonomy.md`](../_template/src/平面切正方体/research/section-taxonomy.md)。
 
 ---
 
@@ -106,12 +106,10 @@ index.html?preset=regular-hexagon&static=1
 ```text
 index.html                  单文件教学演示（全部 HTML/CSS/JS）
 README.md                   本说明
-research/
-  section-taxonomy.md       截面分类教学手册与证明
-  presets.json              预设、精确构造与验证数据
-  verify_presets.py         独立数值验证脚本
-  verification.txt          验证输出
+preview.png                 页面预览图
 ```
+
+本章目录只保留这三个交付文件；截面分类手册、预设与验证脚本归档在 `_template/src/平面切正方体/research/`，不随章节分发。
 
 ---
 

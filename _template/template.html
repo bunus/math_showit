@@ -28,6 +28,7 @@
 }
 *{box-sizing:border-box}
 html,body{height:100%;margin:0}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid rgba(var(--accent-rgb),.85);outline-offset:2px}
 body{
   background:var(--bg);color:var(--text);font-family:var(--sans);
   overflow:hidden;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
@@ -122,14 +123,14 @@ button{font:inherit;color:inherit}
 /* ---------- chapter nav ---------- */
 .chapter-list{display:flex;flex-direction:column;gap:2px}
 .chapter-item{
-  display:flex;align-items:center;gap:9px;padding:7px 9px;border-radius:9px;
+  display:flex;align-items:center;gap:9px;min-width:0;padding:7px 9px;border-radius:9px;
   border:1px solid transparent;background:transparent;color:var(--muted);
   cursor:pointer;text-align:left;transition:background .16s,color .16s,border-color .16s;
 }
 .chapter-item:hover{background:rgba(255,255,255,.045);color:var(--text-soft)}
 .chapter-item.on{color:var(--tc);background:rgba(var(--tc-rgb),.09);border-color:rgba(var(--tc-rgb),.22)}
 .ci-num{font-family:var(--mono);font-size:9px;opacity:.65;width:17px;flex:none}
-.ci-name{font-size:12px;letter-spacing:.02em;white-space:nowrap}
+.ci-name{font-size:12px;letter-spacing:.02em;white-space:nowrap;min-width:0;overflow:hidden;text-overflow:ellipsis}
 .ci-en{margin-left:auto;font-size:7px;letter-spacing:.13em;opacity:.4;white-space:nowrap}
 .chapter-item.on .ci-en{opacity:.65}
 
@@ -347,7 +348,7 @@ input[type=range]::-moz-range-thumb{
   .panel-controls{order:2;flex:none;overflow:visible}
   .panel-details{order:3;flex:none;overflow:visible}
   .catalog{order:4;flex:none;height:auto}
-  .chapter-list{display:grid;grid-template-columns:1fr 1fr;gap:3px}
+  .chapter-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:3px}
   .metric-grid{grid-template-columns:repeat(3,1fr)}
   .catalog-track{flex-wrap:nowrap}
   .catalog-card{flex:0 0 140px}
@@ -369,6 +370,17 @@ input[type=range]::-moz-range-thumb{
   .catalog-hint{display:none}
   .catalog-card{flex:0 0 132px}
   .live-copy strong{font-size:11.5px}
+  .ci-en{display:none}
+}
+@media(min-width:1021px) and (max-height:740px){
+  .app{min-height:0}
+  .topbar{flex-basis:62px;padding:0 14px}
+  .workspace{grid-template-rows:minmax(0,1fr) 128px;gap:9px;padding:0 12px 12px}
+  .panel-controls,.panel-details{padding:11px 11px;gap:8px}
+  .catalog{padding:8px 12px 6px;gap:5px}
+  .catalog-card{padding:6px 8px 5px}
+  .catalog-card small{display:none}
+  .definition-bar{min-height:52px;padding:7px 9px}
 }
 @media(prefers-reduced-motion:reduce){
   *{transition:none!important;animation:none!important}
@@ -397,7 +409,7 @@ input[type=range]::-moz-range-thumb{
     </div>
     <div class="top-actions">
       <a class="ghost-btn" href="../index.html" title="返回总览" style="text-decoration:none">← 总览</a>
-      <div class="status-chip" id="topChip"><span class="chip-dot"></span>第 1 / 7 节</div>
+      <div class="status-chip" id="topChip"><span class="chip-dot"></span>第 1 / 5 节</div>
       <button class="ghost-btn" id="resetBtn" type="button" title="恢复本节初始状态">
         <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3M4.5 4.5V9H9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         重置本节
@@ -419,11 +431,11 @@ input[type=range]::-moz-range-thumb{
       <div class="controls" id="controls"></div>
       <div class="tip-card">
         <span>操作提示 / Tips</span>
-        <p>拖动画布彩色端点 · 调节滑块与开关 · ← → 切换章节 · 空格播放</p>
+        <p>拖动画布彩色端点 · 调节滑块与开关 · ← → 切换情境 · 空格播放</p>
       </div>
     </aside>
 
-    <section class="stage-card" aria-label="平面向量动态图">
+    <section class="stage-card" aria-label="课堂动态演示">
       <canvas id="cv">你的浏览器需要支持 Canvas。</canvas>
 
       <div class="stage-top">
@@ -502,7 +514,10 @@ const clamp = (v, a, b) => v < a ? a : v > b ? b : v;
 const lerp = (a, b, t) => a + (b - a) * t;
 const X = x => V.ox + x * V.k;
 const Y = y => V.oy - y * V.k;
-const fmt = (n, d = 2) => (Math.abs(n) < 5e-3 ? 0 : n).toFixed(d);
+const fmt = (n, d = 2) => {
+  if (!isFinite(n)) return '—';
+  return (Math.abs(n) < 5e-3 ? 0 : n).toFixed(d).replace('-', '−');
+};
 const deg = r => { let d = r * 180 / Math.PI % 360; return d < 0 ? d + 360 : d; };
 const len2 = (x, y) => Math.hypot(x, y);
 const easeInOut = t => t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
@@ -764,7 +779,7 @@ const MODULES = [];
    ============================================================ */
 const chapterListEl = $('#chapterList');
 const catalogEl = $('#catalogTrack');
-let curIdx = 0, cur = null, hoverId = null, dragId = null;
+let curIdx = 0, cur = null, hoverId = null, dragId = null, orbitId = null, orbitLast = null;
 
 MODULES.forEach((m, i) => {
   m.en = m.en || '';
@@ -806,13 +821,18 @@ function buildPanel() {
   controlsEl.innerHTML = '';
   cur.panel(controlsEl);
 }
+const decodeBox = document.createElement('div');
+function plainText(html) {
+  decodeBox.innerHTML = html;
+  return decodeBox.textContent;
+}
 function renderHud() {
   if (!cur) return;
   const rows = cur.hud();
   hudEl.innerHTML = rows.map(r =>
     '<div class="hud-item' + (r.hi ? ' hi' : '') + '"><span>' + r.k + '</span><b>' + r.v + '</b></div>'
   ).join('');
-  $('#stageValues').textContent = rows.slice(0, 4).map(r => r.k + ' ' + r.v).join('   ·   ');
+  $('#stageValues').textContent = rows.slice(0, 4).map(r => plainText(r.k + ' ' + r.v)).join('   ·   ');
 }
 function activate(i) {
   curIdx = i;
@@ -826,6 +846,8 @@ function activate(i) {
   cur.reset();
   hoverId = null;
   dragId = null;
+  orbitId = null;
+  orbitLast = null;
   buildPanel();
   const m = cur.meta();
   $('#liveName').textContent = cur.name;
@@ -837,7 +859,7 @@ function activate(i) {
   play.hidden = !cur.togglePlay;
   play.textContent = cur.key === 'add' ? '▶ 播放三角形法则' : '▶ 播放';
   renderHud();
-  cv.style.cursor = 'default';
+  cv.style.cursor = canOrbit() ? 'grab' : 'default';
 }
 
 function resize() {
@@ -884,12 +906,21 @@ function pick(e) {
   }
   return best;
 }
+function canOrbit() {
+  return !!(cur && typeof cur.orbit === 'function' && (!cur.orbitEnabled || cur.orbitEnabled()));
+}
 cv.addEventListener('pointerdown', e => {
   if (!cur) return;
   const id = pick(e);
   if (id) {
     dragId = id;
     hoverId = id;
+    cv.setPointerCapture(e.pointerId);
+    cv.style.cursor = 'grabbing';
+    e.preventDefault();
+  } else if (canOrbit()) {
+    orbitId = e.pointerId;
+    orbitLast = {x: e.clientX, y: e.clientY};
     cv.setPointerCapture(e.pointerId);
     cv.style.cursor = 'grabbing';
     e.preventDefault();
@@ -901,20 +932,32 @@ cv.addEventListener('pointermove', e => {
     const p = pointAt(e);
     cur.drag(dragId, {x: p.wx, y: p.wy});
     renderHud();
+  } else if (orbitId !== null) {
+    if (!canOrbit()) return;
+    const dx = e.clientX - orbitLast.x;
+    const dy = e.clientY - orbitLast.y;
+    orbitLast = {x: e.clientX, y: e.clientY};
+    cur.orbit(dx, dy);
+    renderHud();
   } else {
     const id = pick(e);
     hoverId = id;
-    cv.style.cursor = id ? 'grab' : 'default';
+    cv.style.cursor = (id || canOrbit()) ? 'grab' : 'default';
   }
 });
 function endDrag() {
-  if (!dragId) return;
   dragId = null;
-  cv.style.cursor = hoverId ? 'grab' : 'default';
+  orbitId = null;
+  orbitLast = null;
+  cv.style.cursor = canOrbit() ? 'grab' : 'default';
 }
 cv.addEventListener('pointerup', endDrag);
 cv.addEventListener('pointercancel', endDrag);
-cv.addEventListener('pointerleave', () => { if (!dragId) { hoverId = null; cv.style.cursor = 'default'; } });
+cv.addEventListener('pointerleave', () => {
+  if (dragId || orbitId !== null) return;
+  hoverId = null;
+  cv.style.cursor = canOrbit() ? 'grab' : 'default';
+});
 
 /* ---------- 顶部操作 ---------- */
 $('#resetBtn').addEventListener('click', () => {

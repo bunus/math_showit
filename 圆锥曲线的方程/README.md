@@ -36,7 +36,7 @@
 - `G`：打开 / 关闭方程速查
 - `Esc`：关闭方程速查
 
-## URL 参数（方便课堂投屏或 QA）
+## URL 参数（方便课堂投屏或截图）
 
 ```text
 index.html?mode=ellipse&a=4&e=0.55&axis=x&static=1&t=0.95
@@ -56,14 +56,12 @@ index.html?mode=unified&e=1.6&l=2.5&static=1&t=2.0
 - `index.html`：单文件应用（HTML + CSS + 原生 Canvas JavaScript）
 - `README.md`：本说明
 - `preview.png`：1920×1080 预览图
-- `research/conic-reference.md`：教师版数学参考
-- `research/presets.json`：12 个可机读预设
-- `research/verify.py`：独立数值核验脚本
-- `research/verification.txt`：350 项检查全部 PASS 的核验记录
+
+本章目录只保留这三个交付文件；数学参考、预设与核验脚本归档在 `_template/src/圆锥曲线的方程/research/`，不随章节分发。
 
 ## 数学核验
 
-`research/verify.py` 从定义与隐式方程出发，独立抽样核验了标准方程、焦点/准线、渐近线、统一定义与定义不变量。最近一次运行：
+独立数值核验脚本从定义与隐式方程出发，抽样核验了标准方程、焦点/准线、渐近线、统一定义与定义不变量。最近一次运行：
 
 - **350 项检查全部 PASS**
 - 严格容差 `1e-9` 下最大误差 **5.46e-12**
@@ -71,7 +69,7 @@ index.html?mode=unified&e=1.6&l=2.5&static=1&t=2.0
 
 开发过程中还在 1920×1080 / 1366×768 / 1024×800 / 390×844 四视口上完成 385/385 项浏览器自动化检查，0 失败（无 JS 错误、无页面级横向溢出、四模式数学读数与独立复算一致）。
 
-> 说明：`research/presets.json` 中的 U3（l=1）与 U5（e=0）超出页面统一视角滑杆范围，仅作数学边界示例；页面会安全夹取到 UI 范围内，不会报错。
+> 说明：归档预设中的 U3（l=1）与 U5（e=0）超出页面统一视角滑杆范围，仅作数学边界示例；页面会安全夹取到 UI 范围内，不会报错。
 
 页面本身还会在运行时根据当前 P 的坐标重新计算距离，并在“定义验证”栏显示：
 
